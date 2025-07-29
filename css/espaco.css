@@ -1,0 +1,45 @@
+.espaco{
+    background-color: #f8f1e7;
+}
+
+
+
+
+.container-espaco{
+display:grid;
+gap: 20px;
+align-items: center;
+padding: 20px;
+
+
+}
+
+.coluna-esquerda{
+    position: absolute;
+    height: 38px;
+    width: 38px;
+    display: flex;
+}
+
+.img-esquerda{
+    width: 100px;
+    height:100px;
+
+}
+
+.coluna-central{
+
+}
+
+.img-central{
+    height: 200px;
+    width: 200px;
+}
+
+.coluna-direita{
+
+}
+.img-direita{
+    height: 100px;
+    width: 100px;
+}
