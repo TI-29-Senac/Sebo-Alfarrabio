@@ -11,14 +11,18 @@
   text-align: center;
 }
 
-.grid {
-  display: grid;
+.livros {
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
 .livro {
   text-align: center;
+
 }
 
 .livro img {
@@ -33,7 +37,7 @@
   align-items: center;
 }
 
-.livro span {
+.livro{
   display: block;
   margin-top: 0.5rem;
   font-size: 1rem;
