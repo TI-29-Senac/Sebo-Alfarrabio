@@ -1,0 +1,41 @@
+.banner-img{
+  height: 600px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-family: 'Merriweather', serif;
+}
+
+.banner h2 {
+  font-size: 2rem;
+  max-width: 800px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+.pesquisa{
+  display: flex;
+  position: relative;
+  bottom: 0;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  color: white;
+  gap: 30px;
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+
+}
+
+.novidades {
+  justify-content: center;
+  text-align: center;
+  
+}

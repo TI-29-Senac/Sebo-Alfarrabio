@@ -1,0 +1,46 @@
+.novidades {
+  height: auto;
+  padding: 2rem;
+  background-color: #f8f1e7;
+  font-family: 'Merriweather', serif;
+}
+
+.novidades h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.livro {
+  text-align: center;
+}
+
+.livro img {
+  display: flex;
+  position: relative;
+  width: 200px;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.livro span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color:#a87e4b;
+  font-weight: bold;
+}
+
+.novidade{
+  color: #a87e4b;
+}
