@@ -1,7 +1,6 @@
 .novidades {
   height: auto;
   padding: 2rem;
-  background-color: #f8f1e7;
   font-family: 'Merriweather', serif;
 }
 
@@ -17,11 +16,14 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.8rem;
+ 
 }
 
 .livro {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 
 }
 
@@ -35,6 +37,16 @@
   flex-wrap: wrap;
   margin: 0 auto;
   align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.623);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+}
+
+
+.livros:hover img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .livro{
