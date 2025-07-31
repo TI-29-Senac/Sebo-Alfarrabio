@@ -20,16 +20,17 @@
  
 }
 
-.livro {
+.livro{
   text-align: center;
   display: flex;
   flex-direction: column;
-
+ 
 }
 
 .livro img {
   display: flex;
   position: relative;
+  height: 300px;
   width: 200px;
   max-height: 400px;
   object-fit: cover;
@@ -38,25 +39,34 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.623);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
+  box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
 }
 
 
-.livros:hover img {
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-}
-
-.livro{
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color:#a87e4b;
-  font-weight: bold;
+.livros:hover img{
+  background-color: #694100;
+  box-shadow: 0 8px 16px rgba(63, 21, 2, 0.623);
 }
 
 .novidade{
   color: #a87e4b;
+}
+
+.name{
+  padding: 5px;
+  color: #694100;
+  font-family: 'Merriweather', serif;
+  font-size: 1.2rem; 
+  text-decoration: none;
+  font-weight: bold;
+}
+
+small{
+  color: #a87e4b;
+  text-decoration: none;
+  list-style: none;
+  font-size: 0.9rem;
+  margin: 0.1rem 0;
+  font-family: 'Merriweather', serif;
+  text-align: center;
 }

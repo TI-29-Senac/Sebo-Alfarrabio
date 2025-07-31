@@ -17,16 +17,16 @@
   justify-content: center;
   align-items: center;
   padding: 20px 300px;
-  color: rgb(255, 255, 255);
+  color: rgb(100, 40, 0);
   border-radius: 10px;
   left: 550px;
   text-align: center;
   backdrop-filter: blur(5px);
-  background-color: rgba(255, 255, 255, 0.664);
+  background-color: rgba(255, 246, 239, 0.767);
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
   font-size: 1rem;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(95, 31, 2, 0.288);
   font-weight: 600;
   font-family: 'Merriweather', serif;
   
