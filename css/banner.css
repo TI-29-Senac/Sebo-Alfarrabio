@@ -19,7 +19,7 @@
   padding: 20px 300px;
   color: rgb(255, 255, 255);
   border-radius: 10px;
-  left: 600px;
+  left: 550px;
   text-align: center;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.664);
@@ -44,9 +44,9 @@
   font-family: 'Merriweather', serif;
   padding: 0;
   position: absolute;
-  bottom: 400px;
+  bottom: 350px;
   align-items: center;
-  left: 280px;
+  left: 600px;
    text-shadow: -6px 0px 5px rgb(96 49 14 / 99%);
   text-decoration: none;
 }
