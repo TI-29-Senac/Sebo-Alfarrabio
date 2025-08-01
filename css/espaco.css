@@ -1,6 +1,6 @@
 .espaco{
     padding: 50px 20px;
-    background-color: #f8f1e7;
+    background-color: #fdf6ec;
     font-family: 'Merriweather', serif;
     position: relative;
     background-image: url('../img/logo2.png');
@@ -73,7 +73,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #f8f1e7;
+    color: #fdf6ec;
 }
 
 .img-direita-1{
@@ -92,14 +92,6 @@
     border-radius: 0 0 0 10px;
 }
 
-.card-central{
-    background-color: #f8f1e7;
-    border-radius: 10px;    
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.4s ease-in-out;
-}
-
 .cards-espaco{
     width: 100%;
     flex-wrap: wrap;
@@ -113,6 +105,11 @@
     background-size: cover;
     background-position: center;
     cursor: pointer;
+    background-color: #fdf6ec;
+    border-radius: 10px;    
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.4s ease-in-out;
 }
 
 .figcaption-espaco{
@@ -122,7 +119,7 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(to top, #521f02cc, transparent);
-        color: white;
+        color: #fdf6ec;
         display: flex;
         flex-direction: column;
         align-items: center;
