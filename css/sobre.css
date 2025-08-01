@@ -1,0 +1,14 @@
+.sobre{
+    background-color: #fffcfc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.img-sobre{
+    width: 600px;
+    height: auto;
+    border-radius: 40px;
+    display: flex;
+    position: relative;
+}
