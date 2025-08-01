@@ -1,0 +1,140 @@
+.espaco{
+    padding: 50px 20px;
+    background-color: #f8f1e7;
+    font-family: 'Merriweather', serif;
+    position: relative;
+    background-image: url('../img/logo2.png');
+    background-repeat: no-repeat;
+    background-position: -130px;
+    background-size: 55%;
+    margin-left: -20px;
+}
+
+    .titulo-interno{
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #a87e4b;
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Merriweather', serif;
+    }
+
+
+.container-espaco{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.culuna-esquerda{
+    display: flex;
+    flex-direction: column;
+  gap: 20px;
+}
+
+.img-esquerda{
+    width: 15rem;
+
+
+}
+
+.coluna-central{
+    display: flex    ;
+    width: 78%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 20px;
+    overflow: visible;
+}
+
+.img-central{
+    width:47rem;
+   
+}
+
+.culuna-direita{
+    display: flex;
+    flex-direction: column;
+  gap: 20px;
+}
+.img-direita{
+    width: 15rem;
+}
+
+.texto-central{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #f8f1e7;
+}
+
+.img-direita-1{
+    border-radius: 0 10px 0 0;
+}
+
+.img-direita-2{
+    border-radius: 0 0 10px 0;
+}
+
+.img-esquerda-1{
+    border-radius: 10px 0 0 0;
+}
+
+.img-esquerda-2{
+    border-radius: 0 0 0 10px;
+}
+
+.card-central{
+    background-color: #f8f1e7;
+    border-radius: 10px;    
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.4s ease-in-out;
+}
+
+.cards-espaco{
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.card-central{
+    flex-basis: calc(50% - 10px);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+.figcaption-espaco{
+    position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #521f02cc, transparent);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+        padding: 10px;
+        text-align: center;
+        transform: translateY(115%);
+        transition: transform 0.4s ease-in-out;
+        backdrop-filter: blur(5px);
+}
+
+.card-central:hover .figcaption-espaco{
+    transform: translateY(1%);
+}
