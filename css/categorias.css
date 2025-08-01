@@ -9,6 +9,13 @@
     background-color: #f8f1e7;
 }
 
+.categorias :hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    color: #ffc507;
+}
+
+
 .generos{
     position: relative;
     display: flex;
@@ -43,6 +50,11 @@
     color: #694100;
     font-size: 0.9em;
     cursor: pointer;
+}
+.item :hover{
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    
 }
 .cat{
     font-size: 1.5em;
