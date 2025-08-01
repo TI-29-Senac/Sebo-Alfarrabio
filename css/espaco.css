@@ -2,6 +2,12 @@
     padding: 50px 20px;
     background-color: #f8f1e7;
     font-family: 'Merriweather', serif;
+    position: relative;
+    background-image: url('../img/logo2.png');
+    background-repeat: no-repeat;
+    background-position: -130px;
+    background-size: 55%;
+    margin-left: -20px;
 }
 
     .titulo-interno{
@@ -26,15 +32,13 @@
 }
 
 .culuna-esquerda{
-
-   
     display: flex;
     flex-direction: column;
   gap: 20px;
 }
 
 .img-esquerda{
-    width: 10rem;
+    width: 15rem;
 
 
 }
@@ -60,7 +64,7 @@
   gap: 20px;
 }
 .img-direita{
-    width: 10rem;
+    width: 15rem;
 }
 
 .texto-central{
@@ -134,3 +138,5 @@
 .card-central:hover .figcaption-espaco{
     transform: translateY(1%);
 }
+
+
