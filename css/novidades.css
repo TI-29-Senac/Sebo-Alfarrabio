@@ -1,10 +1,25 @@
 .cards-novidades {
   height: auto;
-  padding: 2rem;
+  padding: 70px;
   font-family: 'Merriweather', serif;
   align-items: center;
   justify-content: center;
   display: flex;
+}
+
+
+.novidade{
+  color: #a87e4b;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  text-decoration: none;
+  padding: 5px;
+  margin-top: 50px;
 }
 
 .novidades h3 {
@@ -63,13 +78,6 @@
 .card-livro:hover{
   background-color: #694100;
 
-}
-
-.novidade{
-  color: #a87e4b;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 .name{

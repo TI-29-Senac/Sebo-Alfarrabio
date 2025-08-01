@@ -7,14 +7,8 @@
     padding: 20px;
     gap: 20px;
     background-color: #f8f1e7;
+    font-family: 'Merriweather', serif;
 }
-
-.categorias :hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-    color: #ffc507;
-}
-
 
 .generos{
     position: relative;
@@ -54,6 +48,7 @@
 .item :hover{
     transform: scale(1.05);
     transition: transform 0.3s ease;
+    color: #db8802;
     
 }
 .cat{
