@@ -1,33 +1,87 @@
-footer{
-    background-color: #a7690594;
-    width: 100%;
+.footer {
+  background-color: #a87e4b;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: Arial, sans-serif;
 }
 
-footer a{
-    text-decoration: none;
-    cursor: pointer;
-    color: white;
+.container-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-footer .container{
+.footer-nome{
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 50px;
+  align-items: flex-start;
+  gap: 10px;
 }
-.coluna-footer{
+
+.footer-nome h3{
+    position: relative;
+    top: 30px;
+    margin-left: 6px;
+}
+
+.logo-footer {
+  width: 80px;
+  height: auto;
+  margin: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.links{
     display: flex;
     flex-direction: column;
-    color: white;
-    
 }
-.titulo-footer{
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    background-color: yellow;
+
+.links h4{
+    margin-bottom: 15px;
+    color: #fdfdfd;
 }
-.redes-sociais{
-    width: 60px;
-    padding: 10px;
+
+.links a {
+  color: #fdfdfd;
+  text-decoration: none;
+  margin-bottom: 10px;
 }
+
+.links a:hover{
+    color: #613c01;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #fdfdfd;
+}
+
+.footer-section p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer-redes a {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.footer-redes img {
+  width: 40px;
+  height: 40px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ffffff94;
+  font-size: 13px;
+}
+
