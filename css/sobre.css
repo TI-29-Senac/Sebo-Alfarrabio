@@ -142,3 +142,13 @@
     left: 15%;
 }
 
+div.carrossel-container {
+    background-color: #e1c39f;
+    overflow: auto;
+    white-space:nowrap;
+    padding: 20px;
+}
+ 
+div.carrossel-container img {
+    padding: 10px;
+}
