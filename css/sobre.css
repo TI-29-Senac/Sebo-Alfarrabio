@@ -149,3 +149,13 @@
     align-items: center;
     text-align: center;
 }
+
+.img-espaco-pag{
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 10px;
+    overflow: hidden;
+}
+
