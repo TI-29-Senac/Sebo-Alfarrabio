@@ -143,12 +143,16 @@
 }
 
 div.carrossel-container {
-    background-color: #e1c39f;
+    background-color: #fdfafa;
     overflow: auto;
     white-space:nowrap;
     padding: 20px;
 }
  
 div.carrossel-container img {
+    width: 579px;
+    height: 454px;
+    object-fit: cover; /* Mantém proporção e recorta se necessário */
+    border-radius: 10px;
     padding: 10px;
 }
