@@ -63,10 +63,6 @@
         text-align: center;
     }
 
-    .sobre img {
-        width: 100%;
-        height: auto;
-    }
     .sobre-texto {
         font-size: 14px;
     }
@@ -170,4 +166,13 @@
         font-family: 'Merriweather', serif;
     }
     
+    .img-sobre{
+    width: 300px;
+    height: auto;
+    border-radius: 40px;
+    display: flex;
+    position: relative;
+    justify-content: left;
+    align-items: left;
+}
 }
