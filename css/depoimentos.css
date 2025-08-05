@@ -60,3 +60,28 @@
 .citacao{
     padding: 10px;
 }
+
+.depoimento-slider {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .depoimento-track {
+    display: flex;
+    animation: deslizar 20s linear infinite;
+  }
+  
+  .depoimento-card {
+    min-width: 300px;
+    margin: 0 10px;
+    flex-shrink: 0;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  @keyframes deslizar {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
