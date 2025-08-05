@@ -168,8 +168,8 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-      margin-top: 20px;
-      margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
  
   .carrossel {
@@ -185,7 +185,7 @@
   }
  
 =======
-  }
+
   
 >>>>>>> 429d15ae56ad36cd93fd2670439c1780d2ed3d2f
   /* Animação infinita */
