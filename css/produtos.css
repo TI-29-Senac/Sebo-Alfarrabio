@@ -8,6 +8,7 @@
     justify-items: center;
     max-width: 1200px;
     margin: 20px auto;
+    gap: 15px;
     
 
   }
@@ -84,10 +85,7 @@
     align-items: center;
     box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
     text-align: center;
-    
-    
-    
-    
+
   }
   .card-livro-p img {
     display: flex;
