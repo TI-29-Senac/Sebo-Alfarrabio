@@ -158,3 +158,28 @@ div.carrossel-container img {
     padding: 10px;
 }
 
+.carrossel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+ 
+  .carrossel {
+    display: flex;
+    animation: slide 10s linear infinite;
+  }
+ 
+  .carrossel img {
+    width: 600px;
+    height: auto;
+    margin-right: 20px;
+    border-radius: 10px;
+  }
+ 
+  /* Animação infinita */
+  @keyframes slide {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
