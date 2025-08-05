@@ -98,7 +98,7 @@
 
 .equipe{
      background-color: #e1c39f;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
 }
 
@@ -110,7 +110,7 @@
     line-height: 1.6;
     color: #361800;
     text-align: left;
-    padding: 20px;
+    padding: 15px;
     max-width: 800px;
     margin-left: 30px; /* Espaço entre texto e imagem */
     position: relative; /* Permite o uso de 'left' */
@@ -125,6 +125,8 @@
     right: 500px; /* Ajuste a posição horizontal da imagem */
     position: relative; /* Permite o uso de 'right' */
     right: -780px;
+    display: block; /* Garante que a imagem seja exibida como bloco */
+    margin-left: auto; /* Centraliza a imagem horizontalmente */
 }
 
 .equipe-pag {
@@ -132,7 +134,7 @@
     flex-direction: row; /* Alinha imagem e texto lado a lado */
     align-items: center;  /* Centraliza verticalmente */
    
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px; 
     margin: 0 auto;
     max-width: 1200px;
@@ -143,18 +145,28 @@
     left: 15%;
 }
 
-div.carrossel-container {
-    background-color: #fdfafa;
-    overflow: auto;
-    white-space:nowrap;
-    padding: 20px;
-}
- 
-div.carrossel-container img {
-    width: 579px;
-    height: 454px;
-    object-fit: cover; /* Mantém proporção e recorta se necessário */
-    border-radius: 10px;
-    padding: 10px;
+.carrossel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
+.carrossel {
+  display: flex;
+  animation: slide 20s linear infinite;
+}
+
+.carrossel img {
+  width: 600px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+/* Animação infinita */
+@keyframes slide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
