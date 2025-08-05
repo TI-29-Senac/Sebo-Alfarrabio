@@ -160,7 +160,6 @@
     height: auto;
     margin-right: 20px;
     border-radius: 10px;
-<<<<<<< HEAD
     padding: 10px;
 }
 
@@ -184,16 +183,9 @@
     border-radius: 10px;
   }
  
-=======
-
-  
->>>>>>> 429d15ae56ad36cd93fd2670439c1780d2ed3d2f
   /* Animação infinita */
   @keyframes slide {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-<<<<<<< HEAD
-=======
-  
->>>>>>> 429d15ae56ad36cd93fd2670439c1780d2ed3d2f
+
