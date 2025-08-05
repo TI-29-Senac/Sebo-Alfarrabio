@@ -60,3 +60,50 @@
 .citacao{
     padding: 10px;
 }
+
+.depoimento-slider {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .depoimento-track {
+    display: flex;
+    gap: 20px;
+    animation: deslizar 20s linear infinite;
+  }
+
+  .depoimento-slider:hover .depoimento-track {
+    animation-play-state: paused;
+  }
+  
+  .depoimento-card {
+    min-width: 400px;
+    flex-shrink: 0;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  
+  .foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  @keyframes deslizar {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .depoimento-track {
+    display: flex;
+    gap: 20px;
+    animation: deslizar 15s linear infinite; /* mais rápido */
+  }
+
+  
