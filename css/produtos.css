@@ -48,6 +48,7 @@
     font-size: 0.9em;
     cursor: pointer;
     
+    
 }
 .item-p :hover{
     transform: scale(1.05);
