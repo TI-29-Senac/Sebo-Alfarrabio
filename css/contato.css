@@ -19,14 +19,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
 }
 
 .contatos-icons img{
     display: flex;
     width: 80px;
     height: 80px;
-    padding: 0px 10px 0px 10px;
-    margin: 0px 90px;
+    padding: 0px 20px 0px 20px;
+    margin: 0px 95px;
+}
+
+.contatos-icons img:hover{
+    transform: scale(1.5);
+    transition: 0.3s;
+}
+
+.contatos-icons p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.contatos-icons p:hover{
+    color: #a87e4b;
 }
 
 .localizacao{
