@@ -77,13 +77,14 @@
   }
   
   .depoimento-card {
-    min-width: 300px;
+    min-width: 400px;
     flex-shrink: 0;
     background: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-align: center;
+    font-size: 1.1rem;
   }
   
   .foto-perfil {
@@ -97,6 +98,12 @@
   @keyframes deslizar {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
+  }
+
+  .depoimento-track {
+    display: flex;
+    gap: 20px;
+    animation: deslizar 15s linear infinite; /* mais rápido */
   }
 
   
