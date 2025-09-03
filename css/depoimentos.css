@@ -56,7 +56,7 @@
     padding: 20px;
     width: 400px;
     margin: 50px 20px;
-    box-shadow: 15px 10px 30px 0px #c99a00b2;
+    box-shadow: 8px 6px 15px 0px #c99a007c;
 }
 
 
@@ -64,19 +64,20 @@
     width: 120px;
     border-radius: 50%;
     margin-bottom: 10px;
-    border: 3px solid #332001;
+    border: 3px solid #352100;
 }
 
 
 .depoimento-texto{
     font-family: 'Merriweather', serif;
-    color: #ffc029;
+    color: #2b1f03;
     text-align: center;
     background-color: transparent;
 }
 .citacao{
     padding: 10px;
     background-color: transparent;
+    color: #ffc029;
 }
 
 
