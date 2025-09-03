@@ -1,6 +1,6 @@
 .footer {
-  background-color: #a87e4b;
-  color: #fff;
+  background-color: #381f13;
+  color: #ffc029;
   padding: 40px 20px 20px 20px;
   font-family: Arial, sans-serif;
 }
@@ -29,7 +29,7 @@
 
 
 .logo-footer {
-  width: 80px;
+  width: 130px;
   height: auto;
   margin: 0;
   border-radius: 50%;
@@ -49,12 +49,12 @@
 
 .links h4{
     margin-bottom: 15px;
-    color: #fdfdfd;
+    color: #ffc029;
 }
 
 
 .links a {
-  color: #fdfdfd;
+  color: #ffc029;
   text-decoration: none;
   margin-bottom: 10px;
 }
@@ -69,7 +69,7 @@
 .footer-section h4 {
   margin-bottom: 15px;
   font-weight: 600;
-  color: #fdfdfd;
+  color: #ac7104;
 }
 
 

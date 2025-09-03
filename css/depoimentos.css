@@ -1,11 +1,12 @@
-.depoimentos{
-    background-color:#f8f1e7;
+.container-depoimentos{
+    background-color: #523223;
     width: 100%;
     height: 550px;
     display: flex;
     flex-direction: column;
     display: flex;
 }
+
 
 .container-footer{
     display: flex;
@@ -14,49 +15,116 @@
   gap: 20px;
 }
 
+
 .depoimento-titulo{
-    padding: 30px 0px 0px 0px;
-    font-size: 2.5rem;
+     font-family: 'Merriweather', serif;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #a87e4b;
+    color: #ffc029;
     text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Merriweather', serif;
+    margin-bottom: 20px;
+    background-color: transparent;
+    padding: 40px 20px 5px 30px;
 }
+
 
 .depoimento-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    background-color: #4e3b0580;
 }
+
+.depoimento-card :hover {
+  transform: scale(1.05);
+  border-color: #ffc029;
+
+
+} 
+
+
 
 .depoimento-card{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f5deb3;
-    border: 2px solid #a7690594;
+    background-color: #916a11;
+    border: 2px solid #bb7a1194;
     border-radius: 10px;
     padding: 20px;
     width: 400px;
     margin: 50px 20px;
-    box-shadow: 15px 10px 30px 0px #f5c577;
+    box-shadow: 15px 10px 30px 0px #c99a00b2;
 }
+
 
 .foto-perfil{
     width: 120px;
     border-radius: 50%;
     margin-bottom: 10px;
-    border: 3px solid #694100;
+    border: 3px solid #332001;
 }
+
 
 .depoimento-texto{
     font-family: 'Merriweather', serif;
-    color: #694100;
+    color: #ffc029;
     text-align: center;
+    background-color: transparent;
 }
 .citacao{
     padding: 10px;
+    background-color: transparent;
 }
+
+
+.depoimento-slider {
+    overflow: hidden;
+    width: 100%;
+    
+  }
+ 
+  .depoimento-track {
+    display: flex;
+    gap: 20px;
+    animation: deslizar 20s linear infinite;
+  }
+
+
+  .depoimento-slider:hover .depoimento-track {
+    animation-play-state: paused;
+  }
+ 
+  .depoimento-card {
+    min-width: 410px;
+    flex-shrink: 0;
+    background: #725132;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+ 
+  @keyframes deslizar {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+
+  .depoimento-track {
+    display: flex;
+    gap: 20px;
+    animation: deslizar 15s linear infinite; /* mais rápido */
+  }
+
+
