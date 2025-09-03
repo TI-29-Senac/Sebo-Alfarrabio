@@ -2,4 +2,10 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    background-color: #381f13;
+   
+}
+
+ h3, .cat, .titulo-es {
+  font-family: 'Merriweather', serif;
 }

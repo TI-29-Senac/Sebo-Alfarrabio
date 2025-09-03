@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 60px 90px 160px;
   font-family: 'Merriweather', serif;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@
 
 
 .novidade{
-  color: #a87e4b;
+  color: #ffc029;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -91,7 +91,7 @@
 .name{
   padding: 8px;
   gap: 0.5rem;
-  color: #694100;
+  color: #d4a405;
   font-family: 'Merriweather', serif;
   font-size: 1.2rem; 
   text-decoration: none;
@@ -100,7 +100,7 @@
 }
 
 small{
-  color: #a87e4b;
+  color: #ffffff;
   text-decoration: none;
   list-style: none;
   font-size: 0.9rem;

@@ -53,6 +53,7 @@
    text-shadow: -6px 0px 5px rgb(96 49 14 / 99%);
   text-decoration: none;
   margin: auto;
+  background-color: none;
 }
 .container{
   position: relative;

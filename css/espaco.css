@@ -1,38 +1,35 @@
-.espaco{
+.container-espaco1{
 
     padding: 50px 20px;
-    background-color: #fdf6ec;
-    font-family: 'Merriweather', serif;
+    background-color: #523223;
     position: relative;
-    background-image: url('../img/logo2.png');
+    background-image: url('../img/space2.png');
     background-repeat: no-repeat;
-    background-position: -130px;
-    background-size: 55%;
+    background-position: -200px;
+    background-size: 60%;
     margin-left: -20px;
 }
+
+ .espaco{
+    font-family: 'Merriweather', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffc029;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: transparent;
+    
+ }
 
     .titulo-interno{
         font-size: 2.5rem;
         font-weight: 700;
-        color: #a87e4b;
+        color: #ffc029;
         text-align: center;
         margin-bottom: 20px;
-        font-family: 'Merriweather', serif;
     }
     
-    .titulo{
-        font-size: 2.5rem;
-        color: #a87e4b;
-        text-align: center;
-        font-family: 'Merriweather', serif;
-        margin-bottom: 20px;
-        font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 1;
-        padding-bottom: 10px;
-        
-    }
+  
 
 .container-espaco{
     width: 100%;
@@ -43,17 +40,19 @@
     max-width: 1200px;
     margin: 0 auto;
     gap: 30px;
+    background-color: transparent;
 }
 
 .culuna-esquerda{
     display: flex;
     flex-direction: column;
   gap: 20px;
+  background-color: transparent;
 }
 
 .img-esquerda{
     width: 15rem;
-
+    background-color: transparent;
 
 }
 
@@ -65,17 +64,19 @@
     position: relative;
     gap: 20px;
     overflow: visible;
+    background-color: transparent;
 }
 
 .img-central{
     width:47rem;
-   
+   background-color: transparent;
 }
 
 .culuna-direita{
     display: flex;
     flex-direction: column;
   gap: 20px;
+    background-color: transparent;
 }
 .img-direita{
     width: 15rem;
@@ -110,6 +111,7 @@
     width: 100%;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: transparent;
 }
 .card-central{
     flex-basis: calc(50% - 10px);
@@ -119,7 +121,7 @@
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    background-color: #fdf6ec;
+    
     border-radius: 10px;    
     padding: 20px;
     text-align: center;
@@ -149,3 +151,4 @@
 .card-central:hover .figcaption-espaco{
     transform: translateY(1%);
 }
+
