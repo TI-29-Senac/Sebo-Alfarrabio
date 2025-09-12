@@ -64,7 +64,17 @@
     }
 
     .sobre-texto {
-        font-size: 14px;
+        font-size: 10px;
+        line-height: 1;
+        margin: 0 10px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+        background-color: transparent;
+        
     }
 
 
@@ -83,20 +93,20 @@
     }
 
     .img-esquerda-1, .img-esquerda-2 {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
        border-radius: 0 0 0 10px;
     }
     
     .img-direita-1, .img-direita-2 {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
        border-radius: 10 0 0 0px;
     }
 
     .img-central{
-        width: 220px;
-        height: 220px;
+        width: 290px;
+        height: 280px;
         display: flex;
         justify-content: center;
         position: relative;
@@ -175,4 +185,18 @@
     justify-content: left;
     align-items: left;
 }
+
+.cards-novidades {
+    width: 90%;
+    margin: 20px auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: transparent;
+    
+}
+
 }
