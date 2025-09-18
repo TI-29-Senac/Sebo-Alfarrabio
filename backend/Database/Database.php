@@ -3,7 +3,7 @@
 $username = 'root';
 $password = '';
 $host = 'localhost';
-$dbname = 'sebov2';
+$dbname = 'sebov2_backup';
 try{
                 // texto puro 'texto' preciso concatenar variaveis com .
     $db = new \PDO('mysql:host=localhost;dbname='.$dbname.';charset=utf8mb4', $username, $password, array(
