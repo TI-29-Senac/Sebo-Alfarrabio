@@ -17,12 +17,42 @@ class Usuario{
     
     // Buscar todos os usuários não excluídos
     function buscarUsuarios(){
-        $sql = "SELECT * FROM tbl_usuario WHERE excluido_em IS NULL";
+        $sql = "SELECT * FROM tbl_usuario WHERE excluido_em IS NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //Buscar usuário por ID
+    function buscarUsuariosPorID($id_usuario){
+        $sql = 'SELECT * FROM tbl_usuario where id_usuario = :id';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id_usuario);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     
+    // Buscar usuário por email
+
+    function buscarUsuariosPorEmail($email_usuario){
+        $sql = 'SELECT * FROM tbl_usuario where email_usuario = :email';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':email', $email_usuario);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Buscar usuarios por tipo
+
+    function buscarUsuariosPorTipo($tipo_usuario){
+        $sql = 'SELECT * FROM tbl_usuario where tipo_usuario = :tipo';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':tipo', $tipo_usuario);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     // Inserir Usuários
 
@@ -65,14 +95,16 @@ class Usuario{
         }
     }
 
-    function excluirUsuario($id_usuario){
+    // Excluir Usuários (soft delete)
+
+    function excluirUsuarios($id_usuario){
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_usuario SET 
         excluido_em = :atual
         WHERE id_usuario = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt = bindParam(':id', $id_usuario);
-        $stmt = bindParam(':atual', $dataatual);
+        $stmt->bindParam(':id', $id_usuario);
+        $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
         }else{
