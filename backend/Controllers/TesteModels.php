@@ -2,8 +2,17 @@
 
 require_once __DIR__ . '/../Models/Usuario.php';
 require_once __DIR__ . '/../Database/Database.php';
+require_once __DIR__ . '/../Models/Endereco.php';
 
-$usuario = new Usuario($db);
+$acervo = new Acervo($db);
+$endereco = new Endereco($db);
+$usuario = new Usuario($db);    
 
-$resultado = $usuario->buscarUsuarios();
+// $resultado = $usuario->buscarTodosUsuarios();
+// $resultado = $usuario->buscarUsuarioPorEmail('eclabburnro@mapquest.com');
+// var_dump($resultado);
+ $resultado = $usuario->buscarUsuarioPorId(1);
 var_dump($resultado);
+
+
+
