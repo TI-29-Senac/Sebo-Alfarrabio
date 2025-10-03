@@ -47,7 +47,7 @@ class Livros{
         $stmt->bindParam(':titulo', $titulo_livro);
         $stmt->bindParam(':autor',$autor_livro);
         $stmt->bindParam(':editora', $editora_livro);
-        $stmt->bindParam(':edicao', $edicao_livro);
+        $stmt->bindParam(':editora', $editora_livro);
         $stmt->bindParam(':ano_publucacao', $ano_publicacao_livro);
          $stmt->bindParam(':idioma', $idioma_livro);
           $stmt->bindParam(':descricao', $descricao_livro);
@@ -74,12 +74,15 @@ class Livros{
          atualizado_em = :atual
          WHERE id_livros = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_acervo);
-        $stmt->bindParam(':titulo', $titulo_acervo);
-        $stmt->bindParam(':tipo', $tipo_item_acervo);
-        $stmt->bindParam(':estado', $estado_conservacao);
-        $stmt->bindParam(':disponibilidade', $disponibilidade_acervo);
-        $stmt->bindParam(':estoque', $estoque_acervo);
+        $stmt->bindParam(':id', $id_livros);
+        $stmt->bindParam(':titulo', $titulo_livro);
+        $stmt->bindParam(':autor', $autor_livro);
+        $stmt->bindParam(':editora', $editora_livro);
+        $stmt->bindParam(':ano_publucacao', $ano_publicacao_livro);
+        $stmt->bindParam(':idioma', $idioma_livro);
+        $stmt->bindParam(':descricao', $descricao_livro);
+        $stmt->bindParam(':preco', $preco_livro);
+        $stmt->bindParam(':foto', $foto_livro);
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
@@ -87,12 +90,27 @@ class Livros{
             return false;
         }
     }
-    // metodo de deletar o usuario delete
-    function excluirUsuario($id){
+    // metodo de deletar o livro (delete)
+    function excluirLivros($id){
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_acervo SET
+        $sql = "UPDATE tbl_livros SET
          excluido_em = :atual
-         WHERE id_acervo = :id";
+         WHERE id_livros = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':atual', $dataatual);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function ativarLivros($id){
+        $dataatual = NULL;
+        $sql = "UPDATE tbl_livros SET
+         excluido_em = :atual
+         WHERE id_livros = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':atual', $dataatual);
