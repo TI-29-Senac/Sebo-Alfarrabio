@@ -1,4 +1,5 @@
 <?php
+namespace App\Sebo_Alfarrabio\Database;
 
 $username = 'root';
 $password = '';
