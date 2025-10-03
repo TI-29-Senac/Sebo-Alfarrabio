@@ -1,73 +1,77 @@
 <?php
 
-class Acervo{
-    public $id_acervo;
-    public $titulo_acervo;
-    public $tipo_item_acervo;
-    public $estado_conservacao;
-    public $disponibilidade_acervo;
-    public $estoque_acervo;
-    private $criado_em;
-    private $atualizado_em;
-    private $excluido_em;
+class Acervo {
     private $db;
 
-       public function __construct($db){
+    public function __construct($db) {
         $this->db = $db;
     }
-     // Buscar todos os usuários não excluídos
-    function buscarAcervo(){
+
+    // Buscar acervo ativo
+    public function buscarAtivos() {
         $sql = "SELECT * FROM tbl_acervo WHERE excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
     }
-    
-     function buscarAcervoInativo(){
+
+    // Buscar acervo inativo
+    public function buscarInativos() {
         $sql = "SELECT * FROM tbl_acervo WHERE excluido_em IS NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
     }
 
-    // Inserir Itens no Acervo
+    // Inserir item
+    public function inserirItemAcervo($titulo, $tipo, $estado, $disponibilidade, $estoque) {
+        $sql = "INSERT INTO tbl_acervo 
+                (titulo_acervo, tipo_item_acervo, estado_conservacao, disponibilidade_acervo, estoque_acervo, atualizado_em) 
+                VALUES (:titulo, :tipo, :estado, :disponibilidade, :estoque, NOW())";
 
-     function inserirItemAcervo( $titulo_acervo, $tipo_item_acervo, $estado_conservacao, $disponibilidade_acervo, $estoque_acervo){
-        $sql = 'INSERT INTO tbl_acervo (titulo_acervo,tipo_item_acervo, estado_conservacao, disponibilidade_acervo, estoque_acervo)
-        VALUES (:titulo_acervo, :tipo_item_acervo, :estado_conservacao, :disponibilidade_acervo, :estoque_acervo)';
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':titulo_acervo', $titulo_acervo);
-        $stmt->bindParam(':tipo_item_acervo', $tipo_item_acervo);
-        $stmt->bindParam(':estado_conservacao', $estado_conservacao);
-        $stmt->bindParam(':disponibilidade_acervo', $disponibilidade_acervo);
-        $stmt->bindParam(':estoque_acervo', $estoque_acervo);
-        if($stmt->execute()){
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':tipo', $tipo);
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':disponibilidade', $disponibilidade);
+        $stmt->bindParam(':estoque', $estoque);
+
+        if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        }else{
-            return false;
         }
+        return false;
     }
-    // Atualizar Itens no Acervo
-        function atualizarAcervo($id_acervo, $tipo_item_acervo, $email_usuario, $senha_usuario, $tipo_usuario){
-        $senha_usuario = password_hash($senha_usuario, PASSWORD_DEFAULT);
-        $sql = 'UPDATE tbl_acervo
-        SET titulo_acervo = :nome,
-         tipo_item_acervo = :email,
-         senha_usuario = :senha,
-         tipo_usuario = :tipo
-        WHERE id_acervo = :id';
+
+    // Atualizar item
+    public function atualizar($id, $dados) {
+        $sql = "UPDATE tbl_acervo 
+                SET titulo_acervo = :titulo, 
+                    tipo_item_acervo = :tipo, 
+                    estado_conservacao = :estado, 
+                    disponibilidade_acervo = :disponibilidade, 
+                    estoque_acervo = :estoque, 
+                    atualizado_em = NOW()
+                WHERE id_acervo = :id";
+
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_usuario);
-        $stmt->bindParam(':titulo_acervo', $titulo_acervo);
-        $stmt->bindParam(':email', $email_usuario);
-        $stmt->bindParam(':senha', $senha_usuario);
-        $stmt->bindParam(':tipo', $tipo_usuario);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $stmt->bindParam(':titulo', $dados['titulo']);
+        $stmt->bindParam(':tipo', $dados['tipo']);
+        $stmt->bindParam(':estado', $dados['estado']);
+        $stmt->bindParam(':disponibilidade', $dados['disponibilidade']);
+        $stmt->bindParam(':estoque', $dados['estoque']);
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
+    // Deletar (soft delete → marca excluido_em)
+    public function excluir($id) {
+        $sql = "UPDATE tbl_acervo 
+                SET excluido_em = NOW() 
+                WHERE id_acervo = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }

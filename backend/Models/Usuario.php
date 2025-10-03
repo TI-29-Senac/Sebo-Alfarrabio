@@ -67,7 +67,7 @@ class Usuario{
  
     // Excluir Usuários (soft delete)
  
-    function excluirUsuario(){
+    function excluirUsuario($id_usuario,$dataatual){
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_usuario SET
         excluido_em = :atual
