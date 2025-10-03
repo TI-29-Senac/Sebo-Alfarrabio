@@ -1,5 +1,6 @@
 <?php
 namespace Sebo\Alfarrabio\Models;
+use PDO;
 class Usuario{
     public $id_usuario;
     public $nome_usuario;
@@ -65,22 +66,34 @@ class Usuario{
             return false;
         }
     }
- 
-    // Excluir Usuários (soft delete)
- 
-    function excluirUsuario($id_usuario,$dataatual){
+    // metodo de inativar o usuario delete
+    function excluirUsuario($id){
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_usuario SET
-        excluido_em = :atual
-        WHERE id_usuario = :id";
+         excluido_em = :atual
+         WHERE id_usuario = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt = bindParam(':id', $id_usuario);
-        $stmt = bindParam(':atual', $dataatual);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
         }else{
             return false;
         }
-}
- 
+    }
+// metodo de ativar o usuario excluido
+    function ativarUsuario($id){
+        $dataatual = NULL;
+        $sql = "UPDATE tbl_usuario SET
+         excluido_em = :atual
+         WHERE id_usuario = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':atual', $dataatual);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

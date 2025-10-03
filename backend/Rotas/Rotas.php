@@ -25,4 +25,26 @@ class Rotas
             
         ];
     }
+
+    public static function get()
+    {
+        return [
+
+                "GET" =>[
+                    // o caminho da url  o nome do controlle e o metodo do controller
+                    "/backend/CatLivros" => "CatLivrosController@index",
+                    "/backend/CatLivros/criar" => "CatLivrosController@viewCriarCatlivros",
+                    "/backend/CatLivros/listar" => "CatLivrosController@viewlistarCatLivrosAtivos",
+                    "/backend/CatLivros/editar" => "CatLivrosController@viewEditarCatLivros",
+                    "/backend/CatLivros/excluir" => "CatLivrosControllerr@viewExcluirCatlivros",
+            
+                ],
+                "POST" =>[
+                    "/backend/CatLivros/salvar" => "CatLivrosController@inserirCatLivros",
+                    "/backend/CatLivros/atualizar" => "CatLivrosController@atualizarCatLivros",
+                    "/backend/CatLivros/deletar" => "CatLivrosController@excluirCatLivros",
+                ]
+            
+        ];
+    }
 }

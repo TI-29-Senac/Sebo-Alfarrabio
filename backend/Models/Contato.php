@@ -1,5 +1,6 @@
 <?php
     namespace Sebo\Alfarrabio\Models;
+    use PDO;
 class Contato {
     private $db;
 

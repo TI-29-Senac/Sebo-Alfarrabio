@@ -1,5 +1,6 @@
 <?php
     namespace Sebo\Alfarrabio\Models;
+    use PDO;
 class CategoriaLivro {
     private $db;
 
@@ -7,7 +8,7 @@ class CategoriaLivro {
         $this->db = $db;
     }
 
-    public function buscarAtivos() {
+    public function listarCatLivrosAtivos() {
         $sql = "SELECT * FROM tbl_cat_livros WHERE excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
