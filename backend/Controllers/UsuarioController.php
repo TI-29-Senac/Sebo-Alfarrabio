@@ -1,9 +1,9 @@
 <?php
-namespace App\Sebo_Alfarrabio\Controllers;
+namespace Sebo\Alfarrabio\Controllers;
 
-use App\Sebo_Alfarrabio\Models\Usuario;
-use App\Sebo_Alfarrabio\Database\Database;
-use App\Sebo_Alfarrabio\Core\View;
+use Sebo\Alfarrabio\Models\Usuario;
+use Sebo\Alfarrabio\Database\Database;
+use Sebo\Alfarrabio\Core\View;
 
 class UsuarioController {
     public $usuario;

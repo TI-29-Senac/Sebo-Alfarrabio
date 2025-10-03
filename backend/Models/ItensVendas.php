@@ -1,5 +1,5 @@
 <?php
-
+    namespace Sebo\Alfarrabio\Models;
 class ItensVenda {
     private $db;
 

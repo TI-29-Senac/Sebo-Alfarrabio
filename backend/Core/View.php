@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo_Alfarrabio\Core;
+namespace Sebo\Alfarrabio\Core;
 class View{
     public static function render($nomeView, $dados = []){
         // extrair os dados do array para variáveis

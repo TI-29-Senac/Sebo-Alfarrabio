@@ -1,4 +1,5 @@
 <?php
+namespace Sebo\Alfarrabio\Models;
 class Usuario{
     public $id_usuario;
     public $nome_usuario;

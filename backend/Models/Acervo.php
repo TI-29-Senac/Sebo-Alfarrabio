@@ -1,5 +1,5 @@
 <?php
-
+    namespace Sebo\Alfarrabio\Models;
 class Acervo {
     private $db;
 
@@ -43,7 +43,7 @@ class Acervo {
     }
 
     // Atualizar item
-    public function atualizar($id, $dados) {
+    public function atualizarAcervo($id, $dados) {
         $sql = "UPDATE tbl_acervo 
                 SET titulo_acervo = :titulo, 
                     tipo_item_acervo = :tipo, 
@@ -65,7 +65,7 @@ class Acervo {
     }
 
     // Deletar (soft delete → marca excluido_em)
-    public function excluir($id) {
+    public function excluirAcervo($id) {
         $sql = "UPDATE tbl_acervo 
                 SET excluido_em = NOW() 
                 WHERE id_acervo = :id";
