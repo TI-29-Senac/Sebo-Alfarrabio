@@ -2,12 +2,13 @@
 
 require_once __DIR__ . '/../Models/Usuario.php';
 require_once __DIR__ . '/../Database/Database.php';
-
+require_once __DIR__ . '/../Models/Vendas.php';
 $usuario = new Usuario($db);
+$vendas = new Vendas($db);
 
 // Buscar Usuários
 
-//$resultado = $usuario->buscarUsuarios();
+$resultado = $vendas->buscarVendas();
 //$resultado = $usuario->buscarUsuariosPorEmail($email_usuario = 'fabio.alves@email.com');
 //$resultado = $usuario->buscarUsuariosPorID($id_usuario = 17);
 //$resultado = $usuario->buscarUsuariosPorTipo($tipo_usuario = 'Funcionario');
@@ -21,3 +22,5 @@ $usuario = new Usuario($db);
 
 //$resultado = $usuario->excluirUsuarios($id_usuario = 14);
 var_dump($resultado);
+
+
