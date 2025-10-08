@@ -14,22 +14,22 @@ class ItensVendaController {
     }
 
     public function index() {
-        $dados = $this->itens->listar();
+        $dados = $this->itens->buscarAtivos();
         View::render("itensvenda/index", ["itens" => $dados]);
     }
 
     public function salvarItemVenda() {
-        $this->itens->inserir($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
+        $this->itens->inserirItensVendas($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
         header("Location: /backend/itensvenda");
     }
 
-    public function atualizarItemVenda($id) {
-        $this->itens->atualizar($id, $_POST);
+    public function atualizarItensVendas($id) {
+        $this->itens->atualizarItensVendas($id, $_POST);
         header("Location: /backend/itensvenda");
     }
 
-    public function deletarItemVenda($id) {
-        $this->itens->excluir($id);
+    public function excluirItensVendas($id) {
+        $this->itens->excluirItensVendas($id);
         header("Location: /backend/itensvenda");
     }
 }

@@ -2,6 +2,11 @@
     namespace Sebo\Alfarrabio\Models;
     use PDO;
 class CategoriaLivro {
+    private $id_cat_livros;
+    private $nome_categoria;
+    private $criado_em;
+    private $atualizado_em;
+    private $excluido_em;
     private $db;
 
     public function __construct($db) {

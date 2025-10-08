@@ -2,6 +2,14 @@
     namespace Sebo\Alfarrabio\Models;
     use PDO;
 class ItensVenda {
+    private $id_itens_venda;
+    private $id_venda;
+    private $id_acervo;
+    private $quantidade_item;
+    private $preco_unitario;
+    private $criado_em;
+    private $atualizado_em;
+    private $excluido_em;
     private $db;
 
     public function __construct($db) {
@@ -15,7 +23,7 @@ class ItensVenda {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function inserir($id_venda, $id_acervo, $quantidade, $preco) {
+    public function inserirItensVendas($id_venda, $id_acervo, $quantidade, $preco) {
         $sql = "INSERT INTO tbl_itens_vendas 
                 (id_venda, id_acervo, quantidade_item, preco_unitario, atualizado_em) 
                 VALUES (:id_venda, :id_acervo, :quantidade, :preco, NOW())";
@@ -32,7 +40,7 @@ class ItensVenda {
         return false;
     }
 
-    public function atualizar($id, $dados) {
+    public function atualizarItensVendas($id, $dados) {
         $sql = "UPDATE tbl_itens_vendas 
                 SET id_venda = :id_venda,
                     id_acervo = :id_acervo,
@@ -51,7 +59,7 @@ class ItensVenda {
         return $stmt->execute();
     }
 
-    public function excluir($id) {
+    public function excluirItensVendas($id) {
         $sql = "UPDATE tbl_itens_vendas SET excluido_em = NOW() WHERE id_itens_venda = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
