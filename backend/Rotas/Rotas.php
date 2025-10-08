@@ -1,50 +1,38 @@
 <?php
- 
-namespace App\Kipedreiro\Rotas;
- 
-class Rotas
-{
-    public static function get()
-    {
+namespace Sebo\Alfarrabio\Rotas;
+
+class Rotas {
+    public static function get(){
         return [
+            "GET" => [
+                "/backend/usuarios"    => "UsuarioController@index",
+                "/backend/acervo"      => "AcervoController@index",
+                "/backend/categorias"  => "CategoriaLivroController@index",
+                "/backend/musicas"     => "CategoriaMusicaController@index",
+                "/backend/contatos"    => "ContatoController@index",
+                "/backend/vendas"      => "VendaController@index",
+            ],
+            "POST" => [
+                "/backend/usuarios/salvar"   => "UsuarioController@salvar",
+                "/backend/usuarios/atualizar"=> "UsuarioController@atualizar",
+                "/backend/usuarios/excluir" => "UsuarioController@excluir",
 
-                "GET" =>[
-                    // o caminho da url  o nome do controlle e o metodo do controller
-                    "/backend/usuarios" => "UsuarioController@index",
-                    "/backend/usuarios/criar" => "UsuarioController@viewCriarUsuarios",
-                    "/backend/usuarios/listar" => "UsuarioController@viewListarUsuarios",
-                    "/backend/usuarios/editar" => "UsuarioController@viewEditarUsuarios",
-                    "/backend/usuarios/excluir" => "UsuarioController@viewExcluirUsuarios",
-            
-                ],
-                "POST" =>[
-                    "/backend/usuarios/salvar" => "UsuarioController@salvarUsuario",
-                    "/backend/usuarios/atualizar" => "UsuarioController@atualizarUsuario",
-                    "/backend/usuarios/deletar" => "UsuarioController@deletarUsuario",
-                ]
-            
-        ];
-    }
+                "/backend/acervo/salvar"    => "AcervoController@salvar",
+                "/backend/acervo/atualizar" => "AcervoController@atualizar",
+                "/backend/acervo/excluir"   => "AcervoController@excluir",
 
-    public static function get()
-    {
-        return [
+                "/backend/categorias/salvar"=> "CategoriaLivroController@salvar",
+                "/backend/categorias/excluir"=> "CategoriaLivroController@excluir",
 
-                "GET" =>[
-                    // o caminho da url  o nome do controlle e o metodo do controller
-                    "/backend/CatLivros" => "CatLivrosController@index",
-                    "/backend/CatLivros/criar" => "CatLivrosController@viewCriarCatlivros",
-                    "/backend/CatLivros/listar" => "CatLivrosController@viewlistarCatLivrosAtivos",
-                    "/backend/CatLivros/editar" => "CatLivrosController@viewEditarCatLivros",
-                    "/backend/CatLivros/excluir" => "CatLivrosControllerr@viewExcluirCatlivros",
-            
-                ],
-                "POST" =>[
-                    "/backend/CatLivros/salvar" => "CatLivrosController@inserirCatLivros",
-                    "/backend/CatLivros/atualizar" => "CatLivrosController@atualizarCatLivros",
-                    "/backend/CatLivros/deletar" => "CatLivrosController@excluirCatLivros",
-                ]
-            
+                "/backend/musicas/salvar"   => "CategoriaMusicaController@salvar",
+                "/backend/musicas/excluir"  => "CategoriaMusicaController@excluir",
+
+                "/backend/contatos/salvar"  => "ContatoController@salvar",
+                "/backend/contatos/excluir" => "ContatoController@excluir",
+
+                "/backend/vendas/salvar"    => "VendaController@salvar",
+                "/backend/vendas/excluir"   => "VendaController@excluir",
+            ]
         ];
     }
 }
