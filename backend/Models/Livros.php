@@ -49,10 +49,10 @@ class Livros{
         $stmt->bindParam(':editora', $editora_livro);
         $stmt->bindParam(':editora', $editora_livro);
         $stmt->bindParam(':ano_publucacao', $ano_publicacao_livro);
-         $stmt->bindParam(':idioma', $idioma_livro);
-          $stmt->bindParam(':descricao', $descricao_livro);
-           $stmt->bindParam(':preco', $preco_livro);
-            $stmt->bindParam(':foto', $foto_livro);
+        $stmt->bindParam(':idioma', $idioma_livro);
+        $stmt->bindParam(':descricao', $descricao_livro);
+        $stmt->bindParam(':preco', $preco_livro);
+        $stmt->bindParam(':foto', $foto_livro);
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
