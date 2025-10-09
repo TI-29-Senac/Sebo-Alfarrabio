@@ -1,9 +1,8 @@
 <?php
-
+require_once __DIR__ . '/../Models/Vendas.php';
 require_once __DIR__ . '/../Models/Usuario.php';
 require_once __DIR__ . '/../Database/Database.php';
-require_once __DIR__ . '/../Models/Vendas.php';
-$db = new Database();
+
 $usuario = new Usuario($db);
 $vendas = new Vendas($db);
 

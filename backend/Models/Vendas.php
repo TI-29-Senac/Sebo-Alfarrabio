@@ -1,5 +1,5 @@
 <?php
-namespace Sebo\Alfarrábio\Models;
+namespace App\Models\Models;
 use PDO;
 class Vendas{
     private $id_venda;
