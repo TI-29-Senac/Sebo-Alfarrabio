@@ -1,18 +1,21 @@
 <div>Sou o create</div>
-<form action="/backend/usuario/salvar" method="post">
-    <label for="nome_usuario">Nome:</label>
-    <input type="text" id="nome_usuario" name="nome_usuario" required>
-    <br>
-    <label for="email_usuario">Email:</label>
-    <input type="email" id="email_usuario" name="email_usuario" required>
-    <br>
-    <label for="senha_usuario">Senha:</label>
-    <input type="password" id="senha_usuario" name="senha_usuario" required>
-    <br>
-    <label for="tipo_usuario">Tipo:</label>
-    <select id="tipo_usuario" name="tipo_usuario" required>
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
-    </select>
-    <br>
-    <button type="submit">Criar Usuário</button>
+<form action="/backend/usuario/salvar" method="post" enctype="multipart/form-data">
+<label for="Nome">Nome</label>
+<input type="text" name="nome_usuario" id="nome_usuario" required>
+<br>
+<label for="Email">Email</label>
+<input type="email" name="email_usuario" id="email_usuario" required>
+<br>
+<label for="Senha">Senha</label>
+<input type="password" name="senha_usuario" id="senha_usuario" required>
+<br>
+<label for="Tipo">Tipo</label>
+<select name="tip_usuario" id="tipo_usuario" required>
+    <option value="admin">Admin</option>
+    <option value="user">User</option>
+</select>
+<br>
+<label for="imagem">Imagem</label>
+<input type="file" name="imagem" id="imagem" accept="image/*">
+<button type="submit">Criar</button>
+</form>

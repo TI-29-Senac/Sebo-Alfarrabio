@@ -17,4 +17,4 @@
         <option value="user">User</option>
     </select>
     <br>
-    <button type="submit">Criar Usuário</button>
+    <button type="submit">Editar Usuário</button>
