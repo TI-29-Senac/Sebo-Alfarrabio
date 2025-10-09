@@ -1,4 +1,6 @@
 <?php
+namespace Sebo\Alfarrábio\Models;
+use PDO;
 class Vendas{
     private $id_venda;
     private $id_usuario;
@@ -14,9 +16,9 @@ class Vendas{
         $this->db = $db;
     }
     
-    // Buscar todos as vendas não excluídos
+    // Buscar todos as vendas
     function buscarVendas(){
-        $sql = "SELECT * FROM tbl_vendas WHERE excluido_em IS NULL";
+        $sql = "SELECT * FROM tbl_vendas";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -1,4 +1,6 @@
 <?php
+namespace Sebo\Alfarrábio\Models;
+use PDO;
 class Usuario{
     public $id_usuario;
     public $nome_usuario;

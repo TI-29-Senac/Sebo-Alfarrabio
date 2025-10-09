@@ -3,13 +3,14 @@
 require_once __DIR__ . '/../Models/Usuario.php';
 require_once __DIR__ . '/../Database/Database.php';
 require_once __DIR__ . '/../Models/Vendas.php';
+$db = new Database();
 $usuario = new Usuario($db);
 $vendas = new Vendas($db);
 
 // Buscar Usuários
 
 $resultado = $vendas->buscarVendas();
-//$resultado = $usuario->buscarUsuariosPorEmail($email_usuario = 'fabio.alves@email.com');
+//$resultado = $vendas->buscarVendasPorData($data_venda = '2025-09-01 10:00:00');
 //$resultado = $usuario->buscarUsuariosPorID($id_usuario = 17);
 //$resultado = $usuario->buscarUsuariosPorTipo($tipo_usuario = 'Funcionario');
 
