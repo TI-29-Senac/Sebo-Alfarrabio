@@ -1,6 +1,6 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
-
+use PDO;
 use Sebo\Alfarrabio\Models\Usuario;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
@@ -20,15 +20,30 @@ class UsuarioController {
     }
     // index
     public function index() {
-        $resultado = $this->usuario->buscarUsuarios();
+        $resultado = $this->usuario->paginacao();
         return $resultado;
         var_dump($resultado);
     }
 
-    public function viewListarUsuarios() {
-        $dados = $this->usuario->buscarUsuarios();
-        View::render("usuario/index", ["usuarios" => $dados]);
+   // public function viewListarUsuarios() {
+       // $dados = $this->usuario->buscarUsuarios();
+        //View::render("usuario/index", ["usuarios" => $dados]);
+    //}
+
+    public function viewListarUsuarios($pagina){
+        $dados = $this->usuario->paginacao($pagina);
+        $total = $this->usuario->totalDeUsuarios();
+        View::render("usuario/index",
+        [
+        "usuarios"=> $dados['data'],
+         "total_usuarios"=> $total[0],
+         "total_inativos" => 22,
+         "Total_ativos" => 12,
+         'paginacao' => $dados
+        ]
+        );
     }
+
 
     public function viewCriarUsuarios() {
        View::render("usuario/create");
@@ -82,4 +97,7 @@ class UsuarioController {
         echo "Deletar usuario";
     }
 
+
+
+    
 }

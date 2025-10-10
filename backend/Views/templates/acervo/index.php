@@ -1,4 +1,4 @@
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
  
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
@@ -7,13 +7,14 @@
  
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
-      <div class="w3-container w3-red w3-padding-16">
+      <div class="w3-container w3-amber w3-padding-16"  >
         <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>52</h3>
+          
         </div>
         <div class="w3-clear"></div>
-        <h4>Messages</h4>
+        <a href="/backend/acervo/listar/1"></a>
+        <h4>Editar</h4>
       </div>
     </div>
     <div class="w3-quarter">
@@ -57,10 +58,10 @@
 </ul>
                 <tr>
                     <li>
-                Nome:   <?= htmlspecialchars($acervo['titulo_acervo']) ?> -
-                Email:  <?= htmlspecialchars($acervo['tipo_item_acervo']) ?> - 
-                Tipo:   <?= htmlspecialchars($acervo['estado_conservacao']) ?> - 
-                Status: <?= htmlspecialchars($acervo['disponibilidade_acervo']) ?> - 
+                <?= htmlspecialchars($acervo['titulo_acervo']) ?> -
+                <?= htmlspecialchars($acervo['tipo_item_acervo']) ?> - 
+                <?= htmlspecialchars($acervo['estado_conservacao']) ?> - 
+                <?= htmlspecialchars($acervo['disponibilidade_acervo']) ?> - 
                         <?= htmlspecialchars($acervo['estoque_acervo']) ?> - 
                     <img src="/backend/upload/<?= htmlspecialchars($acervo['foto']) ?>" style="width:200px">
                     <a href="/backend/acervo/editar/<?= htmlspecialchars($acervo['id_acervo']) ?>">Editar</a>
@@ -70,7 +71,20 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="paginacao-controls" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+    <div class="page-selector" style="display:flex; align-items:center;">
+        <div class="page-nav">
+            <?php if ($paginacao['pagina_atual'] > 1): ?>
+                <a href="/backend/acervo/listar/<?= $paginacao['pagina_atual'] - 1 ?>">Anterior</a>
+            <?php endif; ?>
+            <span style="margin:0 10px;">Página <?= $paginacao['pagina_atual'] ?> de <?= $paginacao['ultima_pagina'] ?></span>
+            <?php if ($paginacao['pagina_atual'] < $paginacao['ultima_pagina']): ?>
+                <a href="/backend/acervo/listar/<?= $paginacao['pagina_atual'] + 1 ?>">Próximo</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 <?php else: ?>
-    <div>Nenhum usuário encontrado.</div>
+    <div>Nenhum Acervo encontrado.</div>
 <?php endif ?>
 </div>

@@ -1,7 +1,7 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
 
-use Sebo\Alfarrabio\Models\Usuario;
+use Sebo\Alfarrabio\Models\Acervo;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Validadores\AcervoValidador;
@@ -14,24 +14,39 @@ class AcervoController {
     public $gerenciarImagem;
     public function __construct() {
         $this->db = Database::getInstance();
-        $this->acervo = new acervo($this->db);
+        $this->acervo = new Acervo($this->db);
         $this->gerenciarImagem = new FileManager('upload');
         
     }
     // index
-    public function index() {
-        $resultado = $this->acervo->buscarAcervo();
+     // index
+     public function index() {
+        $resultado = $this->acervo->paginacao();
         return $resultado;
         var_dump($resultado);
     }
 
-    public function viewListarAcervo() {
-        $dados = $this->acervo->buscarAcervo();
-        View::render("acervo/index", ["acervo" => $dados]);
+   // public function viewListarUsuarios() {
+       // $dados = $this->usuario->buscarUsuarios();
+        //View::render("usuario/index", ["usuarios" => $dados]);
+    //}
+
+    public function viewListarAcervo($pagina){
+        $dados = $this->acervo->paginacao($pagina);
+        $total = $this->acervo->totalAcervo();
+        View::render("acervo/index",
+        [
+        "acervos"=> $dados['data'],
+         "total_acervo"=> $total[0],
+         "total_inativos" => 22,
+         "Total_ativos" => 12,
+         'paginacao' => $dados
+        ]
+        );
     }
 
     public function viewCriarAcervo() {
-       View::render("usuario/create");
+       View::render("acervo/create");
     }
 
     public function viewEditarAcervo($id) {
@@ -69,17 +84,18 @@ class AcervoController {
             "Ativo",
             $imagem
         )){
-            Redirect::redirecionarComMensagem("acervo/listar", "success", "Usuário cadastrado com sucesso!");
+            Redirect::redirecionarComMensagem("acervo/listar", "success", "Acervo cadastrado com sucesso!");
         }else{
-            Redirect::redirecionarComMensagem("acervo/criar", "error", "Erro ao cadastrar usuário");
+            Redirect::redirecionarComMensagem("acervo/criar", "error", "Erro ao cadastrar Acervo");
         }
     }
 
-    public function atualizarUsuario() {
-        echo "Atualizar usuario";
+    public function atualizarAcervo() {
+        var_dump($_POST);
+        echo "Atualizar acervo";
     }
 
-    public function deletarUsuario() {
-        echo "Deletar usuario";
+    public function deletarAcervo() {
+        echo "Deletar acervo";
     }
 }

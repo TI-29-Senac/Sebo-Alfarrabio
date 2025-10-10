@@ -1,4 +1,4 @@
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
  
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
@@ -72,13 +72,25 @@
                     <td><?= htmlspecialchars($usuario['tipo_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['status_usuario']) ?></td>
                     <td><img src="/backend/upload/<?= htmlspecialchars($usuario['foto']) ?>" style="width:200px"></td>
-                    <td><a href="/backend/usuario/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>">Editar</a></td>
-                    <td><a href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a></td>
+                    <td><a href="/backend/usuarios/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>">Editar</a></td>
+                    <td><a href="/backend/usuarios/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="paginacao-controls" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+    <div class="page-selector" style="display:flex; align-items:center;">
+        <div class="page-nav">
+            <?php if ($paginacao['pagina_atual'] > 1): ?>
+                <a href="/backend/usuarios/listar/<?= $paginacao['pagina_atual'] - 1 ?>">Anterior</a>
+            <?php endif; ?>
+            <span style="margin:0 10px;">Página <?= $paginacao['pagina_atual'] ?> de <?= $paginacao['ultima_pagina'] ?></span>
+            <?php if ($paginacao['pagina_atual'] < $paginacao['ultima_pagina']): ?>
+                <a href="/backend/usuarios/listar/<?= $paginacao['pagina_atual'] + 1 ?>">Próximo</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 <?php else: ?>
     <div>Nenhum usuário encontrado.</div>
 <?php endif ?>
-</div>
