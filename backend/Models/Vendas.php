@@ -1,5 +1,5 @@
 <?php
-namespace Sebo\Alfarrábio\Models;
+namespace App\Sebo\Alfarrábio\Models;
 use PDO;
 class Vendas{
     private $id_venda;
@@ -23,48 +23,41 @@ class Vendas{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    //Buscar vendas por data
+    // metodo de buscar todos usuario por email read
     function buscarVendasPorData($data_venda){
-        $sql = 'SELECT * FROM tbl_vendas where data_venda = :data';
+        $sql = "SELECT * FROM tbl_vendas where data_venda = :data";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':data', $data_venda); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarVendasPorID($id){
+        $sql = "SELECT * FROM tbl_vendas where id_venda = :id_venda";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_venda', $id_venda); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarVendasPorIDUsuario($id){
+        $sql = "SELECT * FROM tbl_vendas where id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario); 
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // metodo de inserir usuario create
+    function inserirUsuario($data_venda, $valor_total, $forma_pagamento){
+        $sql = "INSERT INTO tbl_vendas (data_venda, valor_total, 
+        forma_pagamento) 
+                VALUES (:data, :valort, :fpagamento)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':data', $data_venda);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+        $stmt->bindParam(':valort', $valor_total);
+        $stmt->bindParam(':fpagamento', $forma_pagamento);
 
-    
-    // Buscar vendas por valor
-
-    function buscarVendasPorValor($valor_total){
-        $sql = 'SELECT * FROM tbl_vendas where valor_total = :valor';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':valor', $valor_total);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Buscar vendas por forma de pagamento
-
-    function buscarVendasPorPagamento($forma_pagamento){
-        $sql = 'SELECT * FROM tbl_vendas where forma_pagamento = :pagamento';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':pagamento', $forma_pagamento);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-    // Inserir vendas
-
-    function inserirVendas($nome_, $email_, $senha_, $tipo_){
-        $sql = 'INSERT INTO tbl_vendas (nome_, email_, 
-        senha_, tipo_) 
-        VALUES (:nome, :email, :senha, :tipo)';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':nome', $nome_);
-        $stmt->bindParam(':email', $email_);
-        $stmt->bindParam(':senha', $senha_);
-        $stmt->bindParam(':tipo', $tipo_);
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
@@ -72,44 +65,53 @@ class Vendas{
         }
     }
 
-    // Atualizar vendas
-
-    function atualizarVendas($id_, $nome_, $email_, $senha_, $tipo_){
-        $senha_ = password_hash($senha_, PASSWORD_DEFAULT);
-        $sql = 'UPDATE tbl_vendas
-        SET nome_ = :nome,
-         email_ = :email,
-         senha_ = :senha,
-         tipo_ = :tipo
-        WHERE id_ = :id';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_);
-        $stmt->bindParam(':nome', $nome_);
-        $stmt->bindParam(':email', $email_);
-        $stmt->bindParam(':senha', $senha_);
-        $stmt->bindParam(':tipo', $tipo_);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    // Excluir vendas (soft delete)
-
-    function excluirVendas($id_){
+    // metodo de atualizar o usuario update
+    function atualizarUsuario($id_venda, $data_venda, $valor_total, $forma_pagamento){
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_vendas SET 
-        excluido_em = :atual
-        WHERE id_ = :id";
+        $sql = "UPDATE tbl_vendas SET data_venda = :data,
+         valor_total = :valort, 
+         forma_pagamento = :fpagamento, 
+         WHERE id_venda = :id_venda";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_);
+        $stmt->bindParam(':id_venda', $id_venda);
+        $stmt->bindParam(':data', $data_venda);
+        $stmt->bindParam(':valort', $valor_total);
+        $stmt->bindParam(':forma_pagamento', $fpagamento);
+        
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
         }else{
             return false;
         }
-}
-
+    }
+    // metodo de inativar o usuario delete
+    function excluirUsuario($id_venda){
+        $dataatual = date('Y-m-d H:i:s');
+        $sql = "UPDATE tbl_vendas SET
+         excluido_em = :atual
+         WHERE id_venda = :id_venda";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_venda', $id_venda);
+        $stmt->bindParam(':atual', $dataatual);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+// metodo de ativar o usuario excluido
+    function ativarVendas($id){
+        $dataatual = NULL;
+        $sql = "UPDATE tbl_vendas SET
+         excluido_em = :atual
+         WHERE id_venda = :id_venda";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_venda', $id_venda);
+        $stmt->bindParam(':atual', $dataatual);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }}
 }
