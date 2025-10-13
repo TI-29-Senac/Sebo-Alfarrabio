@@ -23,6 +23,15 @@ class Rotas
                 "/acervo/editar/{id}" => "AcervoController@viewEditarAcervo",
                 "/acervo/excluir/{id}" => "AcervoController@viewExcluirAcervo",
                 "/acervo/{id}/relatorio/{dataInicial}/{dataFinal}" => "AcervoController@viewRelatorioAcervo",
+
+                // Categorias de Livros
+                "/catlivros" => "CatLivrosController@index",
+                "/catlivros/listar/{pagina}" => "CatLivrosController@viewListarCatLivros",
+                "/catlivros/criar" => "CatLivrosController@viewCriarCatLivros",
+                "/catlivros/editar/{id}" => "CatLivrosController@viewEditarCatLivros",
+                "/catlivros/excluir/{id}" => "CatLivrosController@viewExcluirCatLivros",
+                "/catlivros/{id}/relatorio/{dataInicial}/{dataFinal}" => "CatLivrosController@viewRelatorioCatLivros",
+            
             ],
              
                 "POST" =>[
@@ -33,6 +42,11 @@ class Rotas
                     "/acervo/salvar" => "AcervoController@salvarAcervo",
                     "/acervo/atualizar/{id}" => "AcervoController@atualizarAcervo",
                     "/acervo/deletar/{id}" => "AcervoController@deletarAcervo",
+
+                    "/catlivros/salvar" => "CatLivrosController@salvarCatLivros",
+                    "/catlivros/atualizar/{id}" => "CatLivrosController@atualizarCatLivros",
+                    "/catlivros/deletar/{id}" => "CatLivrosController@deletarCatLivros",
+                   
 
                 ]
             

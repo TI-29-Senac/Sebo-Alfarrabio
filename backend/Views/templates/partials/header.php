@@ -40,7 +40,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
     <a href="/backend/usuarios/listar/1" class="w3-bar-item w3-button w3-padding w3-brown"><i class="fa fa-users fa-fw"></i> Usuarios </a>
     <a href="/backend/acervo/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> Acervo </a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
+    <a href="/backend/catlivros/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Categoria Livros </a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>

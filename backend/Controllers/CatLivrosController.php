@@ -1,54 +1,76 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
 
-use Sebo\Alfarrabio\Models\CategoriaLivro;
+use Sebo\Alfarrabio\Models\CatLivros;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
+use Sebo\Alfarrabio\Core\FileManager;
+use Sebo\Alfarrabio\Core\Redirect;
 
-class CategoriaLivroController {
-    public $categoria;
+class CatLivrosController {
+    public $catlivros;
     public $db;
-
     public function __construct() {
-        $db = Database::getInstance();
-        $this->categoria = new CategoriaLivro($db);
+        $this->db = Database::getInstance();
+        $this->catlivros = new Catlivros($this->db);
+        
+        
     }
 
     public function index() {
-        $dados = $this->categoria->listarCatLivrosAtivos();
-        View::render("catlivros/index", ["categorias" => $dados]);
+        $resultado = $this->catlivros->paginacao();
+        return $resultado;
+        var_dump($resultado);
+    }
+    public function viewListarCatLivros($pagina =1){
+        $dados = $this->catlivros->paginacao($pagina);
+        $total = $this->catlivros->totalCatLivros(); 
+        View::render("categorialivros/index",
+        [
+        "catlivros"=> $dados['data'],
+         "total_catlivros"=> $total[0],
+         "total_inativos" => 22,
+         "Total_ativos" => 12,
+         'paginacao' => $dados
+        ]
+        );
     }
 
-    public function viewlistarCatLivrosAtivos() {
-        $dados = $this->categoria->listarCatLivrosAtivos();
-        View::render("usuario/index", ["usuarios" => $dados]);
+
+    public function viewCriarAcervo() {
+       View::render("catlivros/create");
     }
 
-    public function viewCriarCatlivros() {
-        View::render("catlivros/create", []);
+    public function viewEditarAcervo($id) {
+       $dados = $this->catlivros->buscarcatlivrosPorId($id);
+       foreach($dados as $catlivros){
+        $dados = $catlivros;
+       }
+        View::render("catlivros/edit", ["catlivros"=> $dados ]);
     }
 
-    public function viewEditarCatLivros($id) {
-        View::render("catlivros/edit", ["id" => $id]);
+    public function viewExcluircatlivros($id) {
+        View::render("catlivros/delete", ["id_catlivros"=> $id]);
     }
 
-    public function viewExcluirCatlivros($id) {
-        View::render("catlivros/delete", ["id" => $id]);
+    public function viewrelatoriocatlivros($id, $data1, $data2) {
+        View::render("catlivros/relatorio",
+         ["id"=> $id, "data1"=> $data1, "data2"=> $data2]
+        );
     }
 
-    public function salvar() {
-        $this->categoria->inserirCatLivros($_POST['nome_categoria']);
-        header("Location: /catlivros");
+    public function salvarCatLivros() {
+        var_dump($_POST);
+        echo "salvar catlivros";
     }
 
-    public function atualizar($id) {
-        $this->categoria->atualizarCatLivros($id, $_POST['nome_categoria']);
-        header("Location: /catlivros");
+    public function atualizarcatlivros() {
+        var_dump($_POST);
+        echo "Atualizar catlivros";
     }
 
-    public function deletar($id) {
-        $this->categoria->excluirCatLivros($id);
-        header("Location: /catlivros");
+    public function deletarcatlivros() {
+        echo "Deletar catlivros";
     }
 }
 
