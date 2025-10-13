@@ -11,51 +11,33 @@ class Rotas
                 // o caminho da url   o nome do controller e o metodo de controller
 
                 // Usuario
-                "/usuarios" => "UsuarioConstroller@index",
-                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
-                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
-                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
-                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/usuario/{id}/relatorio/{dataInicial}/{dataFinal}" => "UsuarioController@relatorioUsuarios",
-
-                 // Vendas
-                 "/vendas" => "VendasConstroller@index",
-                 "/vendas/criar" => "VendasController@viewCriarVendas",
-                 "/vendas/listar" => "VendasController@viewListarVendas",
-                 "/vendas/editar/{id}" => "VendasController@viewEditarVendas",
-                 "/vendas/excluir/{id}" => "VendasController@viewExcluirVendas",
-                 "/vendas/{id}/relatorio/{dataInicial}/{dataFinal}" => "vendasController@relatorioVendas",
-
-                 // Reservas
-                 "/reservas" => "ReservasConstroller@index",
-                 "/reservas/criar" => "ReservasController@viewCriarReservas",
-                 "/reservas/listar" => "ReservasController@viewListarReservas",
-                 "/reservas/editar/{id}" => "ReservasController@viewEditarReservas",
-                 "/reservas/excluir/{id}" => "ReservasController@viewExcluirReservas",
-                 "/reservas/{id}/relatorio/{dataInicial}/{dataFinal}" => "reservasController@relatorioReservas",
-
-                  // Perfil Usuario
-                  "/perfil" => "perfilConstroller@index",
-                  "/perfil/criar" => "PerfilController@viewCriarPerfil",
-                  "/perfil/listar" => "PerfilController@viewListarPerfil",
-                  "/perfil/editar/{id}" => "PerfilController@viewEditarPerfil",
-                  "/perfil/excluir/{id}" => "PerfilController@viewExcluirPerfil",
-                  "/perfil/{id}/relatorio/{dataInicial}/{dataFinal}" => "perfilController@relatorioPerfil",
-
-                  // Avaliacao
-                  "/avaliacao" => "AvaliacaoConstroller@index",
-                  "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
-                  "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
-                  "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
-                  "/avaliacao/excluir/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
-                  "/avaliacao/{id}/relatorio/{dataInicial}/{dataFinal}" => "avaliacaoController@relatorioAvaliacao",
-
+                "/usuario" => "UsuarioConstroller@index",
+                "/vendas" => "VendasConstroller@index",
+                "/reservas" => "ReservasConstroller@index",
+                "/perfil" => "PerfilConstroller@index",
+                "/avaliacao" => "AvaliacaoConstroller@index",
 
             ],
             "POST" => [
                 "/usuario/salvar" => "UsuarioController@viewsalvarUsuarios",
                 "/usuario/atualizar/{id}" => "UsuarioController@viewdtualizarUsuarios",
                 "/usuario/deletar/{id}" => "UsuarioController@viewdeletarUsuarios",
+
+                "/vendas/salvar" => "VendasController@viewsalvarVendas",
+                "/vendas/atualizar/{id}" => "VendasController@viewdtualizarVendas",
+                "/vendas/deletar/{id}" => "VendasController@viewdeletarVendas",
+
+                "/reservas/salvar" => "ReservasController@viewsalvarReservas",
+                "/reservas/atualizar/{id}" => "ReservasController@viewdtualizarReservas",
+                "/reservas/deletar/{id}" => "ReservasController@viewdeletarReservas",
+
+                "/perfil/salvar" => "PerfilController@viewsalvarPerfil",
+                "/perfil/atualizar/{id}" => "PerfilController@viewdtualizarPerfil",
+                "/perfil/deletar/{id}" => "PerfilController@viewdeletarPerfil",
+
+                "/avaliacao/salvar" => "AvaliacaoController@viewsalvarAvaliacao",
+                "/avaliacao/atualizar/{id}" => "AvaliacaoController@viewdtualizarAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewdeletarAvaliacao",
             ]
             ];
         
