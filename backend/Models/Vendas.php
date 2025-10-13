@@ -1,22 +1,21 @@
 <?php
-namespace App\Models\Models;
+namespace Sebo\Alfarrábio\Models;
 use PDO;
 class Vendas{
     private $id_venda;
     private $id_usuario;
     private $data_venda;
     private $valor_total;
+    private $forma_pagamento;
     private $criado_em;
     private $atualizado_em;
     private $excluido_em;
     private $db;
-
-
-        public function __construct($db){
-        $this->db = $db;
+    // contrutor inicializa a classe e ou atributos
+    public function __construct($db){
+       $this->db = $db;
     }
-    
-    // Buscar todos as vendas
+    // metodo de buscar todos os usuarios read
     function buscarVendas(){
         $sql = "SELECT * FROM tbl_vendas";
         $stmt = $this->db->prepare($sql);
