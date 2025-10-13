@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo\Alfarrábio\Models;
+namespace App\Sebo\Alfarrabio\Models;
 use PDO;
 class Reservas{
     private $id_reserva;
