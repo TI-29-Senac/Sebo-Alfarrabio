@@ -1,42 +1,39 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
 
-use Sebo\Alfarrabio\Models\Usuario;
+use Sebo\Alfarrabio\Models\Vendas;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
-use Sebo\Alfarrabio\Validadores\UsuarioValidador;
+use Sebo\Alfarrabio\Validadores\VendasValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 
 
-class UsuarioController {
+class VendasController {
     public $usuario;
     public $db;
     public $gerenciarImagem;
     public function __construct() {
         $this->db = Database::getInstance();
-        $this->usuario = new Usuario($this->db);
+        $this->usuario = new Vendas($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
 
-    public function salvarUsuario(){
-        $erros = UsuarioValidador::ValidarEntradas($_POST);
+    public function salvarVendas(){
+        $erros = VendasValidador::ValidarEntradas($_POST);
         if(!empty($erros)){
         
-             Redirect::redirecionarComMensagem("/usuario/criar","error", implode("<br>", $erros));
+             Redirect::redirecionarComMensagem("/vendas/criar","error", implode("<br>", $erros));
         }
-        $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'usuario');
+        $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'vendas');
          if($this->usuario->inserirUsuario(
-             $_POST["nome_usuario"],
-             $_POST["email_usuario"],
-             $_POST["senha_usuario"],
-             $_POST["tipo_usuario"],
-             "Ativo",
-             $imagem
+             $_POST["data_venda"],
+             $_POST["valor_total"],
+             $_POST["forma_pagamento"],
          )){
-             Redirect::redirecionarComMensagem("usuario/listar", "success", "Usuário cadastrado com sucesso!");
+             Redirect::redirecionarComMensagem("vendas/listar", "success", "Usuário cadastrado com sucesso!");
          }else{
-             Redirect::redirecionarComMensagem("usuario/criar", "error", "Erro ao cadastrar usuário");
+             Redirect::redirecionarComMensagem("vendas/criar", "error", "Erro ao cadastrar usuário");
          }
      }
     // index

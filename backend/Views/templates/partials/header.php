@@ -55,7 +55,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 <div class="w3-main" style="margin-left:300px;margin-top:50px;">
 <?php
-use App\Kipedreiro\Core\Flash;
+use Sebo\Alfarrabio\Core\Flash;
 $mensagem = Flash::get();
 if(isset($mensagem)){
     foreach($mensagem as $key => $value){

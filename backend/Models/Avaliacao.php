@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo\Alfarrabio\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Avaliacao{
     private $id_avaliacao;

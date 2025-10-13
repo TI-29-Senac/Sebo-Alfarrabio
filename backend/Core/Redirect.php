@@ -1,6 +1,6 @@
 <?php
-namespace App\Kipedreiro\Core;
-use App\Kipedreiro\Core\Flash;
+namespace Sebo\Alfarrabio\Core;
+use Sebo\Alfarrabio\Core\Flash;
 
 class Redirect {
     public static function redirecionarPara($url){

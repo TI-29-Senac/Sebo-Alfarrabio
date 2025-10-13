@@ -1,7 +1,7 @@
 <?php
-namespace App\Sebo\Alfarrabio;
+namespace Sebo\Alfarrabio;
 require_once __DIR__.'/../vendor/autoload.php';
-use App\Sebo\Alfarrabio\Rotas\Rotas;
+use Sebo\Alfarrabio\Rotas\Rotas;
 
 use Bramus\Router\Router;
 $router = new Router();

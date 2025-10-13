@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo\Alfarrabio\Core;
+namespace Sebo\Alfarrabio\Core;
 class Flash
 {
     public static function set($type, $message){

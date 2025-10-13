@@ -1,5 +1,5 @@
 <?php
-namespace App\Kipedreiro\Core;
+namespace Sebo\Alfarrabio\Core;
 
 class View{
     public static function render($nomeView, $dados = []){

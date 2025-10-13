@@ -59,7 +59,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Tipo</th>
-                <th>Status</th>
+                
                 <th>Foto</th>
                 <th>Editar</th>
                 <th>Excluir</th>
@@ -71,7 +71,7 @@
                     <td><?= htmlspecialchars($usuario['nome_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['email_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['tipo_usuario']) ?></td>
-                    <td><?= htmlspecialchars($usuario['status_usuario']) ?></td>
+
                     <td><img src="/backend/upload/<?= htmlspecialchars($usuario['foto']) ?>" style="width:200px"></td>
                     <td><a href="/backend/usuario/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>">Editar</a></td>
                     <td><a href="/backend/usuario/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a></td>

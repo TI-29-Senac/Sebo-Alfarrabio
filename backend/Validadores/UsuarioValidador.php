@@ -1,5 +1,5 @@
 <?php
-namespace App\Kipedreiro\Validadores;
+namespace Sebo\Alfarrabio\Validadores;
 
 class UsuarioValidador{
     public static function ValidarEntradas($dados){

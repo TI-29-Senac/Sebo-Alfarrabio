@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo\Alfarrabio\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Usuario{
     private $id_usuario;
@@ -41,7 +41,7 @@ class Usuario{
     }
 
     // metodo de inserir usuario create
-    function inseriUsuario($nome_usuario,
+    function inserirUsuario($nome_usuario,
      $email_usuario, 
      $senha_usuario, 
      $tipo_usuario

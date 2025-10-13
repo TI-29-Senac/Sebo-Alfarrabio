@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo\Alfarrabio\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Perfil{
     private $id_perfil_usuario;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sebo\Alfarrabio\Core;
+namespace Sebo\Alfarrabio\Core;
 
 class FileManager{
     private string $diretorioBase;
