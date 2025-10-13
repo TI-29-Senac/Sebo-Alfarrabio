@@ -11,7 +11,7 @@ class Discos{
     public $status_avaliacao;
     public $descricao_discos;
     public $foto_discos;
-     public $preco_discos;
+    public $preco_discos;
     public $criado_em;
     public $atualizado_em;
     public $excluido_em;
@@ -28,7 +28,7 @@ class Discos{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // metodo de buscar todos os discos por id read
-    function buscarLivrospor(){
+    function buscarDiscopor(){
         $sql = "SELECT * FROM tbl_discos where id_discos  = :id and excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id'); 
@@ -36,21 +36,18 @@ class Discos{
     }
     
     // metodo de inserir discos create
-    function inserirLivros($id_discos, $id_acervo, $id_cat_livros, $titulo_livro, $autor_livro, $editora_livro, $edicao_livro, $ano_publicacao_livro, $idioma_livro, $descricao_livro, $foto_livro, $preco_livro,){
-        $sql = "INSERT INTO tbl_livros (titulo
-        _livro, autor_livro, editora_livro, 
-        edicao_livro, ano_publicacao_livro, idioma_livro, descricao_livro, preco_livro, foto_livro) 
-                VALUES (:titulo, :autor, :editora, :edicao, :ano_publicacao, :idioma, :descricao, :foto, :preco)";
+    function inserirDiscos($id_discos, $id_acervo, $artista_discos, $gravadora_discos, $formato_discos, $id_cat_musica, $status_avaliacao, $descricao_discos, $foto_discos,  $preco_discos,){
+        $sql = "INSERT INTO tbl_discos (artista_discos, gravadora_discos, formato_discos, 
+        status_avaliacao, descricao_discos, foto_discos, preco_discos) 
+                VALUES (:artista, :gravadora, :formato, :status, :descricao, :foto, :preco)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':titulo', $titulo_livro);
-        $stmt->bindParam(':autor',$autor_livro);
-        $stmt->bindParam(':editora', $editora_livro);
-        $stmt->bindParam(':editora', $editora_livro);
-        $stmt->bindParam(':ano_publucacao', $ano_publicacao_livro);
-        $stmt->bindParam(':idioma', $idioma_livro);
-        $stmt->bindParam(':descricao', $descricao_livro);
-        $stmt->bindParam(':foto', $foto_livro);
-        $stmt->bindParam(':preco', $preco_livro);
+        $stmt->bindParam(':artista', $artista_discos);
+        $stmt->bindParam(':gravadora',$gravadora_discos);
+        $stmt->bindParam(':formato', $formato_discos);
+        $stmt->bindParam(':status', $status_avaliacao);
+        $stmt->bindParam(':descricao', $descricao_discos);
+        $stmt->bindParam(':foto', $foto_discos);
+        $stmt->bindParam(':preco', $preco_discos);
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
@@ -58,29 +55,25 @@ class Discos{
         }
     }
     // metodo de atualizar o discos update
-    function atualizarLivros($id_livros, $id_acervo,$id_cat_livros, $titulo_livro, $autor_livro, $editora_livro, $ano_publicacao_livro, $idioma_livro, $descricao_livro, $foto_livro, $preco_livro){
+    function atualizarDiscos($id_discos, $id_acervo, $artista_discos, $gravadora_discos, $formato_discos, $id_cat_musica, $status_avaliacao, $descricao_discos, $foto_discos,  $preco_discos,){
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_livros SET titulo_livro = :titulo,
-         autor = :autor_livro,
-         editora_livro  = :editora, 
-         edicao_livro = :edicao,
-         ano_publicacao_livro = :ano_publicacao,
-         idioma_livro = :idioma,
-         descricao_livro = :descricao,
-         foto_livro = :foto,
-          preco_livro = :preco,
+        $sql = "UPDATE tbl_discos SET artista_discos = :artista,
+         gravadora_discos = :gravadora,
+         formato_discos  = :formato, 
+         status_avaliacao = :status,
+         descricao_discos = :descricao,
+         foto_discos = :foto,
+          preco_discos = :preco,
          atualizado_em = :atual
          WHERE id_livros = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_livros);
-        $stmt->bindParam(':titulo', $titulo_livro);
-        $stmt->bindParam(':autor', $autor_livro);
-        $stmt->bindParam(':editora', $editora_livro);
-        $stmt->bindParam(':ano_publucacao', $ano_publicacao_livro);
-        $stmt->bindParam(':idioma', $idioma_livro);
-        $stmt->bindParam(':descricao', $descricao_livro);
-        $stmt->bindParam(':foto', $foto_livro);
-         $stmt->bindParam(':preco', $preco_livro);
+       $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':artista', $artista_discos);
+        $stmt->bindParam(':gravadora',$gravadora_discos);
+        $stmt->bindParam(':formato', $formato_discos);
+        $stmt->bindParam(':status', $status_avaliacao);
+        $stmt->bindParam(':descricao', $descricao_discos);
+        $stmt->bindParam(':foto', $foto_discos);
+        $stmt->bindParam(':preco', $preco_discos);
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;

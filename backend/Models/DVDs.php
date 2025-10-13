@@ -20,57 +20,60 @@ class DVDS{
     public function __construct($db){
        $this->db = $db;
     }
-    // metodo de buscar todos os Cds read
-    function buscarCDs(){
-        $sql = "SELECT * FROM tbl_CDs where excluido_em IS NULL";
+    // metodo de buscar todos os DVDs read
+    function buscarDVDs(){
+        $sql = "SELECT * FROM tbl_dvds where excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    // metodo de buscar todos os CDs por id read
-    function buscarCDspor(){
-        $sql = "SELECT * FROM tbl_cds where id_CDs  = :id and excluido_em IS NULL";
+    // metodo de buscar todos os DVDs por id read
+    function buscarDVDspor(){
+        $sql = "SELECT * FROM tbl_dvds where id_DVDs  = :id and excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id'); 
         $stmt->execute();
     }
     
-    // metodo de inserir CDs create
-    function inserirLivros($id_CDs, $id_acervo, $artista_CDs, $gravadora_CDs, $num_faixas_CDs, $descricao_CDs, $foto_CDs, $preco_CDs){
-        $sql = "INSERT INTO tbl_cds (artista_CDs, gravadora_CDs, num_faixas_CDs, descricao_CDs, foto_CDs, preco_CDs) 
-                VALUES (:artista, :gravadora, :num_faixas, :descricao, :foto :preco)"; 
+    // metodo de inserir DVDs create
+    function inserirDVDs($id_DVDs, $id_acervo, $titulo_dvds, $diretor_dvds, $duracao_dvds, $classificacao_dvds, $id_cat_musica,  $descricao_dvds, $foto_dvds, $preco_dvds){
+        $sql = "INSERT INTO tbl_dvds (titulo_dvds, diretor_dvds, duracao_dvds, classificacao_dvds, descricao_dvds, foto_dvds, preco_dvds) 
+                VALUES (:titulo, :diretor, :duracao, :classificacao, :descricao, :foto, :preco)"; 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':artista', $artista_CDs);
-        $stmt->bindParam(':gravadora',$gravadora_CDs);
-        $stmt->bindParam(':num_faixas', $num_faixas_CDs);
-        $stmt->bindParam(':descricao', $descricao_CDs);
-        $stmt->bindParam(':foto', $foto_CDs);
-        $stmt->bindParam(':preco', $preco_CDs);
+        $stmt->bindParam(':titulo', $titulo_dvds);
+        $stmt->bindParam(':diretor',$diretor_dvds);
+        $stmt->bindParam(':duracao', $duracao_dvds);
+        $stmt->bindParam(':classificacao', $classificacao_dvds);
+        $stmt->bindParam(':descricao',  $descricao_dvds);
+        $stmt->bindParam(':foto', $foto_dvds);
+        $stmt->bindParam(':preco', $preco_dvds);
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
             return false;
         }
     }
-    // metodo de atualizar o CDs update
-    function atualizarCDs($id_CDs, $id_acervo, $artista_CDs, $gravadora_CDs, $num_faixas_CDs, $descricao_CDs, $foto_CDs, $preco_CDs){
+    // metodo de atualizar o DVDs update
+    function atualizarDVDs($id_DVDs, $id_acervo, $titulo_dvds, $diretor_dvds, $duracao_dvds, $classificacao_dvds, $id_cat_musica,  $descricao_dvds, $foto_dvds, $preco_dvds){
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_cds SET artista_CDs = :artista,
-         gravadora_CDs = :gravadora,
-         num_faixas_CDs  = :num_faixa, 
-         descricao_CDs = :descricao,
-         foto_CDs = :foto,
-          preco_CDs = :preco,
+        $sql = "UPDATE tbl_dvds SET titulo_dvds = :titulo,
+         diretor_dvds= :diretor,
+         duracao_dvds  = :duracao, 
+         classificacao_dvds = :classificacao,
+         descricao_dvds = descricao
+         foto_dvds = :foto,
+          preco_dvds = :preco,
          atualizado_em = :atual
-         WHERE id_livros = :id";
+         WHERE id_DVDs = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_CDs);
-        $stmt->bindParam(':artista', $artista_CDs);
-        $stmt->bindParam(':gravadora', $gravadora_CDs);
-        $stmt->bindParam(':num_faixas', $num_faixas_CDs);
-        $stmt->bindParam(':descricao', $descricao_CDs);
-        $stmt->bindParam(':foto', $foto_CDs);
-        $stmt->bindParam(':preco', $preco_CDs);
+        $stmt->bindParam(':id', $id_DVDs);
+        $stmt->bindParam(':titulo', $titulo_dvds);
+        $stmt->bindParam(':diretor', $diretor_dvds);
+        $stmt->bindParam(':duracao', $duracao_dvds);
+        $stmt->bindParam(':classificacao', $classificacao_dvds);
+        $stmt->bindParam(':descricao', $descricao_dvds);
+        $stmt->bindParam(':foto', $foto_dvds);
+        $stmt->bindParam(':preco', $preco_dvds);
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;
@@ -78,12 +81,12 @@ class DVDS{
             return false;
         }
     }
-    // metodo de deletar o CD (delete)
-    function excluirCDs($id){
+    // metodo de deletar o DVD (delete)
+    function excluirDVDs($id){
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_cds SET
          excluido_em = :atual
-         WHERE id_CDs = :id";
+         WHERE id_DVDs = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':atual', $dataatual);
@@ -94,11 +97,11 @@ class DVDS{
         }
     }
 
-    function ativarCDs($id){
+    function ativarDVDs($id){
         $dataatual = NULL;
-        $sql = "UPDATE tbl_cds SET
+        $sql = "UPDATE tbl_dvds SET
          excluido_em = :atual
-         WHERE id_CDs = :id";
+         WHERE id_DVDs = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':atual', $dataatual);
