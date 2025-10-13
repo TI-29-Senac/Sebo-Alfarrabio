@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo_Alfarrabio\Models;
+namespace App\Sebo_Alfarrabio\Models\CDs;
 use PDO;
 class CDs{
     public $id_CDs;
@@ -15,7 +15,7 @@ class CDs{
     public $excluido_em;
     public $db;
     // contrutor inicializa a classe e ou atributos
-    public function __construct($db){
+    private function __construct($db){
        $this->db = $db;
     }
     // metodo de buscar todos os Cds read

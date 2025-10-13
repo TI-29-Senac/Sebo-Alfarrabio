@@ -1,8 +1,8 @@
 <?php
-namespace App\Sebo_Alfarrabio\Models;
+namespace App\Sebo_Alfarrabio\Models\Revistas;
 use PDO;
 
-class Revistas{
+Class Revistas{
     public $id_revistas;
     public $id_acervo;
     public $editora_revistas;
