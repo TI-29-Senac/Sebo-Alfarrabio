@@ -1,7 +1,7 @@
 <?php
     namespace Sebo\Alfarrabio\Models;
     use PDO;
-class CategoriaMusica {
+class CatMusica {
     private $id_cat_musica;
     private $nome_categoria;
     private $criado_em;
@@ -13,42 +13,85 @@ class CategoriaMusica {
         $this->db = $db;
     }
 
-    public function buscarAtivos() {
-        $sql = "SELECT * FROM tbl_cat_musica WHERE excluido_em IS NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
+        $totalQuery = "SELECT COUNT(*) FROM `tbl_cat_musica` WHERE excluido_em IS NULL";
+        $totalStmt = $this->db->query($totalQuery);
+        $total_de_registros = $totalStmt->fetchColumn();
+        $offset = ($pagina - 1) * $por_pagina;
+        $dataQuery = "SELECT * FROM `tbl_cat_musica` WHERE excluido_em IS NULL LIMIT :limit OFFSET :offset ";
+        $dataStmt = $this->db->prepare($dataQuery);
+        $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
+        $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $dataStmt->execute();
+        $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
+        $lastPage = ceil($total_de_registros / $por_pagina);
+ 
+        return [
+            'data' => $dados,
+            'total' => (int) $total_de_registros,
+            'por_pagina' => (int) $por_pagina,
+            'pagina_atual' => (int) $pagina,
+            'ultima_pagina' => (int) $lastPage,
+            'de' => $offset + 1,
+            'para' => $offset + count($dados)
+        ];
     }
 
-    public function inserir($nome) {
-        $sql = "INSERT INTO tbl_cat_musica (nome_categoria, atualizado_em)
-                VALUES (:nome, NOW())";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':nome', $nome);
-
-        if ($stmt->execute()) {
-            return $this->db->lastInsertId();
-        }
+     // metodo de buscar todos usuario por id
+ function buscarCatMusicaPorId($id){
+    $sql = "SELECT * FROM tbl_cat_musica where id_cat_musica = :id_cat_musica and excluido_em IS NULL";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_cat_musica', $id); 
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+ }
+   // metodo de inserir usuario create
+   function inserirCatMusica($nome){
+    $sql = "INSERT INTO tbl_cat_musica (nome_categoria)  VALUES (:nome)";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':nome', $nome);
+    if($stmt->execute()){
+        return $this->db->lastInsertId();
+    }else{
         return false;
     }
+}
 
-    public function atualizar($id, $nome) {
-        $sql = "UPDATE tbl_cat_musica 
-                SET nome_categoria = :nome, atualizado_em = NOW()
-                WHERE id_cat_musica = :id";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':id', $id);
-
-        return $stmt->execute();
+// metodo de atualizar o usuario update
+function atualizarCatMusica($id, $nome){
+    $dataatual = date('Y-m-d H:i:s');
+    $sql = "UPDATE tbl_cat_musica SET nome_categoria = :nome,
+     WHERE id_cat_musica = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':nome', $nome);
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
     }
-
-    public function excluir($id) {
-        $sql = "UPDATE tbl_cat_musica SET excluido_em = NOW() WHERE id_cat_musica = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+}
+// metodo de inativar o usuario delete
+function excluirCatMusica($id){
+    $dataatual = date('Y-m-d H:i:s');
+    $sql = "UPDATE tbl_cat_musica SET
+     excluido_em = :atual
+     WHERE id_usuario = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':atual', $dataatual);
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
     }
+}
+
+
+function totalCatMusica(){
+    $sql = "SELECT count(*) as total FROM tbl_cat_musica";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
 }

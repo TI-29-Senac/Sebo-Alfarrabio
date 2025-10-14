@@ -31,6 +31,13 @@ class Rotas
                 "/catlivros/editar/{id}" => "CatLivrosController@viewEditarCatLivros",
                 "/catlivros/excluir/{id}" => "CatLivrosController@viewExcluirCatLivros",
                 "/catlivros/{id}/relatorio/{dataInicial}/{dataFinal}" => "CatLivrosController@viewRelatorioCatLivros",
+
+                "/catmusica" => "CatMusicaController@index",
+                "/catmusica/listar/{pagina}" => "CatMusicaController@viewListarCatMusica",
+                "/catmusica/criar" => "CatMusicaController@viewCriarCatMusica",
+                "/catmusica/editar/{id}" => "CatMusicaController@viewEditarCatMusica",
+                "/catmusica/excluir/{id}" => "CatMusicaController@viewExcluirCatMusica",
+                "/catmusica/{id}/relatorio/{dataInicial}/{dataFinal}" => "CatMusicaController@viewRelatorioCatMusica",
             
             ],
              
@@ -46,6 +53,11 @@ class Rotas
                     "/catlivros/salvar" => "CatLivrosController@salvarCatLivros",
                     "/catlivros/atualizar/{id}" => "CatLivrosController@atualizarCatLivros",
                     "/catlivros/deletar/{id}" => "CatLivrosController@deletarCatLivros",
+
+                    
+                    "/catmusica/salvar" => "CatMusicaController@salvarCatMusica",
+                    "/catmusica/atualizar/{id}" => "CatMusicaController@atualizarCatMusica",
+                    "/catmusica/deletar/{id}" => "CatMusicaController@deletarCatMusica",
                    
 
                 ]
