@@ -59,7 +59,7 @@ class UsuarioController {
     }
 
     public function viewEditarUsuarios($id){
-        $dados = $this->usuario->buscarUsuariosPorID($id_usuario);
+        $dados = $this->usuario->atualizarUsuario($id);
         foreach($dados as $usuario){
             $dados = $usuario;
         }

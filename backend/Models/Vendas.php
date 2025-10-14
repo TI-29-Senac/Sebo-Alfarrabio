@@ -32,7 +32,7 @@ class Vendas{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarVendasPorID($id){
+    function buscarVendasPorID($id_venda){
         $sql = "SELECT * FROM tbl_vendas where id_venda = :id_venda";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_venda', $id_venda); 
@@ -40,7 +40,7 @@ class Vendas{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarVendasPorIDUsuario($id){
+    function buscarVendasPorIDUsuario($id_usuario){
         $sql = "SELECT * FROM tbl_vendas where id_usuario = :id_usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario); 
