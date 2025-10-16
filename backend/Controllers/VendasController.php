@@ -10,12 +10,12 @@ use Sebo\Alfarrabio\Core\FileManager;
 
 
 class VendasController {
-    public $usuario;
+    public $vendas;
     public $db;
     public $gerenciarImagem;
     public function __construct() {
         $this->db = Database::getInstance();
-        $this->usuario = new Vendas($this->db);
+        $this->vendas = new Vendas($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
 
@@ -31,56 +31,56 @@ class VendasController {
              $_POST["valor_total"],
              $_POST["forma_pagamento"],
          )){
-             Redirect::redirecionarComMensagem("vendas/listar", "success", "Usuário cadastrado com sucesso!");
+             Redirect::redirecionarComMensagem("vendas/listar", "success", "Venda cadastrada com sucesso!");
          }else{
-             Redirect::redirecionarComMensagem("vendas/criar", "error", "Erro ao cadastrar usuário");
+             Redirect::redirecionarComMensagem("vendas/criar", "error", "Erro ao cadastrar a venda!");
          }
      }
     // index
     public function index() {
-        $resultado = $this->usuario->buscarUsuarios();
+        $resultado = $this->vendas->buscarVendas();
         var_dump($resultado);
     }
-    public function viewListarUsuarios(){
-        $dados = $this->usuario->buscarUsuarios(); 
+    public function viewListarVendas(){
+        $dados = $this->vendas->buscarVendas(); 
         
-        View::render("usuario/index", 
+        View::render("vendas/index", 
         [
-            "usuarios"=> $dados
+            "vendas"=> $dados
         ]
     );
     }
 
-    public function viewCriarUsuarios(){
-        View::render("usuario/create", []);
+    public function viewCriarVendas(){
+        View::render("vendas/create", []);
     }
 
-    public function viewEditarUsuarios($id){
-        $dados = $this->usuario->buscarUsuariosPorID($id_usuario);
-        foreach($dados as $usuario){
-            $dados = $usuario;
+    public function viewEditarVendas($id_venda){
+        $dados = $this->vendas->buscarVendasPorID($id_venda);
+        foreach($dados as $vendas){
+            $dados = $vendas;
         }
-        View::render("usuario/edit", ["usuario" => $dados]);
+        View::render("vendas/edit", ["vendas" => $dados]);
     }
 
-    public function viewExcluirUsuarios($id){
-        View::render("usuario/delete", ["id_usuario" => $id_usuario]);
+    public function viewExcluirVendas($id_venda){
+        View::render("vendas/delete", ["id_venda" => $id_venda]);
     }
 
-    public function relatorioUsuario($id_usuario, $data1, $data2){
-        View::render("usuario/relatorio",
-        ["id"=>$id_usuario, "data1"=> $data1, "data2"=> $data2]
+    public function relatorioVendas($id_venda, $data1, $data2){
+        View::render("vendas/relatorio",
+        ["id"=>$id_venda, "data1"=> $data1, "data2"=> $data2]
     );
     }
 
     
 
-    public function atualizarUsuario(){
-        echo "Atualizar Usuario";
+    public function atualizarVendas(){
+        echo "Atualizar Vendas";
     }
 
-    public function deletarUsuario(){
-        echo "Deletar Usuario";
+    public function deletarVendas(){
+        echo "Deletar Vendas";
     }
 
 }

@@ -8,7 +8,7 @@ $router = new Router();
 
 
 $rotas = Rotas::get();
-$router->setNamespace("App\Kipedreiro\Controllers");
+$router->setNamespace("Sebo\Alfarrabio\Controllers");
 
 foreach($rotas as $metodoHttp => $rota){
     foreach($rota as $uri => $acao){

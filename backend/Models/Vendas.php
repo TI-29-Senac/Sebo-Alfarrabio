@@ -101,7 +101,7 @@ class Vendas{
         }
     }
 // metodo de ativar o usuario excluido
-    function ativarVendas($id){
+    function ativarVendas($id_venda){
         $dataatual = NULL;
         $sql = "UPDATE tbl_vendas SET
          excluido_em = :atual
