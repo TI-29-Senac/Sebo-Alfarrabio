@@ -70,7 +70,7 @@ class Vendas{
     }
 
     // metodo de inserir usuario create
-    function inserirUsuario($data_venda, $valor_total, $forma_pagamento){
+    function inseriVenda($data_venda, $valor_total, $forma_pagamento){
         $sql = "INSERT INTO tbl_vendas (data_venda, valor_total, 
         forma_pagamento) 
                 VALUES (:data, :valort, :fpagamento)";

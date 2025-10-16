@@ -5,10 +5,10 @@ enctype="multipart/form-data">
 <input type="date" name="data_venda" id="id_venda" value="<?php echo $vendas['data_venda']; ?>" required>
 <br>
 <label for="Valor">Valor Total</label>
-<input type="text" name="valor_total" id="valor_total" value="<?php echo $vendas['valor_total']; ?>" required>
+<input type="text" name="valor_total" id="id_venda" value="<?php echo $vendas['valor_total']; ?>" required>
 <br>
 <label for="Pagamento">Forma de Pagamento</label>
-<input type="text" name="forma_pagamento" id="forma_pagamento" required>
+<input type="text" name="forma_pagamento" id="id_venda" value="<?php echo $vendas['forma_pagamento']; ?>" required>
 <br>
 <button type="submit">Salvar</button>
 </form>
