@@ -23,6 +23,27 @@ class Vendas{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function totalDeVendas(){
+        $sql = "SELECT count(*) as total FROM tbl_vendas";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeVendasInativos(){
+        $sql = "SELECT count(*) as total_inativos FROM tbl_vendas where excluido_em is NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeVendasAtivos(){
+        $sql = "SELECT count(*) as total_ativos FROM tbl_vendas where excluido_em is NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     // metodo de buscar todos usuario por email read
     function buscarVendasPorData($data_venda){
         $sql = "SELECT * FROM tbl_vendas where data_venda = :data";

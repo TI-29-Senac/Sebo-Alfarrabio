@@ -36,17 +36,23 @@ class VendasController {
              Redirect::redirecionarComMensagem("vendas/criar", "error", "Erro ao cadastrar a venda!");
          }
      }
-    // index
-    public function index() {
+      // index
+      public function index() {
         $resultado = $this->vendas->buscarVendas();
         var_dump($resultado);
     }
     public function viewListarVendas(){
-        $dados = $this->vendas->buscarVendas(); 
-        
+        $dados = $this->vendas->buscarVendas();
+        $total = $this->vendas->totalDeVendas();
+        $total_inativos = $this->vendas->totalDeVendasInativos();
+        $total_ativos = $this->vendas->totalDeVendasAtivos();
+
         View::render("vendas/index", 
         [
-            "vendas"=> $dados
+            "vendas"=> $dados, 
+            "total_vendas"=> $total[0],
+            "total_inativos"=> $total_inativos[0],
+            "total_ativos"=> $total_ativos[0]
         ]
     );
     }
