@@ -73,18 +73,18 @@ class Usuario{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // metodo de inserir usuario create
-    function inseriUsuario($nome, $email, $senha, $tipo, $status, $imagem){
+    function inseriUsuario($nome, $email, $senha, $tipo, $status){
         $senha = password_hash($senha, PASSWORD_DEFAULT);
         $sql = "INSERT INTO tbl_usuario (nome_usuario, email_usuario, 
-        senha_usuario, tipo_usuario, status_usuario, foto_usuario) 
-                VALUES (:nome, :email, :senha, :tipo, :status, :foto)";
+        senha_usuario, tipo_usuario, status_usuario) 
+                VALUES (:nome, :email, :senha, :tipo, :status)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':foto', $imagem);
+       
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{
@@ -153,6 +153,18 @@ class Usuario{
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function checarCredenciais(string $email, string $senha) {
+        $usuario = $this->buscarUsuariosPorEMail($email);
+        if (count($usuario) !== 1) {
+            return false;
+        }
+        $usuario = $usuario[0];
+            if (password_verify($senha, $usuario['senha_usuario'])) {
+                return $usuario;
+            }
+            return false;
     }
 }
 

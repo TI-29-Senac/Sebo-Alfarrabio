@@ -5,7 +5,7 @@ use Sebo\Alfarrabio\Models\ItensVenda;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 
-class ItensVendaController {
+class ItensVendasController {
     private $itens;
 
     public function __construct() {
@@ -13,24 +13,38 @@ class ItensVendaController {
         $this->itens = new ItensVenda($db);
     }
 
+    public function viewListarItensVendas($pagina){
+        $dados = $this->itens->paginacao($pagina);
+        $total = $this->itens->totalDeItens();
+        View::render("itens/index",
+        [
+        "itens_vendas"=> $dados['data'],
+         "total_itens"=> $total[0],
+         "total_inativos" => 22,
+         "Total_ativos" => 12,
+         'paginacao' => $dados
+        ]
+        );
+    }
+
     public function index() {
         $dados = $this->itens->buscarAtivos();
-        View::render("itensvenda/index", ["itens" => $dados]);
+        View::render("itens/index", ["itens" => $dados]);
     }
 
-    public function salvarItemVenda() {
-        $this->itens->inserirItensVendas($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
-        header("Location: /backend/itensvenda");
+    public function viewSalvarItenVendas() {
+        $this->itens->CriarItensVendas($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
+        View::render("itens/create");
     }
 
-    public function atualizarItensVendas($id) {
+    public function viewAtualizarItensVendas($id) {
         $this->itens->atualizarItensVendas($id, $_POST);
-        header("Location: /backend/itensvenda");
+        View::render("itens/edit");
     }
 
-    public function excluirItensVendas($id) {
+    public function viewExcluirItensVendas($id) {
         $this->itens->excluirItensVendas($id);
-        header("Location: /backend/itensvenda");
+        View::render("itens/delete");
     }
 }
 

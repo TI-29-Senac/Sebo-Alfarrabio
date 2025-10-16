@@ -38,6 +38,18 @@ class Rotas
                 "/catmusica/editar/{id}" => "CatMusicaController@viewEditarCatMusica",
                 "/catmusica/excluir/{id}" => "CatMusicaController@viewExcluirCatMusica",
                 "/catmusica/{id}/relatorio/{dataInicial}/{dataFinal}" => "CatMusicaController@viewRelatorioCatMusica",
+
+                '/register' => 'AuthController@register',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
+                '/admin/dashboard' => 'Adimin\DashboardController@index',
+
+                "/itensvenda" => "ItensVendasController@index",
+                "/itensvenda/listar/{pagina}" => "ItensVendasController@viewListarItensVendas",
+                "/itensvenda/criar" => "ItensVendasController@salvarItenVenda",
+                "/itensvenda/editar/{id}" => "ItensVendasController@viewEditarItensVendas",
+                "/itensvenda/excluir/{id}" => "ItensVendasController@viewExcluirItensVendas",
+
             
             ],
              
@@ -59,8 +71,14 @@ class Rotas
                     "/catmusica/atualizar/{id}" => "CatMusicaController@atualizarCatMusica",
                     "/catmusica/deletar/{id}" => "CatMusicaController@deletarCatMusica",
                    
+                    '/register' => 'AuthController@cadastrarUsuario',
+                    '/login' => 'AuthController@authenticar',
+  
 
-                ]
+                    "/itensvenda/salvar" => "ItensVendasController@salvarItenVenda",
+                    "/itensvenda/atualizar/{id}" => "ItensVendasController@atualizarItensVendas",
+                    "/itensvenda/deletar/{id}" => "ItensVendasController@excluirItensVendas",
+                    ]
             
         ];
     }
