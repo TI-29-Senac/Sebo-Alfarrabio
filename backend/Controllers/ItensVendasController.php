@@ -1,16 +1,18 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
 
-use Sebo\Alfarrabio\Models\ItensVenda;
+use Sebo\Alfarrabio\Models\ItensVendas;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 
 class ItensVendasController {
     private $itens;
+    public $db;
 
     public function __construct() {
-        $db = Database::getInstance();
-        $this->itens = new ItensVenda($db);
+        $this->db = Database::getInstance();
+        $this->itens = new ItensVendas ($this->db);
+
     }
 
     public function viewListarItensVendas($pagina){
@@ -32,7 +34,7 @@ class ItensVendasController {
         View::render("itens/index", ["itens" => $dados]);
     }
 
-    public function viewSalvarItenVendas() {
+    public function viewSalvarItensVendas() {
         $this->itens->CriarItensVendas($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
         View::render("itens/create");
     }

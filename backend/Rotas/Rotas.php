@@ -75,7 +75,7 @@ class Rotas
                     '/login' => 'AuthController@authenticar',
   
 
-                    "/itensvenda/salvar" => "ItensVendasController@salvarItenVenda",
+                    "/itensvenda/salvar" => "ItensVendasController@salvarItensVenda",
                     "/itensvenda/atualizar/{id}" => "ItensVendasController@atualizarItensVendas",
                     "/itensvenda/deletar/{id}" => "ItensVendasController@excluirItensVendas",
                     ]

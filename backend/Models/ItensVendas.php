@@ -1,7 +1,7 @@
 <?php
     namespace Sebo\Alfarrabio\Models;
     use PDO;
-class ItensVenda {
+class ItensVendas {
     private $id_itens_venda;
     private $id_venda;
     private $id_acervo;
@@ -14,6 +14,7 @@ class ItensVenda {
 
     public function __construct($db) {
         $this->db = $db;
+        
     }
 
     public function buscarAtivos() {
