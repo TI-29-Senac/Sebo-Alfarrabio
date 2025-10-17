@@ -17,12 +17,6 @@ class ItensVendas {
         
     }
 
-    public function buscarAtivos() {
-        $sql = "SELECT * FROM tbl_itens_vendas WHERE excluido_em IS NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
     public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
         $totalQuery = "SELECT COUNT(*) FROM `tbl_itens_vendas` WHERE excluido_em IS NULL";

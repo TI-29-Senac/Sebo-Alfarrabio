@@ -44,11 +44,11 @@ class Rotas
                 '/logout' => 'AuthController@logout',
                 '/admin/dashboard' => 'Adimin\DashboardController@index',
 
-                "/itensvenda" => "ItensVendasController@index",
-                "/itensvenda/listar/{pagina}" => "ItensVendasController@viewListarItensVendas",
-                "/itensvenda/criar" => "ItensVendasController@salvarItenVenda",
-                "/itensvenda/editar/{id}" => "ItensVendasController@viewEditarItensVendas",
-                "/itensvenda/excluir/{id}" => "ItensVendasController@viewExcluirItensVendas",
+                "/itens" => "ItensVendasController@index",
+                "/itens/listar/{pagina}" => "ItensVendasController@viewListarItensVendas",
+                "/itens/criar" => "ItensVendasController@salvarItenVendas",
+                "/itens/editar/{id}" => "ItensVendasController@viewEditarItensVendas",
+                "/itens/excluir/{id}" => "ItensVendasController@viewExcluirItensVendas",
 
             
             ],
@@ -75,9 +75,11 @@ class Rotas
                     '/login' => 'AuthController@authenticar',
   
 
-                    "/itensvenda/salvar" => "ItensVendasController@salvarItensVenda",
-                    "/itensvenda/atualizar/{id}" => "ItensVendasController@atualizarItensVendas",
-                    "/itensvenda/deletar/{id}" => "ItensVendasController@excluirItensVendas",
+                    "/itens/salvar" => "ItensVendasController@viewSalvarItensVendas",
+                    "/itens/atualizar/{id}" => "ItensVendasController@atualizarItensVendas",
+                    "/itens/deletar/{id}" => "ItensVendasController@excluirItensVendas",
+
+
                     ]
             
         ];

@@ -42,7 +42,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="/backend/acervo/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> Acervo </a>
     <a href="/backend/catlivros/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Categoria Livros </a>
     <a href="/backend/catmusica/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Categoria Musica </a>
-    <a href="/backend/itensvenda/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i> Itens Vendas </a>
+    <a href="/backend/itens/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i> Itens Vendas </a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>

@@ -63,7 +63,7 @@
                 <?= htmlspecialchars($acervo['estado_conservacao']) ?> - 
                 <?= htmlspecialchars($acervo['disponibilidade_acervo']) ?> - 
                         <?= htmlspecialchars($acervo['estoque_acervo']) ?> - 
-                    <img src="/backend/upload/<?= htmlspecialchars($acervo['foto']) ?>" style="width:200px">
+                   
                     <a href="/backend/acervo/editar/<?= htmlspecialchars($acervo['id_acervo']) ?>">Editar</a>
                     <a href="/backend/acervo/excluir/<?= htmlspecialchars($acervo['id_acervo']) ?>">Excluir</a>
                 </li>

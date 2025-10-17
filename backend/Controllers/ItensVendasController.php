@@ -15,6 +15,8 @@ class ItensVendasController {
 
     }
 
+
+
     public function viewListarItensVendas($pagina){
         $dados = $this->itens->paginacao($pagina);
         $total = $this->itens->totalDeItens();
@@ -29,10 +31,6 @@ class ItensVendasController {
         );
     }
 
-    public function index() {
-        $dados = $this->itens->buscarAtivos();
-        View::render("itens/index", ["itens" => $dados]);
-    }
 
     public function viewSalvarItensVendas() {
         $this->itens->CriarItensVendas($_POST['id_venda'], $_POST['id_acervo'], $_POST['quantidade_item'], $_POST['preco_unitario']);
