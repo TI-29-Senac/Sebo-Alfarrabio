@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo_Alfarrabio\Database;
+namespace Sebo\Alfarrabio\Database\Database;
 
 use PDO;
 use PDOException;

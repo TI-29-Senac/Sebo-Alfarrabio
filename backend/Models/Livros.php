@@ -1,5 +1,5 @@
 <?php
-namespace App\Sebo_Alfarrabio\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Livros{
 
@@ -31,7 +31,7 @@ class Livros{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // metodo de buscar todos os livros por id read
-    function buscarLivrospor(){
+    function buscarLivrosporId($id){
         $sql = "SELECT * FROM tbl_livros where id_livros  = :id and excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id'); 
@@ -121,4 +121,20 @@ class Livros{
             return false;
         }
     }
+
+    function totalLivros($id){
+        $dataatual = NULL;
+        $sql = "UPDATE tbl_livros SET
+         excluido_em = :atual
+         WHERE id_livros = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':atual', $dataatual);
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+

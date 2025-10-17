@@ -7,7 +7,7 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Core\Redirect;
 
-class CatLivrosController {
+class LivrosController {
     public $livros;
     public $db;
     public function __construct() {
@@ -18,13 +18,13 @@ class CatLivrosController {
     }
 
     public function index() {
-        $resultado = $this->livros->paginacao();
+        $resultado = $this->livros->buscarLivros();
         return $resultado;
         var_dump($resultado);
     }
     public function viewListarLivros($pagina =1){
-        $dados = $this->livros->paginacao($pagina);
-        $total = $this->livros->totalLivros(); 
+        $dados = $this->livros->buscarLivros($pagina);
+        $total = $this->livros->totalLivros($pagina); 
         View::render("livros/index",
         [
         "livros"=> $dados['data'],

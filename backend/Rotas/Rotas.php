@@ -8,21 +8,21 @@ class Rotas
     {
         return [
             "GET" => [
-                // Usuários
-                "/usuarios" => "UsuarioController@index",
-                "/usuarios/criar" => "UsuarioController@viewCriarUsuarios",
-                "/usuarios/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
-                "/usuarios/editar/{id}" => "UsuarioController@viewEditarUsuarios",
-                "/usuarios/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/usuarios/{id}/relatorio/{dataInicial}/{dataFinal}" => "UsuarioController@relatorioUsuario",
+                // Livros
+                "/livros" => "LivrosController@index",
+                "/livros/criar" => "UsuarioController@viewCriarLivros",
+                "/livros/listar" => "LivrosController@viewListarLivros",
+                "/livros/editar/{id}" => "UsuarioController@viewEditarlivros",
+                "/livros/excluir/{id}" => "UsuarioController@viewExcluirLivros",
+                "/livros/{id}/relatorio/{dataInicial}/{dataFinal}" => "UsuarioController@relatorioUsuario",
 
-                // Acervo
-                "/acervo" => "AcervoController@index",
-                "/acervo/listar/{pagina}" => "AcervoController@viewListarAcervo",
-                "/acervo/criar" => "AcervoController@viewCriarAcervo",
-                "/acervo/editar/{id}" => "AcervoController@viewEditarAcervo",
-                "/acervo/excluir/{id}" => "AcervoController@viewExcluirAcervo",
-                "/acervo/{id}/relatorio/{dataInicial}/{dataFinal}" => "AcervoController@viewRelatorioAcervo",
+                // DVDs
+                "/dvds" => "dvdsController@index",
+                "/dvds/listar/{pagina}" => "DVDsController@viewListarDVDs",
+                "/dvds/criar" => "DVDsController@viewCriardvds",
+                "/dvds/editar/{id}" => "dvdsController@viewEditardvds",
+                "/dvds/excluir/{id}" => "dvdsController@viewExcluirdvds",
+                "/dvds/{id}/relatorio/{dataInicial}/{dataFinal}" => "dvdsController@viewRelatoriodvds",
 
                 // Categorias de Livros
                 "/catlivros" => "CatLivrosController@index",
@@ -38,17 +38,19 @@ class Rotas
                 "/catmusica/editar/{id}" => "CatMusicaController@viewEditarCatMusica",
                 "/catmusica/excluir/{id}" => "CatMusicaController@viewExcluirCatMusica",
                 "/catmusica/{id}/relatorio/{dataInicial}/{dataFinal}" => "CatMusicaController@viewRelatorioCatMusica",
+
+                "/livros"
             
             ],
              
                 "POST" =>[
-                    "/usuarios/salvar" => "UsuarioController@salvarUsuario",
-                    "/usuarios/atualizar/{id}" => "UsuarioController@atualizarUsuario",
-                    "/usuarios/deletar/{id}" => "UsuarioController@deletarUsuario",
+                    "/livros/salvar" => "UsuarioController@salvarUsuario",
+                    "/livros/atualizar/{id}" => "UsuarioController@atualizarUsuario",
+                    "/livros/deletar/{id}" => "UsuarioController@deletarUsuario",
 
-                    "/acervo/salvar" => "AcervoController@salvarAcervo",
-                    "/acervo/atualizar/{id}" => "AcervoController@atualizarAcervo",
-                    "/acervo/deletar/{id}" => "AcervoController@deletarAcervo",
+                    "/dvds/salvar" => "dvdsController@salvardvds",
+                    "/dvds/atualizar/{id}" => "dvdsController@atualizardvds",
+                    "/dvds/deletar/{id}" => "dvdsController@deletardvds",
 
                     "/catlivros/salvar" => "CatLivrosController@salvarCatLivros",
                     "/catlivros/atualizar/{id}" => "CatLivrosController@atualizarCatLivros",
