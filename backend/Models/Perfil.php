@@ -23,6 +23,29 @@ class Perfil{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    function totalDePerfil(){
+        $sql = "SELECT count(*) as total FROM tbl_perfil_usuario";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDePerfilInativos(){
+        $sql = "SELECT count(*) as total_inativos FROM tbl_perfil_usuario where excluido_em is NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDePerfilAtivos(){
+        $sql = "SELECT count(*) as total_ativos FROM tbl_perfil_usuario where excluido_em is NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+
     // metodo de buscar todos usuario por email read
     function buscarPerfilPorTelefone($telefone_usuario){
         $sql = "SELECT * FROM tbl_perfil_usuario where telefone_usuario = :telefone";

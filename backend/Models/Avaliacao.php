@@ -25,6 +25,27 @@ class Avaliacao{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function totalDeAvaliacao(){
+        $sql = "SELECT count(*) as total_avaliacao FROM tbl_avaliacao";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeAvaliacaoInativos(){
+        $sql = "SELECT count(*) as total_inativos FROM tbl_avaliacao where excluido_em is NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeAvaliacaoAtivos(){
+        $sql = "SELECT count(*) as total_ativos FROM tbl_avaliacao where excluido_em is NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     // metodo de buscar todos usuario por email read
     function buscarAvaliacaoPorNota($nota_avaliacao){
         $sql = "SELECT * FROM tbl_avaliacao where nota_avaliacao = :nota";

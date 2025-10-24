@@ -38,9 +38,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="/backend/vendas/listar" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Listar</a>
-    <a href="/backend/vendas/criar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Criar</a>
-    <a href="/backend/vendas/editar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Editar</a>
+    <a href="/backend/vendas/listar" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-dollar fa-fw"></i>  Vendas</a>
+    <a href="/backend/reservas/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-laptop fa-fw"></i>  Reservas</a>
+    <a href="/backend/perfil/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Perfil Usuário</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Orders</a>
     <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>

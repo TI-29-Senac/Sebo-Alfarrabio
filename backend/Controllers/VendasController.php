@@ -26,7 +26,7 @@ class VendasController {
              Redirect::redirecionarComMensagem("/vendas/criar","error", implode("<br>", $erros));
         }
         $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'vendas');
-         if($this->usuario->inserirUsuario(
+         if($this->vendas->inserirUsuario(
              $_POST["data_venda"],
              $_POST["valor_total"],
              $_POST["forma_pagamento"],

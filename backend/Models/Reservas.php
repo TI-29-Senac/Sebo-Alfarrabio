@@ -23,6 +23,29 @@ class Reservas{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    function totalDeReservas(){
+        $sql = "SELECT count(*) as total FROM tbl_reservas";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeReservasInativos(){
+        $sql = "SELECT count(*) as total_inativos FROM tbl_reservas where excluido_em is NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    function totalDeReservasAtivos(){
+        $sql = "SELECT count(*) as total_ativos FROM tbl_reservas where excluido_em is NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+
     // metodo de buscar todos usuario por email read
     function buscarReservasPorData($data_reserva){
         $sql = "SELECT * FROM tbl_reservas where data_reserva = :data";
