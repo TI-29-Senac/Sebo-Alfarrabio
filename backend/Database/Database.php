@@ -1,8 +1,8 @@
 <?php
-namespace Sebo\Alfarrabio\Database\Database;
-
+namespace Sebo\Alfarrabio\Database;
 use PDO;
 use PDOException;
+use Sebo\Alfarrabio\Database\Config;
 
 class Database {
     public $conexao;
