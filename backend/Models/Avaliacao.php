@@ -123,9 +123,9 @@ class Avaliacao{
     }
 
     // metodo de atualizar o usuario update
-    function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao){
+    function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao){
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_perfil_usuario SET nota_avaliacao = :nota,
+        $sql = "UPDATE tbl_avaliacao SET nota_avaliacao = :nota,
          comentario_avaliacao = :comentario, 
          data_avaliacao = :data,
          status_avaliacao = :status 

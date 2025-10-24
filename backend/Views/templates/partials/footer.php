@@ -31,6 +31,24 @@ function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+
+function myFunction() { 
+  let x = document.body;
+  let tema = localStorage.getItem('theme');
+  tema = tema === 'w3-black' ? '' : 'w3-black';
+  
+  localStorage.setItem('theme', tema);
+  
+ location.reload();
+}
+
+function tema() { 
+  let x = document.body;
+  let tema = localStorage.getItem('theme');
+
+  x.classList.add(tema);
+}
+tema()
 </script>
 
 </body>

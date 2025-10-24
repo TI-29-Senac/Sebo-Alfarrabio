@@ -51,7 +51,7 @@
     <h3>Listar Avaliações</h3>
 </div>
 <?php if (isset($avaliacao) && count($avaliacao) > 0): ?>
-    <table border="1" cellpadding="5" cellspacing="0"  class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <table border="1" cellpadding="5" cellspacing="0"  class="w3-table  w3-border w3-hoverable ">
         <thead>
             <tr>
                 <th>ID Avaliação</th>

@@ -7,16 +7,17 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
 </head>
-<body class="w3-light-grey">
+<body>
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">Logo</span>
+  <span class="w3-bar-item w3-right"><button class="w3-button w3-light-grey" onclick="myFunction()">Toggle dark mode</button></span>
 </div>
 
 <!-- Sidebar/menu -->
@@ -42,6 +43,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="/backend/reservas/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-laptop fa-fw"></i>  Reservas</a>
     <a href="/backend/perfil/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Perfil Usuário</a>
     <a href="/backend/avaliacao/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comment fa-fw"></i>  Avaliação</a>
+
 </nav>
 
 

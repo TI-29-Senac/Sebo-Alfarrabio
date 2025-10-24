@@ -1,1 +1,1 @@
-<div>delete</div>
+<div>Excluído com sucesso!</div>

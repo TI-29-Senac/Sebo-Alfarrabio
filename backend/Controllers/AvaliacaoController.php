@@ -53,7 +53,12 @@ class AvaliacaoController {
     }
 
     public function viewExcluirAvaliacao($id_avaliacao){
-        View::render("avaliacao/delete", ["id_avaliacao" => $id_avaliacao]);
+        $avaliacao = $this->avaliacao->buscarPorID($id);
+        if (!$avaliacao) {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "error", "Serviço não encontrado.");
+        }
+
+        View::render("/avaliacao/delete", ["avaliacao" => $avaliacao]);
     }
 
     public function relatorioAvaliacao($id_avaliacao, $data1, $data2){
@@ -65,7 +70,17 @@ class AvaliacaoController {
     
 
     public function atualizarAvaliacao(){
-        echo "Atualizar Avaliacao";
+        $id_avaliacao = (int)$_POST['id_avaliacao'];
+        $nota = $_POST['nota_avaliacao'];
+        $comentario = $_POST['comentario_avaliacao'];
+        $data = $_POST['data_avaliacao'];
+        $status = $_POST['status_avaliacao'];
+
+        if ($this->avaliacao->atualizarAvaliacao($id_avaliacao, $nota, $comentario, $data, $status)) {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "success", "Avaliação atualizada com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/avaliacao/editar/" . $id_avaliacao, "error", "Erro ao atualizar avaliação.");
+        }
     }
 
     public function deletarAvaliacao(){

@@ -60,8 +60,8 @@ class Rotas
 
                 // avaliacao post
                 "/avaliacao/salvar" => "AvaliacaoController@viewsalvarAvaliacao",
-                "/avaliacao/atualizar/{id}" => "AvaliacaoController@viewatualizarAvaliacao",
-                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewdeletarAvaliacao",
+                "/avaliacao/atualizar" => "AvaliacaoController@viewatualizarAvaliacao",
+                "/avaliacao/deletar" => "AvaliacaoController@viewdeletarAvaliacao",
 
             ]
             ];
