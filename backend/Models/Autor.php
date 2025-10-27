@@ -1,0 +1,73 @@
+<?php
+namespace Sebo\Alfarrabipo\Models;
+use PDO;
+class Autor{
+    private $id_autor;
+    private $autor_livro;
+    private $autor_disco;
+    private $diretor_dvds;
+    private $db;
+    public function __construct($db){
+        $this->db = $db;
+    }
+
+    function buscarAutor(){
+        $sql = "SELECT * FROM tbl_autor";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarAutorPorId(){
+        $sql = "SELECT COUNT(*) as total FROM tbl_autor";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function inserirAutor($autor_livro, $autor_disco, $diretor_dvds){
+        $sql = "INSERT INTO tbl_autor (autor_livro, autor_disco, diretor_dvds) VALUES (:autor_livro, :autor_disco, :dretor_dvds)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':autor_livro', $autor_livro);
+        $stmt->bindParam(':autor_disco', $autor_disco);
+         $stmt->bindParam(':diretor_dvds', $diretor_dvds);
+        return $stmt->execute();
+    }
+
+    function atualizarAutor(){
+        $sql = "UPDATE tbl_autor SET autor_livro = :autor_livro, autor_disco = :autor_disco, diretor_dvds = :diretor_dvds WHERE id_autor = :id_autor";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':autor_livro', $this->autor_livro);
+        $stmt->bindParam(':autor_disco', $this->autor_disco);
+         $stmt->bindParam(':diretor_dvds', $this->diretor_dvds);
+        $stmt->bindParam(':id_autor', $this->id_autor);
+        return $stmt->execute();
+    }
+
+    function excluirAutor($id_autor){
+        $sql = "DELETE FROM tbl_autor WHERE id_autor = :id_autor";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_autor', $id_autor);
+        return $stmt->execute();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
