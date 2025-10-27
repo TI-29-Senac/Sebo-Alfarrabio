@@ -40,6 +40,23 @@ class AvaliacaoController {
     );
     }
 
+    public function salvarAvaliacao() {
+        if (empty($_POST["nota_avaliacao"])) {
+            Redirect::redirecionarComMensagem("/avaliacao/criar", "error", "Nota é obrigatória.");
+        }
+
+        if ($this->avaliacao->inserirAvaliacao(
+            $_POST["nota_avaliacao"],
+            $_POST["comentario_avaliacao"],
+            $_POST["data_avaliacao"],
+            $_POST["status_avaliacao"],
+        )) {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "success", "Serviço cadastrado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/avaliacao/criar", "error", "Erro ao cadastrar serviço.");
+        }
+    }
+
     public function viewCriarAvaliacao(){
         View::render("avaliacao/create", []);
     }
@@ -52,13 +69,15 @@ class AvaliacaoController {
         View::render("avaliacao/edit", ["avaliacao" => $dados]);
     }
 
-    public function viewExcluirAvaliacao($id_avaliacao){
-        $avaliacao = $this->avaliacao->buscarPorID($id);
-        if (!$avaliacao) {
-            Redirect::redirecionarComMensagem("/avaliacao/listar", "error", "Serviço não encontrado.");
-        }
+    public function deletarAvaliacao(int $id){
+        $status = $this->buscarAvaliacaoPorID($id);
+        $status = $status['status_avaliacao'] == 'ativo' ? 'Inativo' : 'ativo';
 
-        View::render("/avaliacao/delete", ["avaliacao" => $avaliacao]);
+        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':status', $status);
+        return $stmt->execute();
     }
 
     public function relatorioAvaliacao($id_avaliacao, $data1, $data2){
@@ -71,20 +90,16 @@ class AvaliacaoController {
 
     public function atualizarAvaliacao(){
         $id_avaliacao = (int)$_POST['id_avaliacao'];
-        $nota = $_POST['nota_avaliacao'];
-        $comentario = $_POST['comentario_avaliacao'];
-        $data = $_POST['data_avaliacao'];
-        $status = $_POST['status_avaliacao'];
+        $nota_avaliacao = $_POST['nota_avaliacao'];
+        $comentario_avaliacao = $_POST['comentario_avaliacao'];
+        $data_avaliacao = $_POST['data_avaliacao'];
+        $status_avaliacao = $_POST['status_avaliacao'];
 
-        if ($this->avaliacao->atualizarAvaliacao($id_avaliacao, $nota, $comentario, $data, $status)) {
+        if ($this->avaliacao->atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao)) {
             Redirect::redirecionarComMensagem("/avaliacao/listar", "success", "Avaliação atualizada com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("/avaliacao/editar/" . $id_avaliacao, "error", "Erro ao atualizar avaliação.");
         }
-    }
-
-    public function deletarAvaliacao(){
-        echo "Deletar Avaliacao";
     }
 
 }

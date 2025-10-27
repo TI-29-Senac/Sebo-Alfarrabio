@@ -123,42 +123,39 @@ class Avaliacao{
     }
 
     // metodo de atualizar o usuario update
-    function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_avaliacao SET nota_avaliacao = :nota,
-         comentario_avaliacao = :comentario, 
-         data_avaliacao = :data,
-         status_avaliacao = :status 
-         WHERE id_avaliacao = :id_avaliacao";
+    public function atualizarAvaliacao(int $id_avaliacao, string $nota_avaliacao, 
+    string $comentario_avaliacao, string $data_avaliacao, string $status_avaliacao){
+        $sql = "UPDATE tbl_avaliacao SET 
+                    nota_avaliacao = :nota, 
+                    comentario_avaliacao = :comentario,
+                    data_avaliacao = :data,
+                    status_avaliacao = :status, 
+
+                    atualizado_em = NOW()";
+        
+        $sql .= " WHERE id_avaliacao = :id";
+
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_avaliacao', $id_avaliacao);
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         $stmt->bindParam(':nota', $nota_avaliacao);
         $stmt->bindParam(':comentario', $comentario_avaliacao);
         $stmt->bindParam(':data', $data_avaliacao);
         $stmt->bindParam(':status', $status_avaliacao);
-        
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        return $stmt->execute();
     }
-    // metodo de inativar o usuario delete
-    function excluirAvaliacao($id_avaliacao){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_avaliacao SET
-         excluido_em = :atual
-         WHERE id_avaliacao = :id_avaliacao";
+    
+    public function deletarAvaliacao(int $id_avaliacao){
+        $status = $this->buscarAvaliacaoPorID($id_avaliacao);
+        $status = $status['status_avaliacao'] == 'ativo' ? 'Inativo' : 'ativo';
+
+        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_avaliacao', $id_avaliacao);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+        $stmt->bindParam(':status_avaliacao', $status);
+        return $stmt->execute();
     }
+}
+
 // metodo de ativar o usuario excluido
     function ativarAvaliacao($id_avaliacao){
         $dataatual = NULL;
@@ -173,4 +170,3 @@ class Avaliacao{
         }else{
             return false;
         }}
-}
