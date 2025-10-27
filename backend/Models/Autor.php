@@ -1,5 +1,5 @@
 <?php
-namespace Sebo\Alfarrabipo\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Autor{
     private $id_autor;

@@ -21,6 +21,7 @@ class Flash
             $flash = $_SESSION['flash'];
             unset($_SESSION['flash']);
             return $flash;
+            
         }
         return null;
     }

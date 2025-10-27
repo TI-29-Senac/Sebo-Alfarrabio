@@ -1,5 +1,5 @@
 <?php
-namespace Sebo\Alfarrabipo\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Genero{
     private $id_genero;

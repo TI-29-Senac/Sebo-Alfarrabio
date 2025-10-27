@@ -1,20 +1,20 @@
-<!-- Footer -->
 </div>
-<footer class="w3-container w3-padding-16 w3-light-grey">
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
     <h4>FOOTER</h4>
     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
   </footer>
- 
+
   <!-- End page content -->
 </div>
- 
+
 <script>
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
- 
+
 // Get the DIV with overlay effect
 var overlayBg = document.getElementById("myOverlay");
- 
+
 // Toggle between showing and hiding the sidebar, and add overlay effect
 function w3_open() {
   if (mySidebar.style.display === 'block') {
@@ -25,13 +25,31 @@ function w3_open() {
     overlayBg.style.display = "block";
   }
 }
- 
+
 // Close the sidebar with the close button
 function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+
+function myFunction() { 
+  let x = document.body;
+  let tema = localStorage.getItem('theme');
+  tema = tema === 'w3-black' ? '' : 'w3-black';
+  
+  localStorage.setItem('theme', tema);
+  
+ location.reload();
+}
+
+function tema() { 
+  let x = document.body;
+  let tema = localStorage.getItem('theme');
+
+  x.classList.add(tema);
+}
+tema()
 </script>
- 
+
 </body>
 </html>

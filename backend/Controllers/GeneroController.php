@@ -5,11 +5,8 @@ use Sebo\Alfarrabio\Models\Genero;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
- HEAD
 use Sebo\Alfarrabio\Validadores\ReservasValidador; 
-
 use Sebo\Alfarrabio\Validadores\GeneroValidador;
-21bbca6e1ef6403549bc8788cf42917784d1f2da
 use Sebo\Alfarrabio\Core\FileManager;
 
 

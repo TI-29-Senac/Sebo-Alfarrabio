@@ -1,9 +1,12 @@
 <?php
-namespace Sebo\Alfarrabipo\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 class Categoria{
     private $id_categoria;
     private $nome_categoria;
+    private $criado_em;
+    private $atualizado_em;
+    private $excluido_em;
     private $db;
     public function __construct($db){
         $this->db = $db;
@@ -45,6 +48,29 @@ class Categoria{
         return $stmt->execute();
     }
 
+// Conta todas as categorias
+function totalDeCategoria(){
+    $sql = "SELECT COUNT(*) as total FROM tbl_categoria";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Conta apenas categorias inativas (ajuste conforme sua coluna de status)
+function totalDeCategoriaInativos(){
+    $sql = "SELECT COUNT(*) as total FROM tbl_categoria WHERE status = 'inativo'";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Conta apenas categorias ativas
+function totalDeCategoriaAtivos(){
+    $sql = "SELECT COUNT(*) as total FROM tbl_categoria WHERE status = 'ativo'";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 

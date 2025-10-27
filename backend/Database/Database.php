@@ -2,6 +2,7 @@
 namespace Sebo\Alfarrabio\Database;
 use PDO;
 use PDOException;
+use Exception;
 use Sebo\Alfarrabio\Database\Config;
 
 class Database {
@@ -27,4 +28,15 @@ class Database {
             die("Erro na conexão com o banco: " . $e->getMessage());
         }
     }
+    public static function getInstance() {
+        static $instance = null;
+        if ($instance === null) {
+            $instance = new Database();
+        }
+        return $instance->conexao;
+    }
 }
+
+    
+
+

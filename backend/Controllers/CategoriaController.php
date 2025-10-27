@@ -15,7 +15,7 @@ class CategoriaController {
     public $atualizado_em;
     public $excluido_em;
     public $db;
-    public $gerenciarImagem;
+    public $gerenciarImagem; 
     public function __construct() {
         $this->db = Database::getInstance();
         $this->categoria = new Categoria($this->db);
@@ -65,7 +65,7 @@ class CategoriaController {
     }
 
     public function viewEditarCategoria($id_categoria){
-        $dados = $this->categoria->buscarAutorPorID($id_categoria);
+        $dados = $this->categoria->buscarCategoriaPorID($id_categoria);
         foreach($dados as $categoria){
             $dados = $categoria;
         }
