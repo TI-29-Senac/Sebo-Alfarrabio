@@ -1,59 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sebo/Livraria</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonte literária -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Merriweather', serif;
+      background-color: #f8f4ec;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background-color: #4b2e05;
+      color: #fff;
+      min-height: 100vh;
+      padding-top: 20px;
+    }
+
+    .sidebar a {
+      color: #f1e7d0;
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #c09a63;
+      color: #4b2e05;
+      font-weight: bold;
+    }
+
+    /* Cards */
+    .card-dashboard {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      color: #fff;
+    }
+
+    .card-yellow { background-color: #e0a100; }
+    .card-blue { background-color: #0077b6; }
+    .card-green { background-color: #2a9d8f; }
+    .card-orange { background-color: #f77f00; }
+
+    .card-dashboard h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    /* Tabela */
+    .table-container {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .table thead {
+      background-color: #4b2e05;
+      color: #fff;
+    }
+
+    .btn-editar {
+      background-color: #c09a63;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .btn-excluir {
+      background-color: #a63a3a;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .btn-editar:hover { background-color: #b88a50; }
+    .btn-excluir:hover { background-color: #922e2e; }
+
+    /* Título */
+    .dashboard-title {
+      color: #4b2e05;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
-<body class="w3-light-grey">
- 
-<!-- Top container -->
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">Logo</span>
-</div>
- 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar"><br>
-  <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebar">
+      <h4 class="text-center mb-4">📚 Sebo/Livraria</h4>
+      <a href="#" class="active">Dashboard</a>
+      <a href="backend/usuarios/listar/1">Usuários</a>
+      <a href="backend/acervo/listar/1">Acervo</a>
+      <a href="#">Categorias</a>
+      <a href="#">Vendas</a>
+      <a href="/backend/contato/listar/1">Contatos</a>
+      <a href="#">Histórico</a>
+      <a href="#">Configurações</a>
     </div>
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Sebo Alfarrabio</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
-    </div>
-  </div>
-  <hr>
-  <div class="w3-container">
-    <h5>Dashboard</h5>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="/backend/usuarios/listar/1" class="w3-bar-item w3-button w3-padding w3-brown"><i class="fa fa-users fa-fw"></i> Usuarios </a>
-    <a href="/backend/acervo/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> Acervo </a>
-    <a href="/backend/catlivros/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Categoria Livros </a>
-    <a href="/backend/catmusica/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Categoria Musica </a>
-    <a href="/backend/itens/listar/1" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i> Itens Vendas </a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  General</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
-  </div>
-</nav>
+
+    <!-- Main content -->
+    <div class="col-md-10 p-4">
+      <h3 class="dashboard-title">📊 Meu Dashboard</h3>
+
+    
+
+
  
- 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
 <?php
 use Sebo\Alfarrabio\Core\Flash;
 $mensagem = Flash::get();

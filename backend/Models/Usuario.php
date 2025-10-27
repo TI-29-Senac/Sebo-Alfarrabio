@@ -73,17 +73,17 @@ class Usuario{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // metodo de inserir usuario create
-    function inseriUsuario($nome, $email, $senha, $tipo, $status){
+    function inseriUsuario($nome, $email, $senha, $tipo){
         $senha = password_hash($senha, PASSWORD_DEFAULT);
         $sql = "INSERT INTO tbl_usuario (nome_usuario, email_usuario, 
-        senha_usuario, tipo_usuario, status_usuario) 
-                VALUES (:nome, :email, :senha, :tipo, :status)";
+        senha_usuario, tipo_usuario) 
+                VALUES (:nome, :email, :senha, :tipo)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':tipo', $tipo);
-        $stmt->bindParam(':status', $status);
+        
        
         if($stmt->execute()){
             return $this->db->lastInsertId();
@@ -100,7 +100,6 @@ class Usuario{
          email_usuario = :email, 
          senha_usuario = :senha, 
          tipo_usuario = :tipo,
-         status_usuario = :status,
          atualizado_em = :atual
          WHERE id_usuario = :id";
         $stmt = $this->db->prepare($sql);
@@ -109,7 +108,7 @@ class Usuario{
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':tipo', $tipo);
-        $stmt->bindParam(':status', $status);
+        
         $stmt->bindParam(':atual', $dataatual);
         if($stmt->execute()){
             return true;

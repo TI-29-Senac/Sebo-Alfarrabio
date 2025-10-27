@@ -1,65 +1,47 @@
+  <!-- Cards -->
+  <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <div class="card card-dashboard card-yellow text-center p-3">
+            <h5>Editar</h5>
+            <h2>📝</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card card-dashboard card-blue text-center p-3">
+            <h5>Views</h5>
+            <h2>99</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card card-dashboard card-green text-center p-3">
+            <h5>Shares</h5>
+            <h2>23</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card card-dashboard card-orange text-center p-3">
+            <h5>Usuários</h5>
+            <h2>50</h2>
+          </div>
+        </div>
+      </div>
 
- 
-  <!-- Header -->
-  <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
-  </header>
- 
-  <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter">
-      <div class="w3-container w3-amber w3-padding-16">
-        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>52</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Messages</h4>
-      </div>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5><i class="fa fa-list me-2"></i>Listar usuarios</h5>
+      <a href="/backend/acervo/criar" class="btn btn-outline-coffee btn-sm">
+        <i class="fa fa-plus me-1"></i>Adicionar Novo Usuário
+      </a>
     </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-sienna w3-padding-16">
-        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>99</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Views</h4>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-brown w3-padding-16">
-        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>23</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Shares</h4>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <div class="w3-container w3-orange w3-text-white w3-padding-16">
-        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-        <div class="w3-right">
-          <h3>50</h3>
-        </div>
-        <div class="w3-clear"></div>
-        <h4>Users</h4>
-      </div>
-    </div>
-  </div>
- 
-<div>listar usuarios</div>
+
 <?php if (isset($usuarios) && count($usuarios) > 0): ?>
         
-        <table border="1" cellpadding="5" cellspacing="0"  class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-        <thead>
+  <table class="table table-striped table-bordered align-middle">
+  <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Tipo</th>
-                <th>Status</th>
-                <th>Foto</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -70,10 +52,9 @@
                     <td><?= htmlspecialchars($usuario['nome_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['email_usuario']) ?></td>
                     <td><?= htmlspecialchars($usuario['tipo_usuario']) ?></td>
-                    <td><?= htmlspecialchars($usuario['status_usuario']) ?></td>
-                    <td><img src="/backend/upload/<?= htmlspecialchars($usuario['foto']) ?>" style="width:200px"></td>
-                    <td><a href="/backend/usuarios/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>">Editar</a></td>
-                    <td><a href="/backend/usuarios/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>">Excluir</a></td>
+                   
+                    <td  class="buttom"><a href="/backend/usuarios/editar/<?= htmlspecialchars($usuario['id_usuario']) ?>" >Editar</a></td>
+                    <td><a href="/backend/usuarios/excluir/<?= htmlspecialchars($usuario['id_usuario']) ?>" class="buttom-2" >Excluir</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

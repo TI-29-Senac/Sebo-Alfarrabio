@@ -1,5 +1,5 @@
 <div>Sou o create</div>
-<form action="/backend/usuario/salvar" method="post" enctype="multipart/form-data">
+<form action="/backend/usuarios/salvar" method="post" enctype="multipart/form-data">
 <label for="Nome">Nome</label>
 <input type="text" name="nome_usuario" id="nome_usuario" required>
 <br>

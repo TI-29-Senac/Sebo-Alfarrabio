@@ -50,11 +50,17 @@ class Rotas
                 "/itens/editar/{id}" => "ItensVendasController@viewEditarItensVendas",
                 "/itens/excluir/{id}" => "ItensVendasController@viewExcluirItensVendas",
 
-            
+                
+                "/contato" => "ContatoController@index",
+                "/contato/listar/{pagina}" => "ContatoController@viewListarContatos",
+                "/contato/criar" => "ContatoController@viewCriarContato",
+                "/contato/editar/{id}" => "ContatoController@viewEditarContato",
+                "/contato/excluir/{id}" => "ContatoController@viewExcluirContato",
+
             ],
              
                 "POST" =>[
-                    "/usuarios/salvar" => "UsuarioController@salvarUsuario",
+                    "/usuario/salvar" => "UsuarioController@salvarUsuario",
                     "/usuarios/atualizar/{id}" => "UsuarioController@atualizarUsuario",
                     "/usuarios/deletar/{id}" => "UsuarioController@deletarUsuario",
 
@@ -79,6 +85,9 @@ class Rotas
                     "/itens/atualizar/{id}" => "ItensVendasController@atualizarItensVendas",
                     "/itens/deletar/{id}" => "ItensVendasController@excluirItensVendas",
 
+                    "/contato/salvar" => "ContatoController@salvarContato",
+                    "/contato/excluir/{id}" => "ContatoController@ExcluirContato",
+                    "/contato/atualizar/{id}" => "ContatoController@atualizarContato",
 
                     ]
             
