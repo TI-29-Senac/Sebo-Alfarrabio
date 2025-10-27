@@ -6,7 +6,7 @@ use Sebo\Alfarrabio\Models\Genero;
 use Sebo\Alfarrabio\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
-use Sebo\Alfarrabio\Validadores\ReservasValidador;
+use Sebo\Alfarrabio\Validadores\ReservasValidador; 
 use Sebo\Alfarrabio\Core\FileManager;
 
 
