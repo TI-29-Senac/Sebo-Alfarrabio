@@ -144,8 +144,8 @@ class Avaliacao{
         return $stmt->execute();
     }
     
-    public function deletarAvaliacao(int $id_avaliacao){
-        $status = $this->buscarAvaliacaoPorID($id_avaliacao);
+    public function deletarAvaliacao(int $id){
+        $status = $this->buscarAvaliacaoPorID($id);
         $status = $status['status_avaliacao'] == 'ativo' ? 'Inativo' : 'ativo';
 
         $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
