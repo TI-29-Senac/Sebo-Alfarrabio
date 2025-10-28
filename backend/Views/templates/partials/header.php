@@ -121,7 +121,14 @@
       <h3 class="dashboard-title">📊 Meu Dashboard</h3>
 
     
-
+      <script src="/js/chart.js"></script>
+<script src="/js/hammer.min.js"></script>
+<script src="/js/cdn.min.js"></script>
+<script src="/js/chartjs-adapter-date-fns.min.js"></script>
+<script src="/js/chartjs-plugin-zoom.min.js"></script>
+<script src="/js/chartjs-chart-financial.min.js"></script>
+<script src="/js/chartjs-plugin-annotation.min.js"></script>
+<script src="/js/chartjs-plugin-streaming.min.js"></script>
 
  
 <?php
@@ -137,6 +144,7 @@ if(isset($mensagem)){
             echo "</div>";
         }
     }
+    
 }
  
 ?>

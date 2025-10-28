@@ -65,6 +65,7 @@ class Rotas
                 "/vendas/editar/{id}" => "vendasController@viewEditarVendas",
                 "/vendas/excluir/{id}" => "vendasController@viewExcluirVendas",
                 "/vendas/{id}/relatorio/{dataInicial}/{dataFinal}" => "vendasController@relatorioVendas",
+                "/backend/vendas/grafico → VendasController@getVendasDiariasJson",
 
 
             ],
