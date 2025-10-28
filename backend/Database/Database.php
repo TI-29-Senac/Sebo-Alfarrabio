@@ -12,7 +12,7 @@ class Database {
         $username = 'root';
         $password = '';
         $host = 'localhost';
-        $dbname = 'sebov2_backup';
+        $dbname = 'sebov2.1';
 
         try {
             $this->conexao = new PDO(

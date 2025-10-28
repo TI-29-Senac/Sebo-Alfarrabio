@@ -30,7 +30,7 @@ class GeneroControllerController {
              Redirect::redirecionarComMensagem("/genero/criar","error", implode("<br>", $erros));
         }
         $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
-         if($this->genero->inserirCategoria(
+         if($this->genero->inserirGenero(
              $_POST["nome_genero"],
              $_POST["descricao_genero"],
            

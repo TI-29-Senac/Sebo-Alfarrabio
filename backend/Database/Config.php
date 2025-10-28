@@ -12,7 +12,7 @@ class Config
   'mysql' =>
   array (
     'host' => 'localhost',
-    'db_name' => 'sebov2',
+    'db_name' => 'sebov2.1',
     'username' => 'root',
     'password' => NULL,
     'charset' => 'utf8',

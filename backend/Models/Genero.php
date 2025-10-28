@@ -5,6 +5,9 @@ class Genero{
     private $id_genero;
     private $nome_genero_livro;
     private $nome_genero_musica;
+    private $criado_em;
+    private $atualizado_em;
+    private $excluido_em;
     private $db;
     public function __construct($db){
         $this->db = $db;
@@ -17,12 +20,14 @@ class Genero{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarGenerosPorId(){
-        $sql = "SELECT COUNT(*) as total FROM tbl_genero";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    function buscarGeneroPorId($id_genero){
+    $sql = "SELECT * FROM tbl_autor WHERE id_genero = :id_genero";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_genero', $id_genero, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
     function inserirGenero($nome_livro, $nome_musica){
         $sql = "INSERT INTO tbl_genero (nome_genero_livro, nome_genero_musica) VALUES (:nome_livro, :nome_musica)";
@@ -49,7 +54,29 @@ class Genero{
     }
 
 
+    // Conta todas os generos
+    function totalDeGenero(){
+        $sql = "SELECT COUNT(*) as total FROM tbl_genero";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
+    // Conta apenas generos inativos (ajuste conforme sua coluna de status)
+    function totalDeGeneroInativos(){
+       $sql = "SELECT COUNT(*) as total FROM tbl_genero WHERE excluido_em is not null";
+       $stmt = $this->db->prepare($sql);
+       $stmt->execute();
+       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+    // Conta apenas generos ativos
+    function totalDeGeneroAtivos(){
+       $sql = "SELECT COUNT(*) as total FROM tbl_genero WHERE excluido_em is null";
+       $stmt = $this->db->prepare($sql);
+       $stmt->execute();
+       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 

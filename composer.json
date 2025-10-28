@@ -1,15 +1,17 @@
 {
-    "name": "renat/sebo-alfarrabio",
-    "autoload": {
-        "psr-4": {
-            "Renat\\SeboAlfarrabio\\": "src/"
-        }
-    },
+    "name": "sebo/alfarrabio",
+   "autoload": {
+    "psr-4": {
+        "Sebo\\Alfarrabio\\": "backend/"
+    }
+},
     "authors": [
         {
             "name": "Nathaly C S Silva",
             "email": "nathaly.cssilva3@senacsp.edu.br"
         }
     ],
-    "require": {}
+    "require": {
+        "bramus/router": "^1.6"
+    }
 }

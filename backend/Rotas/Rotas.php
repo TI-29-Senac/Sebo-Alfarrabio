@@ -12,45 +12,45 @@ class Rotas
 
                 //Autor
                 "/autor" => "autorController@index",
-                "/autor/criar" => "autorController@viewCriarAutor",
-                "/autor/listar" => "autorController@viewListarAutor",
-                "/autor/editar/{id}" => "autorController@viewEditarAutor",
-                "/autor/excluir/{id}" => "autorController@viewExcluirAutor",
-                "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "autorController@relatorioAutor",
+                "/autor/criar" => "AutorController@viewCriarAutor",
+                "/autor/listar" => "AutorController@viewListarAutor",
+                "/autor/editar/{id}" => "AutorController@viewEditarAutor",
+                "/autor/excluir/{id}" => "AutorController@viewExcluirAutor",
+                "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
                 //Categoria
-                "/categoria" => "categoriaConstroller@index",
-                "/categoria/criar" => "categoriaController@viewCriarCategoria",
-                "/categoria/listar" => "categoriaController@viewListarCategoria",
-                "/categoria/editar/{id}" => "categoriaController@viewEditarCategoria",
-                "/categoria/excluir/{id}" => "categoriaController@viewExcluirCategoria",
-                "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "categoriaController@relatorioCategoria",
+                "/categoria" => "CategoriaConstroller@index",
+                "/categoria/criar" => "CategoriaController@viewCriarCategoria",
+                "/categoria/listar" => "CategoriaController@viewListarCategoria",
+                "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
+                "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
 
                 //Genero
                 "/genero" => "generoConstroller@index",
-                "/genero/criar" => "generoController@viewCriarGenero",
-                "/genero/listar" => "generoController@viewListarGenero",
-                "/genero/editar/{id}" => "generoController@viewEditarGenero",
-                "/genero/excluir/{id}" => "generoController@viewExcluirGenero",
-                "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "generoController@relatorioGenero",
+                "/genero/criar" => "GeneroController@viewCriarGenero",
+                "/genero/listar/" => "GeneroController@viewListarGenero",
+                "/genero/editar/{id}" => "GeneroController@viewEditarGenero",
+                "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
+                "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
 
                 
             ],
             "POST" => [
                 //Autor post
-                "/autor/salvar" => "autorController@viewsalvarAutor",
-                "/autor/atualizar/{id}" => "autorController@viewatualizarAutor",
-                "/autor/deletar/{id}" => "autorController@viewdeletarAutor",
+                "/autor/salvar" => "AutorController@viewsalvarAutor",
+                "/autor/atualizar/{id}" => "AutorController@viewatualizarAutor",
+                "/autor/deletar/{id}" => "AutorController@viewdeletarAutor",
 
                 //Categoria post
-                "/categoria/salvar" => "categoriaController@viewsalvarCategoria",
-                "/categoria/atualizar/{id}" => "categoriaController@viewatualizarCategoria",
-                "/categoria/deletar/{id}" => "categoriaController@viewdeletarCategoria",
+                "/categoria/salvar" => "CategoriaController@viewsalvarCategoria",
+                "/categoria/atualizar/{id}" => "CategoriaController@viewatualizarCategoria",
+                "/categoria/deletar/{id}" => "CategoriaController@viewdeletarCategoria",
 
                 //Genero post
-                "/genero/salvar" => "generoController@viewsalvarGenero",
-                "/genero/atualizar/{id}" => "generoController@viewatualizarGenero",
-                "/genero/deletar/{id}" => "generoController@viewdeletarGenero",
+                "/genero/salvar" => "GeneroController@viewsalvarGenero",
+                "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
+                "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
 
             ]
             ];

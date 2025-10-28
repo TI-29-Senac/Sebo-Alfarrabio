@@ -22,29 +22,30 @@ class AutorController {
         $this->gerenciarImagem = new FileManager('upload');
     }
 
-    public function salvarVendas(){
-        $erros = AutorValidador::ValidarEntradas($_POST);
-        if(!empty($erros)){
-        
-             Redirect::redirecionarComMensagem("/autor/criar","error", implode("<br>", $erros));
+public function salvarAutor() {
+        $erros = AutorValidador::validarEntradas($_POST);
+        if (!empty($erros)) {
+            Redirect::redirecionarComMensagem("/autor/criar", "error", implode(", ", $erros));
         }
-        $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'autor');
-         if($this->autor->inserirUsuario(
-             $_POST["nome_autor"],
-             $_POST["biografia"],
-           
-         )){
-             Redirect::redirecionarComMensagem("autor/listar", "success", "Autor cadastrado com sucesso!");
-         }else{
-             Redirect::redirecionarComMensagem("autor/criar", "error", "Erro ao cadastrar o autor!");
-         }
-     }
-      // index
-      public function index() {
+
+        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'autores');
+
+    if ($this->autor->inserirAutor(
+        $_POST["autor_livro"],
+        $_POST["autor_disco"],
+        $_POST["diretor_dvds"]
+    )) {
+        Redirect::redirecionarComMensagem("autor/listar", "success", "Autor cadastrado com sucesso!");
+    }
+
+}
+
+public function index() {
         $resultado = $this->autor->buscarAutor();
         var_dump($resultado);
-    }
-    public function viewListarAutor(){
+}
+
+public function viewListarAutor(){
         $dados = $this->autor->buscarAutor();
         $total = $this->autor->totalDeAutor();
         $total_inativos = $this->autor->totalDeAutorInativos();
@@ -58,38 +59,36 @@ class AutorController {
             "total_ativos"=> $total_ativos[0]
         ]
     );
-    }
+}
 
-    public function viewCriarAutor(){
+public function viewCriarAutor(){
         View::render("autor/create", []);
-    }
-
-    public function viewEditarAutor($id_autor){
+}
+    
+public function viewEditarAutor($id_autor){
         $dados = $this->autor->buscarAutorPorID($id_autor);
         foreach($dados as $autor){
             $dados = $autor;
         }
         View::render("autor/edit", ["autor" => $dados]);
-    }
+}
 
-    public function viewExcluirAutor($id_autor){
+public function viewExcluirAutor($id_autor){
         View::render("autor/delete", ["id_autor" => $id_autor]);
-    }
+}
 
-    public function relatorioAutor($id_autor, $data1, $data2){
+public function relatorioAutor($id_autor, $data1, $data2){
         View::render("autor/relatorio",
         ["id"=>$id_autor, "data1"=> $data1, "data2"=> $data2]
     );
-    }
+}
 
-    
+public function atualizarAutor(){
+    echo "Atualizar Autor";
+}
 
-    public function atualizarAutor(){
-        echo "Atualizar Autor";
-    }
-
-    public function deletarAutor(){
-        echo "Deletar Autor";
-    }
+public function deletarAutor(){
+    echo "Deletar Autor";
+}
 
 }

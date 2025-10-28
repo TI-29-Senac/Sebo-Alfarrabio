@@ -14,15 +14,15 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($autor as $autor): ?>
+            <?php foreach ($autor as $escritor): ?>
                 <tr>
-                    <td><?= htmlspecialchars($autor['nome_autor']); ?></td>
-                    <td><?= htmlspecialchars($autor['nacionalidade_autor']); ?></td>
-                    <td><?= htmlspecialchars($autor['data_nascimento_autor']); ?></td>
-                    <td><?= htmlspecialchars(substr($autor['biografia_autor'], 0, 50)); ?>...</td>
+                    <td><?= htmlspecialchars($escritor['autor_livro']); ?></td>
+                    <td><?= htmlspecialchars($escritor['nacionalidade_autor']); ?></td>
+                    <td><?= htmlspecialchars($escritor['data_nascimento_autor']); ?></td>
+                    <td><?= htmlspecialchars(substr($escritor['biografia_autor'], 0, 50)); ?>...</td>
                     <td>
-                        <a href="/backend/autor/editar/<?= $autor['id_autor']; ?>" class="w3-button w3-tiny w3-khaki">Editar</a>
-                        <a href="/backend/autor/deletar/<?= $autor['id_autor']; ?>" class="w3-button w3-tiny w3-red">Excluir</a>
+                        <a href="/backend/autor/editar/<?= $escritor['id_autor']; ?>" class="w3-button w3-tiny w3-khaki">Editar</a>
+                        <a href="/backend/autor/deletar/<?= $escritor['id_autor']; ?>" class="w3-button w3-tiny w3-red">Excluir</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

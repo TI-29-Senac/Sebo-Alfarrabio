@@ -39,16 +39,18 @@ class CategoriaController {
              Redirect::redirecionarComMensagem("categoria/criar", "error", "Erro ao cadastrar a Categoria!");
          }
      }
-      // index
-      public function index() {
+     
+public function index() {
         $resultado = $this->categoria->buscarCategoria();
         var_dump($resultado);
-    }
-    public function viewListarCategoria(){
+}
+
+
+public function viewListarCategoria(){
         $dados = $this->categoria->buscarcategoria();
         $total = $this->categoria->totalDeCategoria();
         $total_inativos = $this->categoria->totalDeCategoriaInativos();
-        $total_ativos = $this->categoria->totalDeCaregoriaAtivos();
+        $total_ativos = $this->categoria->totalDeCategoriaAtivos();
 
         View::render("categoria/index", 
         [
@@ -58,38 +60,38 @@ class CategoriaController {
             "total_ativos"=> $total_ativos[0]
         ]
     );
-    }
+}
 
-    public function viewCriarCategoria(){
+public function viewCriarCategoria(){
         View::render("categoria/create", []);
-    }
+}
 
-    public function viewEditarCategoria($id_categoria){
+public function viewEditarCategoria($id_categoria){
         $dados = $this->categoria->buscarCategoriaPorID($id_categoria);
         foreach($dados as $categoria){
             $dados = $categoria;
         }
         View::render("categoria/edit", ["categoria" => $dados]);
-    }
+}
 
-    public function viewExcluirCategoria($id_categoria){
+public function viewExcluirCategoria($id_categoria){
         View::render("categoria/delete", ["id_categoria" => $id_categoria]);
-    }
+}
 
-    public function relatorioCategoria($id_categoria, $data1, $data2){
+public function relatorioCategoria($id_categoria, $data1, $data2){
         View::render("categoria/relatorio",
         ["id"=>$id_categoria, "data1"=> $data1, "data2"=> $data2]
     );
-    }
+}
 
     
 
-    public function atualizarCategoria(){
+public function atualizarCategoria(){
         echo "Atualizar Categoria";
-    }
+}
 
-    public function deletarCategoria(){
+public function deletarCategoria(){
         echo "Deletar categoria";
-    }
+}
 
 }
