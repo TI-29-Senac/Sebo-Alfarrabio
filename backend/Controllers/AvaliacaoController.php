@@ -69,21 +69,22 @@ class AvaliacaoController {
         View::render("avaliacao/edit", ["avaliacao" => $dados]);
     }
 
-    public function deletarAvaliacao(int $id){
-        $status = $this->buscarAvaliacaoPorID($id);
-        $status = $status['status_avaliacao'] == 'ativo' ? 'Inativo' : 'ativo';
+    public function viewExcluirAvaliacao(int $id_avaliacao) {
+        $avaliacao = $this->avaliacao->buscarAvaliacaoPorID($id_avaliacao);
+        if (!$avaliacao) {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "error", "Serviço não encontrado.");
+        }
 
-        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->bindParam(':status', $status);
-        return $stmt->execute();
+        View::render("/avaliacao/delete", ["avaliacao" => $avaliacao]);
     }
 
-    public function relatorioAvaliacao($id_avaliacao, $data1, $data2){
-        View::render("avaliacao/relatorio",
-        ["id"=>$id_avaliacao, "data1"=> $data1, "data2"=> $data2]
-    );
+    public function deletarAvaliacao() {
+        $id_avaliacao = (int)$_POST['id_avaliacao'];
+        if ($this->avaliacao->deletarAvaliacao($id_avaliacao)) {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "success", "Serviço inativado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/avaliacao/listar", "error", "Erro ao inativar serviço.");
+        }
     }
 
     

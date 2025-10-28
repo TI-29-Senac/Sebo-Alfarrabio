@@ -144,19 +144,18 @@ class Avaliacao{
         return $stmt->execute();
     }
     
-    public function deletarAvaliacao(int $id){
-        $status = $this->buscarAvaliacaoPorID($id);
-        $status = $status['status_avaliacao'] == 'ativo' ? 'Inativo' : 'ativo';
-
+    public function deletarAvaliacao(int $id_avaliacao){
+        $dados = $this->buscarAvaliacaoPorID($id_avaliacao);
+        if (empty($dados)) return false;
+        $novoStatus = ($dados[0]['status_avaliacao'] == 'ativo') ? 'Inativo' : 'ativo';
+    
         $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-        $stmt->bindParam(':status_avaliacao', $status);
-        return $stmt->execute();
-    }
-}
+        $stmt->bindParam(':status', $novoStatus); 
+        return $stmt->execute();}
 
-// metodo de ativar o usuario excluido
+    // metodo de ativar o usuario excluido
     function ativarAvaliacao($id_avaliacao){
         $dataatual = NULL;
         $sql = "UPDATE tbl_avaliacao SET
@@ -170,3 +169,6 @@ class Avaliacao{
         }else{
             return false;
         }}
+}
+
+

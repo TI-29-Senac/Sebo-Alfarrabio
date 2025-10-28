@@ -39,7 +39,7 @@ class Rotas
                 "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
                 "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
                 "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
-                "/avaliacao/excluir/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
                 "/avaliacao/{id}/relatorio/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
             ],
             "POST" => [
@@ -59,9 +59,9 @@ class Rotas
                 "/perfil/deletar/{id}" => "perfilController@viewdeletarPerfil",
 
                 // avaliacao post
-                "/avaliacao/salvar" => "AvaliacaoController@viewsalvarAvaliacao",
+                "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
                 '/avaliacao/atualizar' => 'AvaliacaoController@atualizarAvaliacao',
-                "/avaliacao/deletar" => "AvaliacaoController@viewdeletarAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@deletarAvaliacao",
 
             ]
             ];
