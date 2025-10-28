@@ -107,8 +107,8 @@
     <div class="col-md-2 sidebar">
       <h4 class="text-center mb-4">📚 Sebo/Livraria</h4>
       <a href="#" class="active">Dashboard</a>
-      <a href="backend/usuarios/listar/1">Usuários</a>
-      <a href="backend/acervo/listar/1">Acervo</a>
+      <a href="/backend/usuarios/listar/1">Usuários</a>
+      <a href="/backend/acervo/listar/1">Acervo</a>
       <a href="#">Categorias</a>
       <a href="#">Vendas</a>
       <a href="/backend/contato/listar/1">Contatos</a>
