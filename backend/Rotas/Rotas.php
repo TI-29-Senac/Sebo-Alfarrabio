@@ -20,6 +20,7 @@ class Rotas
                 "/acervo" => "AcervoController@index",
                 "/acervo/listar/{pagina}" => "AcervoController@viewListarAcervo",
                 "/acervo/criar" => "AcervoController@viewCriarAcervo",
+                "/api/acervo" => "PublicApiController@getAcervo",
                 "/acervo/editar/{id}" => "AcervoController@viewEditarAcervo",
                 "/acervo/excluir/{id}" => "AcervoController@viewExcluirAcervo",
                 "/acervo/{id}/relatorio/{dataInicial}/{dataFinal}" => "AcervoController@viewRelatorioAcervo",
@@ -57,6 +58,15 @@ class Rotas
                 "/contato/editar/{id}" => "ContatoController@viewEditarContato",
                 "/contato/excluir/{id}" => "ContatoController@viewExcluirContato",
 
+                //vendas
+                "/vendas" => "vendasConstroller@index",
+                "/vendas/criar" => "vendasController@viewCriarVendas",
+                "/vendas/listar/{pagina}" => "vendasController@viewListarVendas",
+                "/vendas/editar/{id}" => "vendasController@viewEditarVendas",
+                "/vendas/excluir/{id}" => "vendasController@viewExcluirVendas",
+                "/vendas/{id}/relatorio/{dataInicial}/{dataFinal}" => "vendasController@relatorioVendas",
+
+
             ],
              
                 "POST" =>[
@@ -88,6 +98,11 @@ class Rotas
                     "/contato/salvar" => "ContatoController@salvarContato",
                     "/contato/excluir/{id}" => "ContatoController@ExcluirContato",
                     "/contato/atualizar/{id}" => "ContatoController@atualizarContato",
+
+                     //vendas post
+                    "/vendas/salvar" => "vendasController@viewsalvarVendas",
+                    "/vendas/atualizar/{id}" => "vendasController@viewatualizarVendas",
+                    "/vendas/deletar/{id}" => "vendasController@viewdeletarVendas",
 
                     ]
             

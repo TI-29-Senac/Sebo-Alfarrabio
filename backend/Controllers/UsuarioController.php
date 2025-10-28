@@ -37,8 +37,8 @@ class UsuarioController {
         [
         "usuarios"=> $dados['data'],
          "total_usuarios"=> $total[0],
-         "total_inativos" => 22,
-         "Total_ativos" => 12,
+         "total_inativos" => 7,
+         "total_ativos" => 13,
          'paginacao' => $dados
         ]
         );

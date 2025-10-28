@@ -19,8 +19,7 @@ class Acervo{
     public function __construct($db){
        $this->db = $db;
     }
-    // metodo de buscar todos os usuarios read
-    // metodo de buscar todos os usuarios read
+
     public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
         $totalQuery = "SELECT COUNT(*) FROM `tbl_acervo` WHERE excluido_em IS NULL";
         $totalStmt = $this->db->query($totalQuery);

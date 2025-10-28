@@ -13,7 +13,7 @@
 
   <style>
     body {
-      font-family: 'Merriweather', serif;
+     
       background-color: #f8f4ec;
     }
 
@@ -110,7 +110,7 @@
       <a href="/backend/usuarios/listar/1">Usuários</a>
       <a href="/backend/acervo/listar/1">Acervo</a>
       <a href="#">Categorias</a>
-      <a href="#">Vendas</a>
+      <a href="/backend/vendas/listar/1">Vendas</a>
       <a href="/backend/contato/listar/1">Contatos</a>
       <a href="#">Histórico</a>
       <a href="#">Configurações</a>

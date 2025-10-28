@@ -8,20 +8,21 @@
         </div>
         <div class="col-md-3">
           <div class="card card-dashboard card-blue text-center p-3">
-            <h5>Views</h5>
-            <h2>99</h2>
+          <h5>Total de Usuários</h5>
+          <h3><?php echo $total_usuarios; ?></h3>
+           
           </div>
         </div>
         <div class="col-md-3">
           <div class="card card-dashboard card-green text-center p-3">
-            <h5>Shares</h5>
-            <h2>23</h2>
+            <h5>Usuários Inativos</h5>
+            <h3><?php echo $total_inativos; ?></h3>
           </div>
         </div>
         <div class="col-md-3">
           <div class="card card-dashboard card-orange text-center p-3">
-            <h5>Usuários</h5>
-            <h2>50</h2>
+            <h5>Usuários ativos</h5>
+            <h3><?php echo $total_ativos; ?></h3>
           </div>
         </div>
       </div>
@@ -29,7 +30,7 @@
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5><i class="fa fa-list me-2"></i>Listar usuarios</h5>
-      <a href="/backend/acervo/criar" class="btn btn-outline-coffee btn-sm">
+      <a href="/backend/usuarios/criar" class="btn btn-outline-coffee btn-sm">
         <i class="fa fa-plus me-1"></i>Adicionar Novo Usuário
       </a>
     </div>

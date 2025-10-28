@@ -30,7 +30,7 @@
   <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h5><i class="fa fa-list me-2"></i>Listar Acervos</h5>
-      <a href="/backend/acervo/novo" class="btn btn-outline-coffee btn-sm">
+      <a href="/backend/acervo/criar" class="btn btn-outline-coffee btn-sm">
         <i class="fa fa-plus me-1"></i>Adicionar Novo Acervo
       </a>
     </div>
