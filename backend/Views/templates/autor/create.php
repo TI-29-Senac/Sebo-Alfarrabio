@@ -1,6 +1,6 @@
 <div class="w3-container">
     <h3>Novo Autor</h3>
-    <form action="backend/autor/salvar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
+    <form action="/backend/autor/salvar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
 
         <p>
         <label class="w3-text-blue"><b>Nome do Autor</b></label>

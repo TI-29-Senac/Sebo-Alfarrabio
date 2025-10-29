@@ -3,13 +3,13 @@
     <form action="backend/genero/salvar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
 
         <p>
-        <label class="w3-text-blue"><b>Nome do Gênero</b></label>
+        <label class="w3-text-blue"><b>Nome do Livro</b></label>
         <input class="w3-input w3-border" name="nome_genero_livro" type="text" required>
         </p>
 
         <p>
-        <label class="w3-text-blue"><b>Descrição</b></label>
-        <textarea class="w3-input w3-border" name="descricao_genero" rows="3" placeholder="Descreva o gênero literário..."></textarea>
+        <label class="w3-text-blue"><b>Nome da Musica</b></label>
+        <textarea class="w3-input w3-border" name="nome_genero_musica" rows="3" placeholder="Descreva o gênero literário..."></textarea>
         </p>
 
         <p>

@@ -5,12 +5,11 @@ use Sebo\Alfarrabio\Models\Genero;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
-use Sebo\Alfarrabio\Validadores\ReservasValidador; 
 use Sebo\Alfarrabio\Validadores\GeneroValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 
 
-class GeneroControllerController {
+class GeneroController {
     public $genero;
     public $criado_em;
     public $atualizado_em;
@@ -19,6 +18,7 @@ class GeneroControllerController {
     public $gerenciarImagem;
     public function __construct() {
         $this->db = Database::getInstance();
+        
         $this->genero = new Genero($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
@@ -41,11 +41,12 @@ class GeneroControllerController {
          }
      }
       // index
-      public function index() {
+public function index() {
         $resultado = $this->genero->buscarGenero();
         var_dump($resultado);
-    }
-    public function viewListarGenero(){
+}
+
+public function viewListarGenero(){
         $dados = $this->genero->buscarGenero();
         $total = $this->genero->totalDeGenero();
         $total_inativos = $this->genero->totalDeGeneroInativos();
@@ -59,38 +60,38 @@ class GeneroControllerController {
             "total_ativos"=> $total_ativos[0]
         ]
     );
-    }
+}
 
-    public function viewCriarGenero(){
+public function viewCriarGenero(){
         View::render("genero/create", []);
-    }
+}
 
-    public function viewEditarGenero($id_genero){
+public function viewEditarGenero($id_genero){
         $dados = $this->genero->buscarGeneroPorID($id_genero);
         foreach($dados as $genero){
             $dados = $genero;
         }
         View::render("genero/edit", ["genero" => $dados]);
-    }
+}
 
-    public function viewExcluirGenero($id_genero){
+public function viewExcluirGenero($id_genero){
         View::render("genero/delete", ["id_genero" => $id_genero]);
-    }
+}
 
-    public function relatorioGenero($id_genero, $data1, $data2){
+public function relatorioGenero($id_genero, $data1, $data2){
         View::render("genero/relatorio",
         ["id"=>$id_genero, "data1"=> $data1, "data2"=> $data2]
     );
-    }
+}
 
     
 
-    public function atualizarGenero(){
+public function atualizarGenero(){
         echo "Atualizar Genero";
-    }
+}
 
-    public function deletarGenero(){
+public function deletarGenero(){
         echo "Deletar Genero";
-    }
+}
 
 }

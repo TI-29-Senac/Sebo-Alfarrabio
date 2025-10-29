@@ -29,11 +29,11 @@ class Genero{
 }
 
 
-    function inserirGenero($nome_livro, $nome_musica){
+    function inserirGenero($nome_genero_livro, $nome_genero_musica){
         $sql = "INSERT INTO tbl_genero (nome_genero_livro, nome_genero_musica) VALUES (:nome_livro, :nome_musica)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':nome_livro', $nome_livro);
-        $stmt->bindParam(':nome_musica', $nome_musica);
+        $stmt->bindParam(':nome_livro', $nome_genero_livro);
+        $stmt->bindParam(':nome_musica', $nome_genero_musica);
         return $stmt->execute();
     }
 

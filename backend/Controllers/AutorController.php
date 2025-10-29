@@ -28,7 +28,7 @@ public function salvarAutor() {
             Redirect::redirecionarComMensagem("/autor/criar", "error", implode(", ", $erros));
         }
 
-        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'autores');
+       // $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'autores');
 
     if ($this->autor->inserirAutor(
         $_POST["autor_livro"],

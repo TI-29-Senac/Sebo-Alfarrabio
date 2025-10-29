@@ -38,7 +38,7 @@ class Rotas
             ],
             "POST" => [
                 //Autor post
-                "/autor/salvar" => "AutorController@viewsalvarAutor",
+                "/autor/salvar" => "AutorController@salvarAutor",
                 "/autor/atualizar/{id}" => "AutorController@viewatualizarAutor",
                 "/autor/deletar/{id}" => "AutorController@viewdeletarAutor",
 

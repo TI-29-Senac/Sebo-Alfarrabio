@@ -19,7 +19,7 @@ class CategoriaController {
     public function __construct() {
         $this->db = Database::getInstance();
         $this->categoria = new Categoria($this->db);
-        $this->gerenciarImagem = new FileManager('upload');
+        $this->gerenciarImagem = new FileManager('upload'); 
     }
 
     public function salvarCategoria(){
