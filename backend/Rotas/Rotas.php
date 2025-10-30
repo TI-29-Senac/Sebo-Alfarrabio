@@ -34,6 +34,18 @@ class Rotas
                 "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
                 "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
 
+
+                 // --- NOVAS ROTAS DE ITEM (SEBO) ---
+                 '/item/listar' => 'ItemController@viewListarItens',
+                 '/item/listar/{pagina}' => 'ItemController@viewListarItens',
+                 '/item/criar' => 'ItemController@viewCriarItem',
+                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
+                 '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+ 
+                 // --- NOVAS ROTAS AJAX (Para formulário de Item) ---
+                 '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
+                 '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
+
                 
             ],
             "POST" => [
@@ -51,6 +63,10 @@ class Rotas
                 "/genero/salvar" => "GeneroController@viewsalvarGenero",
                 "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
                 "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
+
+                '/item/salvar' => 'ItemController@salvarItem',
+                '/item/atualizar' => 'ItemController@atualizarItem',
+                '/item/deletar' => 'ItemController@deletarItem',
 
             ]
             ];

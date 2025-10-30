@@ -8,90 +8,112 @@ use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\GeneroValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 
-
 class GeneroController {
-    public $genero;
+    public $id_genero;
+    public $nome_genero;
     public $criado_em;
     public $atualizado_em;
     public $excluido_em;
     public $db;
     public $gerenciarImagem;
+    public $genero;
+
     public function __construct() {
         $this->db = Database::getInstance();
-        
         $this->genero = new Genero($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
 
-    public function salvarGenero(){
+    // --- CRIAR GÊNERO ---
+    public function salvarGenero() {
         $erros = GeneroValidador::ValidarEntradas($_POST);
-        if(!empty($erros)){
-        
-             Redirect::redirecionarComMensagem("/genero/criar","error", implode("<br>", $erros));
+        if (!empty($erros)) {
+            Redirect::redirecionarComMensagem("/genero/criar", "error", implode("<br>", $erros));
         }
-        $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
-         if($this->genero->inserirGenero(
-             $_POST["nome_genero"],
-             $_POST["descricao_genero"],
-           
-         )){
-             Redirect::redirecionarComMensagem("genero/listar", "success", "Genero cadastrado com sucesso!");
-         }else{
-             Redirect::redirecionarComMensagem("genero/criar", "error", "Erro ao cadastrar o Genero!");
-         }
-     }
-      // index
-public function index() {
-        $resultado = $this->genero->buscarGenero();
+
+        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'genero');
+
+        if ($this->genero->inserirGenero($_POST["nome_genero"])) {
+            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero cadastrado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("genero/criar", "error", "Erro ao cadastrar o gênero!");
+        }
+    }
+
+    // --- LISTAR TODOS ---
+    public function index() {
+        $resultado = $this->genero->buscarGeneros();
         var_dump($resultado);
-}
+    }
 
-public function viewListarGenero(){
-        $dados = $this->genero->buscarGenero();
-        $total = $this->genero->totalDeGenero();
-        $total_inativos = $this->genero->totalDeGeneroInativos();
-        $total_ativos = $this->genero->totalDeGeneroAtivos();
+    public function viewListarGenero() {
+        $dados = $this->genero->buscarGeneros();
+        $total = $this->genero->totalDeGeneros();
+        $total_inativos = $this->genero->totalDeGenerosInativos();
+        $total_ativos = $this->genero->totalDeGenerosAtivos();
 
-        View::render("genero/index", 
-        [
-            "genero"=> $dados, 
-            "total_genero"=> $total[0],
-            "total_inativos"=> $total_inativos[0],
-            "total_ativos"=> $total_ativos[0]
-        ]
-    );
-}
+        View::render("genero/index", [
+            "genero" => $dados,
+            "total_genero" => $total,
+            "total_inativos" => $total_inativos,
+            "total_ativos" => $total_ativos
+        ]);
+    }
 
-public function viewCriarGenero(){
+    // --- PÁGINA DE CRIAÇÃO ---
+    public function viewCriarGenero() {
         View::render("genero/create", []);
-}
+    }
 
-public function viewEditarGenero($id_genero){
+    // --- EDITAR ---
+    public function viewEditarGenero($id_genero) {
         $dados = $this->genero->buscarGeneroPorID($id_genero);
-        foreach($dados as $genero){
-            $dados = $genero;
-        }
         View::render("genero/edit", ["genero" => $dados]);
-}
+    }
 
-public function viewExcluirGenero($id_genero){
+    // --- EXCLUIR (VIEW) ---
+    public function viewExcluirGenero($id_genero) {
         View::render("genero/delete", ["id_genero" => $id_genero]);
-}
+    }
 
-public function relatorioGenero($id_genero, $data1, $data2){
-        View::render("genero/relatorio",
-        ["id"=>$id_genero, "data1"=> $data1, "data2"=> $data2]
-    );
-}
+    // --- RELATÓRIO ---
+    public function relatorioGenero($id_genero, $data1, $data2) {
+        View::render("genero/relatorio", [
+            "id" => $id_genero,
+            "data1" => $data1,
+            "data2" => $data2
+        ]);
+    }
 
-    
+    // --- ATUALIZAR GÊNERO ---
+    public function atualizarGenero() {
+        $id = $_POST["id_genero"];
+        $nome = $_POST["nome_genero"];
 
-public function atualizarGenero(){
-        echo "Atualizar Genero";
-}
+        if ($this->genero->atualizarGenero($id, $nome)) {
+            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero atualizado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("genero/editar/{$id}", "error", "Erro ao atualizar o gênero!");
+        }
+    }
 
-public function deletarGenero(){
-        echo "Deletar Genero";
-}
+    // --- DELETAR (SOFT DELETE) ---
+    public function deletarGenero() {
+        $id = $_POST["id_genero"];
 
+        if ($this->genero->excluirGenero($id)) {
+            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero excluído com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("genero/listar", "error", "Erro ao excluir o gênero!");
+        }
+    }
+
+    // --- REATIVAR ---
+    public function ativarGenero($id_genero) {
+        if ($this->genero->ativarGenero($id_genero)) {
+            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero reativado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("genero/listar", "error", "Erro ao reativar o gênero!");
+        }
+    }
 }
