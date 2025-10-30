@@ -41,6 +41,16 @@ class Rotas
                 "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
                 "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
                 "/avaliacao/{id}/relatorio/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
+
+                '/item/listar' => 'ItemController@viewListarItens',
+                '/item/listar/{pagina}' => 'ItemController@viewListarItens',
+                '/item/criar' => 'ItemController@viewCriarItem',
+                '/item/editar/{id}' => 'ItemController@viewEditarItem',
+                '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+
+                // --- NOVAS ROTAS AJAX (Para formulário de Item) ---
+                '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
+                '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
             ],
             "POST" => [
                 //vendas post
@@ -62,6 +72,10 @@ class Rotas
                 "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
                 '/avaliacao/atualizar' => 'AvaliacaoController@atualizarAvaliacao',
                 "/avaliacao/deletar/{id}" => "AvaliacaoController@deletarAvaliacao",
+
+                '/item/salvar' => 'ItemController@salvarItem',
+                '/item/atualizar' => 'ItemController@atualizarItem',
+                '/item/deletar' => 'ItemController@deletarItem',
 
             ]
             ];
