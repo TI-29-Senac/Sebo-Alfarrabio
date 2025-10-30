@@ -60,6 +60,8 @@ class Rotas
                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
                 '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
 
+                '/api/item' => 'PublicApiController@getItem',
+
                 // --- NOVAS ROTAS AJAX (Para formulário de Item) ---
                 '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
                 '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
@@ -71,7 +73,7 @@ class Rotas
 
                 '/register' => 'AuthController@cadastrarUsuario',
                 '/login' => 'AuthController@authenticar',
-                
+
                 //vendas post
                 "/vendas/salvar" => "vendasController@viewsalvarVendas",
                 "/vendas/atualizar/{id}" => "vendasController@viewatualizarVendas",
@@ -95,6 +97,8 @@ class Rotas
                 '/item/salvar' => 'ItemController@salvarItem',
                 '/item/atualizar' => 'ItemController@atualizarItem',
                 '/item/deletar' => 'ItemController@deletarItem',
+
+                '/api/reservas' => 'PublicApiController@salvarReservas',
 
             ]
             ];

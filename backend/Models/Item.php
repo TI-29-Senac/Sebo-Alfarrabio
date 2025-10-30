@@ -22,6 +22,7 @@ class Item {
     private $isbn;
     private $duracao_minutos;
     private $numero_edicao;
+    private $foto_item;
     private $criado_em;
     private $atualizado_em;
     private $excluido_em;
@@ -320,5 +321,12 @@ class Item {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function buscarItemAtivos() {
+        $sql = "SELECT id_item, titulo_item, tipo_item, descricao, foto_item FROM tbl_itens";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

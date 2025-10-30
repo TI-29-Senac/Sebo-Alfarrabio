@@ -19,7 +19,7 @@ class ItemController extends AdminController {
     public $autor;
     public $categoria;
     public $genero;
-    // public $gerenciarImagem; // Descomente se os itens tiverem imagens
+    public $gerenciarImagem; // Descomente se os itens tiverem imagens
 
     public function __construct() {
         parent::__construct();
@@ -31,7 +31,7 @@ class ItemController extends AdminController {
         $this->categoria = new Categoria($this->db);
         $this->genero = new Genero($this->db);
 
-        // $this->gerenciarImagem = new FileManager('upload'); // Para imagens de itens
+        $this->gerenciarImagem = new FileManager('upload'); // Para imagens de itens
     }
 
     /**
