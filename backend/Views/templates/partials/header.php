@@ -43,6 +43,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="/backend/reservas/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-laptop fa-fw"></i>  Reservas</a>
     <a href="/backend/perfil/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Perfil Usuário</a>
     <a href="/backend/avaliacao/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comment fa-fw"></i>  Avaliação</a>
+    <a href="/backend/item/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comment fa-fw"></i>  Itens</a>
 
 </nav>
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\Kipedreiro\Models;
+namespace Sebo\Alfarrabio\Models;
 use PDO;
 use Exception; // Usaremos para as transações
 

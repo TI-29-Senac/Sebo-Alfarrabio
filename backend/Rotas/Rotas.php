@@ -9,6 +9,18 @@ class Rotas
         return [
             "GET" => [
                 // o caminho da url   o nome do controller e o metodo de controller
+                "/" => "Admin\DashboardController@index",
+                "/usuarios" => "UsuarioController@index",
+                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
+                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
+                "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
+                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
+                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
+
+                '/register' => 'AuthController@register',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
+                '/admin/dashboard' => 'Admin\DashboardController@index',
 
                 //vendas
                 "/vendas" => "vendasConstroller@index",
@@ -53,6 +65,13 @@ class Rotas
                 '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
             ],
             "POST" => [
+                "/usuario/salvar" => "UsuarioController@salvarUsuario",
+                "/usuario/atualizar/{id}" => "UsuarioController@atualizarUsuario",
+                "/usuario/deletar/{id}" => "UsuarioController@deletarUsuario",
+
+                '/register' => 'AuthController@cadastrarUsuario',
+                '/login' => 'AuthController@authenticar',
+                
                 //vendas post
                 "/vendas/salvar" => "vendasController@viewsalvarVendas",
                 "/vendas/atualizar/{id}" => "vendasController@viewatualizarVendas",

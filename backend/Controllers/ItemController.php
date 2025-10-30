@@ -8,7 +8,7 @@ use Sebo\Alfarrabio\Models\Genero;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
-// use Sebo\Alfarrabio\Validadores\ItemValidador; // Você precisará criar este validador
+use Sebo\Alfarrabio\Validadores\ItemValidador; // Você precisará criar este validador
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController; // Baseado no seu exemplo
 
@@ -202,6 +202,14 @@ class ItemController extends AdminController {
         } else {
             Redirect::redirecionarComMensagem("item/editar/$id_item","error","Erro ao atualizar item. A operação foi revertida.");
         }
+
+        $erros = ItemValidator::validar($item);
+
+        if (!empty($erros)) {
+        // Exibe os erros na view
+        include_once '../Views/templates/item/';
+        return;
+    }
     }
 
     /**
@@ -253,4 +261,5 @@ class ItemController extends AdminController {
         echo json_encode($resultados);
         exit;
     }
+
 }
