@@ -33,81 +33,52 @@ class ItemController extends AdminController {
 
         $this->gerenciarImagem = new FileManager('upload'); // Para imagens de itens
     }
-    public function viewProdutos($pagina = 1) {
-        if (empty($pagina) || $pagina <= 0) {
-            $pagina = 1;
+   public function viewProdutos($pagina = 1) {
+    if (empty($pagina) || $pagina <= 0) {
+        $pagina = 1;
+    }
+
+    $dados = $this->item->paginacao($pagina, 12);
+
+    // 🔧 MAPEAMENTO CORRETO baseado no seu banco
+    $mapeamentoFiltros = [
+        1 => 'ficcao-cientifica', // Ficção Científica
+        2 => 'fantasia',          // Fantasia
+        3 => 'romance',           // Romance
+        4 => 'terror',            // Técnico (você pode criar um filtro específico)
+        // Adicione mais conforme necessário
+    ];
+
+    $itensComFiltros = [];
+    foreach ($dados['data'] as $item) {
+        $classeFiltro = 'todos';
+        if (isset($mapeamentoFiltros[$item['id_genero']])) {
+            $classeFiltro = $mapeamentoFiltros[$item['id_genero']];
         }
-    
-        // Busca paginada de itens ATIVOS de tbl_itens (usa o método paginacao() existente)
-        $dados = $this->item->paginacao($pagina, 12);  // 12 por página pra grid responsivo (3x4)
-    
-        // Mapeamento de gêneros para classes CSS de filtro (baseado em IDs da tbl_generos)
-        // Ajuste os IDs reais do seu banco (ex: SELECT id_genero, nome_genero FROM tbl_generos;)
-        $mapeamentoFiltros = [
-            1 => 'romance',           // Ex: ID 1 = Romance
-            2 => 'fantasia',          // ID 2 = Fantasia
-            3 => 'ficcao-cientifica', // ID 3 = Ficção Científica
-            4 => 'terror',            // ID 4 = Terror
-            // Adicione mais: 5 => 'auto-ajuda', etc.
+
+        $itensComFiltros[] = [
+            'id' => $item['id_item'],
+            'titulo' => htmlspecialchars($item['titulo_item']),
+            'descricao' => substr($item['descricao'] ?? 'Explore este item incrível do nosso acervo.', 0, 100) . '...',
+            'imagem' => !empty($item['foto_item']) 
+                ? '/uploads/' . htmlspecialchars($item['foto_item']) 
+                : '/img/default-livro.jpg',
+            'preco' => number_format($item['preco'] ?? 0, 2, ',', '.'),
+            'tipo' => ucfirst($item['tipo_item']),
+            'estoque' => $item['estoque'] ?? 0,
+            'autores' => $item['autores'] ?? 'Autor não informado',
+            'filtro_classes' => $classeFiltro
         ];
-    
-        $itensComFiltros = [];
-        foreach ($dados['data'] as $item) {
-            $classeFiltro = 'todos';  // Default pra itens sem gênero mapeado
-            if (isset($mapeamentoFiltros[$item['id_genero']])) {
-                $classeFiltro = $mapeamentoFiltros[$item['id_genero']];
-            }
-            // Opcional: Multi-classe, ex: se categoria também influencia
-            // if ($item['id_categoria'] == 2) $classeFiltro .= ' ficcao-cientifica';
-    
-            $itensComFiltros[] = [
-                'id' => $item['id_item'],  // ID principal de tbl_itens
-                'titulo' => htmlspecialchars($item['titulo_item']),  // Sanitização pra segurança
-                'descricao' => substr($item['descricao'] ?? 'Sem descrição disponível.', 0, 100) . '...',  // Snippet curto pra UX
-                'imagem' => !empty($item['foto_item']) ? '/uploads/' . htmlspecialchars($item['foto_item']) : '/img/default-livro.jpg',  // Caminho de upload ou default
-                'preco' => number_format($item['preco'] ?? 0, 2, ',', '.'),  // Assuma campo 'preco' em tbl_itens; adicione se não tiver
-                'tipo' => $item['tipo_item'],  // 'livro', 'cd', etc. — pra badge no card
-                'estoque' => $item['estoque'] ?? 1,  // Ou 'quantidade' se for o campo
-                'autores' => $item['autores'] ?? 'Autor desconhecido',  // Do GROUP_CONCAT no model
-                'filtro_classes' => $classeFiltro
-            ];
-        }
-    
-        // Total de itens ativos (método existente no model)
-        $totalItens = $this->item->totalDeItensAtivos();
-    
-        // Renderiza a view pública
-        View::render("public/produtos", [
-            "itens" => $itensComFiltros,
-            "total_itens" => $totalItens,
-            'paginacao' => $dados  // Pra links de paginação
-        ]);
     }
 
-    /**
-     * Exibe a view de listagem com paginação e estatísticas.
-     */
-    public function viewListarItens($pagina = 1){
-        if(empty($pagina) || $pagina <= 0){
-            $pagina = 1;
-        }
+    $totalItens = $this->item->totalDeItensAtivos();
 
-        // Busca dados paginados já com JOINs (autores, categoria, genero)
-        $dados = $this->item->paginacao($pagina, 10); // 10 por página
-        
-        $totalAtivos = $this->item->totalDeItensAtivos();
-        $totalInativos = $this->item->totalDeItensInativos();
-        $total = $this->item->totalDeItens();
-        
-        View::render("item/index", [
-            "itens" => $dados['data'],
-            "total_itens" => $total,
-            "total_inativos" => $totalInativos,
-            "total_ativos" => $totalAtivos,
-            'paginacao' => $dados
-        ]);
-    }
-
+    View::render("public/produtos", [
+        "itens" => $itensComFiltros,
+        "total_itens" => $totalItens,
+        'paginacao' => $dados
+    ]);
+}
     /**
      * Exibe o formulário de criação.
      * Envia os dados de Gêneros e Categorias para preencher os <select>.
