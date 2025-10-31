@@ -1,7 +1,7 @@
 <?php
-namespace App\Kipedreiro\Controllers\Admin;
+namespace Sebo\Alfarrabio\Controllers\Admin;
 
-use App\Kipedreiro\Core\View;
+use Sebo\Alfarrabio\Core\View;
 
 class DashboardController extends AuthenticatedController
 {
