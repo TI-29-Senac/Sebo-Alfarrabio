@@ -8,6 +8,11 @@ class Rotas
     {
         return [
             "GET" => [
+                // ... rotas existentes ...
+                '/produtos' => 'ItemController@viewProdutos',  // Novo: Lista pública de produtos
+                '/produtos/{pagina}' => 'ItemController@viewProdutos',  // Com paginação
+                // ... resto ... das rotas ...
+                
                 // o caminho da url   o nome do controller e o metodo de controller
                 "/" => "Admin\DashboardController@index",
                 "/usuarios" => "UsuarioController@index",

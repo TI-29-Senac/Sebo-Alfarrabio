@@ -7,7 +7,7 @@ use Sebo\Alfarrabio\Core\Redirect;
 abstract class AdminController extends AuthenticatedController{
     public function __construct() {
         parent::__construct();
-        if ($this->session->get('usuario_tipo') !== 'Admin') {
+        if ($this->session->get('usuario_tipo') !== 'admin') {
             Redirect::redirecionarComMensagem(
                 '/admin/dashboard',
                 'error',
