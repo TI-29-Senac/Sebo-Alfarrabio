@@ -440,27 +440,6 @@
             }
         }
     </script>
-    <script>
-// Tratamento de erro para imagens que não carregam
-document.addEventListener('DOMContentLoaded', function() {
-    const images = document.querySelectorAll('.card-livro-p figure img');
-    
-    images.forEach(img => {
-        img.addEventListener('error', function() {
-            // Se a imagem falhar, usa um placeholder baseado no tipo
-            const tipo = this.closest('.card-livro-p').querySelector('.badge-tipo').textContent.toLowerCase();
-            
-            const placeholders = {
-                'livro': 'https://via.placeholder.com/300x400/667eea/FFFFFF?text=📚+LIVRO',
-                'cd': 'https://via.placeholder.com/300x400/f093fb/FFFFFF?text=🎵+CD',
-                'dvd': 'https://via.placeholder.com/300x400/4facfe/FFFFFF?text=🎬+DVD',
-                'revista': 'https://via.placeholder.com/300x400/43e97b/FFFFFF?text=📰+REVISTA'
-            };
-            
-            this.src = placeholders[tipo] || 'https://via.placeholder.com/300x400/cccccc/000000?text=Sem+Imagem';
-        });
-    });
-});
-</script>
+
 </body>
 </html>
