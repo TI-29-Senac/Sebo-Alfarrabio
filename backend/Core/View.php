@@ -9,4 +9,9 @@ class View{
         require_once __DIR__."/../Views/templates/{$nomeView}.php";
         require_once __DIR__."/../Views/templates/partials/footer.php";
     }
+
+    public static function renderPublic($view, $data = []) {
+        extract($data);
+        require_once __DIR__ . "/../Views/public/{$view}.php";
+    }
 }

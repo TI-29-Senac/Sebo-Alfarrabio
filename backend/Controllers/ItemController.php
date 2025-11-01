@@ -57,27 +57,38 @@ class ItemController extends AdminController {
         }
 
         $itensComFiltros[] = [
-            'id' => $item['id_item'],
-            'titulo' => htmlspecialchars($item['titulo_item']),
-            'descricao' => substr($item['descricao'] ?? 'Explore este item incrível do nosso acervo.', 0, 100) . '...',
-            'imagem' => !empty($item['foto_item']) 
-                ? '/uploads/' . htmlspecialchars($item['foto_item']) 
-                : '/img/default-livro.jpg',
-            'preco' => number_format($item['preco'] ?? 0, 2, ',', '.'),
-            'tipo' => ucfirst($item['tipo_item']),
-            'estoque' => $item['estoque'] ?? 0,
-            'autores' => $item['autores'] ?? 'Autor não informado',
-            'filtro_classes' => $classeFiltro
-        ];
+    'id' => $item['id_item'],
+    'titulo' => htmlspecialchars($item['titulo_item']),
+    
+    // 🔧 USA A DESCRIÇÃO REAL, sem truncar muito
+    'descricao' => !empty($item['descricao']) 
+        ? (strlen($item['descricao']) > 120 
+            ? substr($item['descricao'], 0, 120) . '...' 
+            : $item['descricao'])
+        : 'Explore este item incrível do nosso acervo.',
+    
+    // 🔧 Caminho correto das imagens
+    'imagem' => !empty($item['foto_item']) 
+    ? (filter_var($item['foto_item'], FILTER_VALIDATE_URL) 
+        ? $item['foto_item']  // É URL externa, usa direto
+        : '/uploads/' . htmlspecialchars($item['foto_item']))  // É arquivo local
+    : '/img/default-livro.jpg',
+    
+    'preco' => number_format($item['preco'] ?? 0, 2, ',', '.'),
+    'tipo' => ucfirst($item['tipo_item']),
+    'estoque' => $item['estoque'] ?? 0,
+    'autores' => $item['autores'] ?? 'Autor não informado',
+    'filtro_classes' => $classeFiltro
+];
     }
 
     $totalItens = $this->item->totalDeItensAtivos();
 
-    View::render("public/produtos", [
-        "itens" => $itensComFiltros,
-        "total_itens" => $totalItens,
-        'paginacao' => $dados
-    ]);
+    View::renderPublic("produtos", [  // Usa o novo método
+    "itens" => $itensComFiltros,
+    "total_itens" => $totalItens,
+    'paginacao' => $dados
+]);
 }
     /**
      * Exibe o formulário de criação.
