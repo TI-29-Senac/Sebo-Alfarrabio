@@ -68,7 +68,7 @@
                 <tr>
                     <td><?= htmlspecialchars($reservas['id_reserva']) ?></td>
                     <td><?= htmlspecialchars($reservas['id_usuario']) ?></td>
-                    <td><?= htmlspecialchars($reservas['id_acervo']) ?></td>
+                    <td><?= htmlspecialchars($reservas['id_item']) ?></td>
                     <td><?= htmlspecialchars($reservas['data_reserva']) ?></td>
                     <td><?= htmlspecialchars($reservas['status_reserva']) ?></td>
                     <td><a href="/backend/reservas/editar/<?= htmlspecialchars($reservas['id_reserva']) ?>">Editar</a></td>

@@ -4,7 +4,7 @@ use PDO;
 class Reservas{
     private $id_reserva;
     private $id_usuario;
-    private $id_acervo;
+    private $id_item;
     private $data_reserva;
     private $status_reserva;
     private $criado_em;

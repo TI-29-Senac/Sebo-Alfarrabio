@@ -1,157 +1,326 @@
-.container-p {
-    overflow: hidden;
+
+/* Layout Principal (Aprimorado: Mais espaço, centralizado) */
+.main-layout {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
-    justify-items: center;
-    max-width: 1200px;
-    margin: 20px auto;
-    gap: 15px;
-    
+    min-height: 80vh;
+    gap: 30px;  /* Mais espaço entre sidebar e cards */
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;  /* Alinha topo para sidebar não "afundar" */
+}
 
-  }
-  
-  .filterDiv {
-    float: left;
-    color: #ffffff;
-    width: auto;
-    line-height: 100px;
+/* Sidebar de Filtros (Mais Elegante: Bordas arredondadas, ícones, foco visual) */
+.sidebar-filtros {
+    width: 300px;
+    background: linear-gradient(to bottom, #f9f9f9, #f0e6d6);  /* Gradiente sutil */
+    padding: 30px;
+    border-radius: 16px;  /* Mais arredondado */
+    box-shadow: 0 8px 25px rgba(101, 67, 33, 0.15);  /* Sombra maior para destaque */
+    flex-shrink: 0;
+    border: 1px solid #e8d9b8;  /* Borda suave */
+}
+.sidebar-filtros h3 {
+    margin-bottom: 25px;
+    color: #654321;
+    font-size: 22px;
     text-align: center;
-    margin: 2px;
-    display: none; /* Hidden by default */
-  }
-  
-  /* The "show" class is added to the filtered elements */
-  .show {
+    font-style: italic;  /* Toque literário */
+}
+.sidebar-filtros label {
     display: block;
-  }
-  
-
-  .item-p{
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #654321;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;  /* Espaçamento para sofisticação */
+}
+.sidebar-filtros input, .sidebar-filtros select {
+    width: 100%;
+    padding: 12px 15px;  /* Mais padding para conforto */
+    border: 2px solid #d4a574;  /* Borda mais visível */
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;  /* Foco animado */
+    background: white;
+}
+.sidebar-filtros input:focus, .sidebar-filtros select:focus {
+    outline: none;
+    border-color: #b5895e;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);  /* Glow sutil */
+}
+.sidebar-filtros button {
+    width: 100%;
+    background: linear-gradient(to right, #d4a574, #b5895e);  /* Gradiente no botão */
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 12px;
+    transition: transform 0.2s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;  /* Para pseudo-elemento */
+}
+.sidebar-filtros button::before {  /* Efeito ripple no clique */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+.sidebar-filtros button:active::before {
+    width: 300px;
+    height: 300px;
+}
+.sidebar-filtros button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 165, 116, 0.3);
+}
+.sidebar-filtros .limpar-link {
+    display: block;
     text-align: center;
+    color: #8b7355;  /* Marrom médio */
+    text-decoration: none;
+    font-size: 14px;
+    font-style: italic;
+    transition: color 0.3s;
+}
+.sidebar-filtros .limpar-link:hover {
+    color: #654321;
+    text-decoration: underline;
+}
+.sidebar-filtros .contador {
+    margin-top: 25px;
+    padding: 12px;
+    background: linear-gradient(to bottom, white, #f9f9f9);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: #654321;
+    font-weight: bold;
+    border-left: 4px solid #d4a574;  /* Barra lateral para destaque */
+}
+
+/* Grid de Livros (Aprimorado: Grid mais fluido, cards com mais ar) */
+.container-p {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* Mais responsivo */
+    gap: 30px;  /* Espaço generoso */
+    padding: 0 10px;  /* Margem interna sutil */
+}
+
+/* Cards (Mais Bonitos: Sombras profundas, bordas arredondadas, texto hierárquico) */
+.card-livro-p {
+    background: white;
+    border-radius: 16px;  /* Mais arredondado, como capa de livro */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(101, 67, 33, 0.12);  /* Sombra longa para profundidade */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;  /* Transição mais lenta para elegância */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    width: 150px;
-    height: 150px;
-    background-color: #fff;
-    border-radius: 800px;
-    box-shadow: 0 4px 8px rgba(83, 45, 2, 0.1);
-    padding: 20px;
-    font-family: 'Merriweather', serif;
-    font-size: 1em;
-    color: #694100;
-    font-size: 0.9em;
-    cursor: pointer;
-    
-    
+    height: 100%;  /* Cards iguais na altura */
 }
-.item-p :hover{
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-    color: #db8802;
-    
+.card-livro-p:hover {
+    transform: translateY(-8px) scale(1.02);  /* Levanta e escala leve */
+    box-shadow: 0 20px 40px rgba(101, 67, 33, 0.2);
 }
-
-.categorias-p{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    background-color: #f8f1e7;
-    font-family: 'Merriweather', serif;
-    padding: 20px;
-}
-
 
 .card-livro-p figure {
-    position: relative; /* Necessário para posicionar o figcaption */
-   
-  }
-  
-  .card-livro-p  {
-    display: flex;
     position: relative;
-    height: 300px;
-    width: 200px;
-    border-radius: 8px;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
-    text-align: center;
+    height: 320px;
+    overflow: hidden;
+    margin: 0;
+    background: #f0f0f0;  /* Fundo cinza se imagem falhar */
+}
+.card-livro-p figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Crop perfeito */
+    transition: transform 0.4s ease;  /* Zoom no hover */
+}
+.card-livro-p:hover figure img {
+    transform: scale(1.05);  /* Zoom sutil na imagem */
+}
 
-  }
-  .card-livro-p img {
-    display: flex;
-    position: relative;
-    height: 300px;
-    width: 200px;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
-  }
-  
-  
-  .card-livro-p :hover{
-    background-color: #69410036;
-  
-  }
-
-  .figcaption-livros {
+.preco-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, #000000cc, transparent);
+    right: 0;
+    background: linear-gradient(transparent, rgba(101, 67, 33, 0.85));  /* Gradiente mais escuro */
     color: white;
+    padding: 20px 15px 15px;
+    text-align: center;
+    font-size: 18px;  /* Maior para impacto */
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);  /* Sombra no texto */
+}
+
+.info-livro {
+    padding: 20px;  /* Mais padding para respirar */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    padding: 10px;
-    text-align: center;
-    transform: translateY(115%);
-    transition: transform 0.4s ease-in-out;
-    backdrop-filter: blur(5px);
-  }
-  .card-livro-p :hover .figcaption-livro{
-    transform: translateY(1%);
-  }
-  
-  .saiba-mais{
-    position: absolute;
-    top: 50%;
-    left: 19%;
+    justify-content: space-between;
+}
+
+.info-livro h3 {
+    font-size: 18px;  /* Maior título */
+    margin-bottom: 12px;
+    color: #654321;
+    line-height: 1.3;
+    font-weight: bold;
+}
+
+.info-livro p {
+    font-size: 14px;
+    color: #8b7355;  /* Marrom médio para subtítulo */
+    margin-bottom: 12px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* Limita a 3 linhas, com ... */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.estoque-disponivel {
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.estoque-indisponivel {
+    color: #dc3545;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.saiba-mais {
+    display: inline-block;
+    background: linear-gradient(to right, #d4a574, #b5895e);
     color: white;
-    background-color: #0000006b;
-    /* width: 100%; */
-    padding: 20px;
-    border-radius: 10px;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 25px;  /* Pill shape para modernidade */
+    font-size: 14px;
+    align-self: flex-start;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.saiba-mais:hover {
+    background: linear-gradient(to right, #b5895e, #9a6a4e);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
+/* Paginação (Mais Elegante: Botões pill, centralizado) */
+.paginacao {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: auto;
+}
+.paginacao a {
+    color: #d4a574;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 2px solid #d4a574;
+    border-radius: 25px;  /* Pill */
+    margin: 0 10px;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-block;
+}
+.paginacao a:hover {
+    background: #d4a574;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Footer (Polido: Gradiente, ícones se adicionar Font Awesome) */
+footer {
+    background: linear-gradient(to top, #654321, #8b7355);  /* Gradiente invertido */
+    color: white;
+    padding: 40px 20px 20px;
+    text-align: center;
+    margin-top: 60px;  /* Espaço após conteúdo */
+}
+.container-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.footer-nome img { height: 50px; filter: brightness(1.2); }  /* Destaque na logo */
+.links ul { list-style: none; }
+.links a { color: white; text-decoration: none; transition: color 0.3s; }
+.links a:hover { color: #d4a574; }
+.footer-bottom {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #8b7355;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* RESPONSIVO (Refinado: Cards menores em mobile, sidebar accordion se quiser JS) */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+    }
+    .sidebar-filtros {
+        width: 100%;
+        order: 1;
+        padding: 20px;  /* Menos padding em mobile */
+    }
+    .container-p {
+        order: 2;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));  /* Cards menores */
+        gap: 20px;
+    }
+    header { padding: 15px 20px; }
+    header nav ul { gap: 15px; font-size: 16px; flex-wrap: wrap; }
+    .info-livro { padding: 15px; }  /* Compacto */
+    .preco-overlay { font-size: 16px; padding: 15px 10px; }
+}
+
+/* Animação de Fade-In (Melhorada: Stagger para cards sequenciais) */
+.card-livro-p {
+    animation: fadeInUp 0.6s ease-out forwards;  /* Up + forwards para fixar */
     opacity: 0;
-  }
-  
-  .card-livro-p .saiba-mais:hover{
-    position: absolute;
-    top: 50%;
-    left: 19%;
-    color: rgb(255, 255, 255);
-    background-color: #0000006b;
-    /* width: 100%; */
-    padding: 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s ease;
-    opacity: 1;
-  }
+    transform: translateY(30px);
+}
+.card-livro-p:nth-child(1) { animation-delay: 0.1s; }
+.card-livro-p:nth-child(2) { animation-delay: 0.2s; }
+.card-livro-p:nth-child(3) { animation-delay: 0.3s; }
+/* Adicione mais para stagger */
+@keyframes fadeInUp {
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}

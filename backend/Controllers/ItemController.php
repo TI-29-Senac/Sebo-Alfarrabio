@@ -294,4 +294,31 @@ class ItemController extends AdminController {
         exit;
     }
 
+    /**
+ * Exibe a listagem de itens para admin com paginação e contagens.
+ * Similar ao UsuarioController, mas para itens.
+ */
+public function viewListarItens($pagina = 1) {
+    if (empty($pagina) || $pagina <= 0) {
+        $pagina = 1;
+    }
+    
+    // Paginação dos itens (usa o método do model, filtrando inativos)
+    $dados = $this->item->paginacao($pagina, 10);  // 10 por página, ajuste se quiser
+    
+    // Contagens totais (ativos, inativos, total)
+    $totalItens = $this->item->totalDeItens();  // Total geral
+    $totalAtivos = $this->item->totalDeItensAtivos();  // Ativos (excluido_em IS NULL)
+    $totalInativos = $this->item->totalDeItensInativos();  // Inativos
+    
+    // Renderiza a view admin (crie Views/item/index.php se não existir)
+    View::render("item/index", [
+        "itens" => $dados['data'],  // Array de itens com joins (autores, genero, etc.)
+        "total_itens" => $totalItens,  // Use como int ou [$totalItens] se for fetchAll
+        "total_ativos" => $totalAtivos,
+        "total_inativos" => $totalInativos,
+        'paginacao' => $dados  // Inclui pagina_atual, ultima_pagina, etc.
+    ]);
+}
+
 }
