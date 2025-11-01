@@ -1,15 +1,20 @@
 <?php
-namespace Sebo\Alfarrabio\Controllers\Admin;
+namespace Sebo\Alfarrabio\Controllers;
 
-use Sebo\Alfarrabio\Core\View;
+use Sebo\Alfarrabio\Controllers\Admin\AuthenticatedController;
 
-class DashboardController extends AuthenticatedController
-{
-    public function index(): void
-    {
-        View::render('admin/dashboard/index', [
-            'nomeUsuario' => $this->session->get('usuario_nome'),
-            'Tipo' => $this->session->get('usuario_tipo')
-        ]);
+class DashboardController extends AuthenticatedController {
+    
+    public function __construct() {
+        parent::__construct();
+    }
+    
+    public function index() {
+        $titulo = "Dashboard Administrativo";
+        $totalAutores = 42;
+        $totalCategorias = 18;
+        $totalGeneros = 7;
+
+        require_once __DIR__ . '/../Views/templates/admin/dashboard/index.php';
     }
 }

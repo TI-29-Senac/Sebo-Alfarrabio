@@ -21,7 +21,7 @@ class Config
                 'driver' => 'mysql',
                 'mysql' => array(
                     'host'     => 'localhost',
-                    'db_name'  => 'seboV2.1',
+                    'db_name'  => 'sebov2_1',
                     'username' => 'root',
                     'password' => NULL,
                     'charset'  => 'utf8',

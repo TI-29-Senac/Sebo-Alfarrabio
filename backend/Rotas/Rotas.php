@@ -46,6 +46,10 @@ class Rotas
                  '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
                  '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
 
+
+                 "/dashboard" => "DashboardController@index",
+
+
                 
             ],
             "POST" => [

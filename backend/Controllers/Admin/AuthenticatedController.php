@@ -6,7 +6,7 @@ use Sebo\Alfarrabio\Core\Redirect;
 
 abstract class AuthenticatedController{
     protected Session $session;
-    public function _construct() {
+public function __construct() {  // ✅ CORRETO - tem 2 underscores
         $this->session = new Session();
         if (!$this->session->has('usuario_id')) {
             Redirect::redirecionarComMensagem(

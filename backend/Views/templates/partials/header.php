@@ -38,13 +38,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <h5>Dashboard</h5>
   </div>
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="/backend/vendas/listar" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-dollar fa-fw"></i>  Vendas</a>
-    <a href="/backend/reservas/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-laptop fa-fw"></i>  Reservas</a>
-    <a href="/backend/perfil/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i>  Perfil Usuário</a>
-    <a href="/backend/avaliacao/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comment fa-fw"></i>  Avaliação</a>
-    <a href="/backend/item/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comment fa-fw"></i>  Itens</a>
-
+   <a href="/backend/dashboard/item/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-book fa-fw"></i> Itens</a>
+<a href="/backend/dashboard/autor/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw"></i> Autores</a>
+<a href="/backend/dashboard/categoria/listar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-tags fa-fw"></i> Categorias</a>
+<a href="/backend/dashboard/genero/listar/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-theater-masks fa-fw"></i> Gêneros</a>
 </nav>
 
 
