@@ -65,11 +65,37 @@ class PerfilController {
     
 
     public function atualizarPerfil(){
-        echo "Atualizar Perfil";
+    $id = (int)$_POST['id_perfil_usuario'];
+    $telefone = $_POST['telefone_usuario'];
+    $endereco = $_POST['endereco_usuario'];
+    
+    // Upload de foto (se houver)
+    $foto_atual = $_POST['foto_atual'] ?? '';
+    $foto = $foto_atual;
+    
+    if (!empty($_FILES['foto_usuario']['name'])) {
+        $foto = $this->gerenciarImagem->salvarArquivo($_FILES['foto_usuario'], 'perfis');
+        // Deletar foto antiga se existir
+        if (!empty($foto_atual)) {
+            $this->gerenciarImagem->deletarArquivo($foto_atual);
+        }
     }
+    
+    if ($this->perfil->atualizarPerfil($id, $telefone, $endereco, $foto)) {
+        Redirect::redirecionarComMensagem("/perfil/listar", "success", "Perfil atualizado com sucesso!");
+    } else {
+        Redirect::redirecionarComMensagem("/perfil/editar/".$id, "error", "Erro ao atualizar perfil.");
+    }
+}
 
-    public function deletarPerfil(){
-        echo "Deletar Perfil";
+public function deletarPerfil(){
+    $id = (int)$_POST['id_perfil_usuario'];
+    
+    if ($this->perfil->excluirPerfil($id)) {
+        Redirect::redirecionarComMensagem("/perfil/listar", "success", "Perfil excluído com sucesso!");
+    } else {
+        Redirect::redirecionarComMensagem("/perfil/listar", "error", "Erro ao excluir perfil.");
     }
+}
 
 }

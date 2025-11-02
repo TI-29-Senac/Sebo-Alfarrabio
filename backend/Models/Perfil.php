@@ -98,24 +98,23 @@ class Perfil{
 
     // metodo de atualizar o usuario update
     function atualizarPerfil($id_perfil_usuario, $telefone_usuario, $endereco_usuario, $foto_usuario){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_perfil_usuario SET telefone_usuario = :telefone,
-         endereco_usuario = :endereco, 
-         foto_usuario = :foto, 
-         WHERE id_perfil_usuario = :id_perfil_usuario";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario);
-        $stmt->bindParam(':telefone', $telefone_usuario);
-        $stmt->bindParam(':endereco', $endereco_usuario);
-        $stmt->bindParam(':foto', $foto_usuario);
-        
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    $dataatual = date('Y-m-d H:i:s');
+    $sql = "UPDATE tbl_perfil_usuario SET 
+        telefone_usuario = :telefone,
+        endereco_usuario = :endereco, 
+        foto_usuario = :foto,
+        atualizado_em = :atual
+        WHERE id_perfil_usuario = :id_perfil_usuario";
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario, PDO::PARAM_INT);
+    $stmt->bindParam(':telefone', $telefone_usuario);
+    $stmt->bindParam(':endereco', $endereco_usuario);
+    $stmt->bindParam(':foto', $foto_usuario);
+    $stmt->bindParam(':atual', $dataatual);
+    
+    return $stmt->execute();
+}
     // metodo de inativar o usuario delete
     function excluirPerfil($id_perfil_usuario){
         $dataatual = date('Y-m-d H:i:s');

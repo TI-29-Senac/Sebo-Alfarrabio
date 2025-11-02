@@ -88,22 +88,21 @@ class Reservas{
 
     // metodo de atualizar o usuario update
     function atualizarReservas($id_reserva, $data_reserva, $status_reserva){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_reservas SET data_reservas = :data,
-         status_reserva = :status
-         WHERE id_reserva = :id_reserva";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_reserva', $id_reserva);
-        $stmt->bindParam(':data', $data_reserva);
-        $stmt->bindParam(':valort', $status_reserva);
-        
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    $dataatual = date('Y-m-d H:i:s');
+    $sql = "UPDATE tbl_reservas SET 
+        data_reserva = :data,
+        status_reserva = :status,
+        atualizado_em = :atual
+        WHERE id_reserva = :id_reserva";
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_reserva', $id_reserva, PDO::PARAM_INT);
+    $stmt->bindParam(':data', $data_reserva);
+    $stmt->bindParam(':status', $status_reserva);
+    $stmt->bindParam(':atual', $dataatual);
+    
+    return $stmt->execute();
+}
     // metodo de inativar o usuario delete
     function excluirReservas($id_reserva){
         $dataatual = date('Y-m-d H:i:s');
