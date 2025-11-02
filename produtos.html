@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebo & Livraria O Alfarrábio/Produtos</title>
+    <title>Sebo & Livraria O Alfarrábio - Produtos</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/produtos.css"> <!-- 🎨 CSS separado -->
 </head>
 <body>
     <header>
@@ -17,252 +18,123 @@
             <li><a href="contato.html">Contato</a></li>
           </ul>
         </nav>
-        
-      </header>
-    <!-- Control buttons -->
-<div id="myBtnContainer">
-    <div class="categorias-p">
-    <div class="item-p" onclick="filterSelection('todos')"><h2>Todos</h2></div>
-    <div class="item-p" onclick="filterSelection('romance')"><img src="img/romance.png"><h4>Romance</h4></div>
-    <div class="item-p" onclick="filterSelection('fantasia')"><img src="img/fantasia.png"><h4>Fantasia</h4></div>
-    <div class="item-p" onclick="filterSelection('ficcao-cientifica')"><img src="img/ficcao.png"><h4>Ficção-Cientifica</h4></div>
-    <div class="item-p" onclick="filterSelection('terror')"><img src="img/terror.png"><h4>Terror</h4></div>
-    </div>
-</div>
-  
-  <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
-  <div class="container-p">
-    <div class="filterDiv terror">  <div class="card-livro-p">
-        <figure>
-            <img src="img/livro 1.jpg">
-        
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv auto-ajuda ficcao-cientifica">  <div class="card-livro-p">
-        <figure>
-        <img src="img/livro 2.jpg">
-         
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-            <img src="img/livro 3.jpg">
-          
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-            <img src="img/livro 4.jpg">
-         
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-            <img src="img/livro 5.jpg">
-          
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-        <img src="img/livro 6.jpg">
-        
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-        <img src="img/livro 7.jpg">
-         
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-    <div class="filterDiv terror">  <div class="card-livro-p">
-        <figure>
-        <img src="img/livro 8.jpg">
-          
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
+    </header>
 
-        <div class="filterDiv romance">  <div class="card-livro-p">
-          <figure>
-          <img src="img/livro9.jpg">
-            
-      </figure>
-      <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-      </div></div>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="produtos-container">
 
-      <div class="filterDiv romance">  <div class="card-livro-p">
-      <figure>
-      <img src="img/livro10.jpg">
-             
-      </figure>
-     <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-     </div></div>
-            
-      <div class="filterDiv romance fantasia">  <div class="card-livro-p">
-      <figure>
-      <img src="img/livro11.jpg">
-               
-      </figure>
-       <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-       </div></div>
+      <!-- 🔍 FILTRO LATERAL -->
+      <aside class="filtro-lateral">
+        <h2>Refine sua busca</h2>
+        <form id="form-filtro">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" placeholder="Digite o título">
 
-        <div class="filterDiv romance">  <div class="card-livro-p">
-        <figure>
-        <img src="img/livro12.jpg">
-                 
-       </figure>
-       <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-       </div></div>
+          <label for="autor">Autor:</label>
+          <input type="text" id="autor" placeholder="Digite o autor">
 
-        <div class="filterDiv fantasia romance">  <div class="card-livro-p">
-         <figure>
-        <img src="img/livro13.jpg">
-                 
-        </figure>
-        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div></div>
-                  
+          <label for="editora">Editora:</label>
+          <select id="editora">
+            <option value="">Selecione uma editora</option>
+            <option value="moderna">Moderna</option>
+            <option value="saraiva">Saraiva</option>
+            <option value="leya">Leya</option>
+          </select>
 
-        <div class="filterDiv fantasia">  <div class="card-livro-p">
-        <figure>
-         <img src="img/livro14.jpg">
-                      
-          </figure>
-           <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-          </div></div>
+          <label for="ano">Ano:</label>
+          <input type="number" id="ano" placeholder="Digite o ano">
 
-          <div class="filterDiv fantasia">  <div class="card-livro-p">
-          <figure>
-          <img src="img/livro15.jpg">
-                       
-                      <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                      </div></div>
+          <label for="isbn">ISBN:</label>
+          <input type="text" id="isbn" placeholder="Digite o ISBN">
 
-                      <div class="filterDiv fantasia">  <div class="card-livro-p">
-                        <figure>
-                        <img src="img/livro16.jpg">
-                          
-                        </figure>
-                        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                        </div></div>
+          <button type="button" onclick="filtrarProdutos()">Buscar</button>
+        </form>
+      </aside>
 
-                        <div class="filterDiv fantasia romance">  <div class="card-livro-p">
-                          <figure>
-                          <img src="img/livro17.jpg">
-                           
-                          </figure>
-                          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                          </div></div>
+      <!-- 🧾 LISTA DE PRODUTOS -->
+      <div class="produtos-lista">
 
-                          <div class="filterDiv fantasia">  <div class="card-livro-p">
-                            <figure>
-                            <img src="img/livro18.jpg">
-                            
-                            </figure>
-                            <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                            </div></div>
+        <!-- Categorias -->
+        <div id="myBtnContainer">
+          <div class="categorias-p">
+            <div class="item-p" onclick="filterSelection('todos')"><h2>Todos</h2></div>
+            <div class="item-p" onclick="filterSelection('romance')"><img src="img/romance.png"><h4>Romance</h4></div>
+            <div class="item-p" onclick="filterSelection('fantasia')"><img src="img/fantasia.png"><h4>Fantasia</h4></div>
+            <div class="item-p" onclick="filterSelection('ficcao-cientifica')"><img src="img/ficcao.png"><h4>Ficção Científica</h4></div>
+            <div class="item-p" onclick="filterSelection('terror')"><img src="img/terror.png"><h4>Terror</h4></div>
+          </div>
+        </div>
 
-                            <div class="filterDiv romance fantasia">  <div class="card-livro-p">
-                              <figure>
-                              <img src="img/livro19.jpg">
-                            
-                              </figure>
-                              <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                              </div></div>
+        <!-- Produtos -->
+        <div class="container-p">
+          <div class="filterDiv terror">
+            <div class="card-livro-p">
+              <figure><img src="img/livro1.jpg" alt=""></figure>
+              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
+            </div>
+          </div>
 
-                              <div class="filterDiv romance fantasia">  <div class="card-livro-p">
-                                <figure>
-                                <img src="img/livro20.jpg">
-                                
-                                </figure>
-                                <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                </div></div>
+          <div class="filterDiv romance">
+            <div class="card-livro-p">
+              <figure><img src="img/livro3.jpg" alt=""></figure>
+              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
+            </div>
+          </div>
 
-                                <div class="filterDiv terror romance">  <div class="card-livro-p">
-                                  <figure>
-                                  <img src="img/livro21.jpg">
-                                   
-                                  </figure>
-                                  <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                  </div></div>
+          <div class="filterDiv fantasia">
+            <div class="card-livro-p">
+              <figure><img src="img/livro11.jpg" alt=""></figure>
+              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
+            </div>
+          </div>
+        </div>
 
-                                  <div class="filterDiv terror romance">  <div class="card-livro-p">
-                                    <figure>
-                                    <img src="img/livro22.jpg">
-                                    </figure>
-                                    <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                    </div></div>
-
-                                    <div class="filterDiv terror">  <div class="card-livro-p">
-                                      <figure>
-                                      <img src="img/livro23.jpg">
-                                      </figure>
-                                      <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                      </div></div>
-
-                                      <div class="filterDiv terror">  <div class="card-livro-p">
-                                        <figure>
-                                        <img src="img/livro24.jpg">
-                                        </figure>
-                                        <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                        </div></div>
-
-                                        <div class="filterDiv terror">  <div class="card-livro-p">
-                                          <figure>
-                                          <img src="img/livro25.jpg">
-                                          </figure>
-                                          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-                                          </div></div>
-  </div>
-
-  <script src="js/produtos.js"></script>
-    <footer class="footer">
-    <div class="container-footer">
-      <div class="footer-nome">
-        <img src="img/logo2.png" alt="Logo" class="logo-footer">
-        <h3>O Alfarrábio</h3>
       </div>
+    </div>
 
-      <div>
-        <div class="links">
-          <h4>Links</h4>
-          <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="produtos.html">Produtos</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
-          <li><a href="contato.html">Contato</a></li>
-          </ul>
+    <script>
+      function filtrarProdutos() {
+        alert("Função de filtro será conectada aqui futuramente 💫");
+      }
+    </script>
+
+    <script src="js/produtos.js"></script>
+
+    <footer class="footer">
+      <div class="container-footer">
+        <div class="footer-nome">
+          <img src="img/logo2.png" alt="Logo" class="logo-footer">
+          <h3>O Alfarrábio</h3>
+        </div>
+        <div>
+          <div class="links">
+            <h4>Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="produtos.html">Produtos</a></li>
+              <li><a href="sobre.html">Sobre</a></li>
+              <li><a href="contato.html">Contato</a></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="footer-section">
+            <h4>Entre em contato</h4>
+            <p>contato@Oalfarrábio.com.br</p>
+            <p>São Miguel Paulista, São Paulo - SP</p>
+            <p>+55 (11) 93277-2737</p>
+            <p>+55 (11) 97317-8024</p>
+          </div>
+          <div class="footer-section footer-redes">
+            <h4 class="h4">Redes Sociais</h4>
+            <a href="#"><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
+            <a href="#"><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
+          </div>
+          <div class="footer-bottom">
+            <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+          </div>
         </div>
       </div>
-
-      <div>
-        <div class="footer-section">
-      <h4>Entre em contato</h4>
-      <p>contato@Oalfarrábio.com.br</p>
-      <p>São Miguel Paulista, São Paulo - SP</p>
-      <p>+55 (11) 93277-2737</p>
-      <p>+55 (11) 97317-8024</p>
-      </div>
-
-      <div class=" footer-section footer-redes">
-        <h4 class="h4">Redes Sociais</h4>
-        <a href=""><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
-        <a href=""><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
-      </div>
-
-    </div>
-
-  </footer>
+    </footer>
 </body>
 </html>
