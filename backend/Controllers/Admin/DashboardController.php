@@ -12,4 +12,4 @@ class DashboardController extends AuthenticatedController
             'Tipo' => $this->session->get('usuario_tipo')
         ]);
     }
-}
+} 
