@@ -19,7 +19,7 @@ class Rotas
                 "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
                 //Categoria
-                "/categoria" => "CategoriaConstroller@index",
+                "/categoria" => "CategoriaController@index",
                 "/categoria/criar" => "CategoriaController@viewCriarCategoria",
                 "/categoria/listar" => "CategoriaController@viewListarCategoria",
                 "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
@@ -51,13 +51,13 @@ class Rotas
             "POST" => [
                 //Autor post
                 "/autor/salvar" => "AutorController@salvarAutor",
-                "/autor/atualizar/{id}" => "AutorController@viewatualizarAutor",
-                "/autor/deletar/{id}" => "AutorController@viewdeletarAutor",
+                "/autor/atualizar/{id}" => "AutorController@atualizarAutor",
+                "/autor/excluir/{id}" => "AutorController@deletarAutor",
 
                 //Categoria post
-                "/categoria/salvar" => "CategoriaController@viewsalvarCategoria",
-                "/categoria/atualizar/{id}" => "CategoriaController@viewatualizarCategoria",
-                "/categoria/deletar/{id}" => "CategoriaController@viewdeletarCategoria",
+                "/categoria/salvar" => "CategoriaController@salvarCategoria",
+                "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
 
                 //Genero post
                 "/genero/salvar" => "GeneroController@viewsalvarGenero",

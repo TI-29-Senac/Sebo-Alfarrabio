@@ -8,16 +8,6 @@
         </p>
 
         <p>
-        <label class="w3-text-blue"><b>Nacionalidade</b></label>
-        <input class="w3-input w3-border" name="nacionalidade_autor" type="text">
-        </p>
-
-        <p>
-        <label class="w3-text-blue"><b>Data de Nascimento</b></label>
-        <input class="w3-input w3-border" name="data_nascimento_autor" type="date">
-        </p>
-
-        <p>
         <label class="w3-text-blue"><b>Biografia</b></label>
         <textarea class="w3-input w3-border" name="biografia_autor" rows="4" placeholder="Escreva uma breve biografia..."></textarea>
         </p>

@@ -28,13 +28,10 @@ class CategoriaController {
             Redirect::redirecionarComMensagem("/categoria/criar", "error", implode("<br>", $erros));
         }
 
-        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
+      //  $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
 
         if ($this->categoria->inserirCategoria(
-            $_POST["nome_categoria"],
-            $_POST["descricao_categoria"],
-            $imagem
-        )) {
+            $_POST["nome_categoria"])) {
             Redirect::redirecionarComMensagem("categoria/listar", "success", "Categoria cadastrada com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("categoria/criar", "error", "Erro ao cadastrar a categoria!");
