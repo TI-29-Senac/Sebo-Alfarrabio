@@ -1,45 +1,64 @@
 <?php
 namespace Sebo\Alfarrabio\Database;
+
 use PDO;
 use PDOException;
 use Exception;
 use Sebo\Alfarrabio\Database\Config;
 
 class Database {
-    public $conexao;
+    private static $instance = null;
+    private $conn;
+    private $config;
 
-    public function __construct() {
-       $username = 'root';
-$password = ''; // senha vazia no XAMPP
-$host = '127.0.0.1'; // use 127.0.0.1 em vez de localhost
-$dbname = 'sebov2_1'; // se o nome do seu banco for esse
-$port = '3307'; // troque pela porta que você colocou no XAMPP (a que está no my.ini)
-
+    private function __construct() {
+        $this->config = Config::get();
+        $dbConfig = $this->config['database'];
+        $driver = $dbConfig['driver'];
 
         try {
-            $this->conexao = new PDO(
-                   'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $dbname . ';charset=utf8mb4',
-    $username,
-    $password,
+            switch ($driver) {
+                case 'mysql':
+                    $mysqlConfig = $dbConfig['mysql'];
+                    $dsn = "mysql:host={$mysqlConfig['host']};dbname={$mysqlConfig['db_name']};charset={$mysqlConfig['charset']}";
+                    $this->conn = new PDO($dsn, $mysqlConfig['username'], $mysqlConfig['password'], [PDO::ATTR_PERSISTENT => true]);
+                    break;
+                case 'sqlite':
+                    $sqliteConfig = $dbConfig['sqlite'];
+                    $dsn = "sqlite:{$sqliteConfig['path']}";
+                    $this->conn = new PDO($dsn, null, null, [PDO::ATTR_PERSISTENT => true]);
+                    break;
+                case 'sqlsrv':
+                    $sqlsrvConfig = $dbConfig['sqlsrv'];
+                    $dsn = "sqlsrv:Server={$sqlsrvConfig['host']};Database={$sqlsrvConfig['db_name']}";
+                    $this->conn = new PDO($dsn, $sqlsrvConfig['username'], $sqlsrvConfig['password'], [PDO::ATTR_PERSISTENT => true]);
+                    break;
+                case 'pgsql':
+                    $pgsqlConfig = $dbConfig['pgsql'];
+                    $dsn = "pgsql:host={$pgsqlConfig['host']};port={$pgsqlConfig['port']};dbname={$pgsqlConfig['db_name']};user={$pgsqlConfig['username']};password={$pgsqlConfig['password']}";
+                    $this->conn = new PDO($dsn);
+                    break;
+            }
 
-                [
-                    PDO::ATTR_EMULATE_PREPARES => false,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]
-            );
-        } catch (PDOException $e) {
-            die("Erro na conexão com o banco: " . $e->getMessage());
+            if (in_array($driver, ['mysql', 'sqlite', 'sqlsrv', 'pgsql'])) {
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+        } catch(PDOException $exception) {
+            echo "Erro de conexão: " . $exception->getMessage();
+        } catch(Exception $exception) {
+            echo "Erro de conexão : " . $exception->getMessage();
         }
     }
+
     public static function getInstance() {
-        static $instance = null;
-        if ($instance === null) {
-            $instance = new Database();
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
-        return $instance->conexao;
+        return self::$instance->conn;
     }
+
+    public static function destroyInstance(){
+        self::$instance = null;
+    }
+
 }
-
-    
-
-

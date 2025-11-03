@@ -20,12 +20,12 @@ class Config
             'database' => array(
                 'driver' => 'mysql',
                 'mysql' => array(
-                    'host'     => 'localhost',
-                    'db_name'  => 'seboV2.1',
-                    'username' => 'root',
-                    'password' => NULL,
+                    'host'     => '216.172.172.207',
+                    'db_name'  => 'faust537_time4_ti29',
+                    'username' => 'faust537_time4_ti29',
+                    'password' => 'NULL',
                     'charset'  => 'utf8',
-                    'port'     => NULL,
+                    'port'     => '3306',
                 ),
             ),
             'app' => [
