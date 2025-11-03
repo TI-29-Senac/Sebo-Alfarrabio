@@ -19,12 +19,18 @@ class Rotas
                 "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
                 //Categoria
+                "/" => "Admin\\DashboardController@index",
+                "/backend" => "Admin\\DashboardController@index",
                 "/categoria" => "CategoriaController@index",
                 "/categoria/criar" => "CategoriaController@viewCriarCategoria",
                 "/categoria/listar" => "CategoriaController@viewListarCategoria",
                 "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
                 "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
                 "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
+
+                // Admin Dashboard (acessível por /admin/dashboard e /backend/admin/dashboard)
+                "/admin/dashboard" => "Admin\\DashboardController@index",
+                "/backend/admin/dashboard" => "Admin\\DashboardController@index",
 
                 //Genero
                 "/genero" => "generoConstroller@index",
