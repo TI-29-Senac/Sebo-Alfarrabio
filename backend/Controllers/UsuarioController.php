@@ -27,7 +27,7 @@ class UsuarioController extends AdminController {
             Redirect::redirecionarComMensagem("/usuario/criar", "error", implode("<br>", $erros));  // ← Rota full
         }
 
-        $id = $this->usuario->inserirUsuario(
+        $id = $this->usuario->inseriUsuario(
             $_POST["nome_usuario"],
             $_POST["email_usuario"],
             $_POST["senha_usuario"],

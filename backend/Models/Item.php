@@ -353,9 +353,17 @@ public function paginacao(int $pagina = 1, int $por_pagina = 10, array $filtros 
     }
 
     public function buscarItemAtivos() {
-        $sql = "SELECT id_item, titulo_item, tipo_item, descricao, foto_item FROM tbl_itens";
+        $sql = "SELECT id_item, titulo_item, tipo_item, descricao FROM tbl_itens";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+function buscarItens() {
+    $sql = "SELECT id_item, titulo_item FROM tbl_itens WHERE excluido_em IS NULL ORDER BY titulo_item ASC";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

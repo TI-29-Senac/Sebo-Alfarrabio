@@ -11,15 +11,15 @@
             <input class="w3-input w3-border" type="email" name="email_usuario" value="<?php echo htmlspecialchars($usuario['email_usuario']); ?>" required>
         </div>
         <div class="w3-section">
-            <label>Senha (vazio = manter)</label>
+            <label>Senha</label>
             <input class="w3-input w3-border" type="password" name="senha_usuario" minlength="6">
         </div>
         <div class="w3-section">
             <label>Tipo</label>
             <select class="w3-select w3-border" name="tipo_usuario" required>
-                <option value="cliente" <?php echo ($usuario['tipo_usuario'] == 'cliente') ? 'selected' : ''; ?>>Cliente</option>
-                <option value="admin" <?php echo ($usuario['tipo_usuario'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
-                <option value="funcionario" <?php echo ($usuario['tipo_usuario'] == 'funcionario') ? 'selected' : ''; ?>>Funcionário</option>
+                <option value="Cliente" <?php echo ($usuario['tipo_usuario'] == 'cliente') ? 'selected' : ''; ?>>Cliente</option>
+                <option value="Admin" <?php echo ($usuario['tipo_usuario'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                <option value="Funcionario" <?php echo ($usuario['tipo_usuario'] == 'funcionario') ? 'selected' : ''; ?>>Funcionário</option>
             </select>
         </div>
         <button type="submit" class="w3-button w3-blue">Salvar</button>

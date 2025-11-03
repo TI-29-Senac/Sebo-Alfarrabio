@@ -90,7 +90,7 @@ class Rotas
                 "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
                 "/avaliacao/listar/{pagina}" => "AvaliacaoController@viewListarAvaliacao",
                 "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
-                "/avaliacao/excluir/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
                 "/avaliacao/relatorio" => "AvaliacaoController@relatorioAvaliacao",
                 "/avaliacao/relatorio/{id}/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
                 

@@ -1,174 +1,177 @@
 <?php
 namespace Sebo\Alfarrabio\Models;
 use PDO;
-class Avaliacao{
-    private $id_avaliacao;
-    private $id_acervo;
-    private $id_usuario;
-    private $nota_avaliacao;
-    private $comentario_avaliacao;
-    private $data_avaliacao;
-    private $status_avaliacao;
-    private $criado_em;
-    private $atualizado_em;
-    private $excluido_em;
-    private $db;
-    // contrutor inicializa a classe e ou atributos
-    public function __construct($db){
-       $this->db = $db;
+use PDOException;
+
+class Avaliacao {
+    private $db;  
+
+    public function __construct($db) {
+        $this->db = $db;
     }
-    // metodo de buscar todos os usuarios read
-    function buscarAvaliacao(){
-        $sql = "SELECT * FROM tbl_avaliacao";
+
+   
+    function buscarAvaliacao() {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE excluido_em IS NULL ORDER BY id_avaliacao DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function totalDeAvaliacao(){
-        $sql = "SELECT count(*) as total_avaliacao FROM tbl_avaliacao";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    function totalDeAvaliacao() {  
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchColumn();  
     }
 
-    function totalDeAvaliacaoInativos(){
-        $sql = "SELECT count(*) as total_inativos FROM tbl_avaliacao where excluido_em is NOT NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    function totalDeAvaliacaoInativos() {
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NOT NULL";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchColumn();
     }
 
-    function totalDeAvaliacaoAtivos(){
-        $sql = "SELECT count(*) as total_ativos FROM tbl_avaliacao where excluido_em is NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    function totalDeAvaliacaoAtivos() {
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NULL";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchColumn();
     }
 
-    // metodo de buscar todos usuario por email read
-    function buscarAvaliacaoPorNota($nota_avaliacao){
-        $sql = "SELECT * FROM tbl_avaliacao where nota_avaliacao = :nota";
+    function buscarAvaliacaoPorID($id_avaliacao) {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE id_avaliacao = :id AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':nota', $nota_avaliacao); 
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);  // Single row
     }
 
-    function buscarAvaliacaoPorComentario($comentario_avaliacao){
-        $sql = "SELECT * FROM tbl_avaliacao where comentario_avaliacao = :comentario";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':comentario', $comentario_avaliacao); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarAvaliacaoPorData($data_avaliacao){
-        $sql = "SELECT * FROM tbl_avaliacao where data_avaliacao = :data";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':data', $data_avaliacao); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarAvaliacaoPorStatus($status_avaliacao){
-        $sql = "SELECT * FROM tbl_avaliacao where status_avaliacao = :status";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':status', $status_avaliacao); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarAvaliacaoPorID($id_avaliacao){
-        $sql = "SELECT * FROM tbl_avaliacao where id_avaliacao = :id_avaliacao";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_avaliacao', $id_avaliacao); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarAvaliacaoPorIDAcervo($id_acervo){
-        $sql = "SELECT * FROM tbl_avaliacao where id_acervo = :id_acervo";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_acervo', $id_acervo); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    function buscarAvaliacaoPorIDUsuario($id_usuario){
-        $sql = "SELECT * FROM tbl_avaliacao where id_usuario = :id_usuario";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_usuario', $id_usuario); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
-    // metodo de inserir usuario create
-    function inserirAvaliacao($nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao){
-        $sql = "INSERT INTO tbl_avaliacao (nota_avaliacao, comentario_avaliacao, 
-        data_avaliacao, status_avaliacao) 
-                VALUES (:nota, :comentario, :data, :status)";
+    // Outros filtros (ex: por nota, etc.) – adicione WHERE excluido_em IS NULL se usar
+    function buscarAvaliacaoPorNota($nota_avaliacao) {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE nota_avaliacao = :nota AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nota', $nota_avaliacao);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarAvaliacaoPorComentario($comentario_avaliacao) {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE comentario_avaliacao LIKE :comentario AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':comentario', "%$comentario_avaliacao%");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarAvaliacaoPorData($data_avaliacao) {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE data_avaliacao = :data AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':data', $data_avaliacao);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarAvaliacaoPorStatus($status_avaliacao) {
+        $sql = "SELECT * FROM tbl_avaliacao WHERE status_avaliacao = :status AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':status', $status_avaliacao);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // ===== CREATE =====
+    function inserirAvaliacao($id_item, $id_usuario, $nota_avaliacao, $comentario_avaliacao = null, $data_avaliacao = null, $status_avaliacao = 'ativo') {
+        // Validação básica (alinhada com DB: nota 1-5, FKs required)
+        if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
+            error_log("ERRO: Nota inválida: {$nota_avaliacao} (deve ser 1-5)");
+            return false;
+        }
+        if (empty($id_item) || !is_numeric($id_item) || empty($id_usuario) || !is_numeric($id_usuario)) {
+            error_log("ERRO: ID item/usuario obrigatório e numérico");
+            return false;
+        }
+        $data_avaliacao = $data_avaliacao ?: date('Y-m-d');  // Default hoje
+
+        $sql = "INSERT INTO tbl_avaliacao (id_item, id_usuario, nota_avaliacao, comentario_avaliacao, data_avaliacao, status_avaliacao, criado_em) 
+                VALUES (:id_item, :id_usuario, :nota, :comentario, :data, :status, NOW())";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);  // Assuma INT no DB
         $stmt->bindParam(':comentario', $comentario_avaliacao);
         $stmt->bindParam(':data', $data_avaliacao);
         $stmt->bindParam(':status', $status_avaliacao);
 
-        if($stmt->execute()){
-            return $this->db->lastInsertId();
-        }else{
+        try {
+            if ($stmt->execute()) {
+                $id = $this->db->lastInsertId();
+                error_log("✅ Avaliação #{$id} inserida (item #{$id_item}, user #{$id_usuario})");
+                return $id;  // Novo ID
+            }
+            error_log("❌ INSERT falhou (rowCount=0)");
+            return false;
+        } catch (PDOException $e) {
+            error_log("❌ ERRO PDO INSERT: " . $e->getMessage() . " (Code: " . $e->getCode() . ")");
             return false;
         }
     }
 
-    // metodo de atualizar o usuario update
-    public function atualizarAvaliacao(int $id_avaliacao, string $nota_avaliacao, 
-    string $comentario_avaliacao, string $data_avaliacao, string $status_avaliacao){
-        $sql = "UPDATE tbl_avaliacao SET 
-                    nota_avaliacao = :nota, 
-                    comentario_avaliacao = :comentario,
-                    data_avaliacao = :data,
-                    status_avaliacao = :status, 
+    // ===== UPDATE =====
+    public function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao) {
+        // Validação nota
+        if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
+            error_log("ERRO: Nota inválida na update: {$nota_avaliacao}");
+            return false;
+        }
 
-                    atualizado_em = NOW()";
-        
-        $sql .= " WHERE id_avaliacao = :id";
+        $sql = "UPDATE tbl_avaliacao SET 
+                nota_avaliacao = :nota, 
+                comentario_avaliacao = :comentario,
+                data_avaliacao = :data,
+                status_avaliacao = :status, 
+                atualizado_em = NOW()
+                WHERE id_avaliacao = :id AND excluido_em IS NULL";  // Safe: só ativos
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-        $stmt->bindParam(':nota', $nota_avaliacao);
+        $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);
         $stmt->bindParam(':comentario', $comentario_avaliacao);
         $stmt->bindParam(':data', $data_avaliacao);
         $stmt->bindParam(':status', $status_avaliacao);
-        return $stmt->execute();
+
+        try {
+            if ($stmt->execute() && $stmt->rowCount() > 0) {
+                error_log("✅ Avaliação #{$id_avaliacao} atualizada");
+                return true;
+            }
+            error_log("⚠️ Nenhuma linha afetada na update (não existe ou inativa?)");
+            return false;
+        } catch (PDOException $e) {
+            error_log("❌ ERRO PDO UPDATE: " . $e->getMessage());
+            return false;
+        }
     }
-    
-    public function deletarAvaliacao(int $id_avaliacao){
-        $dados = $this->buscarAvaliacaoPorID($id_avaliacao);
-        if (empty($dados)) return false;
-        $novoStatus = ($dados[0]['status_avaliacao'] == 'ativo') ? 'Inativo' : 'ativo';
-    
-        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = :status WHERE id_avaliacao = :id";
+
+    public function deletarAvaliacao($id_avaliacao) {
+        $sql = "UPDATE tbl_avaliacao SET excluido_em = NOW(), status_avaliacao = 'inativo' WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-        $stmt->bindParam(':status', $novoStatus); 
-        return $stmt->execute();}
-
-    // metodo de ativar o usuario excluido
-    function ativarAvaliacao($id_avaliacao){
-        $dataatual = NULL;
-        $sql = "UPDATE tbl_avaliacao SET
-         excluido_em = :atual
-         WHERE id_avaliacao = :id_avaliacao";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_avaliacao', $id_avaliacao);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
+        try {
+            return $stmt->execute() && $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("ERRO DELETE: " . $e->getMessage());
             return false;
-        }}
+        }
+    }
+
+    // ATIVAR: Reverte soft-delete
+    public function ativarAvaliacao($id_avaliacao) {
+        $sql = "UPDATE tbl_avaliacao SET excluido_em = NULL, status_avaliacao = 'ativo', atualizado_em = NOW() WHERE id_avaliacao = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+        try {
+            return $stmt->execute() && $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("ERRO ATIVAR: " . $e->getMessage());
+            return false;
+        }
+    }
 }
-
-

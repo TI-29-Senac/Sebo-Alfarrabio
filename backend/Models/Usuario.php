@@ -89,7 +89,7 @@ class Usuario {
 
     // ===== CRIAÇÃO (CREATE) =====
     
-    function inserirUsuario($nome, $email, $senha, $tipo) {
+    function inseriUsuario($nome, $email, $senha, $tipo) {
         // Validar tipo (deve ser Cliente, Funcionario ou Admin)
         $tiposValidos = ['Cliente', 'Funcionario', 'Admin'];
         if (!in_array($tipo, $tiposValidos)) {
