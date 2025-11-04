@@ -22,10 +22,6 @@ class Item {
     private $isbn;
     private $duracao_minutos;
     private $numero_edicao;
-<<<<<<< HEAD
-=======
-    private $foto_item;
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
     private $criado_em;
     private $atualizado_em;
     private $excluido_em;
@@ -222,7 +218,6 @@ class Item {
      * Paginação de itens com dados relacionados (Gênero, Categoria e Autores)
      * Usa GROUP_CONCAT para listar os autores sem duplicar linhas de item.
      */
-<<<<<<< HEAD
     public function paginacao(int $pagina = 1, int $por_pagina = 10, string $tipo = null): array {
         
         $whereClause = "i.excluido_em IS NULL";
@@ -289,103 +284,6 @@ class Item {
         ];
     }
 
-=======
-    // No final da classe Item, substitua o método paginacao por este (mantém o resto igual):
-
-public function paginacao(int $pagina = 1, int $por_pagina = 10, array $filtros = []): array {
-    
-    $whereParts = ["i.excluido_em IS NULL"];
-    $params = [];
-    
-    // Filtro por Título (LIKE %termo%)
-    if (!empty($filtros['titulo'])) {
-        $whereParts[] = "i.titulo_item LIKE :titulo";
-        $params[':titulo'] = '%' . $filtros['titulo'] . '%';
-    }
-    
-    // Filtro por Gênero (ID exato)
-    if (!empty($filtros['genero'])) {
-        $whereParts[] = "i.id_genero = :genero";
-        $params[':genero'] = (int) $filtros['genero'];
-    }
-    
-    // Filtro por Categoria (ID exato)
-    if (!empty($filtros['categoria'])) {
-        $whereParts[] = "i.id_categoria = :categoria";
-        $params[':categoria'] = (int) $filtros['categoria'];
-    }
-    
-    // Filtro por Autor (LIKE no nome_autor via subquery JOIN)
-    if (!empty($filtros['autor'])) {
-        $whereParts[] = "EXISTS (SELECT 1 FROM tbl_item_autores ia JOIN tbl_autores a ON ia.id_autor = a.id_autor WHERE ia.id_item = i.id_item AND a.nome_autor LIKE :autor AND a.excluido_em IS NULL)";
-        $params[':autor'] = '%' . $filtros['autor'] . '%';
-    }
-    
-    // Filtro por Tipo (opcional, como antes)
-    if (!empty($filtros['tipo'])) {
-        $whereParts[] = "i.tipo_item = :tipo";
-        $params[':tipo'] = $filtros['tipo'];
-    }
-    
-    $whereClause = implode(' AND ', $whereParts);
-
-    // 1. Contagem Total (com filtros)
-    $totalQuery = "SELECT COUNT(DISTINCT i.id_item) FROM tbl_itens i WHERE $whereClause";
-    $totalStmt = $this->db->prepare($totalQuery);
-    $totalStmt->execute($params);
-    $total_de_registros = $totalStmt->fetchColumn();
-
-    // 2. Busca Paginada (mantém JOINs para dados)
-    $offset = ($pagina - 1) * $por_pagina;
-    
-    $dataQuery = "
-        SELECT 
-            i.*, 
-            g.nome_genero, 
-            c.nome_categoria,
-            (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
-             FROM tbl_item_autores ia
-             JOIN tbl_autores a ON ia.id_autor = a.id_autor
-             WHERE ia.id_item = i.id_item
-             AND a.excluido_em IS NULL) AS autores
-        FROM 
-            tbl_itens i
-        LEFT JOIN 
-            tbl_generos g ON i.id_genero = g.id_genero
-        LEFT JOIN 
-            tbl_categorias c ON i.id_categoria = c.id_categoria
-        WHERE 
-            $whereClause
-        GROUP BY
-            i.id_item
-        ORDER BY 
-            i.titulo_item ASC
-        LIMIT :limit OFFSET :offset
-    ";
-
-    $dataStmt = $this->db->prepare($dataQuery);
-    $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
-    $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    foreach ($params as $key => $value) {
-        $dataStmt->bindValue($key, $value);
-    }
-    
-    $dataStmt->execute();
-    $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    $lastPage = ceil($total_de_registros / $por_pagina);
-
-    return [
-        'data' => $dados,
-        'total' => (int) $total_de_registros,
-        'por_pagina' => (int) $por_pagina,
-        'pagina_atual' => (int) $pagina,
-        'ultima_pagina' => (int) $lastPage,
-        'de' => $offset + 1,
-        'para' => min($offset + count($dados), $total_de_registros)  // Corrigi para evitar overflow
-    ];
-}
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
     // --- Métodos de Contagem Simples ---
 
     function totalDeItens(string $tipo = null){
@@ -423,22 +321,4 @@ public function paginacao(int $pagina = 1, int $por_pagina = 10, array $filtros 
         $stmt->execute($params);
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
-<<<<<<< HEAD
-=======
-
-    public function buscarItemAtivos() {
-        $sql = "SELECT id_item, titulo_item, tipo_item, descricao FROM tbl_itens";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-function buscarItens() {
-    $sql = "SELECT id_item, titulo_item FROM tbl_itens WHERE excluido_em IS NULL ORDER BY titulo_item ASC";
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 }
