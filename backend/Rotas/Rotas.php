@@ -8,74 +8,184 @@ class Rotas
     {
         return [
             "GET" => [
-                // o caminho da url   o nome do controller e o metodo de controller
-
-                //Autor
-                "/autor" => "autorController@index",
-                "/autor/criar" => "AutorController@viewCriarAutor",
-                "/autor/listar" => "AutorController@viewListarAutor",
-                "/autor/editar/{id}" => "AutorController@viewEditarAutor",
-                "/autor/excluir/{id}" => "AutorController@viewExcluirAutor",
-                "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
-
-                //Categoria
-                "/" => "Admin\\DashboardController@index",
-                "/backend" => "Admin\\DashboardController@index",
-                "/categoria" => "CategoriaController@index",
-                "/categoria/criar" => "CategoriaController@viewCriarCategoria",
-                "/categoria/listar" => "CategoriaController@viewListarCategoria",
-                "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
-                "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
-                "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
-
-                // Admin Dashboard (acessível por /admin/dashboard e /backend/admin/dashboard)
-                "/admin/dashboard" => "Admin\\DashboardController@index",
-                "/backend/admin/dashboard" => "Admin\\DashboardController@index",
-
-                //Genero
-                "/genero" => "generoConstroller@index",
-                "/genero/criar" => "GeneroController@viewCriarGenero",
-                "/genero/listar/" => "GeneroController@viewListarGenero",
-                "/genero/editar/{id}" => "GeneroController@viewEditarGenero",
-                "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
-                "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
-
-
-                 // --- NOVAS ROTAS DE ITEM (SEBO) ---
-                 '/item/listar' => 'ItemController@viewListarItens',
-                 '/item/listar/{pagina}' => 'ItemController@viewListarItens',
-                 '/item/criar' => 'ItemController@viewCriarItem',
-                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
-                 '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
- 
-                 // --- NOVAS ROTAS AJAX (Para formulário de Item) ---
-                 '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
-                 '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
-
+                // ========================================
+                // ROTAS PÚBLICAS
+                // ========================================
                 
+                // Produtos públicos (catálogo)
+                '/produtos' => 'Public\PublicItemController@viewProdutos',
+                '/produtos/{pagina}' => 'Public\PublicItemController@viewProdutos',
+                
+                // ========================================
+                // AUTENTICAÇÃO
+                // ========================================
+                
+                '/register' => 'AuthController@register',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
+                
+                // ========================================
+                // ÁREA ADMINISTRATIVA
+                // ========================================
+                
+                "/" => "Admin\DashboardController@index",
+                '/admin/dashboard' => 'Admin\DashboardController@index',
+                
+                // ========================================
+                // USUÁRIOS
+                // ========================================
+                
+                "/usuarios" => "UsuarioController@index",
+                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
+                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
+                "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
+                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
+                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
+                
+                // ========================================
+                // VENDAS
+                // ========================================
+                
+                "/vendas" => "VendasController@index",
+                "/vendas/criar" => "VendasController@viewCriarVendas",
+                "/vendas/listar" => "VendasController@viewListarVendas",
+                "/vendas/listar/{pagina}" => "VendasController@viewListarVendas",
+                "/vendas/editar/{id}" => "VendasController@viewEditarVendas",
+                "/vendas/excluir/{id}" => "VendasController@viewExcluirVendas",
+                "/vendas/relatorio" => "VendasController@relatorioVendas",
+                "/vendas/relatorio/{id}/{dataInicial}/{dataFinal}" => "VendasController@relatorioVendas",
+                
+                // ========================================
+                // RESERVAS
+                // ========================================
+                
+                "/reservas" => "ReservasController@index",
+                "/reservas/criar" => "ReservasController@viewCriarReservas",
+                "/reservas/listar" => "ReservasController@viewListarReservas",
+                "/reservas/listar/{pagina}" => "ReservasController@viewListarReservas",
+                "/reservas/editar/{id}" => "ReservasController@viewEditarReservas",
+                "/reservas/excluir/{id}" => "ReservasController@viewExcluirReservas",
+                "/reservas/relatorio" => "ReservasController@relatorioReservas",
+                "/reservas/relatorio/{id}/{dataInicial}/{dataFinal}" => "ReservasController@relatorioReservas",
+                
+                // ========================================
+                // PERFIL USUÁRIO
+                // ========================================
+                
+                "/perfil" => "PerfilController@index",
+                "/perfil/criar" => "PerfilController@viewCriarPerfil",
+                "/perfil/listar" => "PerfilController@viewListarPerfil",
+                "/perfil/listar/{pagina}" => "PerfilController@viewListarPerfil",
+                "/perfil/editar/{id}" => "PerfilController@viewEditarPerfil",
+                "/perfil/excluir/{id}" => "PerfilController@viewExcluirPerfil",
+                "/perfil/relatorio" => "PerfilController@relatorioPerfil",
+                "/perfil/relatorio/{id}/{dataInicial}/{dataFinal}" => "PerfilController@relatorioPerfil",
+                
+                // ========================================
+                // AVALIAÇÃO
+                // ========================================
+                
+                "/avaliacao" => "AvaliacaoController@index",
+                "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
+                "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
+                "/avaliacao/listar/{pagina}" => "AvaliacaoController@viewListarAvaliacao",
+                "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
+                "/avaliacao/relatorio" => "AvaliacaoController@relatorioAvaliacao",
+                "/avaliacao/relatorio/{id}/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
+                
+                // ========================================
+                // ITENS (Livros do acervo)
+                // ========================================
+                
+                '/item/listar' => 'ItemController@viewListarItens',
+                '/item/listar/{pagina}' => 'ItemController@viewListarItens',
+                '/item/criar' => 'ItemController@viewCriarItem',
+                '/item/editar/{id}' => 'ItemController@viewEditarItem',
+                '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+                
+                // ========================================
+                // AJAX (Busca dinâmica)
+                // ========================================
+                
+                '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
+                '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
+                '/ajax/buscar/generos' => 'ItemController@ajaxBuscarGeneros',
+                
+                // ========================================
+                // API PÚBLICA
+                // ========================================
+                
+                '/api/item' => 'PublicApiController@getItem',
             ],
+            
             "POST" => [
-                //Autor post
-                "/autor/salvar" => "AutorController@salvarAutor",
-                "/autor/atualizar/{id}" => "AutorController@atualizarAutor",
-                "/autor/excluir/{id}" => "AutorController@deletarAutor",
-
-                //Categoria post
-                "/categoria/salvar" => "CategoriaController@salvarCategoria",
-                "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
-                "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
-
-                //Genero post
-                "/genero/salvar" => "GeneroController@viewsalvarGenero",
-                "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
-                "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
-
+                // ========================================
+                // AUTENTICAÇÃO
+                // ========================================
+                
+                '/register' => 'AuthController@cadastrarUsuario',
+                '/login' => 'AuthController@authenticar',
+                
+                // ========================================
+                // USUÁRIOS
+                // ========================================
+                
+                "/usuario/salvar" => "UsuarioController@salvarUsuario",
+                "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
+                "/usuario/deletar" => "UsuarioController@deletarUsuario",
+                
+                // ========================================
+                // VENDAS
+                // ========================================
+                
+                "/vendas/salvar" => "VendasController@salvarVendas",
+                "/vendas/atualizar" => "VendasController@atualizarVendas",
+                "/vendas/deletar" => "VendasController@deletarVendas",
+                "/vendas/ativar" => "VendasController@ativarVenda",
+                
+                // ========================================
+                // RESERVAS
+                // ========================================
+                
+                "/reservas/salvar" => "ReservasController@salvarReservas",
+                "/reservas/atualizar" => "ReservasController@atualizarReservas",
+                "/reservas/deletar" => "ReservasController@deletarReservas",
+                "/reservas/ativar" => "ReservasController@ativarReserva",
+                
+                // ========================================
+                // PERFIL USUÁRIO
+                // ========================================
+                
+                "/perfil/salvar" => "PerfilController@salvarPerfil",
+                "/perfil/atualizar" => "PerfilController@atualizarPerfil",
+                "/perfil/deletar" => "PerfilController@deletarPerfil",
+                "/perfil/ativar" => "PerfilController@ativarPerfil",
+                
+                // ========================================
+                // AVALIAÇÃO
+                // ========================================
+                
+                "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
+                "/avaliacao/atualizar" => "AvaliacaoController@atualizarAvaliacao",
+                "/avaliacao/deletar" => "AvaliacaoController@deletarAvaliacao",
+                "/avaliacao/ativar" => "AvaliacaoController@ativarAvaliacao",
+                
+                // ========================================
+                // ITENS (Livros do acervo)
+                // ========================================
+                
                 '/item/salvar' => 'ItemController@salvarItem',
                 '/item/atualizar' => 'ItemController@atualizarItem',
                 '/item/deletar' => 'ItemController@deletarItem',
-
+                '/item/ativar' => 'ItemController@ativarItem',
+                
+                // ========================================
+                // API PÚBLICA
+                // ========================================
+                
+                '/api/reservas' => 'PublicApiController@salvarReservas',
             ]
-            ];
-        
+        ];
     }
 }

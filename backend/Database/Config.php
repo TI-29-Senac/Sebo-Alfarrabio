@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * Configuração do Sistema
  * Sebo Alfarrábio Dashboard
@@ -12,11 +13,17 @@ use PDOException;
 // ================================
 // CONFIGURAÇÃO PRINCIPAL (OBRIGATÓRIA)
 // ================================
+=======
+ 
+namespace Sebo\Alfarrabio\Database;
+ 
+>>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 class Config
 {
     public static function get()
     {
         return [
+<<<<<<< HEAD
             'database' => array(
                 'driver' => 'mysql',
                 'mysql' => array(
@@ -149,3 +156,20 @@ function formatarMoeda($valor)
 define('SITE_NAME', Config::get()['app']['name']);
 define('SITE_URL', Config::get()['app']['url']);
 define('ADMIN_EMAIL', Config::get()['app']['email']);
+=======
+            'database' => array (
+  'driver' => 'mysql',
+  'mysql' =>
+  array (
+    'host' => 'localhost',
+    'db_name' => 'sebov2_1',
+    'username' => 'root',
+    'password' => NULL,
+    'charset' => 'utf8',
+    'port' => NULL,
+  ),
+)
+        ];
+    }
+}
+>>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb

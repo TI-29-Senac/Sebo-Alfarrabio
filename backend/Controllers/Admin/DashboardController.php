@@ -2,14 +2,18 @@
 namespace Sebo\Alfarrabio\Controllers\Admin;
 
 use Sebo\Alfarrabio\Core\View;
+<<<<<<< HEAD
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Categoria;
 use Sebo\Alfarrabio\Models\Item;
+=======
+>>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 
 class DashboardController extends AuthenticatedController
 {
     public function index(): void
     {
+<<<<<<< HEAD
         $db = Database::getInstance();
 
         $categoriaModel = new Categoria($db);
@@ -112,6 +116,11 @@ class DashboardController extends AuthenticatedController
             'vendas_chart_data' => $vendas_chart_data,
             'reservas_chart_labels' => $reservas_chart_labels,
             'reservas_chart_data' => $reservas_chart_data
+=======
+        View::render('/admin/dashboard/index', [
+            'nomeUsuario' => $this->session->get('usuario_nome'),
+            'Tipo' => $this->session->get('usuario_tipo')
+>>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
         ]);
     }
 }
