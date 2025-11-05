@@ -1,6 +1,5 @@
 {
     "name": "sebo/alfarrabio",
-<<<<<<< HEAD
    "autoload": {
     "psr-4": {
         "Sebo\\Alfarrabio\\": "backend/"
@@ -15,21 +14,4 @@
     "require": {
         "bramus/router": "^1.6"
     }
-=======
-    "type": "no",
-    "require": {
-        "bramus/router": "~1.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "Sebo\\Alfarrabio\\": "backend/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Kezia Silva",
-            "email": "keziaoficialk@gmail.com"
-        }
-    ]
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 }
