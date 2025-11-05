@@ -20,10 +20,10 @@
 
         <div class="form-row">
         <div class="form-group col-md-8">
-            <input type="text" class="form-control" id="nome_categoria" name="nome_categoria" required>
+            <input type="text" class="form-control" id="descricao_categoria" name="descricao_categoria" required>
         </div>
         <div class="form-group col-md-4">
-            <select id="nome_categoria" name="nome_categoria" class="form-control" required>
+            <select id="descricao_categoria" name="descricao_categoria" class="form-control" required>
                 <option value="" selected disabled>Selecione o tipo</option>
                 <option value="livro">Importado</option>
                 <option value="cd">Novo</option>

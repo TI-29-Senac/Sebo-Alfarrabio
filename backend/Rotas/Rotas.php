@@ -19,8 +19,8 @@ class Rotas
                 "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
                 //Categoria
-                "/" => "Admin\\DashboardController@index",
-                "/backend" => "Admin\\DashboardController@index",
+                "/" => "AdminDashboardController@index",
+                "/backend" => "AdminDashboardController@index",
                 "/categoria" => "CategoriaController@index",
                 "/categoria/criar" => "CategoriaController@viewCriarCategoria",
                 "/categoria/listar" => "CategoriaController@viewListarCategoria",

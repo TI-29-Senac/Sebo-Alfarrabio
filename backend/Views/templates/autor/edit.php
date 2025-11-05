@@ -1,7 +1,7 @@
 <div class="w3-container">
     <h3>Editando Autor: <?= htmlspecialchars($autor['nome_autor']); ?></h3>
      
- <form action="/autor/atualizar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
+ <form action="/backend/autor/atualizar<?= $autor['id_autor']; ?>" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
         
         <input type="hidden" name="id_autor" value="<?= $autor['id_autor']; ?>">
 

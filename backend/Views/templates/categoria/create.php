@@ -13,7 +13,7 @@
                 <label for="tipo_categoria">Tipo*</label>
                 <select id="tipo_categoria" name="tipo_categoria" class="form-control" required>
                     <option value="" selected disabled>Selecione o tipo</option>
-                    <option value="importado">Importado</option>
+
                     <option value="novo">Livro</option>
                     <option value="usado">CD</option>
                     <option value="raro">DVD</option>
