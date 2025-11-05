@@ -132,7 +132,6 @@ class Categoria {
         $sql = "INSERT INTO tbl_categorias (nome_categoria) VALUES (:nome)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
-        
         if($stmt->execute()){
             return $this->db->lastInsertId();
         }else{

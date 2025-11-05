@@ -28,8 +28,8 @@ class Rotas
                 // ÁREA ADMINISTRATIVA
                 // ========================================
                 
-                "/" => "Admin\DashboardController@index",
-                '/admin/dashboard' => 'Admin\DashboardController@index',
+                "/" => "DashboardController@index",
+                '/admin/dashboard' => 'DashboardController@index',
                 
                 // ========================================
                 // USUÁRIOS
@@ -103,6 +103,40 @@ class Rotas
                 '/item/criar' => 'ItemController@viewCriarItem',
                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
                 '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+
+
+               // ========================================
+                // AUTOR    
+                // ========================================
+                "/autor" => "autorController@index",
+                "/autor/criar" => "AutorController@viewCriarAutor",
+                "/autor/listar" => "AutorController@viewListarAutor",
+                "/autor/editar/{id}" => "AutorController@viewEditarAutor",
+                "/autor/excluir/{id}" => "AutorController@viewExcluirAutor",
+                "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
+
+                 // ========================================
+                // CATEGORIA
+                // ========================================
+                "/" => "AdminDashboardController@index",
+                "/backend" => "AdminDashboardController@index",
+                "/categoria" => "CategoriaController@index",
+                "/categoria/criar" => "CategoriaController@viewCriarCategoria",
+                "/categoria/listar" => "CategoriaController@viewListarCategoria",
+                "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
+                "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
+
+               // ========================================
+                // GENERO
+                // ========================================
+                "/genero" => "generoConstroller@index",
+                "/genero/criar" => "GeneroController@viewCriarGenero",
+                "/genero/listar/" => "GeneroController@viewListarGenero",
+                "/genero/editar/{id}" => "GeneroController@viewEditarGenero",
+                "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
+                "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
+
                 
                 // ========================================
                 // AJAX (Busca dinâmica)
@@ -121,14 +155,14 @@ class Rotas
             
             "POST" => [
                 // ========================================
-                // AUTENTICAÇÃO
+                // AUTENTICAÇÃO (post)
                 // ========================================
                 
                 '/register' => 'AuthController@cadastrarUsuario',
                 '/login' => 'AuthController@authenticar',
                 
                 // ========================================
-                // USUÁRIOS
+                // USUÁRIOS (post)
                 // ========================================
                 
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
@@ -136,7 +170,7 @@ class Rotas
                 "/usuario/deletar" => "UsuarioController@deletarUsuario",
                 
                 // ========================================
-                // VENDAS
+                // VENDAS (post)
                 // ========================================
                 
                 "/vendas/salvar" => "VendasController@salvarVendas",
@@ -145,7 +179,7 @@ class Rotas
                 "/vendas/ativar" => "VendasController@ativarVenda",
                 
                 // ========================================
-                // RESERVAS
+                // RESERVAS (post)
                 // ========================================
                 
                 "/reservas/salvar" => "ReservasController@salvarReservas",
@@ -154,7 +188,7 @@ class Rotas
                 "/reservas/ativar" => "ReservasController@ativarReserva",
                 
                 // ========================================
-                // PERFIL USUÁRIO
+                // PERFIL USUÁRIO (post)
                 // ========================================
                 
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
@@ -163,7 +197,7 @@ class Rotas
                 "/perfil/ativar" => "PerfilController@ativarPerfil",
                 
                 // ========================================
-                // AVALIAÇÃO
+                // AVALIAÇÃO (post)
                 // ========================================
                 
                 "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
@@ -181,10 +215,34 @@ class Rotas
                 '/item/ativar' => 'ItemController@ativarItem',
                 
                 // ========================================
-                // API PÚBLICA
+                // API PÚBLICA (post)
                 // ========================================
                 
                 '/api/reservas' => 'PublicApiController@salvarReservas',
+
+
+               // ========================================
+                // AUTORES (post)
+                // ========================================
+                "/autor/salvar" => "AutorController@salvarAutor",
+                "/autor/atualizar/{id}" => "AutorController@atualizarAutor",
+                "/autor/excluir/{id}" => "AutorController@deletarAutor",
+
+                // ========================================
+               // CATEGORIA (post)
+                // ========================================
+                "/categoria/salvar" => "CategoriaController@salvarCategoria",
+                "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
+
+                  // ========================================
+                // GENERO (post)
+                // ========================================
+                "/genero/salvar" => "GeneroController@viewsalvarGenero",
+                "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
+                "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
+
+
             ]
         ];
     }

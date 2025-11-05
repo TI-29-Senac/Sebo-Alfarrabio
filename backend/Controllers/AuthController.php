@@ -24,7 +24,6 @@ class AuthController{
     }
  
     public function register(): void{
-        var_dump(""); 
         View::render ('auth/register');
     }
  
@@ -43,23 +42,23 @@ class AuthController{
             $this->session->set('usuario_nome', $usuario['nome_usuario']);
             $this->session->set('usuario_tipo', $usuario['tipo_usuario']);
  
-            Redirect::redirecionarPara('admin\dashboard');
+            Redirect::redirecionarPara('/admin/dashboard');
         }else{
             Redirect::redirecionarComMensagem('/login', 'error', 'Email ou senha incorretos');
         }
     }
  
     public function cadastrarUsuario(): void {
-        $erros = UsuarioValidador::ValidarEntradas($_POST);
-        if (!empty($erros)) {
-            Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
-        }
+        // $erros = UsuarioValidador::ValidarEntradas($_POST);
+        // if (!empty($erros)) {
+        //     Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
+        // }
     
         $nome = $_POST['nome_usuario'] ?? null;
         $email = $_POST['email_usuario'] ?? null;
         $senha = $_POST['senha_usuario'] ?? null;
         $senha_confirm = $_POST['senha_confirm'] ?? null;
-    
+       
         if ($senha != $senha_confirm) {
             Redirect::redirecionarComMensagem('/register', 'erros', 'As senhas não conferem.');
         }
@@ -68,7 +67,7 @@ class AuthController{
             Redirect::redirecionarComMensagem('/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
         }
     
-        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'usuario', 'Ativo', 'null');
+        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente', 'Ativo', 'null');
         if ($novoUsuarioId) {
             Redirect::redirecionarComMensagem('/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
         } else {

@@ -10,7 +10,7 @@ abstract class AuthenticatedController{
         $this->session = new Session();
         if (!$this->session->has('usuario_id')) {
             Redirect::redirecionarComMensagem(
-                'login',
+                '/login',
                 'error',
                 'Você precisa estar logado para acessar esta página.'
             );

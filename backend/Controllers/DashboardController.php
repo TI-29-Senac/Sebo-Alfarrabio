@@ -1,12 +1,11 @@
 <?php
-namespace Sebo\Alfarrabio\Controllers\Admin;
+namespace Sebo\Alfarrabio\Controllers;
 
 use Sebo\Alfarrabio\Core\View;
 
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Categoria;
 use Sebo\Alfarrabio\Models\Item;
-use Sebo\Alfarrabio\Core\Session;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
 class DashboardController extends AdminController
@@ -14,17 +13,16 @@ class DashboardController extends AdminController
     private $db;
      private $categoriaModel;
      private $itemModel;
-     protected $session;
+    
 
-private function __construct() {
-    parent::_construct();
-        $this->db = Database::getInstance();
-        $this->session = new Session();
-        $this->categoriaModel = new Categoria($this->db);
-        $this->itemModel = new Item($this->db);
-}
+    public function __construct() {
+        parent::_construct();
+            $this->db = Database::getInstance();
+            $this->categoriaModel = new Categoria($this->db);
+            $this->itemModel = new Item($this->db);
+    }
 
-    public function index(): void{
+    public function index(){
        
 
         // Estatísticas simples
@@ -110,8 +108,8 @@ private function __construct() {
         }
 
         View::render('admin/dashboard/index', [
-            'nomeUsuario' => $this->session->get('usuario_nome'),
-            'Tipo' => $this->session->get('usuario_tipo'),
+            'nomeUsuario' => $this->session->get('usuario_nome')?? '',
+            'Tipo' => $this->session->get('usuario_tipo')?? '',
             'totalCategorias' => $totalCategorias,
             'totalCategoriasInativas' => $totalCategoriasInativas,
             'totalItens' => $totalItens,

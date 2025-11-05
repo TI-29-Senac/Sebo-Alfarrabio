@@ -7,13 +7,15 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\AutorValidador;
 use Sebo\Alfarrabio\Core\FileManager;
+use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
-class AutorController {
+class AutorController extends AdminController {
     private $autor;
     private $db;
     private $gerenciarImagem;
 
     public function __construct() {
+         parent::_construct();
         $this->db = Database::getInstance();
         $this->autor = new Autor($this->db);
         $this->gerenciarImagem = new FileManager('upload');

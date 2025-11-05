@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 // O header e footer já são incluídos pelo View::render
 // Variáveis esperadas (passadas pelo controller):
@@ -178,12 +177,3 @@
         });
     }
 </script>
-=======
-<div class="w3-container w3-padding-32">
-    <h3><i class="fa fa-dashboard"></i> Meu Painel</h3>
-    <h2>Bem-vindo de volta, <?= htmlspecialchars($nomeUsuario); ?>!</h2>
-    <h2>Seu usuario, <?= htmlspecialchars($Tipo); ?>!</h2>
-    <p>Esta é a sua área segura.</p>
-    <a href="/backend/logout" class="w3-button w3-red">Sair do Sistema</a>
-</div>
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb

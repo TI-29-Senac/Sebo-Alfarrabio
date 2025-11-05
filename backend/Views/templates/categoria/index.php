@@ -1,8 +1,7 @@
 <div class="w3-container">
     <h3>Gerenciar Categorias</h3>
     <a href="/backend/categoria/criar" class="w3-button w3-blue">Adicionar Nova Categoria</a><a href="/categoria/criar" 
-<a href="/categoria/editar/<?= $categoria['id_categoria']; ?>" class="w3-button w3-tiny w3-khaki">Editar</a>
-    <br><br>
+<a href="/categoria/editar/<?= $categoria['id_categoria']; ?>" 
     
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
         <thead>
