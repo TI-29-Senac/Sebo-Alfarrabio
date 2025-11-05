@@ -13,7 +13,7 @@ class Usuario {
     // ===== LEITURA (READ) =====
     
     function buscarUsuarios() {
-        $sql = "SELECT * FROM tbl_usuario WHERE excluido_em IS NULL ORDER BY id_usuario DESC";
+        $sql = "SELECT * FROM tbl_usuario WHERE excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
