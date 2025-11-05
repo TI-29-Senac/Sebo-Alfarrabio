@@ -6,28 +6,39 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Categoria;
 use Sebo\Alfarrabio\Models\Item;
+use Sebo\Alfarrabio\Core\Session;
+use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
-
-class DashboardController extends AuthenticatedController
+class DashboardController extends AdminController
 {
-    public function index(): void
-        $db = Database::getInstance();
+    private $db;
+     private $categoriaModel;
+     private $itemModel;
+     protected $session;
 
-        $categoriaModel = new Categoria($db);
-        $itemModel = new Item($db);
+private function __construct() {
+    parent::_construct();
+        $this->db = Database::getInstance();
+        $this->session = new Session();
+        $this->categoriaModel = new Categoria($this->db);
+        $this->itemModel = new Item($this->db);
+}
+
+    public function index(): void{
+       
 
         // Estatísticas simples
-        $totalCategorias = (int) $categoriaModel->totalDeCategorias();
-        $totalCategoriasInativas = (int) $categoriaModel->totalDeCategoriasInativas();
-        $totalItens = (int) $itemModel->totalDeItens();
-        $totalItensInativos = (int) $itemModel->totalDeItensInativos();
+        $totalCategorias = (int) $this->categoriaModel->totalDeCategorias();
+        $totalCategoriasInativas = (int) $this->categoriaModel->totalDeCategoriasInativas();
+        $totalItens = (int)$this->itemModel->totalDeItens();
+        $totalItensInativos = (int) $this->itemModel->totalDeItensInativos();
 
         // Vendas e faturamento (se as tabelas existirem)
         try {
-            $stmtVendas = $db->query("SELECT COUNT(*) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
+            $stmtVendas = $this->db->query("SELECT COUNT(*) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $vendasMes = (int) $stmtVendas->fetchColumn();
 
-            $stmtFaturamento = $db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
+            $stmtFaturamento =$this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $faturamentoMes = (float) $stmtFaturamento->fetchColumn();
         } catch (\Throwable $e) {
             // Se não houver tabela de vendas, definimos 0 para não quebrar a página
@@ -36,7 +47,7 @@ class DashboardController extends AuthenticatedController
         }
 
         // Últimos itens cadastrados (5)
-        $ultimosItens = $itemModel->paginacao(1, 5)['data'];
+        $ultimosItens = $this->itemModel->paginacao(1, 5)['data'];
 
         // Preparar dados para gráficos (últimos N meses, padrão 6)
         $period = isset($_GET['period']) ? (int) $_GET['period'] : 6;
@@ -56,7 +67,7 @@ class DashboardController extends AuthenticatedController
                           FROM tbl_vendas
                           WHERE data_venda >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
                           GROUP BY yr, m";
-            $stmt = $db->query($sqlVendas);
+            $stmt = $this->db->query($sqlVendas);
             $vendasMap = [];
             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
                 $vendasMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
@@ -67,7 +78,7 @@ class DashboardController extends AuthenticatedController
                           FROM tbl_reservas
                           WHERE data_reserva >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
                           GROUP BY yr, m";
-            $stmt2 = $db->query($sqlReservas);
+            $stmt2 = $this->db->query($sqlReservas);
             $reservasMap = [];
             while ($row = $stmt2->fetch(\PDO::FETCH_ASSOC)) {
                 $reservasMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
@@ -113,10 +124,6 @@ class DashboardController extends AuthenticatedController
             'vendas_chart_data' => $vendas_chart_data,
             'reservas_chart_labels' => $reservas_chart_labels,
             'reservas_chart_data' => $reservas_chart_data
-
-        View::render('/admin/dashboard/index', [
-            'nomeUsuario' => $this->session->get('usuario_nome'),
-            'Tipo' => $this->session->get('usuario_tipo')
 
         ]);
     }

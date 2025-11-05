@@ -19,11 +19,7 @@ class ItemController extends AdminController {
     public $autor;
     public $categoria;
     public $genero;
-<<<<<<< HEAD
     // public $gerenciarImagem; // Descomente se os itens tiverem imagens
-=======
-    public $gerenciarImagem; // Descomente se os itens tiverem imagens
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 
     public function __construct() {
         parent::__construct();
@@ -35,7 +31,6 @@ class ItemController extends AdminController {
         $this->categoria = new Categoria($this->db);
         $this->genero = new Genero($this->db);
 
-<<<<<<< HEAD
         // $this->gerenciarImagem = new FileManager('upload'); // Para imagens de itens
     }
 
@@ -63,67 +58,6 @@ class ItemController extends AdminController {
         ]);
     }
 
-=======
-        $this->gerenciarImagem = new FileManager('upload'); // Para imagens de itens
-    }
-   public function viewProdutos($pagina = 1) {
-    if (empty($pagina) || $pagina <= 0) {
-        $pagina = 1;
-    }
-
-    $dados = $this->item->paginacao($pagina, 12);
-
-    // 🔧 MAPEAMENTO CORRETO baseado no seu banco
-    $mapeamentoFiltros = [
-        1 => 'ficcao-cientifica', // Ficção Científica
-        2 => 'fantasia',          // Fantasia
-        3 => 'romance',           // Romance
-        4 => 'terror',            // Técnico (você pode criar um filtro específico)
-        // Adicione mais conforme necessário
-    ];
-
-    $itensComFiltros = [];
-    foreach ($dados['data'] as $item) {
-        $classeFiltro = 'todos';
-        if (isset($mapeamentoFiltros[$item['id_genero']])) {
-            $classeFiltro = $mapeamentoFiltros[$item['id_genero']];
-        }
-
-        $itensComFiltros[] = [
-    'id' => $item['id_item'],
-    'titulo' => htmlspecialchars($item['titulo_item']),
-    
-    // 🔧 USA A DESCRIÇÃO REAL, sem truncar muito
-    'descricao' => !empty($item['descricao']) 
-        ? (strlen($item['descricao']) > 120 
-            ? substr($item['descricao'], 0, 120) . '...' 
-            : $item['descricao'])
-        : 'Explore este item incrível do nosso acervo.',
-    
-    // 🔧 Caminho correto das imagens
-    'imagem' => !empty($item['foto_item']) 
-    ? (filter_var($item['foto_item'], FILTER_VALIDATE_URL) 
-        ? $item['foto_item']  // É URL externa, usa direto
-        : '/uploads/' . htmlspecialchars($item['foto_item']))  // É arquivo local
-    : '/img/default-livro.jpg',
-    
-    'preco' => number_format($item['preco'] ?? 0, 2, ',', '.'),
-    'tipo' => ucfirst($item['tipo_item']),
-    'estoque' => $item['estoque'] ?? 0,
-    'autores' => $item['autores'] ?? 'Autor não informado',
-    'filtro_classes' => $classeFiltro
-];
-    }
-
-    $totalItens = $this->item->totalDeItensAtivos();
-
-    View::renderPublic("produtos", [  // Usa o novo método
-    "itens" => $itensComFiltros,
-    "total_itens" => $totalItens,
-    'paginacao' => $dados
-]);
-}
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
     /**
      * Exibe o formulário de criação.
      * Envia os dados de Gêneros e Categorias para preencher os <select>.
@@ -268,17 +202,6 @@ class ItemController extends AdminController {
         } else {
             Redirect::redirecionarComMensagem("item/editar/$id_item","error","Erro ao atualizar item. A operação foi revertida.");
         }
-<<<<<<< HEAD
-=======
-
-        $erros = ItemValidator::validar($item);
-
-        if (!empty($erros)) {
-        // Exibe os erros na view
-        include_once '../Views/templates/item/';
-        return;
-    }
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
     }
 
     /**
@@ -330,35 +253,4 @@ class ItemController extends AdminController {
         echo json_encode($resultados);
         exit;
     }
-<<<<<<< HEAD
-=======
-
-    /**
- * Exibe a listagem de itens para admin com paginação e contagens.
- * Similar ao UsuarioController, mas para itens.
- */
-public function viewListarItens($pagina = 1) {
-    if (empty($pagina) || $pagina <= 0) {
-        $pagina = 1;
-    }
-    
-    // Paginação dos itens (usa o método do model, filtrando inativos)
-    $dados = $this->item->paginacao($pagina, 10);  // 10 por página, ajuste se quiser
-    
-    // Contagens totais (ativos, inativos, total)
-    $totalItens = $this->item->totalDeItens();  // Total geral
-    $totalAtivos = $this->item->totalDeItensAtivos();  // Ativos (excluido_em IS NULL)
-    $totalInativos = $this->item->totalDeItensInativos();  // Inativos
-    
-    // Renderiza a view admin (crie Views/item/index.php se não existir)
-    View::render("item/index", [
-        "itens" => $dados['data'],  // Array de itens com joins (autores, genero, etc.)
-        "total_itens" => $totalItens,  // Use como int ou [$totalItens] se for fetchAll
-        "total_ativos" => $totalAtivos,
-        "total_inativos" => $totalInativos,
-        'paginacao' => $dados  // Inclui pagina_atual, ultima_pagina, etc.
-    ]);
-}
-
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb
 }
