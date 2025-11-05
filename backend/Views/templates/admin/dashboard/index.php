@@ -1,243 +1,179 @@
 <?php
-// Define o título da página
-$page_title = 'Dashboard';
-
-// Inclui o header (que já tem tudo: config, conexão, verificação de login, etc)
-include 'header.php';
-
-// ============================================
-// LÓGICA DO DASHBOARD
-// ============================================
-
-// Busca estatísticas para o dashboard
-$total_acervo = $conn->query("SELECT COUNT(*) as total FROM tbl_acervo WHERE excluido_em IS NULL")->fetch_assoc()['total'];
-$total_reservas = $conn->query("SELECT COUNT(*) as total FROM tbl_reservas WHERE status_reserva = 'ativa' AND excluido_em IS NULL")->fetch_assoc()['total'];
-$vendas_mes = $conn->query("SELECT COUNT(*) as total FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())")->fetch_assoc()['total'];
-$faturamento_mes = $conn->query("SELECT COALESCE(SUM(valor_total), 0) as total FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())")->fetch_assoc()['total'];
-
-// Busca últimas vendas
-$ultimas_vendas = $conn->query("
-    SELECT v.*, u.nome_usuario 
-    FROM tbl_vendas v
-    LEFT JOIN tbl_usuario u ON v.id_usuario = u.id_usuario
-    ORDER BY v.data_venda DESC 
-    LIMIT 5
-");
-
-// Busca reservas ativas
-$reservas_ativas = $conn->query("
-    SELECT r.*, u.nome_usuario, a.titulo_acervo
-    FROM tbl_reservas r
-    LEFT JOIN tbl_usuario u ON r.id_usuario = u.id_usuario
-    LEFT JOIN tbl_acervo a ON r.id_acervo = a.id_acervo
-    WHERE r.status_reserva = 'ativa'
-    ORDER BY r.data_reserva DESC
-    LIMIT 5
-");
-
-// Busca itens mais vendidos
-$itens_vendidos = $conn->query("
-    SELECT a.titulo_acervo, COUNT(*) as total_vendas
-    FROM tbl_itens_vendas iv
-    LEFT JOIN tbl_acervo a ON iv.id_acervo = a.id_acervo
-    WHERE iv.excluido_em IS NULL
-    GROUP BY iv.id_acervo
-    ORDER BY total_vendas DESC
-    LIMIT 5
-");
-
-// Busca categorias populares
-$categorias = $conn->query("
-    SELECT c.nome_categoria, COUNT(i.id_itens) as total
-    FROM tbl_categoria c
-    LEFT JOIN tbl_itens i ON c.id_categoria = i.id_categoria
-    WHERE c.excluido_em IS NULL
-    GROUP BY c.id_categoria
-    ORDER BY total DESC
-    LIMIT 5
-");
+// O header e footer já são incluídos pelo View::render
+// Variáveis esperadas (passadas pelo controller):
+// totalCategorias, totalCategoriasInativas, totalItens, totalItensInativos, vendasMes, faturamentoMes, ultimosItens
 ?>
 
-<!-- ============================================ -->
-<!-- CONTEÚDO DO DASHBOARD -->
-<!-- ============================================ -->
-
-<!-- Header da página -->
 <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i> Dashboard - Visão Geral</b></h5>
 </header>
 
-<!-- Cards de Estatísticas -->
 <div class="w3-row-padding w3-margin-bottom">
-    <div class="w3-quarter stat-card">
+    <div class="w3-quarter">
         <div class="w3-container w3-blue w3-padding-16 w3-round">
-            <div class="w3-left stat-icon"><i class="fa fa-book"></i></div>
+            <div class="w3-left"><i class="fa fa-tags" style="font-size:24px"></i></div>
             <div class="w3-clear"></div>
-            <h4><?php echo number_format($total_acervo, 0, ',', '.'); ?></h4>
-            <p>Itens no Acervo</p>
+            <h4><?= number_format($totalCategorias, 0, ',', '.'); ?></h4>
+            <p>Categorias</p>
         </div>
     </div>
-    <div class="w3-quarter stat-card">
+    <div class="w3-quarter">
         <div class="w3-container w3-orange w3-padding-16 w3-round">
-            <div class="w3-left stat-icon"><i class="fa fa-bookmark"></i></div>
+            <div class="w3-left"><i class="fa fa-archive" style="font-size:24px"></i></div>
             <div class="w3-clear"></div>
-            <h4><?php echo number_format($total_reservas, 0, ',', '.'); ?></h4>
-            <p>Reservas Ativas</p>
+            <h4><?= number_format($totalItens, 0, ',', '.'); ?></h4>
+            <p>Itens</p>
         </div>
     </div>
-    <div class="w3-quarter stat-card">
+    <div class="w3-quarter">
         <div class="w3-container w3-green w3-padding-16 w3-round">
-            <div class="w3-left stat-icon"><i class="fa fa-shopping-cart"></i></div>
+            <div class="w3-left"><i class="fa fa-shopping-cart" style="font-size:24px"></i></div>
             <div class="w3-clear"></div>
-            <h4><?php echo number_format($vendas_mes, 0, ',', '.'); ?></h4>
+            <h4><?= number_format($vendasMes ?? 0, 0, ',', '.'); ?></h4>
             <p>Vendas do Mês</p>
         </div>
     </div>
-    <div class="w3-quarter stat-card">
+    <div class="w3-quarter">
         <div class="w3-container w3-purple w3-padding-16 w3-round">
-            <div class="w3-left stat-icon"><i class="fa fa-dollar"></i></div>
+            <div class="w3-left"><i class="fa fa-money" style="font-size:24px"></i></div>
             <div class="w3-clear"></div>
-            <h4><?php echo formatar_moeda($faturamento_mes); ?></h4>
+            <h4>R$ <?= number_format($faturamentoMes ?? 0, 2, ',', '.'); ?></h4>
             <p>Faturamento Mensal</p>
         </div>
     </div>
 </div>
 
-<!-- Tabelas -->
-<div class="w3-row-padding w3-margin-bottom">
-    <!-- Últimas Vendas -->
-    <div class="w3-half">
-        <div class="w3-container w3-white w3-padding-16 w3-round w3-card">
-            <h5><i class="fa fa-shopping-cart"></i> Últimas Vendas</h5>
-            <table class="w3-table w3-striped w3-bordered w3-hoverable">
-                <thead>
-                    <tr class="w3-light-grey">
-                        <th>ID</th>
-                        <th>Usuário</th>
-                        <th>Valor</th>
-                        <th>Data</th>
+<!-- Últimos itens cadastrados -->
+<div class="w3-container w3-white w3-padding-16 w3-round w3-card">
+    <h5><i class="fa fa-list"></i> Últimos itens cadastrados</h5>
+    <table class="w3-table w3-striped w3-bordered w3-hoverable">
+        <thead>
+            <tr class="w3-light-grey">
+                <th>ID</th>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Gênero</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($ultimosItens)): ?>
+                <?php foreach ($ultimosItens as $item): ?>
+                    <tr>
+                        <td>#<?= htmlspecialchars($item['id_item']); ?></td>
+                        <td><?= htmlspecialchars($item['titulo_item']); ?></td>
+                        <td><?= htmlspecialchars($item['nome_categoria'] ?? '-'); ?></td>
+                        <td><?= htmlspecialchars($item['nome_genero'] ?? '-'); ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php if ($ultimas_vendas->num_rows > 0): ?>
-                        <?php while ($venda = $ultimas_vendas->fetch_assoc()): ?>
-                            <tr>
-                                <td><span class="w3-tag w3-blue w3-round">#<?php echo $venda['id_venda']; ?></span></td>
-                                <td><?php echo htmlspecialchars($venda['nome_usuario']); ?></td>
-                                <td><strong><?php echo formatar_moeda($venda['valor_total']); ?></strong></td>
-                                <td><?php echo formatar_data($venda['data_venda'], 'd/m/Y'); ?></td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="4" class="w3-center w3-text-grey">
-                                <i class="fa fa-info-circle"></i> Nenhuma venda registrada
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="w3-center w3-text-grey">Nenhum item cadastrado</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+<!-- Pequenas métricas adicionais -->
+<div class="w3-row-padding w3-margin-top">
+    <div class="w3-half">
+        <div class="w3-panel w3-leftbar w3-border-blue">
+            <p><strong>Categorias inativas:</strong> <?= number_format($totalCategoriasInativas, 0, ',', '.'); ?></p>
         </div>
     </div>
-
-    <!-- Reservas Ativas -->
     <div class="w3-half">
-        <div class="w3-container w3-white w3-padding-16 w3-round w3-card">
-            <h5><i class="fa fa-bookmark"></i> Reservas Ativas</h5>
-            <table class="w3-table w3-striped w3-bordered w3-hoverable">
-                <thead>
-                    <tr class="w3-light-grey">
-                        <th>Cliente</th>
-                        <th>Item</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($reservas_ativas->num_rows > 0): ?>
-                        <?php while ($reserva = $reservas_ativas->fetch_assoc()): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($reserva['nome_usuario']); ?></td>
-                                <td><?php echo htmlspecialchars(substr($reserva['titulo_acervo'], 0, 30)); ?>...</td>
-                                <td><?php echo formatar_data($reserva['data_reserva']); ?></td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="3" class="w3-center w3-text-grey">
-                                <i class="fa fa-info-circle"></i> Nenhuma reserva ativa
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+        <div class="w3-panel w3-leftbar w3-border-orange">
+            <p><strong>Itens inativos:</strong> <?= number_format($totalItensInativos, 0, ',', '.'); ?></p>
         </div>
     </div>
 </div>
 
-<!-- Mais informações -->
-<div class="w3-row-padding w3-margin-bottom">
-    <!-- Itens Mais Vendidos -->
-    <div class="w3-half">
-        <div class="w3-container w3-white w3-padding-16 w3-round w3-card">
-            <h5><i class="fa fa-trophy"></i> Itens Mais Vendidos</h5>
-            <ul class="w3-ul">
-                <?php if ($itens_vendidos->num_rows > 0): ?>
-                    <?php while ($item = $itens_vendidos->fetch_assoc()): ?>
-                        <li class="w3-bar">
-                            <div class="w3-bar-item">
-                                <span class="w3-large"><?php echo htmlspecialchars($item['titulo_acervo']); ?></span><br>
-                                <span class="w3-small w3-text-grey">
-                                    <i class="fa fa-shopping-cart"></i> <?php echo $item['total_vendas']; ?> vendas
-                                </span>
-                            </div>
-                            <span class="w3-bar-item w3-right" style="padding-top: 20px;">
-                                <span class="w3-badge w3-blue w3-large"><?php echo $item['total_vendas']; ?></span>
-                            </span>
-                        </li>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <li class="w3-center w3-text-grey w3-padding">
-                        <i class="fa fa-info-circle"></i> Nenhum item vendido ainda
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Categorias Populares -->
-    <div class="w3-half">
-        <div class="w3-container w3-white w3-padding-16 w3-round w3-card">
-            <h5><i class="fa fa-tags"></i> Categorias Populares</h5>
-            <ul class="w3-ul">
-                <?php if ($categorias->num_rows > 0): ?>
-                    <?php while ($categoria = $categorias->fetch_assoc()): ?>
-                        <li class="w3-bar">
-                            <div class="w3-bar-item" style="width: 60%;">
-                                <span class="w3-large"><?php echo htmlspecialchars($categoria['nome_categoria']); ?></span><br>
-                                <span class="w3-small w3-text-grey">
-                                    <i class="fa fa-book"></i> <?php echo $categoria['total']; ?> itens
-                                </span>
-                            </div>
-                            <div class="w3-bar-item w3-right" style="width: 35%; padding-top: 20px;">
-                                <div class="w3-light-grey w3-round">
-                                    <div class="w3-container w3-green w3-round w3-center" style="width:<?php echo min(100, $categoria['total'] * 10); ?>%">
-                                        <?php echo $categoria['total']; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <li class="w3-center w3-text-grey w3-padding">
-                        <i class="fa fa-info-circle"></i> Nenhuma categoria cadastrada
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </div>
+<!-- Seleção do período para os gráficos -->
+<div class="w3-row-padding w3-margin-top">
+    <div class="w3-container w3-white w3-padding-8 w3-round w3-card">
+        <form method="get" id="periodForm">
+            <label for="period">Período dos gráficos:</label>
+            <select name="period" id="period" onchange="document.getElementById('periodForm').submit()">
+                <option value="3" <?= (isset($_GET['period']) && (int)$_GET['period'] === 3) ? 'selected' : '' ?>>Últimos 3 meses</option>
+                <option value="6" <?= (!isset($_GET['period']) || (int)$_GET['period'] === 6) ? 'selected' : '' ?>>Últimos 6 meses</option>
+                <option value="12" <?= (isset($_GET['period']) && (int)$_GET['period'] === 12) ? 'selected' : '' ?>>Últimos 12 meses</option>
+            </select>
+            <noscript><button type="submit" class="w3-button w3-blue">Atualizar</button></noscript>
+        </form>
     </div>
 </div>
 
-<?php
-// Inclui o footer (que fecha tudo e tem os scripts)
-include 'footer.php';
-?>
+<!-- Gráficos: Vendas e Reservas -->
+<div class="w3-row-padding w3-margin-top">
+    <div class="w3-half w3-white w3-padding w3-round w3-card">
+        <h5><i class="fa fa-line-chart"></i> Vendas (últimos 6 meses)</h5>
+        <canvas id="vendasChart" width="400" height="200"></canvas>
+    </div>
+    <div class="w3-half w3-white w3-padding w3-round w3-card">
+        <h5><i class="fa fa-bar-chart"></i> Reservas (últimos 6 meses)</h5>
+        <canvas id="reservasChart" width="400" height="200"></canvas>
+    </div>
+</div>
+
+<!-- Chart.js CDN e renderização -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dados vindos do controller
+    const vendasLabels = <?= json_encode($vendas_chart_labels ?? []); ?>;
+    const vendasData = <?= json_encode($vendas_chart_data ?? []); ?>;
+
+    const reservasLabels = <?= json_encode($reservas_chart_labels ?? []); ?>;
+    const reservasData = <?= json_encode($reservas_chart_data ?? []); ?>;
+
+    // Vendas - linha
+    if (document.getElementById('vendasChart')) {
+        const ctxV = document.getElementById('vendasChart').getContext('2d');
+        new Chart(ctxV, {
+            type: 'line',
+            data: {
+                labels: vendasLabels,
+                datasets: [{
+                    label: 'Vendas',
+                    data: vendasData,
+                    backgroundColor: 'rgba(54,162,235,0.2)',
+                    borderColor: 'rgba(54,162,235,1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    // Reservas - barra
+    if (document.getElementById('reservasChart')) {
+        const ctxR = document.getElementById('reservasChart').getContext('2d');
+        new Chart(ctxR, {
+            type: 'bar',
+            data: {
+                labels: reservasLabels,
+                datasets: [{
+                    label: 'Reservas',
+                    data: reservasData,
+                    backgroundColor: 'rgba(255,159,64,0.6)',
+                    borderColor: 'rgba(255,159,64,1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+</script>

@@ -28,13 +28,10 @@ class CategoriaController {
             Redirect::redirecionarComMensagem("/categoria/criar", "error", implode("<br>", $erros));
         }
 
-        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
+      //  $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
 
         if ($this->categoria->inserirCategoria(
-            $_POST["nome_categoria"],
-            $_POST["descricao_categoria"],
-            $imagem
-        )) {
+            $_POST["nome_categoria"])) {
             Redirect::redirecionarComMensagem("categoria/listar", "success", "Categoria cadastrada com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("categoria/criar", "error", "Erro ao cadastrar a categoria!");
@@ -51,12 +48,12 @@ class CategoriaController {
         $total = $this->categoria->totalDeCategorias();
         $total_inativos = $this->categoria->totalDeCategoriasInativas();
         $total_ativos = $this->categoria->totalDeCategoriasAtivas();
-
+       
         View::render("categoria/index", [
-            "categoria" => $dados,
-            "total_categoria" => $total[0],
-            "total_inativos" => $total_inativos[0],
-            "total_ativos" => $total_ativos[0]
+            "categorias" => $dados,
+            "total_categoria" => $total,
+            "total_inativos" => $total_inativos,
+            "total_ativos" => $total_ativos
         ]);
     }
 

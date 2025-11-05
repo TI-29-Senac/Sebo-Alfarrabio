@@ -59,3 +59,26 @@
   padding: auto;
   flex-wrap: wrap;
 }
+
+/* Remove qualquer espaço entre banner e menu */
+.banner {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.menu-secundario {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Evita espaços no header */
+header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* Debug temporário pra achar o espaço */
+header, .banner, .menu-secundario {
+  outline: 1px solid red; /* só pra enxergar os limites */
+}
+
+

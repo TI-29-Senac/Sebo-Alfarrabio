@@ -19,12 +19,18 @@ class Rotas
                 "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
                 //Categoria
-                "/categoria" => "CategoriaConstroller@index",
+                "/" => "AdminDashboardController@index",
+                "/backend" => "AdminDashboardController@index",
+                "/categoria" => "CategoriaController@index",
                 "/categoria/criar" => "CategoriaController@viewCriarCategoria",
                 "/categoria/listar" => "CategoriaController@viewListarCategoria",
                 "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
                 "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
                 "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
+
+                // Admin Dashboard (acessível por /admin/dashboard e /backend/admin/dashboard)
+                "/admin/dashboard" => "Admin\\DashboardController@index",
+                "/backend/admin/dashboard" => "Admin\\DashboardController@index",
 
                 //Genero
                 "/genero" => "generoConstroller@index",
@@ -51,13 +57,13 @@ class Rotas
             "POST" => [
                 //Autor post
                 "/autor/salvar" => "AutorController@salvarAutor",
-                "/autor/atualizar/{id}" => "AutorController@viewatualizarAutor",
-                "/autor/deletar/{id}" => "AutorController@viewdeletarAutor",
+                "/autor/atualizar/{id}" => "AutorController@atualizarAutor",
+                "/autor/excluir/{id}" => "AutorController@deletarAutor",
 
                 //Categoria post
-                "/categoria/salvar" => "CategoriaController@viewsalvarCategoria",
-                "/categoria/atualizar/{id}" => "CategoriaController@viewatualizarCategoria",
-                "/categoria/deletar/{id}" => "CategoriaController@viewdeletarCategoria",
+                "/categoria/salvar" => "CategoriaController@salvarCategoria",
+                "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
 
                 //Genero post
                 "/genero/salvar" => "GeneroController@viewsalvarGenero",
