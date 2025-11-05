@@ -1,28 +1,19 @@
-<div class="w3-container w3-card-4 w3-light-grey w3-margin w3-center" style="max-width:800px;">
-    <h1>Editar Usuário #<?php echo $usuario['id_usuario']; ?></h1>
-    <form action="/backend/usuario/atualizar" method="post" onsubmit="return confirm('Atualizar?');">
-        <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
-        <div class="w3-section">
-            <label>Nome</label>
-            <input class="w3-input w3-border" type="text" name="nome_usuario" value="<?php echo htmlspecialchars($usuario['nome_usuario']); ?>" required>
-        </div>
-        <div class="w3-section">
-            <label>Email</label>
-            <input class="w3-input w3-border" type="email" name="email_usuario" value="<?php echo htmlspecialchars($usuario['email_usuario']); ?>" required>
-        </div>
-        <div class="w3-section">
-            <label>Senha</label>
-            <input class="w3-input w3-border" type="password" name="senha_usuario" minlength="6">
-        </div>
-        <div class="w3-section">
-            <label>Tipo</label>
-            <select class="w3-select w3-border" name="tipo_usuario" required>
-                <option value="Cliente" <?php echo ($usuario['tipo_usuario'] == 'cliente') ? 'selected' : ''; ?>>Cliente</option>
-                <option value="Admin" <?php echo ($usuario['tipo_usuario'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
-                <option value="Funcionario" <?php echo ($usuario['tipo_usuario'] == 'funcionario') ? 'selected' : ''; ?>>Funcionário</option>
-            </select>
-        </div>
-        <button type="submit" class="w3-button w3-blue">Salvar</button>
-        <a href="/backend/usuario/listar" class="w3-button w3-grey">Cancelar</a>
+<form class="w3-container w3-white" action="/backend/usuario/atualizar/<?php echo $usuario['id_usuario']; ?>" method="post" enctype="multipart/form-data">
+    <label for="Nome">Nome</label>
+    <input class="w3-input w3-border" type="text" name="nome_usuario" id="nome_usuario" value="<?php echo $usuario['nome_usuario']; ?>"  required>
+    <br>
+    <label for="Email">Email</label>
+    <input class="w3-input w3-border" type="email" name="email_usuario" id="email_usuario" value="<?php echo $usuario['email_usuario']; ?>" required>
+    <br>
+    <label for="Senha">Senha</label>
+    <input class="w3-input w3-border" type="password" name="senha_usuario" id="senha_usuario" value="" required>
+    <br>
+    <label for="Tipo">Tipo</label>
+    <select class="w3-select w3-input w3-border" name="tipo_usuario" id="tipo_usuario" value="<?php echo $usuario['tipo_usuario']; ?>" required>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+    </select>
+    <br>
+   
+    <button type="submit">Salvar</button>
     </form>
-</div>

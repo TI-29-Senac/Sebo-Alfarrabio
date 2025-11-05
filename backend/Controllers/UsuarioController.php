@@ -50,15 +50,15 @@ class UsuarioController extends AdminController {
     public function viewListarUsuarios($pagina = 1) {
         if (empty($pagina) || $pagina <= 0) $pagina = 1;
         $dados = $this->usuario->paginacao($pagina);
-        $total = $this->usuario->totalDeUsuarios();  // Scalar
-        $totalInativos = $this->usuario->totalDeUsuariosInativos();
-        $totalAtivos = $this->usuario->totalDeUsuariosAtivos();
+        $total_usuarios = $this->usuario->totalDeUsuarios();  // Scalar
+        $total_inativos = $this->usuario->totalDeUsuariosInativos();
+        $total_ativos = $this->usuario->totalDeUsuariosAtivos();
 
         View::render("usuario/index", [
             "usuarios" => $dados['data'],
-            "total_usuarios" => $total,
-            "total_inativos" => $totalInativos,
-            "total_ativos" => $totalAtivos,
+            "total_usuarios" => $total_usuarios,
+            "total_inativos" => $total_inativos,
+            "total_ativos" => $total_ativos,
             'paginacao' => $dados
         ]);
     }
@@ -80,7 +80,7 @@ class UsuarioController extends AdminController {
         if (!$dados) {
             Redirect::redirecionarComMensagem("/usuario/listar", "error", "Usuário não encontrado.");
         }
-        View::render("usuario/delete", ["usuario" => $dados]);  // Dados full
+        View::render("usuario/delete", ["usuario" => $dados]);
     }
 
     public function relatorioUsuario($id = null, $data1 = null, $data2 = null) {

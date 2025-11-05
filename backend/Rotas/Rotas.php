@@ -35,6 +35,7 @@ class Rotas
                 // USUÁRIOS
                 // ========================================
                 
+                "/" => "Admin\DashboardController@index",
                 "/usuarios" => "UsuarioController@index",
                 "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
                 "/usuario/listar" => "UsuarioController@viewListarUsuarios",
