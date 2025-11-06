@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebo & Livraria O Alfarrábio - Produtos</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/produtos.css"> <!-- 🎨 CSS separado -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sebo & Livraria O Alfarrábio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <img src="img/logo2.png" alt="Logo" class="logo">
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="produtos.html">Produtos</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="contato.html">Contato</a></li>
-          </ul>
-        </nav>
-    </header>
+
+  <!-- HEADER ORIGINAL -->
+  <header>
+    <img src="img/logo2.png" alt="Logo" class="logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="backend/produtos">Produtos</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
 
     <!-- CONTEÚDO PRINCIPAL -->
     <div class="produtos-container">
 
       <!-- 🔍 FILTRO LATERAL -->
       <aside class="filtro-lateral">
-        <h2>Refine sua busca</h2>
+        <h2>Filtre os Resultados</h2>
         <form id="form-filtro">
           <label for="titulo">Título:</label>
           <input type="text" id="titulo" placeholder="Digite o título">
@@ -36,9 +39,6 @@
           <label for="editora">Editora:</label>
           <select id="editora">
             <option value="">Selecione uma editora</option>
-            <option value="moderna">Moderna</option>
-            <option value="saraiva">Saraiva</option>
-            <option value="leya">Leya</option>
           </select>
 
           <label for="ano">Ano:</label>
@@ -53,17 +53,6 @@
 
       <!-- 🧾 LISTA DE PRODUTOS -->
       <div class="produtos-lista">
-
-        <!-- Categorias -->
-        <div id="myBtnContainer">
-          <div class="categorias-p">
-            <div class="item-p" onclick="filterSelection('todos')"><h2>Todos</h2></div>
-            <div class="item-p" onclick="filterSelection('romance')"><img src="img/romance.png"><h4>Romance</h4></div>
-            <div class="item-p" onclick="filterSelection('fantasia')"><img src="img/fantasia.png"><h4>Fantasia</h4></div>
-            <div class="item-p" onclick="filterSelection('ficcao-cientifica')"><img src="img/ficcao.png"><h4>Ficção Científica</h4></div>
-            <div class="item-p" onclick="filterSelection('terror')"><img src="img/terror.png"><h4>Terror</h4></div>
-          </div>
-        </div>
 
         <!-- Produtos -->
         <div class="container-p">

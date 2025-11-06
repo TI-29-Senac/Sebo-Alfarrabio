@@ -13,7 +13,7 @@
     <div class="w3-quarter">
         <div class="w3-container w3-red w3-padding-16">
             <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-            <div class="w3-right"><h3><?php echo $total_inativos; ?></h3></div>
+            <div class="w3-right"><h3><?php echo $totalInativos; ?></h3></div>
             <div class="w3-clear"></div><h4>Inativos</h4>
         </div>
     </div>
