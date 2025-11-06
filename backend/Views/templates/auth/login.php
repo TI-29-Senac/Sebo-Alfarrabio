@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,63 +12,127 @@
             font-family: "Raleway", sans-serif; 
             height: 100%;
             margin: 0;
+            background-color: #fff2df; /* Fundo branco */
         }
+
         .login-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #d4b896 0%, #c8a882 100%);
+            background-color: #fff2df; /* Fundo bege claro */
             padding: 20px;
         }
+
         .login-box {
-            max-width: 500px;
+            max-width: 450px;
             width: 100%;
         }
+
+        /* Caixa principal do formulário */
+        .login-card {
+            background: linear-gradient(180deg, #d8c2a7 0%, #bfa07c 100%);
+            color: #fff;
+            border-radius: 16px;
+            border: 3px solid #8c6e63; /* 🌟 Borda dourada suave */
+            box-shadow: 0 6px 25px rgba(90, 74, 58, 0.25);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            box-shadow: 0 10px 35px rgba(90, 74, 58, 0.35);
+            transform: translateY(-3px);
+        }
+
         .logo-icon {
-            width: 100px;
-            height: 100px;
-            background: white;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 48px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 30px auto 15px;
+            background-color: #fff;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid #8c6e63; /* borda dourada também no logo */
         }
+
+        c
+        h2 {
+            color: #4a3a2b;
+            margin: 10px 0;
+        }
+
+        p.subtitle {
+            color: #6b5a4b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
         .btn-login {
-            background: linear-gradient(135deg, #d4b896 0%, #c8a882 100%);
-            color: white;
+            background: #5a4a3a;
+            color: #FFF2DF;
             transition: all 0.3s;
         }
+
         .btn-login:hover {
-            opacity: 0.9;
+            background: #4a3a2b;
             transform: translateY(-2px);
+        }
+
+        input.w3-input {
+            border: 1px solid #a1876f !important;
+            background-color: #fff;
+        }
+
+        .w3-text-grey {
+            color: #3e2f22 !important;
+        }
+
+        .footer-box {
+            background-color: #f9f7f4;
+            padding: 15px;
+            border-top: 1px solid #e8dccb;
+        }
+
+        .footer-box a {
+            color: #8a6f52;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-box a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-box p {
+            color: #6e5a4a;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-box">
-            <div class="w3-card-4 w3-white w3-round-large w3-animate-zoom">
-                <div class="w3-container w3-center w3-padding-32">
-                    <div class="logo-icon">📚</div>
-                    <h2 style="color: #5a4a3a; margin: 10px 0;">Sebo Alfarrabio</h2>
-                    <p style="color: #8a7a6a; margin: 0;">Onde cada livro tem uma nova chance de ser descoberto</p>
+            <div class="login-card w3-animate-zoom">
+                <div class="w3-container w3-center w3-padding">
+                    <div class="logo-icon">
+                        <img src="/img/logo2.png" alt="Logo Sebo Alfarrabio">
+                    </div>
+                    <h2>Sebo Alfarrabio</h2>
+                    <p class="subtitle">Onde cada livro tem uma nova chance de ser descoberto</p>
                 </div>
                 
                 <form class="w3-container w3-padding" action="/backend/login" method="POST">
-                    
-                    
                     <p>
                         <label class="w3-text-grey"><b><i class="fa fa-envelope"></i> Email</b></label>
-                        <input class="w3-input w3-border w3-round" type="email" name="email_usuario" required placeholder="seu@email.com" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+                        <input class="w3-input w3-round" type="email" name="email_usuario" required placeholder="seu@email.com" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
                     </p>
                     
                     <p>
                         <label class="w3-text-grey"><b><i class="fa fa-lock"></i> Senha</b></label>
-                        <input class="w3-input w3-border w3-round" type="password" name="senha_usuario" required placeholder="••••••••">
+                        <input class="w3-input w3-round" type="password" name="senha_usuario" required placeholder="••••••••">
                     </p>
                     
                     <p>
@@ -86,13 +149,11 @@
                     </p>
                 </form>
                 
-                <div class="w3-container w3-center w3-padding-16 w3-light-grey">
+                <div class="w3-container w3-center footer-box">
                     <p style="margin: 5px 0;">
-                        <a href="#" style="color: #d4b896; text-decoration: none;">
-                            <i class="fa fa-question-circle"></i> Esqueceu a senha?
-                        </a>
+                        <a href="/backend/register">Não tem conta? Crie aqui.</a>
                     </p>
-                    <p style="margin: 5px 0; color: #8a7a6a; font-size: 12px;">
+                    <p style="margin: 5px 0; font-size: 12px;">
                         © <?php echo date('Y'); ?> Sebo Alfarrabio - Todos os direitos reservados
                     </p>
                 </div>

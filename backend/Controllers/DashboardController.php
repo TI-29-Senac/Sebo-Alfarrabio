@@ -21,8 +21,7 @@ class DashboardController extends AdminController
             $this->categoriaModel = new Categoria($this->db);
             $this->itemModel = new Item($this->db);
     }
-
-    public function index(){
+ public function index(){
        
 
         // Estatísticas simples
@@ -71,16 +70,16 @@ class DashboardController extends AdminController
                 $vendasMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
             }
 
-            // consulta agrupada para reservas dos últimos N meses
-            $sqlReservas = "SELECT YEAR(data_reserva) as yr, MONTH(data_reserva) as m, COUNT(*) as total
-                          FROM tbl_reservas
-                          WHERE data_reserva >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
-                          GROUP BY yr, m";
-            $stmt2 = $this->db->query($sqlReservas);
-            $reservasMap = [];
+            // consulta agrupada para pedidos dos últimos N meses
+            $sqlPedidos = "SELECT YEAR(data_pedido) as yr, MONTH(data_pedido) as m, COUNT(*) as total
+                           FROM tbl_pedidos
+                           WHERE data_pedido >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
+                           GROUP BY yr, m";
+            $stmt2 = $this->db->query($sqlPedidos);
+            $pedidosMap = [];
             while ($row = $stmt2->fetch(\PDO::FETCH_ASSOC)) {
-                $reservasMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
-            }
+                $pedidosMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
+}
 
             // meses em português abreviados
             $pt_months = [
@@ -96,33 +95,33 @@ class DashboardController extends AdminController
                 $key = date('Y-m', $time);
                 $vendas_chart_labels[] = $label;
                 $vendas_chart_data[] = isset($vendasMap[$key]) ? $vendasMap[$key] : 0;
-                $reservas_chart_labels[] = $label;
-                $reservas_chart_data[] = isset($reservasMap[$key]) ? $reservasMap[$key] : 0;
+                $pedidos_chart_labels[] = $label;
+                $pedidos_chart_data[] = isset($pedidosMap[$key]) ? $pedidosMap[$key] : 0;
             }
-        } catch (\Throwable $e) {
-            // Se não houver tabelas ou ocorrer erro, mantemos arrays vazios/zeros
-            $vendas_chart_labels = [];
-            $vendas_chart_data = [];
-            $reservas_chart_labels = [];
-            $reservas_chart_data = [];
-        }
+} catch (\Throwable $e) {
+    // Se não houver tabelas ou ocorrer erro, mantemos arrays vazios/zeros
+    $vendas_chart_labels = [];
+    $vendas_chart_data = [];
+    $pedidos_chart_labels = [];
+    $pedidos_chart_data = [];
+}
 
         View::render('admin/dashboard/index', [
-            'nomeUsuario' => $this->session->get('usuario_nome')?? '',
-            'Tipo' => $this->session->get('usuario_tipo')?? '',
-            'totalCategorias' => $totalCategorias,
-            'totalCategoriasInativas' => $totalCategoriasInativas,
-            'totalItens' => $totalItens,
-            'totalItensInativos' => $totalItensInativos,
-            'vendasMes' => $vendasMes,
-            'faturamentoMes' => $faturamentoMes,
-            'ultimosItens' => $ultimosItens
-            ,
-            'vendas_chart_labels' => $vendas_chart_labels,
-            'vendas_chart_data' => $vendas_chart_data,
-            'reservas_chart_labels' => $reservas_chart_labels,
-            'reservas_chart_data' => $reservas_chart_data
-
-        ]);
+    'nomeUsuario' => $this->session->get('usuario_nome')?? '',
+    'Tipo' => $this->session->get('usuario_tipo')?? '',
+    'totalCategorias' => $totalCategorias,
+    'totalCategoriasInativas' => $totalCategoriasInativas,
+    'totalItens' => $totalItens,
+    'totalItensInativos' => $totalItensInativos,
+    'vendasMes' => $vendasMes,
+    'faturamentoMes' => $faturamentoMes,
+    'ultimosItens' => $ultimosItens,
+    'vendas_chart_labels' => $vendas_chart_labels,
+    'vendas_chart_data' => $vendas_chart_data,
+    'pedidos_chart_labels' => $pedidos_chart_labels,
+    'pedidos_chart_data' => $pedidos_chart_data
+]);
     }
 }
+
+       
