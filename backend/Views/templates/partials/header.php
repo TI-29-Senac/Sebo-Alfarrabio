@@ -243,16 +243,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="menu-section-title">
             <i class="fa fa-shopping-cart"></i> Gestão de Produtos
         </div>
-        <a href="/item/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/item/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-book fa-fw"></i> Itens / Livros
         </a>
-        <a href="/categoria/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/categoria/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-tags fa-fw"></i> Categorias
         </a>
-        <a href="/genero/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/genero/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-list fa-fw"></i> Gêneros
         </a>
-        <a href="/autor/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/autor/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-pencil fa-fw"></i> Autores
         </a>
         
@@ -271,7 +271,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="menu-section-title">
             <i class="fa fa-star"></i> Feedback
         </div>
-        <a href="/avaliacao/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/avaliacao/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-star fa-fw"></i> Avaliações
         </a>
         
@@ -279,7 +279,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="menu-section-title">
             <i class="fa fa-users"></i> Usuários
         </div>
-        <a href="/usuario/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/usuario/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-users fa-fw"></i> Gerenciar Usuários
         </a>
         
