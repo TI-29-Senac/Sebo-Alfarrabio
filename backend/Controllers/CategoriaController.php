@@ -50,10 +50,10 @@ class CategoriaController {
         $total_ativos = $this->categoria->totalDeCategoriasAtivas();
 
         View::render("categoria/index", [
-            "categoria" => $dados,
-            "total_categoria" => $total[0],
-            "total_inativos" => $total_inativos[0],
-            "total_ativos" => $total_ativos[0]
+            "categorias" => $dados,
+            "total_categoria" => $total,
+            "total_inativos" => $total_inativos,
+            "total_ativos" => $total_ativos
         ]);
     }
 

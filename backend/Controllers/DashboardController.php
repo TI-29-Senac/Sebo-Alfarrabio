@@ -16,7 +16,7 @@ class DashboardController extends AdminController
     
 
     public function __construct() {
-        parent::_construct();
+        parent::__construct();
             $this->db = Database::getInstance();
             $this->categoriaModel = new Categoria($this->db);
             $this->itemModel = new Item($this->db);

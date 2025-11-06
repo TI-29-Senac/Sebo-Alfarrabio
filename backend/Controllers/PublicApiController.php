@@ -3,7 +3,7 @@ namespace Sebo\Alfarrabio\Controllers;
 
 use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Database\Database;
-use Sebo\Alfarrabio\Models\Pedido;
+use Sebo\Alfarrabio\Models\Pedidos;
 
 class PublicApiController{
     private $itemModel;
@@ -11,7 +11,7 @@ class PublicApiController{
     public function __construct(){
         $db = Database::getInstance();
         $this->itemModel = new Item($db);
-        $this->pedidoModel = new Pedido($db);
+        $this->pedidoModel = new Pedidos($db);
     }
 
     public function getItem() {

@@ -14,29 +14,28 @@
             <thead style="background: var(--bege-primary); color: white;">
                 <tr>
                     <th>Nome do Gênero</th>
-                    <th>Descrição</th>
                     <th style="width: 180px;">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($genero as $item): ?>
+                <?php foreach ($genero as $cat): ?>
                     <tr>
-                        <td><b><?= htmlspecialchars($item['nome_genero_livro']); ?></b></td>
-                        <td><?= htmlspecialchars(substr($item['descricao_genero'], 0, 60)); ?>...</td>
+                        <td><b><?= htmlspecialchars($cat['nome_genero']); ?></b></td>
+
                         <td>
-                            <a href="/genero/editar/<?= $item['id_genero_livro']; ?>" 
+                            <a href="/gennero/editar/<?= $cat['id_genero']; ?>" 
                                class="w3-button w3-small" 
                                style="background: var(--bege-primary); color: white; border-radius: 6px;">
                                <i class="fa fa-edit"></i> Editar
                             </a>
 
-                            <form action="/genero/deletar/<?= $item['id_genero_livro']; ?>" 
+                            <form action="/genero/deletar/<?= $cat['id_genero']; ?>" 
                                   method="POST" 
                                   style="display: inline;">
-                                <input type="hidden" name="id_genero_livro" value="<?= $item['id_genero_livro']; ?>">
+                                <input type="hidden" name="id_genero" value="<?= $cat['id_genero']; ?>">
                                 <button type="submit" 
                                         class="w3-button w3-small w3-red w3-round" 
-                                        onclick="return confirm('Tem certeza que deseja excluir este gênero?')">
+                                        onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">
                                     <i class="fa fa-trash"></i> Excluir
                                 </button>
                             </form>

@@ -14,15 +14,14 @@
             <thead style="background: var(--bege-primary); color: white;">
                 <tr>
                     <th>Nome da Categoria</th>
-                    <th>Descrição</th>
                     <th style="width: 180px;">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categoria as $cat): ?>
+                <?php foreach ($categorias as $cat): ?>
                     <tr>
                         <td><b><?= htmlspecialchars($cat['nome_categoria']); ?></b></td>
-                        <td><?= htmlspecialchars(substr($cat['descricao_categoria'], 0, 60)); ?>...</td>
+
                         <td>
                             <a href="/categoria/editar/<?= $cat['id_categoria']; ?>" 
                                class="w3-button w3-small" 
