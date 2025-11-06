@@ -238,9 +238,9 @@ class Rotas
                   // ========================================
                 // GENERO (post)
                 // ========================================
-                "/genero/salvar" => "GeneroController@viewsalvarGenero",
-                "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
-                "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
+                "/genero/salvar" => "GeneroController@salvarGenero",
+                "/genero/atualizar/{id}" => "GeneroController@atualizarGenero",
+                "/genero/deletar/{id}" => "GeneroController@deletarGenero",
 
 
             ]
