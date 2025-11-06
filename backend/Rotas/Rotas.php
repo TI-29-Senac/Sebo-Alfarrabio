@@ -59,14 +59,14 @@ class Rotas
                 // RESERVAS
                 // ========================================
                 
-                "/reservas" => "ReservasController@index",
-                "/reservas/criar" => "ReservasController@viewCriarReservas",
-                "/reservas/listar" => "ReservasController@viewListarReservas",
-                "/reservas/listar/{pagina}" => "ReservasController@viewListarReservas",
-                "/reservas/editar/{id}" => "ReservasController@viewEditarReservas",
-                "/reservas/excluir/{id}" => "ReservasController@viewExcluirReservas",
-                "/reservas/relatorio" => "ReservasController@relatorioReservas",
-                "/reservas/relatorio/{id}/{dataInicial}/{dataFinal}" => "ReservasController@relatorioReservas",
+                "/pedidos" => "PedidosController@index",
+                "/pedidos/criar" => "PedidosController@viewCriarPedidos",
+                "/pedidos/listar" => "PedidosController@viewListarPedidos",
+                "/pedidos/listar/{pagina}" => "PedidosController@viewListarPedidos",
+                "/pedidos/editar/{id}" => "PedidosController@viewEditarPedidos",
+                "/pedidos/excluir/{id}" => "PedidosController@viewExcluirPedidos",
+                "/pedidos/relatorio" => "PedidosController@relatorioPedidos",
+                "/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}" => "PedidosController@relatorioPedidos",
                 
                 // ========================================
                 // PERFIL USUÁRIO
@@ -179,13 +179,13 @@ class Rotas
                 "/vendas/ativar" => "VendasController@ativarVenda",
                 
                 // ========================================
-                // RESERVAS (post)
+                // Pedidos (post)
                 // ========================================
                 
-                "/reservas/salvar" => "ReservasController@salvarReservas",
-                "/reservas/atualizar" => "ReservasController@atualizarReservas",
-                "/reservas/deletar" => "ReservasController@deletarReservas",
-                "/reservas/ativar" => "ReservasController@ativarReserva",
+                "/pedidos/salvar" => "PedidosController@salvarPedidos",
+                "/pedidos/atualizar" => "PedidosController@atualizarPedidos",
+                "/pedidos/deletar" => "PedidosController@deletarPedidos",
+                "/pedidos/ativar" => "PedidosController@ativarPedidos",
                 
                 // ========================================
                 // PERFIL USUÁRIO (post)
@@ -218,7 +218,7 @@ class Rotas
                 // API PÚBLICA (post)
                 // ========================================
                 
-                '/api/reservas' => 'PublicApiController@salvarReservas',
+                '/api/pedidos' => 'PublicApiController@salvarPedidos',
 
 
                // ========================================
@@ -238,9 +238,9 @@ class Rotas
                   // ========================================
                 // GENERO (post)
                 // ========================================
-                "/genero/salvar" => "GeneroController@viewsalvarGenero",
-                "/genero/atualizar/{id}" => "GeneroController@viewatualizarGenero",
-                "/genero/deletar/{id}" => "GeneroController@viewdeletarGenero",
+                "/genero/salvar" => "GeneroController@salvarGenero",
+                "/genero/atualizar/{id}" => "GeneroController@atualizarGenero",
+                "/genero/deletar/{id}" => "GeneroController@deletarGenero",
 
 
             ]

@@ -25,7 +25,7 @@
     color: #654321;
     font-size: 22px;
     text-align: center;
-    font-style: italic;  /* Toque literário */
+    font-style: oblique;  /* Toque literário */
 }
 .sidebar-filtros label {
     display: block;
@@ -256,35 +256,6 @@
     transform: translateY(-2px);
 }
 
-/* Footer (Polido: Gradiente, ícones se adicionar Font Awesome) */
-footer {
-    background: linear-gradient(to top, #654321, #8b7355);  /* Gradiente invertido */
-    color: white;
-    padding: 40px 20px 20px;
-    text-align: center;
-    margin-top: 60px;  /* Espaço após conteúdo */
-}
-.container-footer {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-.footer-nome img { height: 50px; filter: brightness(1.2); }  /* Destaque na logo */
-.links ul { list-style: none; }
-.links a { color: white; text-decoration: none; transition: color 0.3s; }
-.links a:hover { color: #d4a574; }
-.footer-bottom {
-    width: 100%;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #8b7355;
-    font-size: 14px;
-    opacity: 0.9;
-}
-
 /* RESPONSIVO (Refinado: Cards menores em mobile, sidebar accordion se quiser JS) */
 @media (max-width: 768px) {
     .main-layout {
@@ -302,17 +273,12 @@ footer {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));  /* Cards menores */
         gap: 20px;
     }
-    header { padding: 15px 20px; }
-    header nav ul { gap: 15px; font-size: 16px; flex-wrap: wrap; }
-    .info-livro { padding: 15px; }  /* Compacto */
-    .preco-overlay { font-size: 16px; padding: 15px 10px; }
 }
 
 /* Animação de Fade-In (Melhorada: Stagger para cards sequenciais) */
 .card-livro-p {
     animation: fadeInUp 0.6s ease-out forwards;  /* Up + forwards para fixar */
     opacity: 0;
-<<<<<<< HEAD
   }
   
   .card-livro-p .saiba-mais:hover{
@@ -439,17 +405,3 @@ footer {
   border-top: 1px solid #ccc;
   border-radius: 0 0 10px 10px;
 }
-=======
-    transform: translateY(30px);
-}
-.card-livro-p:nth-child(1) { animation-delay: 0.1s; }
-.card-livro-p:nth-child(2) { animation-delay: 0.2s; }
-.card-livro-p:nth-child(3) { animation-delay: 0.3s; }
-/* Adicione mais para stagger */
-@keyframes fadeInUp {
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
->>>>>>> 30e42a079eaa155a1ba55a4d90bef79ef1323ddb

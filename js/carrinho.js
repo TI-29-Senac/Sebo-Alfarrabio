@@ -3,10 +3,10 @@ function renderizarCarrinho() {
     let total = 0;
     let totalItens = 0;
     carrinho.forEach(item => {
-        const precoItemTotal = (item.preco * item.quantidade).toFixed(2);
+        const preco_itemItemTotal = (item.preco_item * item.quantidade).toFixed(2);
         const itemHtml = `
             <li>
-                ${item.nome} - R$ ${parseFloat(item.preco).toFixed(2)} x ${item.quantidade} = R$ ${precoItemTotal}
+                ${item.titulo_item} - R$ ${parseFloat(item.preco_item).toFixed(2)} x ${item.quantidade} = R$ ${preco_itemItemTotal}
                 <button class="btn-remove-cart w3-button w3-tiny w3-red w3-padding-small" 
                         data-id="${item.id}" 
                         style="margin-left: 10px;">
@@ -14,7 +14,7 @@ function renderizarCarrinho() {
                 </button>
             </li>`;
         cartItemsEl.insertAdjacentHTML('beforeend', itemHtml);
-        total += item.preco * item.quantidade;
+        total += item.preco_item * item.quantidade;
         totalItens += item.quantidade;
     });
 
@@ -25,12 +25,12 @@ function renderizarCarrinho() {
 
 
 
-function adicionarAoCarrinho(id, nome, preco) {
-    const itemExistente = carrinho.find(item => item.id === id);
+function adicionarAoCarrinho(id_item, titulo_item, preco_item) {
+    const itemExistente = carrinho.find(item => item.id_item === id_item);
     if (itemExistente) {
         itemExistente.quantidade++;
     } else {
-        carrinho.push({ id, nome, preco: parseFloat(preco), quantidade: 1 });
+        carrinho.push({ id, titulo_item, preco_item: parseFloat(preco_item), quantidade: 1 });
     }
     renderizarCarrinho();
 }

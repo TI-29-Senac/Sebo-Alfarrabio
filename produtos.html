@@ -15,7 +15,7 @@
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="backend/produtos">Produtos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
         <li><a href="sobre.html">Sobre</a></li>
         <li><a href="contato.html">Contato</a></li>
       </ul>
@@ -23,107 +23,89 @@
   </header>
 
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <div class="produtos-container">
+  <!-- Conteúdo Principal com Filtros e Produtos -->
+  <div class="main-layout">
+    <!-- Sidebar de Filtros -->
+    <aside class="sidebar-filtros">
+      <h3>Filtrar Produtos</h3>
+      <form id="form-filtros">
+        <label for="busca">Buscar por Título:</label>
+        <input type="text" id="busca" name="busca" placeholder="Digite o título..." aria-describedby="busca-help">
 
-      <!-- 🔍 FILTRO LATERAL -->
-      <aside class="filtro-lateral">
-        <h2>Filtre os Resultados</h2>
-        <form id="form-filtro">
-          <label for="titulo">Título:</label>
-          <input type="text" id="titulo" placeholder="Digite o título">
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero" aria-describedby="genero-help">
+          <option value="">Todos os Gêneros</option>
+          <!-- Opções carregadas via JS do BD -->
+        </select>
 
-          <label for="autor">Autor:</label>
-          <input type="text" id="autor" placeholder="Digite o autor">
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" aria-describedby="categoria-help">
+          <option value="">Todas as Categorias</option>
 
-          <label for="editora">Editora:</label>
-          <select id="editora">
-            <option value="">Selecione uma editora</option>
-          </select>
+          <!-- Opções carregadas via JS do BD -->
+        </select>
 
-          <label for="ano">Ano:</label>
-          <input type="number" id="ano" placeholder="Digite o ano">
+        <button type="submit" id="btn-filtrar">Aplicar Filtros</button>
+        <a href="#" class="limpar-link" id="btn-limpar">Limpar Filtros</a>
+      </form>
+      <div class="contador" id="contador-resultados">Carregando...</div>
+    </aside>
 
-          <label for="isbn">ISBN:</label>
-          <input type="text" id="isbn" placeholder="Digite o ISBN">
-
-          <button type="button" onclick="filtrarProdutos()">Buscar</button>
-        </form>
-      </aside>
-
-      <!-- 🧾 LISTA DE PRODUTOS -->
-      <div class="produtos-lista">
-
-        <!-- Produtos -->
-        <div class="container-p">
-          <div class="filterDiv terror">
-            <div class="card-livro-p">
-              <figure><img src="img/livro1.jpg" alt=""></figure>
-              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
-            </div>
-          </div>
-
-          <div class="filterDiv romance">
-            <div class="card-livro-p">
-              <figure><img src="img/livro3.jpg" alt=""></figure>
-              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
-            </div>
-          </div>
-
-          <div class="filterDiv fantasia">
-            <div class="card-livro-p">
-              <figure><img src="img/livro11.jpg" alt=""></figure>
-              <a href="#"><p class="saiba-mais">Saiba Mais</p></a>
-            </div>
-          </div>
-        </div>
-
+    <!-- Grid de Produtos -->
+    <section class="container-p">
+      <div id="loading" class="loading hidden">Carregando produtos...</div>
+      <div id="erro" class="erro hidden"></div>
+      <div id="produtos-grid" class="produtos-lista">
+        <!-- Produtos renderizados via JS -->
       </div>
+      <nav class="paginacao" id="paginacao" style="display: none;">
+        <!-- Paginação renderizada via JS -->
+      </nav>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container-footer">
+      <div class="footer-nome">
+        <img src="img/logo2.png" alt="Logo" class="logo-footer">
+        <h3>O Alfarrábio</h3>
+      </div>
+
+      <div>
+        <div class="links">
+          <h4>Links</h4>
+          <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="produtos.html">Produtos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-section">
+      <h4>Entre em contato</h4>
+      <p>contato@Oalfarrábio.com.br</p>
+      <p>São Miguel Paulista, São Paulo - SP</p>
+      <p>+55 (11) 93277-2737</p>
+      <p>+55 (11) 97317-8024</p>
+      </div>
+
+      <div class=" footer-section footer-redes">
+        <h4 class="h4">Redes Sociais</h4>
+        <a href=""><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
+        <a href=""><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+      </div>
+
     </div>
 
-    <script>
-      function filtrarProdutos() {
-        alert("Função de filtro será conectada aqui futuramente 💫");
-      }
-    </script>
+  </footer>
 
-    <script src="js/produtos.js"></script>
-
-    <footer class="footer">
-      <div class="container-footer">
-        <div class="footer-nome">
-          <img src="img/logo2.png" alt="Logo" class="logo-footer">
-          <h3>O Alfarrábio</h3>
-        </div>
-        <div>
-          <div class="links">
-            <h4>Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="produtos.html">Produtos</a></li>
-              <li><a href="sobre.html">Sobre</a></li>
-              <li><a href="contato.html">Contato</a></li>
-            </ul>
-          </div>
-        </div>
-        <div>
-          <div class="footer-section">
-            <h4>Entre em contato</h4>
-            <p>contato@Oalfarrábio.com.br</p>
-            <p>São Miguel Paulista, São Paulo - SP</p>
-            <p>+55 (11) 93277-2737</p>
-            <p>+55 (11) 97317-8024</p>
-          </div>
-          <div class="footer-section footer-redes">
-            <h4 class="h4">Redes Sociais</h4>
-            <a href="#"><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
-            <a href="#"><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
-          </div>
-          <div class="footer-bottom">
-            <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+  <script src="js/produtos.js"></script>
 </body>
 </html>

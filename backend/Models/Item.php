@@ -321,4 +321,11 @@ class Item {
         $stmt->execute($params);
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
+
+    public function buscarItemAtivos() {
+        $sql = "SELECT id_item, titulo_item, tipo_item, preco_item, foto_item FROM tbl_itens WHERE excluido_em is null";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
