@@ -35,13 +35,6 @@ class Rotas
                 // USUÁRIOS
                 // ========================================
                 
-                "/" => "Admin\DashboardController@index",
-                "/usuarios" => "UsuarioController@index",
-                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
-                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
-                "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
-                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
-                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
                 
                 // ========================================
                 // VENDAS
@@ -132,9 +125,7 @@ class Rotas
                 // USUÁRIOS
                 // ========================================
                 
-                "/usuario/salvar" => "UsuarioController@salvarUsuario",
-                "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
-                "/usuario/deletar" => "UsuarioController@deletarUsuario",
+
                 
                 // ========================================
                 // VENDAS

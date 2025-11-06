@@ -27,34 +27,10 @@
         </div>
     </div>
     
-    <!-- Produtos Dinâmicos (seu JS já é bom, mas adicione preço por item pra calcular total auto) -->
-    <div class="w3-section">
-        <label class="w3-text-blue">Produtos (Opcional)</label>
-        <div id="produtos-container"></div>
-        <button type="button" onclick="addProduto()" class="w3-button w3-teal">Adicionar Produto</button>
-    </div>
-    
+    <div class="w3-rest">
+            <input type="hidden" name="id_venda" value="<?php echo $vendas['id_venda']; ?>">
+        </div>
+
     <button type="submit" class="w3-button w3-blue w3-large w3-section"><i class="fa fa-save"></i> Salvar Venda</button>
     <a href="/backend/vendas/listar" class="w3-button w3-grey w3-large w3-section"><i class="fa fa-arrow-left"></i> Voltar</a>
 </form>
-
-<script>
-let produtoCount = 0;
-function addProduto() {
-    produtoCount++;
-    const container = document.getElementById('produtos-container');
-    const produtoDiv = document.createElement('div');
-    produtoDiv.id = `produto-${produtoCount}`;
-    produtoDiv.className = 'w3-row w3-section mb-3 w3-border';
-    produtoDiv.innerHTML = `
-        <div class="w3-col m4"><label>Produto ${produtoCount}</label><input type="text" name="carrinho[${produtoCount}][nome]" placeholder="Nome" class="w3-input w3-border" required></div>
-        <div class="w3-col m3"><label>Quantidade</label><input type="number" name="carrinho[${produtoCount}][qtd]" placeholder="1" class="w3-input w3-border" required min="1"></div>
-        <div class="w3-col m3"><label>Preço Unit. (R$)</label><input type="number" name="carrinho[${produtoCount}][preco]" step="0.01" placeholder="0.00" class="w3-input w3-border" required></div>
-        <div class="w3-col m2 w3-center"><button type="button" onclick="removeProduto(${produtoCount})" class="w3-button w3-red w3-section">Remover</button></div>
-    `;
-    container.appendChild(produtoDiv);
-}
-function removeProduto(id) {
-    document.getElementById(`produto-${id}`).remove();
-}
-</script>
