@@ -52,29 +52,6 @@ class Pedidos{
         }
     }
 
-    
-    function totalDePedidos(){
-        $sql = "SELECT count(*) as total FROM tbl_pedidos";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
-    }
-
-    function totalDePedidosInativos(){
-        $sql = "SELECT count(*) as total_inativos FROM tbl_pedidos where excluido_em is NOT NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
-    }
-
-    function totalDePedidosAtivos(){
-        $sql = "SELECT count(*) as total_ativos FROM tbl_pedidos where excluido_em is NULL";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
-    }
-
-
     // metodo de buscar todos usuario por email read
     function buscarPedidosPorData($data_pedido){
         $sql = "SELECT * FROM tbl_pedidos where data_pedido = :data";

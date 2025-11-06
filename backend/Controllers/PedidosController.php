@@ -43,16 +43,10 @@ class PedidosController {
     }
     public function viewListarPedidos(){
         $dados = $this->pedidos->buscarPedidos();
-        $total_pedidos = $this->pedidos->totalDePedidos();
-        $total_inativos = $this->pedidos->totalDePedidosInativos();
-        $total_ativos = $this->pedidos->totalDePedidosAtivos();
 
         View::render("pedidos/index", 
         [
             "pedidos"=> $dados, 
-            "total_pedidos"=> $total_pedidos[0],
-            "total_inativos"=> $total_inativos[0],
-            "total_ativos"=> $total_ativos[0]
         ]
     );
     }

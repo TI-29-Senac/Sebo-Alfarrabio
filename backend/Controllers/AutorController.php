@@ -15,7 +15,7 @@ class AutorController extends AdminController {
     private $gerenciarImagem;
 
     public function __construct() {
-         parent::_construct();
+         parent::__construct();
         $this->db = Database::getInstance();
         $this->autor = new Autor($this->db);
         $this->gerenciarImagem = new FileManager('upload');

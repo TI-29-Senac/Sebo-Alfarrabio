@@ -263,8 +263,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <a href="/vendas/listar" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-shopping-cart fa-fw"></i> Vendas
         </a>
-        <a href="/reservas/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-calendar-check-o fa-fw"></i> Reservas
+        <a href="/backend/pedidos/listar" class="menu-item w3-bar-item w3-button w3-padding">
+            <i class="fa fa-calendar-check-o fa-fw"></i> Pedidos
         </a>
         
         <!-- Avaliações -->

@@ -16,7 +16,7 @@ class DashboardController extends AdminController
     
 
     public function __construct() {
-        //parent::_construct();
+        parent::__construct();
             $this->db = Database::getInstance();
             $this->categoriaModel = new Categoria($this->db);
             $this->itemModel = new Item($this->db);
@@ -107,7 +107,7 @@ class DashboardController extends AdminController
 }
 
         View::render('admin/dashboard/index', [
-    'nomeUsuario' => $this->session->get('usuario_nome')?? '',
+    'nomeUsuario' => $this->session->get('usuario_nome')?? '', 
     'Tipo' => $this->session->get('usuario_tipo')?? '',
     'totalCategorias' => $totalCategorias,
     'totalCategoriasInativas' => $totalCategoriasInativas,

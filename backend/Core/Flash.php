@@ -3,9 +3,6 @@ namespace Sebo\Alfarrabio\Core;
 class Flash
 {
     public static function set($type, $message){
-        if(!isset($_SESSION)){
-            session_start();
-        }
         $_SESSION['flash'] = [
             'type' => $type,
             'message' => $message
