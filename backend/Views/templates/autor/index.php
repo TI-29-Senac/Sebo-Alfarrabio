@@ -3,7 +3,7 @@
         <i class="fa fa-pencil"></i> Gerenciar Autores
     </h3>
 
-    <a href="/autor/criar" 
+    <a href="/backend/autor/criar" 
        class="w3-button w3-round-large" 
        style="background: var(--bege-dark); color: white; margin: 15px 0;">
        <i class="fa fa-plus"></i> Adicionar Novo Autor
@@ -24,13 +24,13 @@
                         <td><b><?= htmlspecialchars($escritor['nome_autor']); ?></b></td>
                         <td><?= htmlspecialchars(substr($escritor['biografia'], 0, 60)); ?>...</td>
                         <td>
-                            <a href="/autor/editar/<?= $escritor['id_autor']; ?>" 
+                            <a href="/backend/autor/editar/<?= $escritor['id_autor']; ?>" 
                                class="w3-button w3-small" 
                                style="background: var(--bege-primary); color: white; border-radius: 6px;">
                                <i class="fa fa-edit"></i> Editar
                             </a>
 
-                            <form action="/autor/excluir/<?= $escritor['id_autor']; ?>" 
+                            <form action="/backend/autor/excluir/<?= $escritor['id_autor']; ?>" 
                                   method="POST" 
                                   style="display: inline;">
                                 <input type="hidden" name="id_autor" value="<?= $escritor['id_autor']; ?>">

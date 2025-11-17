@@ -81,7 +81,7 @@ class ItemController extends AdminController {
         $item = $this->item->buscarItemPorID($id);
 
         if (!$item) {
-            Redirect::redirecionarComMensagem("item/listar","error","Item não encontrado!");
+            Redirect::redirecionarComMensagem("/backend/item/listar","error","Item não encontrado!");
             return;
         }
 
@@ -116,7 +116,7 @@ class ItemController extends AdminController {
     public function viewExcluirItem($id){
        $item = $this->item->buscarItemPorID($id);
        if (!$item) {
-            Redirect::redirecionarComMensagem("item/listar","error","Item não encontrado!");
+            Redirect::redirecionarComMensagem("/backend/item/listar","error","Item não encontrado!");
             return;
        }
        // Passa apenas o necessário para a view de confirmação
@@ -160,9 +160,9 @@ class ItemController extends AdminController {
 
         // 3. Chamar o Model (que usa transação)
         if($this->item->inserirItem($dadosItem, $autores_ids)){
-            Redirect::redirecionarComMensagem("item/listar","success","Item cadastrado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/item/listar","success","Item cadastrado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("item/criar","error","Erro ao cadastrar item. A operação foi revertida.");
+            Redirect::redirecionarComMensagem("/backend/item/criar","error","Erro ao cadastrar item. A operação foi revertida.");
         }
     }
 
@@ -175,7 +175,7 @@ class ItemController extends AdminController {
         // 2. Preparar dados
         $id_item = (int)$_POST["id_item"];
         if (empty($id_item)) {
-             Redirect::redirecionarComMensagem("item/listar","error","ID do item inválido.");
+             Redirect::redirecionarComMensagem("/backend/item/listar","error","ID do item inválido.");
              return;
         }
 
@@ -198,9 +198,9 @@ class ItemController extends AdminController {
         
         // 3. Chamar o Model (que usa transação)
         if($this->item->atualizarItem($id_item, $dadosItem, $autores_ids)){
-            Redirect::redirecionarComMensagem("item/editar/$id_item","success","Item atualizado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/item/editar/$id_item","success","Item atualizado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("item/editar/$id_item","error","Erro ao atualizar item. A operação foi revertida.");
+            Redirect::redirecionarComMensagem("/backend/item/editar/$id_item","error","Erro ao atualizar item. A operação foi revertida.");
         }
     }
 
@@ -210,9 +210,9 @@ class ItemController extends AdminController {
     public function deletarItem(){
         $id_item = (int)$_POST["id_item"];
          if($this->item->excluirItem($id_item)){
-            Redirect::redirecionarComMensagem("item/listar","success","Item movido para a lixeira.");
+            Redirect::redirecionarComMensagem("/backend/item/listar","success","Item movido para a lixeira.");
         }else{
-            Redirect::redirecionarComMensagem("item/listar","error","Erro ao excluir item.");
+            Redirect::redirecionarComMensagem("/backend/item/listar","error","Erro ao excluir item.");
         }
     }
 

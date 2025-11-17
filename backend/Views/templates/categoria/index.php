@@ -23,13 +23,13 @@
                         <td><b><?= htmlspecialchars($cat['nome_categoria']); ?></b></td>
 
                         <td>
-                            <a href="/categoria/editar/<?= $cat['id_categoria']; ?>" 
+                            <a href="/backend/categoria/editar/<?= $cat['id_categoria']; ?>" 
                                class="w3-button w3-small" 
                                style="background: var(--bege-primary); color: white; border-radius: 6px;">
                                <i class="fa fa-edit"></i> Editar
                             </a>
 
-                            <form action="/categoria/deletar/<?= $cat['id_categoria']; ?>" 
+                            <form action="/backend/categoria/deletar/<?= $cat['id_categoria']; ?>" 
                                   method="POST" 
                                   style="display: inline;">
                                 <input type="hidden" name="id_categoria" value="<?= $cat['id_categoria']; ?>">

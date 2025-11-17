@@ -80,5 +80,18 @@ header {
 header, .banner, .menu-secundario {
   outline: 1px solid red; /* só pra enxergar os limites */
 }
+.banner-container,
+.hero,
+header,
+nav {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+hr {
+    display: none !important;
+}
+
 
 

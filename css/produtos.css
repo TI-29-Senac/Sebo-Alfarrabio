@@ -7,7 +7,9 @@
     padding: 40px 20px;
     max-width: 1400px;
     margin: 0 auto;
-    align-items: flex-start;  /* Alinha topo para sidebar não "afundar" */
+    align-items: flex-start; 
+     /* Alinha topo para sidebar não "afundar" */
+     
 }
 
 /* Sidebar de Filtros (Mais Elegante: Bordas arredondadas, ícones, foco visual) */

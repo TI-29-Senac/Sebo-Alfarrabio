@@ -25,16 +25,16 @@ class CategoriaController {
     public function salvarCategoria() {
         $erros = CategoriaValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/categoria/criar", "error", implode("<br>", $erros));
+            Redirect::redirecionarComMensagem("/backend/categoria/criar", "error", implode("<br>", $erros));
         }
 
       //  $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'categoria');
 
         if ($this->categoria->inserirCategoria(
             $_POST["nome_categoria"])) {
-            Redirect::redirecionarComMensagem("categoria/listar", "success", "Categoria cadastrada com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/categoria/listar", "success", "Categoria cadastrada com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("categoria/criar", "error", "Erro ao cadastrar a categoria!");
+            Redirect::redirecionarComMensagem("/backend/categoria/criar", "error", "Erro ao cadastrar a categoria!");
         }
     }
 
@@ -58,20 +58,20 @@ class CategoriaController {
     }
 
     public function viewCriarCategoria() {
-        View::render("categoria/create", []);
+        View::render("/backend/categoria/create", []);
     }
 
     public function viewEditarCategoria($id_categoria) {
         $dados = $this->categoria->buscarCategoriaPorID($id_categoria);
-        View::render("categoria/edit", ["categoria" => $dados]);
+        View::render("/backend/categoria/edit", ["categoria" => $dados]);
     }
 
     public function viewExcluirCategoria($id_categoria) {
-        View::render("categoria/delete", ["id_categoria" => $id_categoria]);
+        View::render("/backend/categoria/delete", ["id_categoria" => $id_categoria]);
     }
 
     public function relatorioCategoria($id_categoria, $data1, $data2) {
-        View::render("categoria/relatorio", [
+        View::render("/backend/categoria/relatorio", [
             "id" => $id_categoria,
             "data1" => $data1,
             "data2" => $data2
@@ -84,9 +84,9 @@ class CategoriaController {
         $descricao = $_POST["descricao_categoria"];
 
         if ($this->categoria->atualizarCategoria($id, $nome, $descricao)) {
-            Redirect::redirecionarComMensagem("categoria/listar", "success", "Categoria atualizada com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/categoria/listar", "success", "Categoria atualizada com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("categoria/editar/{$id}", "error", "Erro ao atualizar a categoria!");
+            Redirect::redirecionarComMensagem("/backend/categoria/editar/{$id}", "error", "Erro ao atualizar a categoria!");
         }
     }
 
@@ -94,9 +94,9 @@ class CategoriaController {
         $id = $_POST["id_categoria"];
 
         if ($this->categoria->excluirCategoria($id)) {
-            Redirect::redirecionarComMensagem("categoria/listar", "success", "Categoria excluída com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/categoria/listar", "success", "Categoria excluída com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("categoria/listar", "error", "Erro ao excluir a categoria!");
+            Redirect::redirecionarComMensagem("/backend/categoria/listar", "error", "Erro ao excluir a categoria!");
         }
     }
 }

@@ -26,16 +26,16 @@ class AutorController extends AdminController {
         $erros = AutorValidador::validarEntradas($_POST);
 
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/autor/criar", "error", implode(", ", $erros));
+            Redirect::redirecionarComMensagem("/backend/autor/criar", "error", implode(", ", $erros));
         }
 
         $nome = $_POST['nome_autor'] ?? '';
         $biografia = $_POST['biografia'] ?? '';
 
         if ($this->autor->inserirAutor($nome, $biografia)) {
-            Redirect::redirecionarComMensagem("/autor/listar", "success", "Autor cadastrado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor cadastrado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/autor/criar", "error", "Erro ao cadastrar autor.");
+            Redirect::redirecionarComMensagem("/backend/autor/criar", "error", "Erro ao cadastrar autor.");
         }
     }
 
@@ -67,7 +67,7 @@ class AutorController extends AdminController {
         $dados = $this->autor->buscarAutorPorID($id_autor);
 
         if (!$dados) {
-            Redirect::redirecionarComMensagem("/autor/listar", "error", "Autor não encontrado.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Autor não encontrado.");
         }
 
         View::render("autor/edit", ["autor" => $dados]);
@@ -78,7 +78,7 @@ class AutorController extends AdminController {
     }
 
     public function relatorioAutor($id_autor, $data1, $data2) {
-        View::render("autor/relatorio", [
+        View::render("/backend/autor/relatorio", [
             "id" => $id_autor,
             "data1" => $data1,
             "data2" => $data2
@@ -108,18 +108,18 @@ class AutorController extends AdminController {
         $biografia = $_POST['biografia'] ?? '';
 
         if (!$id) {
-            Redirect::redirecionarComMensagem("/autor/listar", "error", "ID do autor não informado.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "ID do autor não informado.");
         }
 
         $erros = AutorValidador::validarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/autor/editar/$id", "error", implode(", ", $erros));
+            Redirect::redirecionarComMensagem("/backend/autor/editar/$id", "error", implode(", ", $erros));
         }
 
         if ($this->autor->atualizarAutor($id, $nome, $biografia)) {
-            Redirect::redirecionarComMensagem("/autor/listar", "success", "Autor atualizado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor atualizado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/autor/editar/$id", "error", "Erro ao atualizar o autor.");
+            Redirect::redirecionarComMensagem("backend/autor/editar/$id", "error", "Erro ao atualizar o autor.");
         }
     }
 
@@ -128,22 +128,22 @@ class AutorController extends AdminController {
         $id = $_POST['id_autor'] ?? null;
 
         if (!$id) {
-            Redirect::redirecionarComMensagem("/autor/listar", "error", "ID do autor não informado.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "ID do autor não informado.");
         }
 
         if ($this->autor->excluirAutor($id)) {
-            Redirect::redirecionarComMensagem("/autor/listar", "success", "Autor inativado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor inativado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/autor/listar", "error", "Erro ao inativar autor.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Erro ao inativar autor.");
         }
     }
 
     // --- REATIVAR AUTOR ---
     public function ativarAutor($id_autor) {
         if ($this->autor->ativarAutor($id_autor)) {
-            Redirect::redirecionarComMensagem("/autor/listar", "success", "Autor reativado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor reativado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/autor/listar", "error", "Erro ao reativar autor.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Erro ao reativar autor.");
         }
     }
 }

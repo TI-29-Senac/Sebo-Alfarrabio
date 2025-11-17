@@ -235,7 +235,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <div class="menu-section-title">
             <i class="fa fa-home"></i> Principal
         </div>
-        <a href="/" class="menu-item w3-bar-item w3-button w3-padding active">
+        <a href="/backend/admin/dashboard" class="menu-item w3-bar-item w3-button w3-padding active">
             <i class="fa fa-dashboard fa-fw"></i> Dashboard
         </a>
         

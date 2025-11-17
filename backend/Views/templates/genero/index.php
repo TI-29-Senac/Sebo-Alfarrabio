@@ -3,7 +3,7 @@
         <i class="fa fa-theater-masks"></i> Gerenciar Gêneros
     </h3>
 
-    <a href="/genero/criar" 
+    <a href="/backend/genero/criar" 
        class="w3-button w3-round-large" 
        style="background: var(--bege-dark); color: white; margin: 15px 0;">
        <i class="fa fa-plus"></i> Adicionar Novo Gênero
@@ -23,13 +23,13 @@
                         <td><b><?= htmlspecialchars($cat['nome_genero']); ?></b></td>
 
                         <td>
-                            <a href="/gennero/editar/<?= $cat['id_genero']; ?>" 
+                            <a href="/backend/genero/editar/<?= $cat['id_genero']; ?>" 
                                class="w3-button w3-small" 
                                style="background: var(--bege-primary); color: white; border-radius: 6px;">
                                <i class="fa fa-edit"></i> Editar
                             </a>
 
-                            <form action="/genero/deletar/<?= $cat['id_genero']; ?>" 
+                            <form action="/backend/genero/deletar/<?= $cat['id_genero']; ?>" 
                                   method="POST" 
                                   style="display: inline;">
                                 <input type="hidden" name="id_genero" value="<?= $cat['id_genero']; ?>">

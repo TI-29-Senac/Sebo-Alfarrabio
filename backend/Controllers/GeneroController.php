@@ -28,15 +28,15 @@ class GeneroController {
     public function salvarGenero() {
         $erros = GeneroValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/genero/criar", "error", implode("<br>", $erros));
+            Redirect::redirecionarComMensagem("/backend/genero/criar", "error", implode("<br>", $erros));
         }
 
         $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'genero');
 
         if ($this->genero->inserirGenero($_POST["nome_genero"])) {
-            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero cadastrado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/genero/listar", "success", "Gênero cadastrado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("genero/criar", "error", "Erro ao cadastrar o gênero!");
+            Redirect::redirecionarComMensagem("/backend/genero/criar", "error", "Erro ao cadastrar o gênero!");
         }
     }
 
@@ -62,23 +62,23 @@ class GeneroController {
 
     // --- PÁGINA DE CRIAÇÃO ---
     public function viewCriarGenero() {
-        View::render("genero/create", []);
+        View::render("/backend/genero/create", []);
     }
 
     // --- EDITAR ---
     public function viewEditarGenero($id_genero) {
         $dados = $this->genero->buscarGeneroPorID($id_genero);
-        View::render("genero/edit", ["genero" => $dados]);
+        View::render("/genero/edit", ["genero" => $dados]);
     }
 
     // --- EXCLUIR (VIEW) ---
     public function viewExcluirGenero($id_genero) {
-        View::render("genero/delete", ["id_genero" => $id_genero]);
+        View::render("/genero/delete", ["id_genero" => $id_genero]);
     }
 
     // --- RELATÓRIO ---
     public function relatorioGenero($id_genero, $data1, $data2) {
-        View::render("genero/relatorio", [
+        View::render("/genero/relatorio", [
             "id" => $id_genero,
             "data1" => $data1,
             "data2" => $data2
@@ -91,9 +91,9 @@ class GeneroController {
         $nome = $_POST["nome_genero"];
 
         if ($this->genero->atualizarGenero($id, $nome)) {
-            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero atualizado com sucesso!");
+            Redirect::redirecionarComMensagem("/genero/listar", "success", "Gênero atualizado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("genero/editar/{$id}", "error", "Erro ao atualizar o gênero!");
+            Redirect::redirecionarComMensagem("/genero/editar/{$id}", "error", "Erro ao atualizar o gênero!");
         }
     }
 
@@ -102,18 +102,18 @@ class GeneroController {
         $id = $_POST["id_genero"];
 
         if ($this->genero->excluirGenero($id)) {
-            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero excluído com sucesso!");
+            Redirect::redirecionarComMensagem("/genero/listar", "success", "Gênero excluído com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("genero/listar", "error", "Erro ao excluir o gênero!");
+            Redirect::redirecionarComMensagem("/genero/listar", "error", "Erro ao excluir o gênero!");
         }
     }
 
     // --- REATIVAR ---
     public function ativarGenero($id_genero) {
         if ($this->genero->ativarGenero($id_genero)) {
-            Redirect::redirecionarComMensagem("genero/listar", "success", "Gênero reativado com sucesso!");
+            Redirect::redirecionarComMensagem("/genero/listar", "success", "Gênero reativado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("genero/listar", "error", "Erro ao reativar o gênero!");
+            Redirect::redirecionarComMensagem("/genero/listar", "error", "Erro ao reativar o gênero!");
         }
     }
 }

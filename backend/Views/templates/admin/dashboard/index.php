@@ -362,15 +362,15 @@
 
     <!-- Botões de Ação Rápida -->
     <div class="quick-actions">
-        <a href="/item/criar" class="quick-btn">
+        <a href="/backend/item/criar" class="quick-btn">
             <i class="fa fa-plus-circle"></i>
             <span>Adicionar Produto</span>
         </a>
-        <a href="/reservas/listar" class="quick-btn">
+        <a href="/backend/reservas/listar" class="quick-btn">
             <i class="fa fa-calendar-check-o"></i>
             <span>Ver Reservas</span>
         </a>
-        <a href="/item/listar" class="quick-btn">
+        <a href="/backend/item/listar" class="quick-btn">
             <i class="fa fa-cubes"></i>
             <span>Gerenciar Estoque</span>
         </a>
@@ -381,7 +381,7 @@
         <div class="metric-card blue">
             <div class="metric-header">
                 <div>
-                    <h2 class="metric-value"><?= number_format($totalCategorias, 0, ',', '.'); ?></h2>
+                          <h2  href="/backend/item/criar"  class="metric-value"><?=  number_format($totalCategorias, 0, ',', '.'); ?></h2>
                     <p class="metric-label">Categorias Ativas</p>
                 </div>
                 <div class="metric-icon">
@@ -406,7 +406,7 @@
             <div class="metric-header">
                 <div>
                     <h2 class="metric-value"><?= number_format($vendasMes ?? 0, 0, ',', '.'); ?></h2>
-                    <p class="metric-label">Vendas do Mês</p>
+                    <p class="metric-label">Reservas do Mês</p>
                 </div>
                 <div class="metric-icon">
                     <i class="fa fa-shopping-cart"></i>

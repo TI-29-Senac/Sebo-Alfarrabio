@@ -1,0 +1,61 @@
+.menu-secundario {
+  background-color: #d7bfa5; /* bege do menu principal */
+  padding: 10px 0;
+  height: 80px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  justify-content: center;
+}
+
+.menu-secundario nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.menu-secundario ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-secundario ul li a {
+  font-family: "Georgia", serif;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #4a3c31;
+  transition: .2s ease;
+}
+
+.menu-secundario ul li a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* Botão igual ao da primeira imagem */
+.btn-cadastro {
+  background: #3a1f019f;
+  padding: 9px 25px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  transition: .2s ease;
+}
+
+.btn-cadastro:hover {
+  filter: brightness(1.1);
+}
+
+.banner, .menu-secundario, header {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
