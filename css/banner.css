@@ -50,13 +50,12 @@
   align-items: center;
   left: 0;
   right: 0;
-   text-shadow: -6px 0px 5px rgb(96 49 14 / 99%);
+   text-shadow: -6px 0px 5px rgba(59, 28, 4, 0.99);
   text-decoration: none;
   margin: auto;
 }
 .container{
   position: relative;
-  padding: auto;
   flex-wrap: wrap;
 }
 
@@ -91,6 +90,12 @@ nav {
 
 hr {
     display: none !important;
+}
+
+.fig{
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: 0;
 }
 
 

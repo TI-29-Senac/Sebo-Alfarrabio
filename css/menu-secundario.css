@@ -1,10 +1,11 @@
 .menu-secundario {
   background-color: #d7bfa5; /* bege do menu principal */
-  padding: 10px 0;
-  height: 80px;
+  padding: 1px 0;
+  height: 60px;
   text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(80, 28, 7, 0.863);
   justify-content: center;
+  display: flex;
 }
 
 .menu-secundario nav {
@@ -27,18 +28,18 @@
   font-size: 17px;
   font-weight: bold;
   text-decoration: none;
-  color: #4a3c31;
+  color: #8a6447;
   transition: .2s ease;
 }
 
 .menu-secundario ul li a:hover {
-  color: #000;
+  color: #e99517d7;
   text-decoration: underline;
 }
 
 /* Botão igual ao da primeira imagem */
 .btn-cadastro {
-  background: #3a1f019f;
+  background: #cc8a6b;
   padding: 9px 25px;
   border-radius: 30px;
   color: white;
