@@ -1,5 +1,5 @@
 .menu-secundario {
-  background-color: #d7bfa5; /* bege do menu principal */
+  background-color: #fcf6e9; /* bege do menu principal */
   padding: 1px 0;
   height: 60px;
   text-align: center;
@@ -16,6 +16,11 @@
 }
 
 .menu-secundario ul {
+   justify-content: center;
+  align-items: center;
+ position: relative;
+ left: 30px;
+  right: 0%;
   display: flex;
   gap: 25px;
   list-style: none;
@@ -60,3 +65,4 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
