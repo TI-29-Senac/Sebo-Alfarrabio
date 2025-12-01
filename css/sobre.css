@@ -3,7 +3,7 @@
     flex-direction: row; /* Alinha imagem e texto lado a lado */
     align-items: center;  /* Centraliza verticalmente */
     background-color: #fffcfc;
-    padding: 20px;
+    padding: 20px 5px 15px 5px;
     border-radius: 10px; 
     margin: 0 auto;
     max-width: 1200px;
@@ -34,7 +34,7 @@
 }
 
 .titulo-sobre {
-   font-size: 1.9em;
+   font-size: 2.2rem;
     font-weight: bold;
     font-family: 'Merriweather', serif;
     text-decoration: none;
