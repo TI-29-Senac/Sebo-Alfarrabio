@@ -5,7 +5,7 @@ header {
   padding: 0.5rem 2rem;
   background-color: #fcf6e9;
   height: 95px;
-  border-radius: 80px;
+  
 }
 
 .logo {
@@ -40,7 +40,11 @@ nav ul li a {
   font-size: 1.2rem;
 }
 nav ul li a:hover {
-  color: #cc8a6b;
+  color: #ffffff;
+  background-color: rgba(189, 144, 86, 0.582);
+  border-radius: 15px;
+  width: 100px;
+  transition: ease-in-out ;
 }
 
 .search {
