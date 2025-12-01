@@ -194,7 +194,13 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <i class="fa fa-book"></i> SEBO ALFARRÁBIO
     </span>
 </div>
-   
+
+<?php
+$currentPath = $_SERVER['REQUEST_URI'] ?? '';
+$isLoginOrRegister = strpos($currentPath, '/login') !== false || strpos($currentPath, '/register') !== false;
+if (!$isLoginOrRegister):
+?>
+
 <!-- Sidebar/Menu -->
 <nav class="w3-sidebar w3-collapse sidebar-sebo w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
     
@@ -293,8 +299,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- Overlay para mobile -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Fechar menu" id="myOverlay"></div>
 
+<?php endif; ?>
+
 <!-- Conteúdo Principal -->
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+<div class="w3-main" style="margin-left:<?= $isLoginOrRegister ? '0' : '300px' ?>;margin-top:43px;">
 
 <?php
 // Exibição de mensagens Flash
