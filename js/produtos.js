@@ -46,6 +46,16 @@ function renderizarProdutos(produtos) {
         return;
     }
     
+    // Configura o grid para 3 colunas (mais bonito e responsivo)
+    produtosContainer.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    `;
+    
     produtosContainer.innerHTML = '';
     
     if (produtos.length === 0) {
@@ -57,16 +67,27 @@ function renderizarProdutos(produtos) {
         const preco = parseFloat(item.preco || 0).toFixed(2);
         
         const cardHtml = `
-            <div class="card-livro">
-                <img src="${item.caminho_imagem}" alt="${item.titulo_item}">
-                <h3>${item.titulo_item}</h3>
-                <p>R$ ${preco}</p>
-                <button class="btn-add-cart" 
-                        data-id="${item.id_item}" 
-                        data-nome="${item.titulo_item}" 
-                        data-preco="${item.preco}">
-                    Adicionar ao Carrinho
-                </button>
+            <div class="card-livro" style="
+                background: linear-gradient(145deg, #fff2df, #f9e8d2);
+                border-radius: 12px;
+                padding: 10px 30px;
+                text-align: center;
+                box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border: 1px solid #d4b896;
+            " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 6px 20px rgba(139, 111, 71, 0.25)'" 
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(139, 111, 71, 0.15)'">
+                <img src="${item.caminho_imagem}" alt="${item.titulo_item}" style="
+                    width: 100%;
+                    height: auto;
+                    max-height: 350px;
+                    object-fit: contain;
+                    border-radius: 8px;
+                    margin-bottom: 10px;
+                ">
+                <h3 style="color: #8b6f47; margin: 10px 0; font-size: 16px;">${item.titulo_item}</h3>
+                <p style="font-size: 18px; font-weight: bold; color: #8b6f47; margin: 5px 0;">R$ ${preco}</p>
+              
             </div>
         `;
         produtosContainer.insertAdjacentHTML('beforeend', cardHtml);
