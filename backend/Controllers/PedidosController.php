@@ -26,7 +26,7 @@ class PedidosController {
              Redirect::redirecionarComMensagem("/pedidos/criar","error", implode("<br>", $erros));
         }
         $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'Pedidos');
-         if($this->Pedidos->inserirPedidos(
+         if($this->pedidos->inserirPedidos(
              $_POST["valor_total"],
              $_POST["data_pedido"],
              $_POST["status_pedido"],
@@ -38,7 +38,7 @@ class PedidosController {
      }
       // index
       public function index() {
-        $resultado = $this->Pedidos->buscarPedidos();
+        $resultado = $this->pedidos->buscarPedidos();
         var_dump($resultado);
     }
     public function viewListarPedidos(){
