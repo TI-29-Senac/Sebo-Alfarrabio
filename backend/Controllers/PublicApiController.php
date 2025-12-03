@@ -15,9 +15,11 @@ class PublicApiController{
     }
 
     public function getItem() {
+       
         $dados = $this->itemModel->buscarItemAtivos();
         foreach ($dados as &$item) {
             $item['caminho_imagem'] = '/backend/uploads/' . $item['foto_item'];
+           
     
         }
         unset($item); 

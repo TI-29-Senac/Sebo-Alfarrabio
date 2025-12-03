@@ -51,9 +51,7 @@ function renderizarProdutos(produtos) {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        padding: 30px;
         max-width: 1200px;
-        margin: 0 auto;
     `;
     
     produtosContainer.innerHTML = '';

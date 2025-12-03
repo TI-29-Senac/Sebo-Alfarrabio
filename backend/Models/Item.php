@@ -323,7 +323,10 @@ class Item {
     }
 
     public function buscarItemAtivos() {
-        $sql = "SELECT id_item, titulo_item, tipo_item, preco_item, foto_item FROM tbl_itens WHERE excluido_em is null";
+        $sql = "SELECT item.id_item, titulo_item, tipo_item, preco_item, foto_item,autor.nome_autor  FROM tbl_itens as item
+            inner join tbl_item_autores as item_autor on item_autor.id_item = item.id_item
+            inner join tbl_autores as autor on autor.id_autor = item_autor.id_autor
+            WHERE item.excluido_em is null";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
