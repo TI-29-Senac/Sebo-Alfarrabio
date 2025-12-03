@@ -41,6 +41,8 @@ class Rotas
                 "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
+                "/api/usuarios/{pagina}" => "APIUsarioController@getUsuarios",
+                "/api/usuarios" => 'APIUsarioController@getUsuarios",
                 
                 // ========================================
                 // VENDAS
@@ -98,7 +100,7 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
-                '/item/listar' => 'ItemController@viewListarItens',
+                "/item/listar" => "ItemController@viewListarIten"',
                 '/item/listar/{pagina}' => 'ItemController@viewListarItens',
                 '/item/criar' => 'ItemController@viewCriarItem',
                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
@@ -168,6 +170,7 @@ class Rotas
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
                 "/usuario/deletar" => "UsuarioController@deletarUsuario",
+                
                 
                 // ========================================
                 // VENDAS (post)
