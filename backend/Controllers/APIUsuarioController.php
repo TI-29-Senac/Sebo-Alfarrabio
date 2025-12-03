@@ -4,7 +4,7 @@ namespace Sebo\Alfarrabio\Controllers;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Item;
 
-class APIController{
+class APIgit Controller{
     private $usuarioModel;
     private $chaveAPI;
     public function __construct(){
