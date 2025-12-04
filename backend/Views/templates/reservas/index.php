@@ -48,37 +48,31 @@
   </div>
 
 <div>
-    <h3>Listar Reservas</h3>
-</div>
-<?php if (isset($reservas) && count($reservas) > 0): ?>
-    <table border="1" cellpadding="5" cellspacing="0"  class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-        <thead>
-            <tr>
-                <th>ID Reserva</th>
-                <th>ID Usuário</th>
-                <th>ID Acervo</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($reservas as $reservas): ?>
-                <tr>
-                    <td><?= htmlspecialchars($reservas['id_reserva']) ?></td>
-                    <td><?= htmlspecialchars($reservas['id_usuario']) ?></td>
-                    <td><?= htmlspecialchars($reservas['id_item']) ?></td>
-                    <td><?= htmlspecialchars($reservas['data_reserva']) ?></td>
-                    <td><?= htmlspecialchars($reservas['status_reserva']) ?></td>
-                    <td><a href="/backend/reservas/editar/<?= htmlspecialchars($reservas['id_reserva']) ?>">Editar</a></td>
-                    <td><a href="/backend/reservas/excluir/<?= htmlspecialchars($reservas['id_reserva']) ?>">Excluir</a></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-            
-        
-<?php else: ?>
-    <div>Nenhuma reserva encontrada.</div>
-<?php endif ?>
+   <h2>Lista de Pedidos</h2>
+<a href="/pedidos/criar" class="w3-button w3-green w3-margin-bottom">Novo Pedido</a>
+
+<table class="w3-table w3-striped w3-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Valor Total</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($pedidos as $p): ?>
+        <tr>
+            <td><?= $p['id_pedido'] ?></td>
+            <td>R$ <?= number_format($p['valor_total'], 2, ',', '.') ?></td>
+            <td><?= date('d/m/Y', strtotime($p['data_pedido'])) ?></td>
+            <td><?= $p['status_pedido'] ?></td>
+            <td>
+                <a href="/pedidos/editar/<?= $p['id_pedido'] ?>">Editar</a> |
+                <a href="/pedidos/excluir/<?= $p['id_pedido'] ?>" onclick="return confirm('Tem certeza?')">Excluir</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

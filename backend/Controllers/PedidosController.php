@@ -20,22 +20,32 @@ class PedidosController {
     }
 
     public function salvarPedidos(){
-        $erros = PedidosValidador::ValidarEntradas($_POST);
-        if(!empty($erros)){
-        
-             Redirect::redirecionarComMensagem("/pedidos/criar","error", implode("<br>", $erros));
-        }
-        $imagem= $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'Pedidos');
-         if($this->pedidos->inserirPedidos(
-             $_POST["valor_total"],
-             $_POST["data_pedido"],
-             $_POST["status_pedido"],
-         )){
-             Redirect::redirecionarComMensagem("pedidos/listar", "success", "Venda cadastrada com sucesso!");
-         }else{
-             Redirect::redirecionarComMensagem("pedidos/criar", "error", "Erro ao cadastrar a venda!");
-         }
-     }
+    $erros = PedidosValidador::ValidarEntradas($_POST);
+    if(!empty($erros)){
+        Redirect::redirecionarComMensagem("/pedidos/criar", "error", implode("<br>", $erros));
+        return;
+    }
+
+    // Salvar imagem (se houver)
+    $imagem = null;
+    if (!empty($_FILES['imagem']['name'])) {
+        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'pedidos');
+    }
+
+    $sucesso = $this->pedidos->inserirPedidos(
+        $_POST["valor_total"],
+        $_POST["data_pedido"],
+        $_POST["status_pedido"]
+        // Você pode adicionar campo imagem na tabela depois
+    );
+
+    if($sucesso){
+        Redirect::redirecionarComMensagem("/pedidos/listar", "success", "Pedido cadastrado com sucesso!");
+    } else {
+        Redirect::redirecionarComMensagem("/pedidos/criar", "error", "Erro ao cadastrar o pedido!");
+    }
+}
+
       // index
       public function index() {
         $resultado = $this->pedidos->buscarPedidos();
@@ -75,12 +85,23 @@ class PedidosController {
 
     
 
-    public function atualizarPedidos(){
-        echo "Atualizar Pedidos";
+   public function atualizarPedidos(){
+    if (!$this->pedidos->atualizarPedidos(
+        $_POST['id_pedido'],
+        $_POST['data_pedido'],
+        $_POST['status_pedido']
+    )) {
+        Redirect::redirecionarComMensagem("/pedidos/listar", "error", "Erro ao atualizar pedido.");
+        return;
     }
+    Redirect::redirecionarComMensagem("/pedidos/listar", "success", "Pedido atualizado com sucesso!");
+}
 
-    public function deletarPedidos(){
-        echo "Deletar Pedidos";
+public function deletarPedidos(){
+    if (!$this->pedidos->excluirPedidos($_POST['id_pedido'])) {
+        Redirect::redirecionarComMensagem("/pedidos/listar", "error", "Erro ao excluir pedido.");
+        return;
     }
-
+    Redirect::redirecionarComMensagem("/pedidos/listar", "success", "Pedido excluído com sucesso!");
+}
 }

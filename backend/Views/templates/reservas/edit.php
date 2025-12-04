@@ -1,19 +1,22 @@
+<h2>Editar Pedido #<?= $pedidos['id_pedido'] ?></h2>
 
-<div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin w3-center" style="max-width:800px;">
-    <h1>Editar registro da venda</h1>
-     <form action="/backend/vendas/atualizar" method="POST" class="w3-panel w3-center">
-        <div class="w3-row w3-section">
-            <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-envelope-o"></i></div>
-            <div class="w3-rest">
-                <input class="w3-input w3-border" name="data_reserva" type="text" id="data_reserva" value="<?php echo $reservas['data_reserva']; ?>" required>
-            </div>
-        </div>
-        <div class="w3-row w3-section">
-            <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-lock"></i></div>
-            <div class="w3-rest">
-                <input class="w3-input w3-border" name="status_reserva" type="text" id="status_reserva" value="<?php echo $reservas['status_reserva']; ?>" required>
-            </div>
-        </div>
-        <button type="submit" class="w3-button w3-blue">Salvar</button>
-    </form>
-</div>
+<form action="/pedidos/atualizar" method="POST">
+    <input type="hidden" name="id_pedido" value="<?= $pedidos['id_pedido'] ?>">
+
+    <label>Valor Total</label>
+    <input type="number" step="0.01" name="valor_total" value="<?= $pedidos['valor_total'] ?>" required>
+
+    <label>Data do Pedido</label>
+    <input type="date" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" required>
+
+    <label>Status</label>
+    <select name="status_pedido" required>
+        <option value="Pendente" <?= $pedidos['status_pedido'] == 'Pendente' ? 'selected' : '' ?>>Pendente</option>
+        <option value="Pago" <?= $pedidos['status_pedido'] == 'Pago' ? 'selected' : '' ?>>Pago</option>
+        <option value="Enviado" <?= $pedidos['status_pedido'] == 'Enviado' ? 'selected' : '' ?>>Enviado</option>
+        <option value="Cancelado" <?= $pedidos['status_pedido'] == 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
+    </select>
+
+    <button type="submit">Atualizar</button>
+    <a href="/pedidos/listar">Cancelar</a>
+</form>

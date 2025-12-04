@@ -184,11 +184,12 @@ class Rotas
                 // ========================================
                 // Pedidos (post)
                 // ========================================
-                "/pedidos/listar" => "PedidosController@listarPedidos",
-                "/pedidos/salvar" => "PedidosController@salvarPedidos",
-                "/pedidos/atualizar" => "PedidosController@atualizarPedidos",
-                "/pedidos/deletar" => "PedidosController@deletarPedidos",
-                "/pedidos/ativar" => "PedidosController@ativarPedidos",
+                "/pedidos/salvar"     => "PedidosController@salvarPedidos",
+                "/pedidos/atualizar"  => "PedidosController@atualizarPedidos",
+                "/pedidos/deletar"    => "PedidosController@deletarPedidos",
+
+                // Opcional: se quiser ativar pedido excluído
+                "/pedidos/ativar"     => "PedidosController@ativarPedidos",
                 
                 // ========================================
                 // PERFIL USUÁRIO (post)
