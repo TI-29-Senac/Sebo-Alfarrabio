@@ -7,6 +7,7 @@ use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Categoria;
 use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
+use Sebo\Alfarrabio\Core\Session;
 
 class DashboardController extends AdminController
 {
@@ -16,7 +17,7 @@ class DashboardController extends AdminController
     
 
     public function __construct() {
-        parent::__construct();
+            parent::__construct();
             $this->db = Database::getInstance();
             $this->categoriaModel = new Categoria($this->db);
             $this->itemModel = new Item($this->db);
@@ -121,6 +122,12 @@ class DashboardController extends AdminController
     'pedidos_chart_labels' => $pedidos_chart_labels,
     'pedidos_chart_data' => $pedidos_chart_data
 ]);
+    }
+
+
+    public function areCliente(){
+        View::render('admin/cliente/index', [
+        ]);
     }
 }
 

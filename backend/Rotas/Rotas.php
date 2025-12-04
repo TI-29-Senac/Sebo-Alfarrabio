@@ -23,13 +23,13 @@ class Rotas
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
-                
+                '/admin/cliente'=> "DashboardControllerCliente@index",
                 // ========================================
                 // ÁREA ADMINISTRATIVA
                 // ========================================
                 
-                "/" => "DashboardController@index",
-                '/admin/dashboard' => 'DashboardController@index',
+                "/admin/dashboard" => "DashboardController@index",
+                
                 
                 // ========================================
                 // USUÁRIOS
