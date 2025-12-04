@@ -153,6 +153,15 @@ class Rotas
                 // ========================================
                 
                 '/api/item' => 'PublicApiController@getItem',
+
+                // ========================================
+                // Carrinho de Compras
+                // ========================================
+
+                '/carrinho' => 'CartController@index',
+                '/carrinho/adicionar/{id}' => 'CartController@adicionar',
+                '/carrinho/remover/{id}' => 'CartController@remover',
+                '/carrinho/obrigado/{id}' => 'CartController@obrigado',
             ],
             
             "POST" => [
@@ -246,6 +255,13 @@ class Rotas
                 "/genero/atualizar/{id}" => "GeneroController@atualizarGenero",
                 "/genero/deletar/{id}" => "GeneroController@deletarGenero",
 
+
+                // ========================================
+                // Carrinho de Compras (post)
+                // ========================================
+
+                '/carrinho/atualizar' => 'CartController@atualizar',
+                '/carrinho/finalizar' => 'CartController@finalizar',
 
             ]
         ];
