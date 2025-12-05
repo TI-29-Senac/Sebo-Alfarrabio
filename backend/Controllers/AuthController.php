@@ -1,6 +1,7 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
- 
+
+use App\Kipedreiro\Core\NotificacaoEmail as CoreNotificacaoEmail;
 use Sebo\Alfarrabio\Models\Usuario;
 use Sebo\Alfarrabio\Core\Flash;
 use Sebo\Alfarrabio\Database\Database;
@@ -8,16 +9,20 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\UsuarioValidador;
 use Sebo\Alfarrabio\Core\Session;
+use Sebo\Alfarrabio\Core\NotificacaoEmail;
  
 class AuthController{
-    private Usuario $usuarioModel;
+   private Usuario $usuarioModel;
     private Session $session;
+    public $notificacaoEmail;
  
     public function __construct(){
         $db = Database::getInstance();
         $this->usuarioModel = new Usuario($db);
         $this->session = new Session();
+        $this->notificacaoEmail = new NotificacaoEmail();
     }
+    
  
     public function login(): void{
         View::render('auth/login');
@@ -69,6 +74,7 @@ class AuthController{
     
         $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente', 'Ativo', 'null');
         if ($novoUsuarioId) {
+            $this->notificacaoEmail->boasVindas($email, $nome);
             Redirect::redirecionarComMensagem('/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
         } else {
             Redirect::redirecionarComMensagem('/register', 'error', 'Erro no servidor. Tente novamente.');
