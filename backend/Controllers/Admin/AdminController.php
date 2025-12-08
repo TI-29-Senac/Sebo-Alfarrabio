@@ -9,7 +9,7 @@ abstract class AdminController extends AuthenticatedController{
             Redirect::redirecionarComMensagem(
                 '/admin/cliente',
                 'error',
-                'Você não tem permissão para acessar esta área.'
+                'Bem vindo (a)!! Essa é a sua área de cliente.'
             );
         }
     }
