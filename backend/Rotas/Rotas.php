@@ -61,14 +61,14 @@ class Rotas
                 // RESERVAS
                 // ========================================
                 
-                "/pedidos" => "PedidosController@index",
-                "/pedidos/criar" => "PedidosController@viewCriarPedidos",
-                "/pedidos/listar" => "PedidosController@viewListarPedidos",
-                "/pedidos/listar/{pagina}" => "PedidosController@viewListarPedidos",
-                "/pedidos/editar/{id}" => "PedidosController@viewEditarPedidos",
-                "/pedidos/excluir/{id}" => "PedidosController@viewExcluirPedidos",
-                "/pedidos/relatorio" => "PedidosController@relatorioPedidos",
-                "/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}" => "PedidosController@relatorioPedidos",
+                "/pedidos" => "PedidosController@index"',
+                '/pedidos/criar' => 'PedidosController@viewCriarPedidos',
+                '/pedidos/listar' => 'PedidosController@viewListarPedidos',
+                '/pedidos/listar/{pagina}' => 'PedidosController@viewListarPedidos',
+                '/pedidos/editar/{id}' => 'PedidosController@viewEditarPedidos',
+                '/pedidos/excluir/{id}' => 'PedidosController@viewExcluirPedidos',
+                '/pedidos/relatorio' => 'PedidosController@relatorioPedidos',
+                '/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}' => 'PedidosController@relatorioPedidos',
                 
                 // ========================================
                 // PERFIL USUÁRIO
@@ -100,7 +100,7 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
-                "/item/listar" => "ItemController@viewListarIten"',
+                "/item/listar" => "ItemController@viewListarItem",
                 '/item/listar/{pagina}' => 'ItemController@viewListarItens',
                 '/item/criar' => 'ItemController@viewCriarItem',
                 '/item/editar/{id}' => 'ItemController@viewEditarItem',
