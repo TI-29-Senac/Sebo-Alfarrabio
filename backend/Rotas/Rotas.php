@@ -13,17 +13,17 @@ class Rotas
                 // ========================================
                 
                 // Produtos públicos (catálogo)
-                '/produtos' => 'Public\PublicItemController@viewProdutos',
-                '/produtos/{pagina}' => 'Public\PublicItemController@viewProdutos',
+                "/produtos" => "Public\PublicItemController@viewProdutos",
+                "/produtos/{pagina}" => "Public\PublicItemController@viewProdutos",
                 
                 // ========================================
                 // AUTENTICAÇÃO
                 // ========================================
                 
-                '/register' => 'AuthController@register',
-                '/login' => 'AuthController@login',
-                '/logout' => 'AuthController@logout',
-                '/admin/cliente'=> "DashboardControllerCliente@index",
+                "/register" => "AuthController@register",
+                "/login" => "AuthController@login",
+                "/logout" => "AuthController@logout",
+                "/admin/cliente"=> "DashboardControllerCliente@index",
                 // ========================================
                 // ÁREA ADMINISTRATIVA
                 // ========================================
@@ -42,7 +42,7 @@ class Rotas
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
                 "/api/usuarios/{pagina}" => "APIUsarioController@getUsuarios",
-                "/api/usuarios" => 'APIUsarioController@getUsuarios",
+                "/api/usuarios" => "APIUsarioController@getUsuarios",
                 
                 // ========================================
                 // VENDAS
@@ -100,11 +100,11 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
-                "/item/listar" => "ItemController@viewListarIten"',
-                '/item/listar/{pagina}' => 'ItemController@viewListarItens',
-                '/item/criar' => 'ItemController@viewCriarItem',
-                '/item/editar/{id}' => 'ItemController@viewEditarItem',
-                '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+                "/item/listar" => "ItemController@viewListarItens",
+                "/item/listar/{pagina}" => "ItemController@viewListarItens",
+                "/item/criar" => "ItemController@viewCriarItem",
+                "/item/editar/{id}" => "ItemController@viewEditarItem",
+                "/item/excluir/{id}"=> "ItemController@viewExcluirItem",
 
 
                // ========================================
@@ -144,24 +144,24 @@ class Rotas
                 // AJAX (Busca dinâmica)
                 // ========================================
                 
-                '/ajax/buscar/autores' => 'ItemController@ajaxBuscarAutores',
-                '/ajax/buscar/categorias' => 'ItemController@ajaxBuscarCategorias',
-                '/ajax/buscar/generos' => 'ItemController@ajaxBuscarGeneros',
+                "/ajax/buscar/autores" => "ItemController@ajaxBuscarAutores",
+                "/ajax/buscar/categorias" => "ItemController@ajaxBuscarCategorias",
+                "/ajax/buscar/generos" => "ItemController@ajaxBuscarGeneros",
                 
                 // ========================================
                 // API PÚBLICA
                 // ========================================
                 
-                '/api/item' => 'PublicApiController@getItem',
+                "/api/item" => "PublicApiController@getItem",
 
                 // ========================================
                 // Carrinho de Compras
                 // ========================================
 
-                '/carrinho' => 'CartController@index',
-                '/carrinho/adicionar/{id}' => 'CartController@adicionar',
-                '/carrinho/remover/{id}' => 'CartController@remover',
-                '/carrinho/obrigado/{id}' => 'CartController@obrigado',
+                "/carrinho" => "CartController@index",
+                "/carrinho/adicionar/{id}" => "CartController@adicionar",
+                "/carrinho/remover/{id}" => "CartController@remover",
+                "/carrinho/obrigado/{id}" => "CartController@obrigado",
             ],
             
             "POST" => [
@@ -169,8 +169,8 @@ class Rotas
                 // AUTENTICAÇÃO (post)
                 // ========================================
                 
-                '/register' => 'AuthController@cadastrarUsuario',
-                '/login' => 'AuthController@authenticar',
+                "/register" => "AuthController@cadastrarUsuario",
+                "/login" => "AuthController@authenticar",
                 
                 // ========================================
                 // USUÁRIOS (post)
@@ -222,16 +222,16 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
-                '/item/salvar' => 'ItemController@salvarItem',
-                '/item/atualizar' => 'ItemController@atualizarItem',
-                '/item/deletar' => 'ItemController@deletarItem',
-                '/item/ativar' => 'ItemController@ativarItem',
+                "/item/salvar" => "ItemController@salvarItem",
+                "/item/atualizar" => "ItemController@atualizarItem",
+                "/item/deletar" => "ItemController@deletarItem",
+                "/item/ativar" => "ItemController@ativarItem",
                 
                 // ========================================
                 // API PÚBLICA (post)
                 // ========================================
                 
-                '/api/pedidos' => 'PublicApiController@salvarPedidos',
+                "/api/pedidos" => "PublicApiController@salvarPedidos",
 
 
                // ========================================
@@ -260,8 +260,8 @@ class Rotas
                 // Carrinho de Compras (post)
                 // ========================================
 
-                '/carrinho/atualizar' => 'CartController@atualizar',
-                '/carrinho/finalizar' => 'CartController@finalizar',
+                "/carrinho/atualizar" => "CartController@atualizar",
+                "/carrinho/finalizar" => "CartController@finalizar",
 
             ]
         ];
