@@ -214,7 +214,7 @@ if (!$isLoginOrRegister):
                 <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
                 <div class="user-role"><?= htmlspecialchars($usuarioTipo); ?></div>
                 <div style="margin-top: 8px;">
-                    <a href="/perfil" class="user-action-btn w3-button w3-small" title="Perfil">
+                    <a href="/backend/perfil" class="user-action-btn w3-button w3-small" title="Perfil">
                         <i class="fa fa-user"></i>
                     </a>
                     <a href="#" class="user-action-btn w3-button w3-small" title="Configurações">
