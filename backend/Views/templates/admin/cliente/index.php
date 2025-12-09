@@ -43,6 +43,27 @@
     font-size: 14px;
 }
 
+.header {
+            text-align: center;
+            box-shadow: 0px 5px 10px #a87e4b;
+            color: #8B4513;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-style: italic;
+        }
+
 /* Botões de Ação Rápida */
 .quick-actions {
     display: grid;
@@ -354,5 +375,7 @@
 </style>
 
 <div class="dashboard-container">
-    <!-- Header do Dashboard -->
-    
+<div class="header">
+            <h1><i class="fa fa fa-user"></i> Seu Perfil - Sebo Alfarrábio</h1>
+            <p>Bem-vindo, <?= htmlspecialchars($usuarioNome) ?>! Gerencie suas informações e pedidos aqui.</p>
+        </div>

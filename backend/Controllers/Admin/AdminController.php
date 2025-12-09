@@ -8,7 +8,7 @@ abstract class AdminController extends AuthenticatedController{
         if ($this->session->get('usuario_tipo') !== 'Admin') {
             Redirect::redirecionarComMensagem(
                 '/admin/cliente',
-                'error',
+                'success',
                 'Bem vindo (a)!! Essa é a sua área de cliente.'
             );
         }
