@@ -20,7 +20,6 @@ class Rotas
                 // AUTENTICAÇÃO
                 // ========================================
                 
-<<<<<<< HEAD
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
@@ -31,12 +30,6 @@ class Rotas
                 // ========================================
                 '/admin/cliente'=> "DashboardControllerCliente@index",
 
-=======
-                "/register" => "AuthController@register",
-                "/login" => "AuthController@login",
-                "/logout" => "AuthController@logout",
-                "/admin/cliente"=> "DashboardControllerCliente@index",
->>>>>>> cc07e53f679af370b032745294f9218397552353
                 // ========================================
                 // ÁREA ADMINISTRATIVA
                 // ========================================
