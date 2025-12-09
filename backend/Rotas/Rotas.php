@@ -61,14 +61,25 @@ class Rotas
                 // RESERVAS
                 // ========================================
                 
-                "/pedidos" => "PedidosController@index"',
-                '/pedidos/criar' => 'PedidosController@viewCriarPedidos',
-                '/pedidos/listar' => 'PedidosController@viewListarPedidos',
-                '/pedidos/listar/{pagina}' => 'PedidosController@viewListarPedidos',
-                '/pedidos/editar/{id}' => 'PedidosController@viewEditarPedidos',
-                '/pedidos/excluir/{id}' => 'PedidosController@viewExcluirPedidos',
-                '/pedidos/relatorio' => 'PedidosController@relatorioPedidos',
-                '/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}' => 'PedidosController@relatorioPedidos',
+                "/pedidos" => "PedidosController@index",
+                "/pedidos/criar" => "PedidosController@viewCriarPedidos",
+                "/pedidos/listar" => "PedidosController@viewListarPedidos",
+                "/pedidos/listar/{pagina}" => "PedidosController@viewListarPedidos",
+                "/pedidos/editar/{id}" => "PedidosController@viewEditarPedidos",
+                "/pedidos/excluir/{id}" => "PedidosController@viewExcluirPedidos",
+                "/pedidos/relatorio" => "PedidosController@relatorioPedidos",
+                "/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}" => "PedidosController@relatorioPedidos",
+
+                  // ========================================
+                 // API PÚBLICA / API ITEM
+                // ========================================
+                
+                 "/api/item" => "PublicApiController@getItem",
+                  "/api/buscaitem" => "APIItemController@getItem",
+
+                "/api/pedidos" => "APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "APIPedidosController@getPedidos",
+
                 
                 // ========================================
                 // PERFIL USUÁRIO
@@ -100,22 +111,15 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
-<<<<<<< HEAD
                 "/item/listar" => "ItemController@viewListarItens",
                 "/item/listar/{pagina}" => "ItemController@viewListarItens",
                 "/item/criar" => "ItemController@viewCriarItem",
                 "/item/editar/{id}" => "ItemController@viewEditarItem",
                 "/item/excluir/{id}"=> "ItemController@viewExcluirItem",
-=======
-                "/item/listar" => "ItemController@viewListarItem",
-                '/item/listar/{pagina}' => 'ItemController@viewListarItens',
-                '/item/criar' => 'ItemController@viewCriarItem',
-                '/item/editar/{id}' => 'ItemController@viewEditarItem',
-                '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
->>>>>>> 151aaf621c02a49d75945c4bd46c7de1e6f33b85
 
+                 
 
-               // ========================================
+                // ========================================
                 // AUTOR    
                 // ========================================
                 "/autor" => "autorController@index",
@@ -137,7 +141,7 @@ class Rotas
                 "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
                 "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
 
-               // ========================================
+                // ========================================
                 // GENERO
                 // ========================================
                 "/genero" => "generoConstroller@index",
@@ -155,12 +159,6 @@ class Rotas
                 "/ajax/buscar/autores" => "ItemController@ajaxBuscarAutores",
                 "/ajax/buscar/categorias" => "ItemController@ajaxBuscarCategorias",
                 "/ajax/buscar/generos" => "ItemController@ajaxBuscarGeneros",
-                
-                // ========================================
-                // API PÚBLICA
-                // ========================================
-                
-                "/api/item" => "PublicApiController@getItem",
 
                 // ========================================
                 // Carrinho de Compras
@@ -239,7 +237,6 @@ class Rotas
                 // API PÚBLICA (post)
                 // ========================================
                 
-                "/api/pedidos" => "PublicApiController@salvarPedidos",
 
 
                // ========================================
