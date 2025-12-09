@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Conta - Sebo Alfarrábio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<?php
+// O header e footer já são incluídos pelo View::render
+// Variáveis esperadas (passadas pelo controller):
+// totalCategorias, totalCategoriasInativas, totalItens, totalItensInativos, vendasMes, faturamentoMes, ultimosItens
+?>
+
+<style>
 :root {
     --bege-primary: #D4B896;
     --bege-light: #E8DCCF;
