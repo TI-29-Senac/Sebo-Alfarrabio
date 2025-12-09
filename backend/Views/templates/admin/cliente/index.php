@@ -59,7 +59,6 @@ body {
     font-size: 14px;
 }
 
-<<<<<<< HEAD
 .header {
             text-align: center;
             box-shadow: 0px 5px 10px #a87e4b;
@@ -87,15 +86,6 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
-=======
-/* Navegação por Abas */
-.tabs-navigation {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
->>>>>>> cc07e53f679af370b032745294f9218397552353
 }
 
 .tabs-container {
