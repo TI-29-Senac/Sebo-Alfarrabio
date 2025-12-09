@@ -94,21 +94,22 @@ class Pedidos{
 
     // metodo de atualizar o usuario update
     function atualizarPedidos($id_pedido, $data_pedido, $status_pedido){
-    $dataatual = date('Y-m-d H:i:s');
-    $sql = "UPDATE tbl_pedidos SET 
-        data_pedido = :data,
-        status_pedido = :status,
-        atualizado_em = :atual
-        WHERE id_pedido = :id_pedido";
-    
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
-    $stmt->bindParam(':data', $data_pedido);
-    $stmt->bindParam(':status', $status_pedido);
-    $stmt->bindParam(':atual', $dataatual);
-    
-    return $stmt->execute();
-}
+        $dataatual = date('Y-m-d H:i:s');
+        $sql = "UPDATE tbl_pedidos SET 
+            data_pedido = :data,
+            status_pedido = :status,
+            atualizado_em = :atual
+            WHERE id_pedido = :id_pedido";
+        
+        $stmt = $this->db->prepare($sql);
+        
+        $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+        $stmt->bindParam(':data',       $data_pedido,      PDO::PARAM_STR);
+        $stmt->bindParam(':status',     $status_pedido,    PDO::PARAM_STR);
+        $stmt->bindParam(':atual',      $dataatual,        PDO::PARAM_STR);
+        
+        return $stmt->execute(); // agora funciona porque os binds estão certos
+    }
     // metodo de inativar o usuario delete
     function excluirPedidos($id_pedido){
         $dataatual = date('Y-m-d H:i:s');

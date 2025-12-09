@@ -101,10 +101,10 @@ class Rotas
                 // ========================================
                 
                 "/item/listar" => "ItemController@viewListarItem",
-                '/item/listar/{pagina}' => 'ItemController@viewListarItens',
-                '/item/criar' => 'ItemController@viewCriarItem',
-                '/item/editar/{id}' => 'ItemController@viewEditarItem',
-                '/item/excluir/{id}' => 'ItemController@viewExcluirItem',
+                "/item/listar/{pagina}" => "ItemController@viewListarItens",
+                "/item/criar" => "ItemController@viewCriarItem",
+                "/item/editar/{id}" => "ItemController@viewEditarItem",
+                "/item/excluir/{id}" => "ItemController@viewExcluirItem",
 
 
                // ========================================

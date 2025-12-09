@@ -116,23 +116,31 @@
 
 <div class="vendas-container">
     <div class="delete-card">
-        <h1><i class="fa fa-exclamation-triangle"></i> Confirmar Exclusão</h1>
+        <h1><i class="fa fa-exclamation-triangle"></i> Confirmar Desativação do Pedido</h1>
+        
         <p>
-            Tem certeza que deseja <strong>desativar</strong> a venda 
-            <strong>#<?php echo $vendas['id_venda']; ?></strong>?<br><br>
-            <strong>Data:</strong> <?php echo date('d/m/Y', strtotime($vendas['data_venda'])); ?> <br>
-            <strong>Valor:</strong> R$ <?php echo number_format($vendas['valor_total'], 2, ',', '.'); ?> <br>
-            <strong>Forma de Pagamento:</strong> <?php echo htmlspecialchars($vendas['forma_pagamento']); ?>
+            Tem certeza que deseja <strong>desativar</strong> o pedido 
+            <strong>#<?= htmlspecialchars($pedido['id_pedido'] ?? '') ?></strong>?<br><br>
+            
+            <strong>Data do Pedido:</strong> <?= isset($pedido['data_pedido']) ? date('d/m/Y H:i', strtotime($pedido['data_pedido'])) : 'Não informada' ?><br>
+            
+            <strong>Valor Total:</strong> R$ <?= isset($pedido['valor_total']) ? number_format($pedido['valor_total'], 2, ',', '.') : '0,00' ?><br>
+            
+            <strong>Status Atual:</strong> 
+            <span style="text-transform: capitalize;">
+                <?= isset($pedido['status_pedido']) ? str_replace('_', ' ', htmlspecialchars($pedido['status_pedido'])) : 'Não informado' ?>
+            </span>
         </p>
 
-        <form action="/backend/vendas/deletar" method="POST" onsubmit="return confirm('Desativar permanentemente? (Soft delete - pode reativar depois.)');">
-            <input type="hidden" name="id_venda" value="<?php echo $vendas['id_venda']; ?>">
+        <form action="/backend/pedidos/desativar" method="POST" 
+              onsubmit="return confirm('Desativar permanentemente este pedido? (Soft delete - pode reativar depois.)');">
+            <input type="hidden" name="id_pedido" value="<?= htmlspecialchars($pedido['id_pedido'] ?? '') ?>">
             
             <div class="btn-container">
                 <button type="submit" class="btn-danger">
-                    <i class="fa fa-trash"></i> Sim, Desativar
+                    <i class="fa fa-trash"></i> Sim, Desativar Pedido
                 </button>
-                <a href="/backend/vendas/listar" class="btn-secondary">
+                <a href="/backend/pedidos/listar" class="btn-secondary">
                     <i class="fa fa-times"></i> Cancelar
                 </a>
             </div>
@@ -140,7 +148,7 @@
 
         <?php if (isset($_GET['debug'])): ?>
             <pre style="text-align:left; background:#f4f4f4; padding:10px; margin-top:25px; border-radius:8px;">
-                <?php print_r($vendas); ?>
+                <?php print_r($pedido); ?>
             </pre>
         <?php endif; ?>
     </div>
