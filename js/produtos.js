@@ -9,6 +9,8 @@ const pedidoStatusEl = document.getElementById('pedido-status');
 
 let carrinho = [];
 const localStorageKey = 'carrinhoSebo';
+let paginaAtual = 1;
+let por_pagina = 8
 
 // Carrega produtos
 function carregarProdutos() {
