@@ -366,7 +366,7 @@
             <i class="fa fa-plus-circle"></i>
             <span>Adicionar Produto</span>
         </a>
-        <a href="/backend/reservas/listar" class="quick-btn">
+        <a href="/backend/pedidos/listar" class="quick-btn">
             <i class="fa fa-calendar-check-o"></i>
             <span>Ver Reservas</span>
         </a>

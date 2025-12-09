@@ -132,7 +132,7 @@
             </span>
         </p>
 
-        <form action="/backend/pedidos/desativar" method="POST" 
+        <form action="/backend/pedidos/excluir" method="POST" 
               onsubmit="return confirm('Desativar permanentemente este pedido? (Soft delete - pode reativar depois.)');">
             <input type="hidden" name="id_pedido" value="<?= htmlspecialchars($pedido['id_pedido'] ?? '') ?>">
             
@@ -140,7 +140,7 @@
                 <button type="submit" class="btn-danger">
                     <i class="fa fa-trash"></i> Sim, Desativar Pedido
                 </button>
-                <a href="/backend/pedidos/listar" class="btn-secondary">
+                <a href="/pedidos/listar" class="btn-secondary">
                     <i class="fa fa-times"></i> Cancelar
                 </a>
             </div>

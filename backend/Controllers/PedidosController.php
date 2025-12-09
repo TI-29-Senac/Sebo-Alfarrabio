@@ -73,9 +73,7 @@ class PedidosController {
         View::render("/pedidos/edit", ["pedidos" => $dados]);
     }
 
-    public function viewExcluirPedidos($id_pedido){
-        View::render("/pedidos/delete", ["id_pedido" => $id_pedido]);
-    }
+   
 
     public function relatorioPedidos($id_pedido, $data1, $data2){
         View::render("pedidos/relatorio",
@@ -97,11 +95,25 @@ class PedidosController {
     Redirect::redirecionarComMensagem("/pedidos/listar", "success", "Pedido atualizado com sucesso!");
 }
 
-public function deletarPedidos(){
-    if (!$this->pedidos->excluirPedidos($_POST['id_pedido'])) {
-        Redirect::redirecionarComMensagem("/pedidos/listar", "error", "Erro ao excluir pedido.");
+// Mostra a tela de confirmação de exclusão
+public function viewExcluirPedidos($id_pedido) {
+    $resultado = $this->pedidos->buscarPedidosPorID($id_pedido);
+
+    if (empty($resultado)) {
+        Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Pedido não encontrado.");
         return;
     }
-    Redirect::redirecionarComMensagem("/pedidos/listar", "success", "Pedido excluído com sucesso!");
+
+    // PEGA O PRIMEIRO (E ÚNICO) REGISTRO DA LISTA
+    $pedido = $resultado[0];
+
+    if (!empty($pedido['excluido_em'])) {
+        Redirect::redirecionarComMensagem("/backend/pedidos/listar", "info", "Este pedido já está desativado.");
+        return;
+    }
+
+    View::render("pedidos/delete", [
+        "pedido" => $pedido   // ← agora é um array simples com os dados
+    ]);
 }
 }
