@@ -16,366 +16,699 @@
     --roxo: #9370DB;
 }
 
-.dashboard-container {
-    background: linear-gradient(135deg, #f5f5f0 0%, #faf8f3 100%);
-    min-height: 100vh;
-    padding: 20px;
-}
 
-.dashboard-header {
-    background: linear-gradient(135deg, var(--bege-dark) 0%, var(--marrom) 100%);
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.dashboard-header h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-}
-
-.dashboard-header p {
-    margin: 5px 0 0 0;
-    opacity: 0.9;
-    font-size: 14px;
-}
-
-.header {
-            text-align: center;
-            box-shadow: 0px 5px 10px #a87e4b;
-            color: #8B4513;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .header p {
-            margin: 5px 0 0;
-            font-style: italic;
-        }
-
-/* Botões de Ação Rápida */
-.quick-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.quick-btn {
-    background: white;
-    border: 2px solid var(--bege-primary);
-    padding: 15px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--marrom);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.quick-btn:hover {
-    background: var(--bege-primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-
-.quick-btn i {
-    font-size: 20px;
-}
-
-/* Cards de Métricas */
-.metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.metric-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-left: 4px solid;
-}
-
-.metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-}
-
-.metric-card.blue { border-left-color: var(--azul); }
-.metric-card.orange { border-left-color: var(--laranja); }
-.metric-card.green { border-left-color: var(--verde); }
-.metric-card.purple { border-left-color: var(--roxo); }
-
-.metric-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.metric-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: white;
-}
-
-.metric-card.blue .metric-icon { background: linear-gradient(135deg, var(--azul), #4A7FB8); }
-.metric-card.orange .metric-icon { background: linear-gradient(135deg, var(--laranja), #D8854A); }
-.metric-card.green .metric-icon { background: linear-gradient(135deg, var(--verde), #557016); }
-.metric-card.purple .metric-icon { background: linear-gradient(135deg, var(--roxo), #7555B8); }
-
-.metric-value {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-}
-
-.metric-label {
-    font-size: 14px;
-    color: #666;
-    margin: 5px 0 0 0;
-}
-
-/* Seção de Conteúdo */
-.content-section {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--bege-light);
-}
-
-.section-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--marrom);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-title i {
-    color: var(--bege-dark);
-}
-
-/* Tabela Moderna */
-.modern-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.modern-table thead th {
-    background: linear-gradient(135deg, var(--bege-primary), var(--bege-dark));
-    color: white;
-    padding: 12px 15px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.modern-table thead th:first-child {
-    border-top-left-radius: 8px;
-}
-
-.modern-table thead th:last-child {
-    border-top-right-radius: 8px;
-}
-
-.modern-table tbody tr {
-    transition: background 0.2s ease;
-}
-
-.modern-table tbody tr:hover {
-    background: var(--bege-light);
-}
-
-.modern-table tbody td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #f0f0f0;
-    color: #333;
-}
-
-.modern-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* Painel de Informações */
-.info-panel {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.info-box {
-    background: var(--bege-light);
-    padding: 15px 20px;
-    border-radius: 10px;
-    border-left: 4px solid var(--bege-dark);
-}
-
-.info-box strong {
-    color: var(--marrom);
-    font-size: 16px;
-}
-
-/* Seletor de Período */
-.period-selector {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
-}
-
-.period-selector label {
-    font-weight: 600;
-    color: var(--marrom);
-    margin-right: 10px;
-}
-
-.period-selector select {
-    padding: 8px 15px;
-    border: 2px solid var(--bege-primary);
-    border-radius: 6px;
-    font-size: 14px;
-    color: var(--marrom);
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.period-selector select:hover,
-.period-selector select:focus {
-    border-color: var(--bege-dark);
-    outline: none;
-}
-
-/* Grid de Gráficos */
-.charts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 25px;
-    margin-top: 25px;
-}
-
-.chart-container {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.chart-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--marrom);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.chart-title i {
-    color: var(--bege-dark);
-}
-
-/* Badge de Status */
-.badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.badge-success {
-    background: #d4edda;
-    color: #155724;
-}
-
-.badge-warning {
-    background: #fff3cd;
-    color: #856404;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .metrics-grid,
-    .charts-grid {
-        grid-template-columns: 1fr;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
     
-    .quick-actions {
-        grid-template-columns: 1fr;
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #F5F5F5;
     }
     
-    .dashboard-header h1 {
+    .page-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+    }
+    
+    .page-header {
+        margin-bottom: 30px;
+    }
+    
+    .page-header h2 {
+        font-size: 32px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .page-header h2 i {
+        color: #C8A870;
+    }
+    
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-bottom: 30px;
+    }
+    
+    @media (max-width: 1024px) {
+        .profile-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .profile-card {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    
+    .profile-header {
+        display: flex;
+        gap: 24px;
+        align-items: start;
+        margin-bottom: 24px;
+    }
+    
+    .profile-avatar {
+        position: relative;
+    }
+    
+    .avatar-circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 4px 16px rgba(200, 168, 112, 0.3);
+    }
+    
+    .avatar-circle img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .edit-avatar-btn {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #C8A870;
+        border: 3px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: white;
+    }
+    
+    .edit-avatar-btn:hover {
+        background: #A88D5F;
+        transform: scale(1.1);
+    }
+    
+    .profile-info {
+        flex: 1;
+    }
+    
+    .profile-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .edit-profile-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #F5F5F5;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #666;
+    }
+    
+    .edit-profile-btn:hover {
+        background: #C8A870;
+        color: white;
+    }
+    
+    .profile-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #666;
+    }
+    
+    .meta-item i {
+        color: #C8A870;
+        width: 20px;
+    }
+    
+    .meta-item strong {
+        color: #333;
+        margin-left: 4px;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+    }
+    
+    .social-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    
+    .social-btn:hover {
+        transform: translateY(-3px);
+    }
+    
+    .social-instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
+    .social-facebook { background: #3B5998; }
+    .social-twitter { background: #1DA1F2; }
+    .social-linkedin { background: #0077B5; }
+    .social-youtube { background: #FF0000; }
+    .social-github { background: #333; }
+    
+    .payment-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    
+    .payment-header {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .payment-header i {
+        color: #C8A870;
+    }
+    
+    .card-number {
+        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
+        padding: 20px;
+        border-radius: 12px;
+        color: white;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+    
+    .payment-methods {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .payment-method {
+        background: #F9F9F9;
+        padding: 12px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .payment-method img {
+        max-width: 100%;
+        height: 32px;
+        object-fit: contain;
+    }
+    
+    .courses-section {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+    
+    .section-header {
         font-size: 22px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
     
-    .metric-value {
-        font-size: 26px;
+    .section-header i {
+        color: #C8A870;
     }
-}
-
-/* Animações */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    
+    .courses-timeline {
+        position: relative;
+        padding-left: 40px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .timeline-line {
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #C8A870, #E0E0E0);
     }
-}
-
-.metric-card,
-.content-section,
-.chart-container {
-    animation: fadeInUp 0.5s ease-out;
-}
+    
+    .course-item {
+        position: relative;
+        margin-bottom: 24px;
+        background: #F9F9F9;
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s;
+    }
+    
+    .course-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .course-item::before {
+        content: '';
+        position: absolute;
+        left: -28px;
+        top: 24px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid #C8A870;
+        z-index: 1;
+    }
+    
+    .course-item.completed::before {
+        background: #90C695;
+        border-color: #90C695;
+    }
+    
+    .course-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 12px;
+        gap: 12px;
+    }
+    
+    .course-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+    
+    .course-description {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+    
+    .course-lessons {
+        font-size: 13px;
+        color: #999;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .course-lessons i {
+        color: #C8A870;
+    }
+    
+    .course-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    
+    .badge-completed {
+        background: #D4EDDA;
+        color: #155724;
+    }
+    
+    .badge-in-progress {
+        background: #CCE5FF;
+        color: #004085;
+    }
+    
+    .badge-starts {
+        background: #E8E8E8;
+        color: #666;
+    }
+    
+    .course-action {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .action-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .btn-primary {
+        background: #C8A870;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background: #A88D5F;
+    }
+    
+    .premium-card {
+        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 20px rgba(200, 168, 112, 0.3);
+        color: white;
+        margin-top: 24px;
+    }
+    
+    .premium-header {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    
+    .premium-features {
+        list-style: none;
+        margin-bottom: 24px;
+    }
+    
+    .premium-features li {
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+    
+    .premium-features li i {
+        color: #FFE69C;
+    }
+    
+    .premium-btn {
+        width: 100%;
+        padding: 14px;
+        background: white;
+        color: #C8A870;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .premium-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+    }
+    
+    .stat-box {
+        background: #F9F9F9;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #C8A870;
+        margin-bottom: 4px;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
 </style>
 
-<div class="dashboard-container">
-<div class="header">
-            <h1><i class="fa fa fa-user"></i> Seu Perfil - Sebo Alfarrábio</h1>
-            <p>Bem-vindo, <?= htmlspecialchars($usuarioNome) ?>! Gerencie suas informações e pedidos aqui.</p>
+<div class="page-container">
+    <div class="page-header">
+        <h2><i class="fa fa-user-circle"></i> Perfil do Usuário</h2>
+    </div>
+    
+    <div class="profile-grid">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-circle">
+                        <?php if (!empty($usuario['foto_usuario'])): ?>
+                            <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" alt="Avatar">
+                        <?php else: ?>
+                            <?= strtoupper(substr($usuario['nome_usuario'] ?? 'U', 0, 1)) ?>
+                        <?php endif; ?>
+                    </div>
+                    <button class="edit-avatar-btn" title="Editar foto">
+                        <i class="fa fa-camera"></i>
+                    </button>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="profile-name">
+                        <?= htmlspecialchars($usuarioNome) ?>
+                        <button class="edit-profile-btn" title="Editar perfil">
+                            <i class="fa fa-pen"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            <i class="fa fa-calendar-check"></i>
+                            <span>Data de registro: <strong><?= date('d/m/Y', strtotime($usuario['criado_em'] ?? 'now')) ?></strong></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-map-marker-alt"></i>
+                            <span><?= htmlspecialchars($usuario['cidade'] ?? 'São Paulo') ?>, <?= htmlspecialchars($usuario['estado'] ?? 'SP') ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-birthday-cake"></i>
+                            <span>Data de nascimento: <strong><?= date('d/m/Y', strtotime($usuario['data_nascimento'] ?? '1990-01-01')) ?></strong></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-envelope"></i>
+                            <span><?= htmlspecialchars($usuario['email_usuario'] ?? 'usuario@email.com') ?></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-phone"></i>
+                            <span><?= htmlspecialchars($usuario['telefone_usuario'] ?? '+55 (11) 99999-9999') ?></span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-btn social-instagram" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn social-facebook" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn social-twitter" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn social-linkedin" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-btn social-youtube" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-btn social-github" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number"><?= $total_pedidos ?? 0 ?></div>
+                    <div class="stat-label">Pedidos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number"><?= $total_avaliacoes ?? 0 ?></div>
+                    <div class="stat-label">Avaliações</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number"><?= $total_favoritos ?? 0 ?></div>
+                    <div class="stat-label">Favoritos</div>
+                </div>
+            </div>
         </div>
+        
+        <div>
+            <div class="payment-card">
+                <div class="payment-header">
+                    <i class="fa fa-credit-card"></i>
+                    Métodos de Pagamento
+                </div>
+                
+                <div class="card-number">
+                    •••• •••• •••• <?= substr($usuario['cartao_numero'] ?? '0000', -4) ?>
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="American Express">
+                    </div>
+                    <div class="payment-method">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Pay_Logo_%282020%29.svg" alt="Google Pay">
+                    </div>
+                </div>
+            </div>
+            
+           
+        </div>
+    </div>
+    
+    <div class="courses-section">
+        <div class="section-header">
+            <i class="fa fa-shopping-bag"></i> Meus Pedidos Recentes
+        </div>
+        
+        <div class="courses-timeline">
+            <div class="timeline-line"></div>
+            
+            <div class="course-item completed">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Pedido #1234 - A Hora da Estrela</div>
+                        <div class="course-description">
+                            Livro de Clarice Lispector - Romance Brasileiro
+                        </div>
+                        <div class="course-lessons">
+                            <i class="fa fa-calendar"></i> 15/11/2024 • <i class="fa fa-box"></i> Entregue
+                        </div>
+                    </div>
+                    <span class="course-badge badge-completed">Concluído</span>
+                </div>
+                <div class="course-action">
+                    <button class="action-btn btn-primary">
+                        <i class="fa fa-star"></i> Avaliar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="course-item completed">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Pedido #1233 - As Quatro Estações</div>
+                        <div class="course-description">
+                            CD Usado - Antônio Vivaldi - Música Clássica
+                        </div>
+                        <div class="course-lessons">
+                            <i class="fa fa-calendar"></i> 10/11/2024 • <i class="fa fa-box"></i> Entregue
+                        </div>
+                    </div>
+                    <span class="course-badge badge-completed">Concluído</span>
+                </div>
+                <div class="course-action">
+                    <button class="action-btn btn-primary">
+                        <i class="fa fa-redo"></i> Comprar Novamente
+                    </button>
+                </div>
+            </div>
+            
+            <div class="course-item">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Pedido #1235 - Revista Casa Vogue</div>
+                        <div class="course-description">
+                            Revista Mensal de Design e Decoração - Edição Dezembro 2024
+                        </div>
+                        <div class="course-lessons">
+                            <i class="fa fa-calendar"></i> 05/12/2024 • <i class="fa fa-truck"></i> Em trânsito
+                        </div>
+                    </div>
+                    <span class="course-badge badge-in-progress">Em Andamento</span>
+                </div>
+                <div class="course-action">
+                    <button class="action-btn btn-primary">
+                        <i class="fa fa-map-marker-alt"></i> Rastrear Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Script para preview de upload de imagem
+document.querySelector('.edit-avatar-btn').addEventListener('click', function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const avatarCircle = document.querySelector('.avatar-circle');
+                avatarCircle.innerHTML = `<img src="${event.target.result}" alt="Avatar">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    input.click();
+});
+</script
