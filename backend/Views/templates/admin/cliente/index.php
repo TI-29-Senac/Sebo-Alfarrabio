@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Conta - Sebo Alfarrábio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<?php
+// O header e footer já são incluídos pelo View::render
+// Variáveis esperadas (passadas pelo controller):
+// totalCategorias, totalCategoriasInativas, totalItens, totalItensInativos, vendasMes, faturamentoMes, ultimosItens
+?>
+
+<style>
 :root {
     --bege-primary: #D4B896;
     --bege-light: #E8DCCF;
@@ -15,18 +14,6 @@
     --azul: #5B9BD5;
     --laranja: #F4A460;
     --roxo: #9370DB;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #f5f5f0 0%, #faf8f3 100%);
-    min-height: 100vh;
 }
 
 .dashboard-container {
@@ -48,9 +35,6 @@ body {
     margin: 0;
     font-size: 28px;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 15px;
 }
 
 .dashboard-header p {
@@ -88,77 +72,31 @@ body {
     margin-bottom: 30px;
 }
 
-.tabs-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.tab-btn {
+.quick-btn {
     background: white;
     border: 2px solid var(--bege-primary);
-    padding: 12px 20px;
-    border-radius: 8px;
-    color: var(--marrom);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.tab-btn:hover {
-    background: var(--bege-light);
-    transform: translateY(-2px);
-}
-
-.tab-btn.active {
-    background: linear-gradient(135deg, var(--bege-dark), var(--marrom));
-    color: white;
-    border-color: var(--marrom);
-}
-
-.tab-btn i {
-    font-size: 16px;
-}
-
-/* Conteúdo das Seções */
-.content-section {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-    display: none;
-}
-
-.content-section.active {
-    display: block;
-    animation: fadeInUp 0.5s ease-out;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--bege-light);
-}
-
-.section-title {
-    font-size: 20px;
-    font-weight: 600;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-decoration: none;
     color: var(--marrom);
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.section-title i {
-    color: var(--bege-dark);
+.quick-btn:hover {
+    background: var(--bege-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.quick-btn i {
+    font-size: 20px;
 }
 
 /* Cards de Métricas */
@@ -224,58 +162,35 @@ body {
     margin: 5px 0 0 0;
 }
 
-/* Formulário de Perfil */
-.profile-form {
-    max-width: 600px;
+/* Seção de Conteúdo */
+.content-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
 }
 
-.form-group {
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--bege-light);
 }
 
-.form-group label {
-    display: block;
+.section-title {
+    font-size: 20px;
     font-weight: 600;
     color: var(--marrom);
-    margin-bottom: 8px;
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid var(--bege-primary);
-    border-radius: 8px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--bege-dark);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--bege-dark), var(--marrom));
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+.section-title i {
+    color: var(--bege-dark);
 }
 
 /* Tabela Moderna */
@@ -320,6 +235,87 @@ body {
     border-bottom: none;
 }
 
+/* Painel de Informações */
+.info-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.info-box {
+    background: var(--bege-light);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--bege-dark);
+}
+
+.info-box strong {
+    color: var(--marrom);
+    font-size: 16px;
+}
+
+/* Seletor de Período */
+.period-selector {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+.period-selector label {
+    font-weight: 600;
+    color: var(--marrom);
+    margin-right: 10px;
+}
+
+.period-selector select {
+    padding: 8px 15px;
+    border: 2px solid var(--bege-primary);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--marrom);
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.period-selector select:hover,
+.period-selector select:focus {
+    border-color: var(--bege-dark);
+    outline: none;
+}
+
+/* Grid de Gráficos */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.chart-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--marrom);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-title i {
+    color: var(--bege-dark);
+}
+
 /* Badge de Status */
 .badge {
     display: inline-block;
@@ -339,107 +335,24 @@ body {
     color: #856404;
 }
 
-.badge-info {
-    background: #d1ecf1;
-    color: #0c5460;
-}
-
-/* Lista de Cards */
-.card-list {
-    display: grid;
-    gap: 15px;
-}
-
-.card-item {
-    background: var(--bege-light);
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 4px solid var(--bege-dark);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.card-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
-
-.card-item-content h4 {
-    color: var(--marrom);
-    margin-bottom: 5px;
-}
-
-.card-item-content p {
-    color: #666;
-    font-size: 14px;
-}
-
-.card-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-icon {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: none;
-    background: white;
-    color: var(--marrom);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-icon:hover {
-    background: var(--marrom);
-    color: white;
-    transform: scale(1.1);
-}
-
-/* Grid de Favoritos */
-.favorites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.favorite-item {
-    background: white;
-    border: 2px solid var(--bege-light);
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.favorite-item:hover {
-    border-color: var(--bege-dark);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.favorite-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.favorite-item h4 {
-    color: var(--marrom);
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.favorite-item p {
-    color: #666;
-    font-size: 12px;
+/* Responsividade */
+@media (max-width: 768px) {
+    .metrics-grid,
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 22px;
+    }
+    
+    .metric-value {
+        font-size: 26px;
+    }
 }
 
 /* Animações */
@@ -454,38 +367,12 @@ body {
     }
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .metrics-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .tabs-container {
-        flex-direction: column;
-    }
-    
-    .tab-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .dashboard-header h1 {
-        font-size: 22px;
-    }
-    
-    .favorites-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
+.metric-card,
+.content-section,
+.chart-container {
+    animation: fadeInUp 0.5s ease-out;
 }
-    </style>
-</head>
-<body>
-    <div class="dashboard-container">
-        <!-- Header do Dashboard -->
-        <div class="dashboard-header">
-            <h1><i class="fas fa-user-circle"></i> Minha Conta - Sebo Alfarrábio</h1>
-            <p>Bem-vindo! Gerencie suas informações, pedidos e preferências</p>
-        </div>
+</style>
 
 <div class="dashboard-container">
 <div class="header">
