@@ -70,11 +70,11 @@ class PedidosController {
         foreach($dados as $pedidos){
             $dados = $pedidos;
         }
-        View::render("pedidos/edit", ["pedidos" => $dados]);
+        View::render("/pedidos/edit", ["pedidos" => $dados]);
     }
 
     public function viewExcluirPedidos($id_pedido){
-        View::render("pedidos/delete", ["id_pedido" => $id_pedido]);
+        View::render("/pedidos/delete", ["id_pedido" => $id_pedido]);
     }
 
     public function relatorioPedidos($id_pedido, $data1, $data2){
