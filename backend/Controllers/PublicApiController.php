@@ -15,7 +15,10 @@ class PublicApiController{
     }
 
     public function getItem() {
-       
+        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        $por_pagina = isset($_GET['por_pagina']) ? (int)$_GET['por_pagina'] : 8;
+
+        $dados = $this->itemModel->paginacao($pagina, $por_pagina, $tipo);
         $dados = $this->itemModel->buscarItemAtivos();
         foreach ($dados as &$item) {
             $item['caminho_imagem'] = '/backend/uploads/' . $item['foto_item'];

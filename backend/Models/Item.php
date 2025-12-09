@@ -218,7 +218,7 @@ class Item {
      * Paginação de itens com dados relacionados (Gênero, Categoria e Autores)
      * Usa GROUP_CONCAT para listar os autores sem duplicar linhas de item.
      */
-    public function paginacao(int $pagina = 1, int $por_pagina = 10, string $tipo = null): array {
+    public function paginacao(int $pagina = 1, int $por_pagina = 8, string $tipo = null): array {
         
         $whereClause = "i.excluido_em IS NULL";
         $params = [];

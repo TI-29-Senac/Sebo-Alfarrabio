@@ -3,6 +3,11 @@
   <header class="w3-container" style="padding-top:22px">
     <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
   </header>
+  <a href="/backend/perfil/criar" 
+       class="w3-button w3-round-large" 
+       style="background: var(--bege-dark); color: white; margin: 15px 0;">
+       <i class="fa fa-plus"></i> Adicionar Novo Usuario
+    </a>
 
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">

@@ -210,20 +210,10 @@ if (!$isLoginOrRegister):
             <div class="w3-col s3">
                 <img src="/img/logo2.png" class="user-avatar" alt="Logo">
             </div>
-            <div class="w3-col s9" style="padding-left: 10px;">
+            <div class="w3-col s9" style="padding-left: 12px; padding-top: 10px;">
                 <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
                 <div class="user-role"><?= htmlspecialchars($usuarioTipo); ?></div>
-                <div style="margin-top: 8px;">
-                    <a href="/backend/perfil" class="user-action-btn w3-button w3-small" title="Perfil">
-                        <i class="fa fa-user"></i>
-                    </a>
-                    <a href="#" class="user-action-btn w3-button w3-small" title="Configurações">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                    <a href="#" class="user-action-btn w3-button w3-small" title="Mensagens">
-                        <i class="fa fa-envelope"></i>
-                    </a>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -239,59 +229,40 @@ if (!$isLoginOrRegister):
         
         <!-- Dashboard -->
         <div class="menu-section-title">
-            <i class="fa fa-home"></i> Principal
+            <i class="fa fa-user"></i> Principal
         </div>
+        <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
+            <i class="fa fa-user"></i> Seu Perfil
+        </a>
         <a href="/backend/admin/dashboard" class="menu-item w3-bar-item w3-button w3-padding active">
-            <i class="fa fa-dashboard fa-fw"></i> Dashboard
+            <i class="fa fa-check"></i> Suas Reservas
+        </a>
+        <a href="/backend/admin/dashboard" class="menu-item w3-bar-item w3-button w3-padding active">
+            <i class="fa fa-heart"></i> Favoritos
         </a>
         
         <!-- Gestão de Produtos -->
         <div class="menu-section-title">
-            <i class="fa fa-shopping-cart"></i> Gestão de Produtos
+            <i class="fa fa-comment"></i> Interações
         </div>
         <a href="/backend/item/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-book fa-fw"></i> Itens / Livros
+            <i class="fa fa-comment"></i> Avaliações
         </a>
         <a href="/backend/categoria/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-tags fa-fw"></i> Categorias
+            <i class="fa fa-bell"></i> Notificações
         </a>
-        <a href="/backend/genero/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-list fa-fw"></i> Gêneros
-        </a>
-        <a href="/backend/autor/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-pencil fa-fw"></i> Autores
-        </a>
-        
+
         <!-- Vendas e Reservas -->
         <div class="menu-section-title">
-            <i class="fa fa-dollar"></i> Vendas & Reservas
+            <i class="fa fa-cog"></i> Configurações do Sistema
         </div>
         <a href="/backend/vendas/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-shopping-cart fa-fw"></i> Vendas
-        </a>
-        <a href="/backend/pedidos/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-calendar-check-o fa-fw"></i> Pedidos
-        </a>
-        
-        <!-- Avaliações -->
-        <div class="menu-section-title">
-            <i class="fa fa-star"></i> Feedback
-        </div>
-        <a href="/backend/avaliacao/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-star fa-fw"></i> Avaliações
-        </a>
-        
-        <!-- Usuários -->
-        <div class="menu-section-title">
-            <i class="fa fa-users"></i> Usuários
-        </div>
-        <a href="/backend/usuario/listar" class="menu-item w3-bar-item w3-button w3-padding">
-            <i class="fa fa-users fa-fw"></i> Gerenciar Usuários
+            <i class="fa fa-cog"></i> Configurações
         </a>
         
         <!-- Logout -->
-        <a href="/logout" class="logout-btn w3-bar-item w3-button w3-padding">
-            <i class="fa fa-sign-out fa-fw"></i> Sair do Sistema
+        <a href="/../index.html" class="logout-btn w3-bar-item w3-button w3-padding">
+            <i class="fa fa-sign-out fa-fw"></i> Retornar ao Site
         </a>
     </div>
 </nav>
