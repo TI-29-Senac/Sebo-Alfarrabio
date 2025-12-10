@@ -117,13 +117,20 @@ class Rotas
                 // ITENS (Livros do acervo)
                 // ========================================
                 
+<<<<<<< HEAD
                 
                 "/item/listar" => "ItemController@viewListarItens",
+=======
+                "/item/listar" => "ItemController@viewListarItem",
+>>>>>>> 2b09ebcc05a5fbbdf9f9e8a128461c52e0381a19
                 "/item/listar/{pagina}" => "ItemController@viewListarItens",
                 "/item/criar" => "ItemController@viewCriarItem",
                 "/item/editar/{id}" => "ItemController@viewEditarItem",
                 "/item/excluir/{id}" => "ItemController@viewExcluirItem",
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2b09ebcc05a5fbbdf9f9e8a128461c52e0381a19
 
                  
 
