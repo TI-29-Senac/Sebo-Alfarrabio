@@ -537,13 +537,10 @@
                             <i class="fa fa-map-marker-alt"></i>
                             <span><?= htmlspecialchars($usuario['cidade'] ?? 'São Paulo') ?>, <?= htmlspecialchars($usuario['estado'] ?? 'SP') ?></span>
                         </div>
-                        <div class="meta-item">
-                            <i class="fa fa-birthday-cake"></i>
-                            <span>Data de nascimento: <strong><?= date('d/m/Y', strtotime($usuario['data_nascimento'] ?? '1990-01-01')) ?></strong></span>
-                        </div>
+                        
                         <div class="meta-item">
                             <i class="fa fa-envelope"></i>
-                            <span><?= htmlspecialchars($usuario['email_usuario'] ?? 'usuario@email.com') ?></span>
+                            <span><?= htmlspecialchars($usuarioEmail) ?></span>
                         </div>
                         <div class="meta-item">
                             <i class="fa fa-phone"></i>
@@ -551,26 +548,7 @@
                         </div>
                     </div>
                     
-                    <div class="social-links">
-                        <a href="#" class="social-btn social-instagram" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-btn social-facebook" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-btn social-twitter" title="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-btn social-linkedin" title="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="social-btn social-youtube" title="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="#" class="social-btn social-github" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
+                   
                 </div>
             </div>
             
@@ -591,124 +569,310 @@
         </div>
         
         <div>
-            <div class="payment-card">
-                <div class="payment-header">
-                    <i class="fa fa-credit-card"></i>
-                    Métodos de Pagamento
-                </div>
-                
-                <div class="card-number">
-                    •••• •••• •••• <?= substr($usuario['cartao_numero'] ?? '0000', -4) ?>
-                </div>
-                
-                <div class="payment-methods">
-                    <div class="payment-method">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
-                    </div>
-                    <div class="payment-method">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
-                    </div>
-                    <div class="payment-method">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="American Express">
-                    </div>
-                    <div class="payment-method">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Pay_Logo_%282020%29.svg" alt="Google Pay">
-                    </div>
-                </div>
-            </div>
-            
+         
+     
            
         </div>
     </div>
     
-    <div class="courses-section">
-        <div class="section-header">
-            <i class="fa fa-shopping-bag"></i> Meus Pedidos Recentes
+    <div class="orders-section">
+    <div class="section-header">
+        <i class="fa fa-shopping-bag"></i> Meus Pedidos
+    </div>
+    
+    <!-- Tab links -->
+<div class="tab">
+    <button class="tablinks active" onclick="openOrderTab(event, 'MeusPedidos')">
+        <i class="fa fa-clock"></i> Meus Pedidos
+    </button>
+    <button class="tablinks" onclick="openOrderTab(event, 'Concluidos')">
+        <i class="fa fa-check-circle"></i> Pedidos Concluídos
+    </button>
+    <button class="tablinks" onclick="openOrderTab(event, 'Reservados')">
+        <i class="fa fa-bookmark"></i> Reservados
+    </button>
+</div>
+
+<!-- Tab content -->
+<div id="MeusPedidos" class="tabcontent" style="display: block;">
+    <h3><i class="fa fa-clock"></i> Meus Pedidos</h3>
+    
+    <div class="order-card">
+        <div class="order-status-badge badge-in-progress">Em Andamento</div>
+        <div class="order-title">Pedido #1235</div>
+        <div class="order-product">Revista Casa Vogue</div>
+        <div class="order-description">
+            Revista Mensal de Design e Decoração - Edição Dezembro 2024
         </div>
-        
-        <div class="courses-timeline">
-            <div class="timeline-line"></div>
-            
-            <div class="course-item completed">
-                <div class="course-header">
-                    <div>
-                        <div class="course-title">Pedido #1234 - A Hora da Estrela</div>
-                        <div class="course-description">
-                            Livro de Clarice Lispector - Romance Brasileiro
-                        </div>
-                        <div class="course-lessons">
-                            <i class="fa fa-calendar"></i> 15/11/2024 • <i class="fa fa-box"></i> Entregue
-                        </div>
-                    </div>
-                    <span class="course-badge badge-completed">Concluído</span>
-                </div>
-                <div class="course-action">
-                    <button class="action-btn btn-primary">
-                        <i class="fa fa-star"></i> Avaliar
-                    </button>
-                </div>
+        <div class="order-info">
+            <div class="order-date">
+                <i class="fa fa-calendar"></i> 05/12/2024
             </div>
-            
-            <div class="course-item completed">
-                <div class="course-header">
-                    <div>
-                        <div class="course-title">Pedido #1233 - As Quatro Estações</div>
-                        <div class="course-description">
-                            CD Usado - Antônio Vivaldi - Música Clássica
-                        </div>
-                        <div class="course-lessons">
-                            <i class="fa fa-calendar"></i> 10/11/2024 • <i class="fa fa-box"></i> Entregue
-                        </div>
-                    </div>
-                    <span class="course-badge badge-completed">Concluído</span>
-                </div>
-                <div class="course-action">
-                    <button class="action-btn btn-primary">
-                        <i class="fa fa-redo"></i> Comprar Novamente
-                    </button>
-                </div>
-            </div>
-            
-            <div class="course-item">
-                <div class="course-header">
-                    <div>
-                        <div class="course-title">Pedido #1235 - Revista Casa Vogue</div>
-                        <div class="course-description">
-                            Revista Mensal de Design e Decoração - Edição Dezembro 2024
-                        </div>
-                        <div class="course-lessons">
-                            <i class="fa fa-calendar"></i> 05/12/2024 • <i class="fa fa-truck"></i> Em trânsito
-                        </div>
-                    </div>
-                    <span class="course-badge badge-in-progress">Em Andamento</span>
-                </div>
-                <div class="course-action">
-                    <button class="action-btn btn-primary">
-                        <i class="fa fa-map-marker-alt"></i> Rastrear Pedido
-                    </button>
-                </div>
+            <div class="order-shipping">
+                <i class="fa fa-truck"></i> Processando
             </div>
         </div>
+        <button class="action-btn btn-primary">
+            <i class="fa fa-map-marker-alt"></i> Em Andamento
+        </button>
     </div>
 </div>
 
+<div id="Concluidos" class="tabcontent">
+    <h3><i class="fa fa-check-circle"></i> Pedidos Concluídos</h3>
+    
+    <div class="order-card">
+        <div class="order-status-badge badge-completed">Concluído</div>
+        <div class="order-title">Pedido #1234</div>
+        <div class="order-product">A Hora da Estrela</div>
+        <div class="order-description">
+            Livro de Clarice Lispector - Romance Brasileiro
+        </div>
+        <div class="order-info">
+            <div class="order-date">
+                <i class="fa fa-calendar"></i> 15/11/2024
+            </div>
+            <div class="order-shipping">
+                <i class="fa fa-box"></i> Entregue
+            </div>
+        </div>
+        <button class="action-btn btn-primary">
+            <i class="fa fa-star"></i> Avaliar
+        </button>
+    </div>
+    
+    <div class="order-card">
+        <div class="order-status-badge badge-completed">Concluído</div>
+        <div class="order-title">Pedido #1233</div>
+        <div class="order-product">As Quatro Estações</div>
+        <div class="order-description">
+            CD Usado - Antônio Vivaldi - Música Clássica
+        </div>
+        <div class="order-info">
+            <div class="order-date">
+                <i class="fa fa-calendar"></i> 10/11/2024
+            </div>
+            <div class="order-shipping">
+                <i class="fa fa-box"></i> Entregue
+            </div>
+        </div>
+        <button class="action-btn btn-primary">
+            <i class="fa fa-redo"></i> Comprar Novamente
+        </button>
+    </div>
+</div>
+
+<div id="Reservados" class="tabcontent">
+    <h3><i class="fa fa-bookmark"></i> Reservados</h3>
+    
+    <div class="empty-state">
+        <i class="fa fa-bookmark"></i>
+        <p>Nenhum item reservado</p>
+        <small>Reserve produtos para comprar depois</small>
+    </div>
+</div>
+
+<style>
+/* Estilo das abas */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    border-radius: 8px 8px 0 0;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+}
+
+.tab button i {
+    margin-right: 6px;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #d4af7a;
+    color: white;
+}
+
+/* Conteúdo das abas */
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    min-height: 400px;
+}
+
+.tabcontent h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8B7355;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Cards dos pedidos */
+.order-card {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.order-status-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-in-progress {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.order-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.order-product {
+    font-size: 18px;
+    font-weight: 600;
+    color: #8B7355;
+    margin-bottom: 10px;
+}
+
+.order-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.order-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #888;
+}
+
+.order-info i {
+    margin-right: 6px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #d4af7a;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #c09960;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.action-btn i {
+    margin-right: 8px;
+}
+
+/* Estado vazio */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.empty-state small {
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .tab button {
+        font-size: 12px;
+        padding: 12px 14px;
+    }
+    
+    .order-product {
+        font-size: 16px;
+    }
+}
+</style>
+
 <script>
-// Script para preview de upload de imagem
-document.querySelector('.edit-avatar-btn').addEventListener('click', function() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const avatarCircle = document.querySelector('.avatar-circle');
-                avatarCircle.innerHTML = `<img src="${event.target.result}" alt="Avatar">`;
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    input.click();
-});
-</script
+function openOrderTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    
+    // Esconde todo o conteúdo das abas
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    
+    // Remove a classe "active" de todos os botões
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    
+    // Mostra a aba atual e adiciona a classe "active" ao botão clicado
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>

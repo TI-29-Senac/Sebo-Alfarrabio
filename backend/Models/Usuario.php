@@ -48,7 +48,7 @@ class Usuario {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarUsuariosPorID($id) {
+    function buscarUsuarioPorID($id) {
         $sql = "SELECT * FROM tbl_usuario WHERE id_usuario = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

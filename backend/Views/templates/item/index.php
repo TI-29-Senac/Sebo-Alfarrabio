@@ -204,6 +204,7 @@ body {
         <table class="table">
             <thead>
                 <tr>
+                    <th>foto</th>
                     <th>Título</th>
                     <th>Tipo</th>
                     <th>Gênero</th>
@@ -211,6 +212,7 @@ body {
                     <th>Autores/Artistas</th>
                     <th>Estoque</th>
                     <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -221,12 +223,14 @@ body {
                 <?php else: ?>
                     <?php foreach ($itens as $item): ?>
                         <tr>
+                        <td><img src="/backend/uploads/<?= htmlspecialchars($item['foto_item']) ?>" alt="" style="width:100px;"></td>
                             <td><?= htmlspecialchars($item['titulo_item']) ?></td>
                             <td><?= htmlspecialchars(ucfirst($item['tipo_item'])) ?></td>
                             <td><?= htmlspecialchars($item['nome_genero']) ?></td>
                             <td><?= htmlspecialchars($item['nome_categoria']) ?></td>
                             <td><?= htmlspecialchars($item['autores'] ?? 'N/A') ?></td>
                             <td><?= (int)$item['estoque'] ?></td>
+                            
                             <td>
                                 <a href="/backend/item/editar/<?= $item['id_item'] ?>" class="btn-warning"><i class="fa fa-edit"></i></a>
                                 <a href="/backend/item/excluir/<?= $item['id_item'] ?>" class="btn-danger"><i class="fa fa-trash"></i></a>

@@ -183,6 +183,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     $session = new Session();
     $usuarioNome = $session->get('usuario_nome') ?? 'Usuário';
     $usuarioTipo = $session->get('usuario_tipo') ?? 'Admin';
+    $usuarioEmail = $session->get('email_usuario')?? 'Email';
 ?>
 
 <!-- Top Bar -->
@@ -213,6 +214,7 @@ if (!$isLoginOrRegister):
             <div class="w3-col s9" style="padding-left: 12px; padding-top: 10px;">
                 <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
                 <div class="user-role"><?= htmlspecialchars($usuarioTipo); ?></div>
+                <div class="user-email"><?= htmlspecialchars($usuarioEmail); ?></div>
                 
             </div>
         </div>

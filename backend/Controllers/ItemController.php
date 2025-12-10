@@ -132,37 +132,45 @@ class ItemController extends AdminController {
      * Processa o formulário de salvar novo item.
      */
     public function salvarItem(){
-        // 1. Validação (Exemplo)
-        // $erros = ItemValidador::ValidarEntradas($_POST);
-        // if(!empty($erros)){
-        //     Redirect::redirecionarComMensagem("item/criar","error", implode("<br>", $erros));
-        //     return;
-        // }
-
-        // 2. Preparar dados
+        // === UPLOAD DA FOTO (automático) ===
+        $fotoPath = null;
+        if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === 0) {
+            $extensoes = ['jpg','jpeg','png','webp'];
+            $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
+            if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
+                $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
+                $pasta = 'uploads/itens/';
+                if (!is_dir($pasta)) mkdir($pasta, 0777, true);
+                $caminho = $pasta . $nome;
+                if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
+                    $fotoPath = '/' . $caminho;
+                }
+            }
+        }
+    
         $dadosItem = [
-            'titulo_item' => $_POST["titulo_item"],
-            'tipo_item' => $_POST["tipo_item"],
-            'id_genero' => $_POST["id_genero"],
-            'id_categoria' => $_POST["id_categoria"],
-            'descricao' => $_POST["descricao"] ?? null,
-            'ano_publicacao' => $_POST["ano_publicacao"] ? (int)$_POST["ano_publicacao"] : null,
-            'editora_gravadora' => $_POST["editora_gravadora"] ?? null,
-            'estoque' => $_POST["estoque"] ? (int)$_POST["estoque"] : 1,
-            'isbn' => $_POST["isbn"] ?? null,
-            'duracao_minutos' => $_POST["duracao_minutos"] ? (int)$_POST["duracao_minutos"] : null,
-            'numero_edicao' => $_POST["numero_edicao"] ? (int)$_POST["numero_edicao"] : null,
+            'titulo_item'       => $_POST['titulo_item'],
+            'tipo_item'         => $_POST['tipo_item'],
+            'id_genero'         => (int)$_POST['id_genero'],
+            'id_categoria'      => (int)$_POST['id_categoria'],
+            'descricao'         => $_POST['descricao'] ?? null,
+            'ano_publicacao'    => !empty($_POST['ano_publicacao']) ? (int)$_POST['ano_publicacao'] : null,
+            'editora_gravadora' => $_POST['editora_gravadora'] ?? null,
+            'estoque'           => (int)($_POST['estoque'] ?? 1),
+            'isbn'              => $_POST['isbn'] ?? null,
+            'duracao_minutos'   => !empty($_POST['duracao_minutos']) ? (int)$_POST['duracao_minutos'] : null,
+            'numero_edicao'     => !empty($_POST['numero_edicao']) ? (int)$_POST['numero_edicao'] : null,
+            'foto_item'         => $fotoPath, // ← a mágica acontece aqui
         ];
-
-        // O formulário deve enviar um array de IDs, ex: <input name="autores_ids[]" value="1">
-        $autores_ids = $_POST["autores_ids"] ?? []; 
-        $autores_ids = array_map('intval', $autores_ids); // Garante que são inteiros
-
-        // 3. Chamar o Model (que usa transação)
+    
+        $autores_ids = $_POST['autores_ids'] ?? [];
+        $autores_ids = array_map('intval', $autores_ids);
+    
         if($this->item->inserirItem($dadosItem, $autores_ids)){
             Redirect::redirecionarComMensagem("/backend/item/listar","success","Item cadastrado com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/backend/item/criar","error","Erro ao cadastrar item. A operação foi revertida.");
+            if ($fotoPath && file_exists(ltrim($fotoPath,'/'))) unlink(ltrim($fotoPath,'/'));
+            Redirect::redirecionarComMensagem("/backend/item/criar","error","Erro ao salvar item.");
         }
     }
 
@@ -191,6 +199,7 @@ class ItemController extends AdminController {
             'isbn' => $_POST["isbn"] ?? null,
             'duracao_minutos' => $_POST["duracao_minutos"] ? (int)$_POST["duracao_minutos"] : null,
             'numero_edicao' => $_POST["numero_edicao"] ? (int)$_POST["numero_edicao"] : null,
+            'foto_item' => $_POST["foto_item"] ?? null,
         ];
 
         $autores_ids = $_POST["autores_ids"] ?? [];

@@ -46,6 +46,7 @@ class AuthController{
             $this->session->set('usuario_id', $usuario['id_usuario']);
             $this->session->set('usuario_nome', $usuario['nome_usuario']);
             $this->session->set('usuario_tipo', $usuario['tipo_usuario']);
+            $this->session->set('usuario_email', $usuario['email_usuario']);
  
             Redirect::redirecionarPara('/admin/dashboard');
         }else{

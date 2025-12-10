@@ -1,18 +1,272 @@
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #c9a96e 0%, #b8935a 100%);
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        color: #6d5a3d;
+        font-size: 32px;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+
+    .col-md-4 {
+        flex: 0 0 calc(33.333% - 14px);
+    }
+
+    .col-md-6 {
+        flex: 0 0 calc(50% - 10px);
+    }
+
+    .col-md-8 {
+        flex: 0 0 calc(66.666% - 7px);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #6d5a3d;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0d4c0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: #fafafa;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #c9a96e;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+    }
+
+    select.form-control {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236d5a3d' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-color: #fafafa;
+        padding-right: 40px;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 30px;
+    }
+
+    .mt-2 {
+        margin-top: 10px;
+    }
+
+    #preview-foto {
+        max-width: 200px;
+        max-height: 200px;
+        border: 2px dashed #c9a96e;
+        border-radius: 10px;
+        padding: 10px;
+        background: #fafafa;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-outline-primary {
+        background: white;
+        color: #5a8cb8;
+        border: 2px solid #5a8cb8;
+    }
+
+    .btn-outline-primary:hover {
+        background: #5a8cb8;
+        color: white;
+    }
+
+    .btn-outline-danger {
+        background: white;
+        color: #dc6b6b;
+        border: 2px solid #dc6b6b;
+        margin-left: 10px;
+    }
+
+    .btn-outline-danger:hover {
+        background: #dc6b6b;
+        color: white;
+    }
+
+    .btn-success {
+        background: #7a9b5a;
+        color: white;
+        margin-right: 10px;
+    }
+
+    .btn-success:hover {
+        background: #6a8a4d;
+        box-shadow: 0 5px 15px rgba(122, 155, 90, 0.3);
+    }
+
+    .btn-secondary {
+        background: #8d7a5e;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #7a6951;
+        box-shadow: 0 5px 15px rgba(141, 122, 94, 0.3);
+    }
+
     /* Estilos para a busca de autores */
-    #autor-search-results { border: 1px solid #ccc; max-height: 150px; overflow-y: auto; background: #f9f9f9; }
-    #autor-search-results div { padding: 5px 10px; cursor: pointer; }
-    #autor-search-results div:hover { background: #eee; }
-    #autores-selecionados-list span { display: inline-block; background: #007bff; color: white; padding: 5px 10px; margin: 5px 5px 0 0; border-radius: 5px; }
-    #autores-selecionados-list span button { background: none; border: none; color: white; font-weight: bold; margin-left: 5px; }
+    #autor-search-results {
+        border: 2px solid #e0d4c0;
+        max-height: 150px;
+        overflow-y: auto;
+        background: #fafafa;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+
+    #autor-search-results div {
+        padding: 10px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0ebe0;
+        transition: background 0.2s ease;
+    }
+
+    #autor-search-results div:last-child {
+        border-bottom: none;
+    }
+
+    #autor-search-results div:hover {
+        background: #c9a96e;
+        color: white;
+    }
+
+    #autores-selecionados-list span {
+        display: inline-block;
+        background: #c9a96e;
+        color: white;
+        padding: 8px 15px;
+        margin: 5px 5px 0 0;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    #autores-selecionados-list span button {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: bold;
+        margin-left: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        transition: background 0.2s ease;
+    }
+
+    #autores-selecionados-list span button:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
     /* Esconde campos específicos */
-    .campo-especifico { display: none; }
+    .campo-especifico {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+        }
+
+        .col-md-4,
+        .col-md-6,
+        .col-md-8 {
+            flex: 1 1 100%;
+        }
+
+        .container {
+            padding: 20px;
+        }
+    }
 </style>
-
+ 
+<div class="container">
 <h1>Novo Item</h1>
-
+ 
 <form action="/backend/item/salvar" method="POST">
-    
+ 
+    <!-- UPLOAD DE FOTO - PLUG AND PLAY -->
+<div class="form-group text-center mb-4">
+    <label>Foto do Item</label><br>
+    <img id="preview-foto" src="/img/no-image.png" style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
+    <br><br>
+    <input type="file" name="foto_item" id="foto_item" accept="image/*" style="display:none">
+    <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('foto_item').click()">
+        Escolher Foto
+    </button>
+    <button type="button" class="btn btn-outline-danger" onclick="limparFoto()" style="display:none" id="btn-limpar">Remover</button>
+</div>
+ 
     <div class="form-row">
         <div class="form-group col-md-8">
             <label for="titulo_item">Título*</label>
@@ -29,7 +283,7 @@
             </select>
         </div>
     </div>
-
+ 
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="id_genero">Gênero*</label>
@@ -48,19 +302,19 @@
             </select>
         </div>
     </div>
-
+ 
     <div class="form-group">
         <label for="autor-search-input">Buscar Autores/Artistas</label>
         <input type="text" id="autor-search-input" class="form-control" placeholder="Digite para buscar...">
         <div id="autor-search-results"></div> <div id="autores-selecionados-list" class="mt-2">
             </div>
     </div>
-
+ 
     <div class="form-group">
         <label for="descricao">Descrição</label>
         <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
     </div>
-
+ 
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="editora_gravadora">Editora / Gravadora</label>
@@ -75,7 +329,7 @@
             <input type="number" class="form-control" id="estoque" name="estoque" value="1" min="0">
         </div>
     </div>
-    
+   
     <div class="form-row">
         <div class="form-group col-md-4 campo-especifico" id="campo-isbn">
             <label for="isbn">ISBN (Livro)</label>
@@ -90,27 +344,28 @@
             <input type="number" class="form-control" id="numero_edicao" name="numero_edicao">
         </div>
     </div>
-
+ 
     <button type="submit" class="btn btn-success">Salvar Item</button>
     <a href="/backend/item/listar" class="btn btn-secondary">Cancelar</a>
 </form>
-
+</div>
+ 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    
+   
     // --- Lógica 1: Campos Condicionais (ISBN, etc.) ---
     const tipoSelect = document.getElementById('tipo_item');
     const campoIsbn = document.getElementById('campo-isbn');
     const campoDuracao = document.getElementById('campo-duracao');
     const campoEdicao = document.getElementById('campo-edicao');
-
+ 
     function toggleCamposEspeciais() {
         const tipo = tipoSelect.value;
         // Reseta todos
         campoIsbn.style.display = 'none';
         campoDuracao.style.display = 'none';
         campoEdicao.style.display = 'none';
-
+ 
         if (tipo === 'livro') {
             campoIsbn.style.display = 'block';
         } else if (tipo === 'cd' || tipo === 'dvd') {
@@ -121,24 +376,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     tipoSelect.addEventListener('change', toggleCamposEspeciais);
     toggleCamposEspeciais(); // Roda na inicialização
-
+ 
     // --- Lógica 2: Busca de Autores (AJAX) ---
     const searchInput = document.getElementById('autor-search-input');
     const searchResults = document.getElementById('autor-search-results');
     const selectedList = document.getElementById('autores-selecionados-list');
-    
+   
     let debounceTimer;
-
+ 
     // Busca
     searchInput.addEventListener('keyup', () => {
         clearTimeout(debounceTimer);
         const termo = searchInput.value.trim();
-        
+       
         if (termo.length < 2) {
             searchResults.innerHTML = '';
             return;
         }
-
+ 
         debounceTimer = setTimeout(() => {
             fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(termo)}`)
                 .then(response => response.json())
@@ -154,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         }, 300); // 300ms de debounce
     });
-
+ 
     // Adiciona
     window.adicionarAutor = function(id, nome) {
         // Verifica se já foi adicionado
@@ -163,13 +418,13 @@ document.addEventListener('DOMContentLoaded', function() {
             searchResults.innerHTML = '';
             return; // Não adiciona duplicado
         }
-
+ 
         // 1. Adiciona o "badge" visual
         const span = document.createElement('span');
         span.id = `autor-badge-${id}`;
-        span.innerHTML = `${nome} <button type_button" onclick="removerAutor(${id})">&times;</button>`;
+        span.innerHTML = `${nome} <button type="button" onclick="removerAutor(${id})">&times;</button>`;
         selectedList.appendChild(span);
-
+ 
         // 2. Adiciona o input hidden para o POST
         const input = document.createElement('input');
         input.type = 'hidden';
@@ -177,16 +432,36 @@ document.addEventListener('DOMContentLoaded', function() {
         input.value = id;
         input.id = `autor-input-${id}`;
         selectedList.appendChild(input);
-
+ 
         // Limpa a busca
         searchInput.value = '';
         searchResults.innerHTML = '';
     }
-
+ 
     // Remove
     window.removerAutor = function(id) {
         document.getElementById(`autor-badge-${id}`).remove();
         document.getElementById(`autor-input-${id}`).remove();
     }
+ 
+    // Preview e limpeza da foto do item
+document.getElementById('foto_item').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            document.getElementById('preview-foto').src = ev.target.result;
+            document.getElementById('btn-limpar').style.display = 'inline-block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+ 
+function limparFoto() {
+    document.getElementById('foto_item').value = '';
+    document.getElementById('preview-foto').src = '/img/no-image.png';
+    document.getElementById('btn-limpar').style.display = 'none';
+}
 });
 </script>
+

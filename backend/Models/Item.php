@@ -112,6 +112,7 @@ class Item {
         $sqlItem = "UPDATE tbl_itens SET $setString WHERE id_item = :id_item";
         $sqlDeletePivot = "DELETE FROM tbl_item_autores WHERE id_item = :id_item";
         $sqlInsertPivot = "INSERT INTO tbl_item_autores (id_item, id_autor) VALUES (:id_item, :id_autor)";
+       
 
         try {
             $this->db->beginTransaction();
