@@ -251,149 +251,161 @@
 </style>
  
 <div class="container">
-<h1>Novo Item</h1>
- 
-<form action="/backend/item/salvar" method="POST">
- 
-    <!-- UPLOAD DE FOTO - PLUG AND PLAY -->
-<div class="form-group text-center mb-4">
-    <label>Foto do Item</label><br>
-    <img id="preview-foto" src="/img/no-image.png" style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
-    <br><br>
-    <input type="file" name="foto_item" id="foto_item" accept="image/*" style="display:none">
-    <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('foto_item').click()">
-        Escolher Foto
-    </button>
-    <button type="button" class="btn btn-outline-danger" onclick="limparFoto()" style="display:none" id="btn-limpar">Remover</button>
-</div>
- 
-    <div class="form-row">
-        <div class="form-group col-md-8">
-            <label for="titulo_item">Título*</label>
-            <input type="text" class="form-control" id="titulo_item" name="titulo_item" required>
+    <h1>Novo Item</h1>
+
+    <form action="/backend/item/salvar" method="POST" enctype="multipart/form-data">
+    
+        <!-- UPLOAD DE FOTO -->
+        <div class="form-group text-center mb-4">
+            <label>Foto do Item</label><br>
+            <img id="preview-foto" src="/img/no-image.png" style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
+            <br><br>
+            <input type="file" name="foto_item" id="foto_item" accept="image/*" style="display:none">
+            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('foto_item').click()">
+                Escolher Foto
+            </button>
+            <button type="button" class="btn btn-outline-danger" onclick="limparFoto()" style="display:none" id="btn-limpar">Remover</button>
         </div>
-        <div class="form-group col-md-4">
-            <label for="tipo_item">Tipo de Item*</label>
-            <select id="tipo_item" name="tipo_item" class="form-control" required>
-                <option value="" selected disabled>Selecione...</option>
-                <option value="livro">Livro</option>
-                <option value="cd">CD</option>
-                <option value="dvd">DVD</option>
-                <option value="revista">Revista</option>
-            </select>
-        </div>
-    </div>
- 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="id_genero">Gênero*</label>
-            <select id="id_genero" name="id_genero" class="form-control" required>
-                <?php foreach ($generos as $genero): ?>
-                    <option value="<?= $genero['id_genero'] ?>"><?= htmlspecialchars($genero['nome_genero']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="id_categoria">Categoria*</label>
-            <select id="id_categoria" name="id_categoria" class="form-control" required>
-                 <?php foreach ($categorias as $categoria): ?>
-                    <option value="<?= $categoria['id_categoria'] ?>"><?= htmlspecialchars($categoria['nome_categoria']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
- 
-    <div class="form-group">
-        <label for="autor-search-input">Buscar Autores/Artistas</label>
-        <input type="text" id="autor-search-input" class="form-control" placeholder="Digite para buscar...">
-        <div id="autor-search-results"></div> <div id="autores-selecionados-list" class="mt-2">
+
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="titulo_item">Título*</label>
+                <input type="text" class="form-control" id="titulo_item" name="titulo_item" required>
             </div>
-    </div>
- 
-    <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
-    </div>
- 
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="editora_gravadora">Editora / Gravadora</label>
-            <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora">
+            <div class="form-group col-md-4">
+                <label for="tipo_item">Tipo de Item*</label>
+                <select id="tipo_item" name="tipo_item" class="form-control" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="livro">Livro</option>
+                    <option value="cd">CD</option>
+                    <option value="dvd">DVD</option>
+                    <option value="revista">Revista</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group col-md-4">
-            <label for="ano_publicacao">Ano</label>
-            <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="id_genero">Gênero*</label>
+                <select id="id_genero" name="id_genero" class="form-control" required>
+                    <?php foreach ($generos as $genero): ?>
+                        <option value="<?= $genero['id_genero'] ?>"><?= htmlspecialchars($genero['nome_genero']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="id_categoria">Categoria*</label>
+                <select id="id_categoria" name="id_categoria" class="form-control" required>
+                    <?php foreach ($categorias as $categoria): ?>
+                        <option value="<?= $categoria['id_categoria'] ?>"><?= htmlspecialchars($categoria['nome_categoria']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
-        <div class="form-group col-md-4">
-            <label for="estoque">Estoque</label>
-            <input type="number" class="form-control" id="estoque" name="estoque" value="1" min="0">
+
+        <div class="form-group">
+            <label for="autor-search-input">Buscar Autores/Artistas</label>
+            <input type="text" id="autor-search-input" class="form-control" placeholder="Digite para buscar...">
+            <div id="autor-search-results"></div>
+            <div id="autores-selecionados-list" class="mt-2"></div>
         </div>
-    </div>
-   
-    <div class="form-row">
-        <div class="form-group col-md-4 campo-especifico" id="campo-isbn">
-            <label for="isbn">ISBN (Livro)</label>
-            <input type="text" class="form-control" id="isbn" name="isbn">
+
+        <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
         </div>
-        <div class="form-group col-md-4 campo-especifico" id="campo-duracao">
-            <label for="duracao_minutos">Duração (minutos) (CD/DVD)</label>
-            <input type="number" class="form-control" id="duracao_minutos" name="duracao_minutos">
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="editora_gravadora">Editora / Gravadora</label>
+                <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ano_publicacao">Ano</label>
+                <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="estoque">Estoque</label>
+                <input type="number" class="form-control" id="estoque" name="estoque" value="1" min="0">
+            </div>
         </div>
-        <div class="form-group col-md-4 campo-especifico" id="campo-edicao">
-            <label for="numero_edicao">Nº Edição (Revista)</label>
-            <input type="number" class="form-control" id="numero_edicao" name="numero_edicao">
+
+        <div class="form-row">
+            <div class="form-group col-md-4 campo-especifico" id="campo-isbn">
+                <label for="isbn">ISBN (Livro)</label>
+                <input type="text" class="form-control" id="isbn" name="isbn">
+            </div>
+            <div class="form-group col-md-4 campo-especifico" id="campo-duracao">
+                <label for="duracao_minutos">Duração (minutos) (CD/DVD)</label>
+                <input type="number" class="form-control" id="duracao_minutos" name="duracao_minutos">
+            </div>
+            <div class="form-group col-md-4 campo-especifico" id="campo-edicao">
+                <label for="numero_edicao">Nº Edição (Revista)</label>
+                <input type="number" class="form-control" id="numero_edicao" name="numero_edicao">
+            </div>
         </div>
-    </div>
- 
-    <button type="submit" class="btn btn-success">Salvar Item</button>
-    <a href="/backend/item/listar" class="btn btn-secondary">Cancelar</a>
-</form>
+
+        <button type="submit" class="btn btn-success">Salvar Item</button>
+        <a href="/backend/item/listar" class="btn btn-secondary">Cancelar</a>
+    </form>
 </div>
- 
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-   
-    // --- Lógica 1: Campos Condicionais (ISBN, etc.) ---
+    // Campos Condicionais
     const tipoSelect = document.getElementById('tipo_item');
     const campoIsbn = document.getElementById('campo-isbn');
     const campoDuracao = document.getElementById('campo-duracao');
     const campoEdicao = document.getElementById('campo-edicao');
- 
+
     function toggleCamposEspeciais() {
         const tipo = tipoSelect.value;
-        // Reseta todos
         campoIsbn.style.display = 'none';
         campoDuracao.style.display = 'none';
         campoEdicao.style.display = 'none';
- 
-        if (tipo === 'livro') {
-            campoIsbn.style.display = 'block';
-        } else if (tipo === 'cd' || tipo === 'dvd') {
-            campoDuracao.style.display = 'block';
-        } else if (tipo === 'revista') {
-            campoEdicao.style.display = 'block';
-        }
+
+        if (tipo === 'livro') campoIsbn.style.display = 'block';
+        else if (tipo === 'cd' || tipo === 'dvd') campoDuracao.style.display = 'block';
+        else if (tipo === 'revista') campoEdicao.style.display = 'block';
     }
+
     tipoSelect.addEventListener('change', toggleCamposEspeciais);
-    toggleCamposEspeciais(); // Roda na inicialização
- 
-    // --- Lógica 2: Busca de Autores (AJAX) ---
+    toggleCamposEspeciais();
+
+    // Preview da foto
+    document.getElementById('foto_item').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                document.getElementById('preview-foto').src = ev.target.result;
+                document.getElementById('btn-limpar').style.display = 'inline-block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    window.limparFoto = function() {
+        document.getElementById('foto_item').value = '';
+        document.getElementById('preview-foto').src = '/img/no-image.png';
+        document.getElementById('btn-limpar').style.display = 'none';
+    };
+
+    // Busca de autores (mantido seu código original)
     const searchInput = document.getElementById('autor-search-input');
     const searchResults = document.getElementById('autor-search-results');
     const selectedList = document.getElementById('autores-selecionados-list');
-   
     let debounceTimer;
- 
-    // Busca
+
     searchInput.addEventListener('keyup', () => {
         clearTimeout(debounceTimer);
         const termo = searchInput.value.trim();
-       
+        
         if (termo.length < 2) {
             searchResults.innerHTML = '';
             return;
         }
- 
+
         debounceTimer = setTimeout(() => {
             fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(termo)}`)
                 .then(response => response.json())
@@ -407,61 +419,35 @@ document.addEventListener('DOMContentLoaded', function() {
                         searchResults.appendChild(div);
                     });
                 });
-        }, 300); // 300ms de debounce
+        }, 300);
     });
- 
-    // Adiciona
+
     window.adicionarAutor = function(id, nome) {
-        // Verifica se já foi adicionado
         if (document.querySelector(`#autores-selecionados-list input[value="${id}"]`)) {
             searchInput.value = '';
             searchResults.innerHTML = '';
-            return; // Não adiciona duplicado
+            return;
         }
- 
-        // 1. Adiciona o "badge" visual
+
         const span = document.createElement('span');
         span.id = `autor-badge-${id}`;
-        span.innerHTML = `${nome} <button type="button" onclick="removerAutor(${id})">&times;</button>`;
+        span.innerHTML = `${nome} <button type="button" onclick="removerAutor(${id})">×</button>`;
         selectedList.appendChild(span);
- 
-        // 2. Adiciona o input hidden para o POST
+
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'autores_ids[]';
         input.value = id;
         input.id = `autor-input-${id}`;
         selectedList.appendChild(input);
- 
-        // Limpa a busca
+
         searchInput.value = '';
         searchResults.innerHTML = '';
-    }
- 
-    // Remove
+    };
+
     window.removerAutor = function(id) {
         document.getElementById(`autor-badge-${id}`).remove();
         document.getElementById(`autor-input-${id}`).remove();
-    }
- 
-    // Preview e limpeza da foto do item
-document.getElementById('foto_item').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-            document.getElementById('preview-foto').src = ev.target.result;
-            document.getElementById('btn-limpar').style.display = 'inline-block';
-        }
-        reader.readAsDataURL(file);
-    }
-});
- 
-function limparFoto() {
-    document.getElementById('foto_item').value = '';
-    document.getElementById('preview-foto').src = '/img/no-image.png';
-    document.getElementById('btn-limpar').style.display = 'none';
-}
+    };
 });
 </script>
-

@@ -486,38 +486,7 @@
             </a>
         </div>
 
-        <!-- Cards de Estatísticas -->
-        <div class="stats-grid">
-            <div class="stat-card blue">
-                <div class="stat-info">
-                    <h3>17</h3>
-                    <p>Categorias Ativas</p>
-                </div>
-                <i class="fas fa-tag stat-icon"></i>
-            </div>
-            <div class="stat-card orange">
-                <div class="stat-info">
-                    <h3>42</h3>
-                    <p>Itens no Estoque</p>
-                </div>
-                <i class="fas fa-box stat-icon"></i>
-            </div>
-            <div class="stat-card gray">
-                <div class="stat-info">
-                    <h3>0</h3>
-                    <p>Reservas do Mês</p>
-                </div>
-                <i class="fas fa-shopping-cart stat-icon"></i>
-            </div>
-            <div class="stat-card purple">
-                <div class="stat-info">
-                    <h3>R$ 0,00</h3>
-                    <p>Faturamento Mensal</p>
-                </div>
-                <i class="fas fa-dollar-sign stat-icon"></i>
-            </div>
-        </div>
-
+ 
         <!-- Alertas -->
         <div class="alerts-grid">
             <div class="alert-box warning">
@@ -538,7 +507,8 @@
             </div>
 
             <form action="/backend/item/atualizar" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id_item" value="<?= $item['id_item'] ?>">
+               <input type="hidden" name="id_item" value="<?= htmlspecialchars($item['id_item']) ?>">
+               <input type="hidden" name="foto_item_atual" value="<?= htmlspecialchars($item['foto_item'] ?? '') ?>">
 
                 <!-- Upload de Imagem -->
                 <div class="form-section">

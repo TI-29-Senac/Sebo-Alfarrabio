@@ -3,7 +3,7 @@
     --bege-primary: #D4B896;
     --bege-light: #E8DCCF;
     --bege-dark: #B89968;
-    --marrom: #8B6F47;
+    --marrom: #B89968;
     --verde: #6B8E23;
     --azul: #5B9BD5;
     --laranja: #F4A460;
@@ -172,6 +172,7 @@ body {
 }
 </style>
 
+
 <div class="itens-container">
     <h1><i class="fa fa-archive"></i> Gerenciamento de Itens do Sebo</h1>
 
@@ -181,6 +182,7 @@ body {
 
     <div class="card-deck">
         <div class="card">
+
             <div class="card-body">
                 <h5 class="card-title">Total de Itens</h5>
                 <p class="card-text"><?= $total_itens ?? 0 ?></p>
@@ -200,6 +202,39 @@ body {
         </div>
     </div>
 
+
+    <!-- Barra de Pesquisa de Itens -->
+<div class="search-container" style="margin-bottom: 20px;">
+    <form method="GET" action="/backend/item/listar" style="display: flex; gap: 10px; align-items: center;">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Pesquisar por título, autor, categoria, gênero ou ISBN..." 
+            value="<?= htmlspecialchars($termo_pesquisa ?? '') ?>"
+            style="flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;"
+        />
+        <button 
+            type="submit" 
+            style="padding: 10px 20px; background-color: #B89968; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;"
+        >
+            🔍 Pesquisar
+        </button>
+        <?php if (!empty($termo_pesquisa)): ?>
+        <a 
+            href="/backend/item/listar" 
+            style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: 600;"
+        >
+            ✕ Limpar
+        </a>
+        <?php endif; ?>
+    </form>
+    
+    <?php if (!empty($termo_pesquisa)): ?>
+    <p style="margin-top: 10px; color: #666; font-size: 14px;">
+        Resultados para: <strong><?= htmlspecialchars($termo_pesquisa) ?></strong>
+    </p>
+    <?php endif; ?>
+</div>
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -233,7 +268,7 @@ body {
                             
                             <td>
                                 <a href="/backend/item/editar/<?= $item['id_item'] ?>" class="btn-warning"><i class="fa fa-edit"></i></a>
-                                <a href="/backend/item/excluir/<?= $item['id_item'] ?>" class="btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="backend/item/excluir/<?= $item['id_item'] ?>" class="btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
