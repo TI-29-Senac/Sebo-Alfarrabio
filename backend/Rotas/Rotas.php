@@ -177,6 +177,7 @@ class Rotas
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
             ],
             
+            
             "POST" => [
                 // ========================================
                 // AUTENTICAÇÃO (post)

@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sebo & Livraria O Alfarrábio</title>
+  <title>Produtos - Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/modal.css">
 </head>
 <body>
 
-  <!-- HEADER ORIGINAL -->
+  <!-- HEADER -->
   <header>
     <img src="img/logo2.png" alt="Logo" class="logo">
     <h3 class="alfa">O Alfarrábio</h3>
@@ -22,50 +23,151 @@
         <li><a href="contato.html">Contato</a></li>
       </ul>
     </nav>
+
+    <!-- Botão do Carrinho -->
+    <button class="btn-carrinho" id="btn-ver-carrinho" aria-label="Ver carrinho">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
   </header>
 
-
-  <!-- Conteúdo Principal com Filtros e Produtos -->
+  <!-- Conteúdo Principal -->
   <div class="main-layout">
     <!-- Sidebar de Filtros -->
     <aside class="sidebar-filtros">
       <h3>Filtrar Produtos</h3>
       <form id="form-filtros">
-        <label for="busca">Buscar por Título:</label>
-        <input type="text" id="busca" name="busca" placeholder="Digite o título..." aria-describedby="busca-help">
+        <label for="search-input">Buscar:</label>
+        <input type="text" id="search-input" placeholder="Título ou autor..." />
 
-        <label for="genero">Gênero:</label>
-        <select id="genero" name="genero" aria-describedby="genero-help">
-          <option value="">Todos os Gêneros</option>
-          <!-- Opções carregadas via JS do BD -->
-        </select>
+        <label for="preco-slider">Preço máximo: <span id="preco-max">R$ 200</span></label>
+        <input type="range" id="preco-slider" min="0" max="200" value="200" step="1">
 
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" name="categoria" aria-describedby="categoria-help">
-          <option value="">Todas as Categorias</option>
+        <div class="filtro-grupo">
+          <label>Tipo:</label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="livro"> Livros
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="cd"> CDs
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="dvd"> DVDs
+          </label>
+        </div>
 
-          <!-- Opções carregadas via JS do BD -->
-        </select>
-
-        <button type="submit" id="btn-filtrar">Aplicar Filtros</button>
-        <a href="#" class="limpar-link" id="btn-limpar">Limpar Filtros</a>
+        <button type="button" id="btn-aplicar-filtros">Aplicar Filtros</button>
+        <button type="button" id="btn-limpar-filtros" class="btn-secundario">Limpar Filtros</button>
       </form>
-      <div class="contador" id="contador-resultados"></div>
+      <div class="contador" id="total-produtos">0 produtos encontrados</div>
     </aside>
 
     <!-- Grid de Produtos -->
-    <section class="container-p">
-      <div id="loading" class="loading hidden"></div>
-      <div id="erro" class="erro hidden"></div>
-      <div id="produtos-grid" class="produtos-lista">
-        <!-- Produtos renderizados via JS -->
-      </div>
-      <nav class="paginacao" id="paginacao" style="display: none;">
-        <!-- Paginação renderizada via JS -->
-      </nav>
+    <section class="container-p" id="produtos-grid">
+      <!-- Produtos renderizados via JS -->
     </section>
   </div>
 
+  <!-- MODAL DE DETALHES DO PRODUTO -->
+  <div class="modal-overlay" id="modal-produto">
+    <div class="modal-content modal-produto">
+      <button class="modal-close" aria-label="Fechar">&times;</button>
+      
+      <div class="modal-body">
+        <div class="modal-imagem">
+          <img id="modal-capa" src="" alt="Capa do produto">
+        </div>
+        
+        <div class="modal-info">
+          <h2 id="modal-titulo">Título do Produto</h2>
+          <p class="modal-autor" id="modal-autor">Autor</p>
+          <p class="modal-tipo" id="modal-tipo">Tipo</p>
+          
+          <div class="modal-preco-container">
+            <span class="modal-preco" id="modal-preco">R$ 0,00</span>
+          </div>
+          
+          <p class="modal-descricao" id="modal-descricao">
+            Descrição do produto...
+          </p>
+          
+          <div class="modal-detalhes">
+            <div class="detalhe-item">
+              <strong>Editora:</strong>
+              <span id="modal-editora">-</span>
+            </div>
+            <div class="detalhe-item">
+              <strong>Ano:</strong>
+              <span id="modal-ano">-</span>
+            </div>
+            <div class="detalhe-item">
+              <strong>ISBN:</strong>
+              <span id="modal-isbn">-</span>
+            </div>
+            <div class="detalhe-item">
+              <strong>Estoque:</strong>
+              <span id="modal-estoque">0</span>
+            </div>
+          </div>
+          
+          <div class="modal-acoes">
+            <button class="btn-primary" id="btn-add-carrinho">
+              Adicionar ao Carrinho
+            </button>
+            <button class="btn-comprar" id="btn-comprar">
+              Comprar Agora
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DO CARRINHO -->
+  <div class="modal-overlay" id="modal-carrinho">
+    <div class="modal-content modal-carrinho">
+      <button class="modal-close" aria-label="Fechar">&times;</button>
+      
+      <div class="modal-header">
+        <h2>Meu Carrinho</h2>
+      </div>
+      
+      <div class="modal-body">
+        <div id="carrinho-vazio" class="carrinho-vazio">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <p>Seu carrinho está vazio</p>
+        </div>
+        
+        <ul id="cart-items" class="cart-items">
+          <!-- Itens do carrinho renderizados via JS -->
+        </ul>
+        
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cart-total">R$ 0,00</span>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-secundario" id="btn-continuar-comprando">
+          Continuar Comprando
+        </button>
+        <button class="btn-primary" id="btn-finalizar-pedido">
+          Finalizar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container-footer">
       <div class="footer-nome">
@@ -73,43 +175,36 @@
         <h3>O Alfarrábio</h3>
       </div>
 
-      <div>
-        <div class="links">
-          <h4>Links</h4>
-          <ul>
+      <div class="links">
+        <h4>Links</h4>
+        <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="produtos.html">Produtos</a></li>
           <li><a href="sobre.html">Sobre</a></li>
           <li><a href="contato.html">Contato</a></li>
-          </ul>
-        </div>
+        </ul>
       </div>
 
-      <div>
-        <div class="footer-section">
-      <h4>Entre em contato</h4>
-      <p>contato@Oalfarrábio.com.br</p>
-      <p>São Miguel Paulista, São Paulo - SP</p>
-      <p>+55 (11) 93277-2737</p>
-      <p>+55 (11) 97317-8024</p>
+      <div class="footer-section">
+        <h4>Entre em contato</h4>
+        <p>contato@Oalfarrábio.com.br</p>
+        <p>São Miguel Paulista, São Paulo - SP</p>
+        <p>+55 (11) 93277-2737</p>
+        <p>+55 (11) 97317-8024</p>
       </div>
 
-      <div class=" footer-section footer-redes">
-        <h4 class="h4">Redes Sociais</h4>
+      <div class="footer-section footer-redes">
+        <h4>Redes Sociais</h4>
         <a href=""><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
         <a href=""><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
       </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
-      </div>
-
     </div>
 
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+    </div>
   </footer>
-    <script src="js/produtos.js" defer></script>
-<script src="js/carrinho.js" defer></script>
-<script src="js/pedidos.js" defer></script>
 
+  <script src="js/produtos.js"></script>
 </body>
 </html>

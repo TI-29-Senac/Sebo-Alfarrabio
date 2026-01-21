@@ -59,51 +59,6 @@
             font-size: 20px;
         }
 
-        /* Cards de estatísticas */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .stat-card.blue { border-left: 4px solid #2196F3; }
-        .stat-card.orange { border-left: 4px solid #FF9800; }
-        .stat-card.gray { border-left: 4px solid #9E9E9E; }
-        .stat-card.purple { border-left: 4px solid #9C27B0; }
-
-        .stat-info h3 {
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .stat-info p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .stat-icon {
-            font-size: 48px;
-            opacity: 0.15;
-        }
-
-        .stat-card.blue .stat-icon { color: #2196F3; }
-        .stat-card.orange .stat-icon { color: #FF9800; }
-        .stat-card.gray .stat-icon { color: #9E9E9E; }
-        .stat-card.purple .stat-icon { color: #9C27B0; }
-
         /* Alertas */
         .alerts-grid {
             display: grid;
@@ -225,6 +180,35 @@
             resize: vertical;
             min-height: 100px;
             font-family: inherit;
+        }
+
+        /* Campo de preço com ícone R$ */
+        .input-group {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .input-group-text {
+            background: linear-gradient(135deg, #c9a96e 0%, #b8935a 100%);
+            color: white;
+            padding: 12px 15px;
+            border: 2px solid #c9a96e;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .input-group .form-control {
+            border-radius: 0 8px 8px 0;
+            border-left: none;
+            flex: 1;
+        }
+
+        .input-group .form-control:focus {
+            border-left: 2px solid #c9a96e;
         }
 
         /* Upload de Imagem */
@@ -446,10 +430,6 @@
         }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .action-buttons {
                 grid-template-columns: 1fr;
             }
@@ -486,7 +466,6 @@
             </a>
         </div>
 
- 
         <!-- Alertas -->
         <div class="alerts-grid">
             <div class="alert-box warning">
@@ -518,8 +497,8 @@
                     </div>
 
                     <div class="image-upload-section">
-                        <div class="image-preview" id="image-preview" onclick="document.getElementById('imagem-input').click()">
-                            <img id="preview-img" src="" alt="Preview">
+                        <div class="image-preview <?= !empty($item['foto_item']) ? 'has-image' : '' ?>" id="image-preview" onclick="document.getElementById('imagem-input').click()">
+                            <img id="preview-img" src="<?= htmlspecialchars($item['foto_item'] ?? '') ?>" alt="Preview">
                             <div class="upload-placeholder">
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Clique para adicionar</p>
@@ -529,7 +508,7 @@
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
-                        <input type="file" id="imagem-input" name="imagem" accept="image/*" onchange="previewImagem(event)">
+                        <input type="file" id="imagem-input" name="foto_item" accept="image/*" onchange="previewImagem(event)">
 
                         <!-- Informações Básicas ao lado da imagem -->
                         <div>
@@ -643,6 +622,18 @@
 
                     <div class="form-row">
                         <div class="form-group">
+                            <label for="preco_item">
+                                Preço (R$)
+                                <span class="required">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">R$</span>
+                                <input type="number" class="form-control" id="preco_item" name="preco_item" 
+                                       step="0.01" min="0" value="<?= number_format((float)($item['preco_item'] ?? 0), 2, '.', '') ?>" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="editora_gravadora">Editora / Gravadora</label>
                             <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora" value="<?= htmlspecialchars($item['editora_gravadora']) ?>">
                         </div>
@@ -651,22 +642,17 @@
                             <label for="ano_publicacao">Ano de Publicação</label>
                             <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099" value="<?= (int)$item['ano_publicacao'] ?>">
                         </div>
-
-                        <div class="form-group">
-                            <label for="estoque">Quantidade em Estoque</label>
-                            <input type="number" class="form-control" id="estoque" name="estoque" min="0" value="<?= (int)$item['estoque'] ?>">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Campos Específicos -->
-                <div class="form-section">
-                    <div class="section-title">
-                        <i class="fas fa-cog"></i>
-                        Campos Específicos
                     </div>
 
                     <div class="form-row">
+                        <div class="form-group">
+                            <label for="estoque">
+                                Quantidade em Estoque
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-control" id="estoque" name="estoque" min="0" value="<?= (int)$item['estoque'] ?>" required>
+                        </div>
+
                         <div class="form-group campo-especifico" id="campo-isbn">
                             <label for="isbn">ISBN (Livro)</label>
                             <input type="text" class="form-control" id="isbn" name="isbn" value="<?= htmlspecialchars($item['isbn']) ?>">
@@ -690,7 +676,7 @@
                         <i class="fas fa-save"></i>
                         Salvar Alterações
                     </button>
-                    <a href="/item/listar" class="btn btn-secondary">
+                    <a href="/backend/item/listar" class="btn btn-secondary">
                         <i class="fas fa-times"></i>
                         Cancelar
                     </a>
@@ -724,6 +710,15 @@
             input.value = '';
             preview.classList.remove('has-image');
         }
+
+        // Formatação automática do preço
+        const precoInput = document.getElementById('preco_item');
+        precoInput.addEventListener('blur', function() {
+            const valor = parseFloat(this.value);
+            if (!isNaN(valor)) {
+                this.value = valor.toFixed(2);
+            }
+        });
 
         // Campos Condicionais
         const tipoSelect = document.getElementById('tipo_item');

@@ -5,11 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS na ordem correta -->
+  <link rel="stylesheet" href="css/body.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/banner.css">
+  <link rel="stylesheet" href="css/menu-secundario.css">
+  <link rel="stylesheet" href="css/categorias.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/novidades.css">
+  <link rel="stylesheet" href="css/sec-livros.css">
+  <link rel="stylesheet" href="css/espaco.css">
+  <link rel="stylesheet" href="css/sobre.css">
+  <link rel="stylesheet" href="css/depoimentos.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/produtos.css">
+  <link rel="stylesheet" href="css/contato.css">
+  <link rel="stylesheet" href="css/espaco-responsivo.css">
+  <link rel="stylesheet" href="css/responsivo.css">
+  <link rel="stylesheet" href="css/deshboard.css">
 </head>
 <body>
 
-  <!-- HEADER ORIGINAL -->
+  <!-- HEADER COM ÍCONE DE PERFIL -->
   <header>
     <img src="img/logo2.png" alt="Logo" class="logo">
     <h3 class="alfa">O Alfarrábio</h3>
@@ -22,6 +41,21 @@
         <li><a href="contato.html">Contato</a></li>
       </ul>
     </nav>
+
+    <!-- ÍCONE DE PERFIL NO CANTO SUPERIOR DIREITO -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/pedidos"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
   </header>
 
   <!-- BANNER -->
@@ -37,21 +71,21 @@
     </div>
   </section>
 
-  <!-- MENU SECUNDÁRIO (ABAIXO DO BANNER) -->
+  <!-- MENU SECUNDÁRIO -->
   <div class="menu-secundario">
     <nav>
       <ul class="menu-list">
-        <li><a href="#">Livros</a></li>
-        <li><a href="#">DVDs</a></li>
-        <li><a href="#">CDs</a></li>
-        <li><a href="#">Discos</a></li>
-        <li><a href="#">Revistas</a></li>
+        <li><a href="#"><i class="fas fa-book"></i> Livros</a></li>
+        <li><a href="#"><i class="fas fa-compact-disc"></i> DVDs</a></li>
+        <li><a href="#"><i class="fas fa-music"></i> CDs</a></li>
+        <li><a href="#"><i class="fas fa-record-vinyl"></i> Discos</a></li>
+        <li><a href="#"><i class="fas fa-newspaper"></i> Revistas</a></li>
       </ul>
       <a href="/backend/login" class="btn-cadastro">Cadastre-se</a>
     </nav>
   </div>
 
-  <!-- RESTANTE DO SITE (mantido igual) -->
+  <!-- CATEGORIAS -->
   <section class="categorias">
     <h3 class="cat">CATEGORIAS</h3>
     <div class="generos">
@@ -63,13 +97,14 @@
     </div>
   </section>
 
+  <!-- NOVIDADES -->
   <div class="container">
     <h3 class="novidade">NOVIDADES</h3>
     <section class="cards-novidades">
       <div class="card-livros">
         <div class="card-livro">
           <figure>
-            <img src="img/livro 1.jpg">
+            <img src="img/livro 1.jpg" alt="IT: A coisa">
             <figcaption class="figcaption-livro">
               <h2 class="name">IT: A coisa</h2>
               <small>Stephen King</small>
@@ -77,9 +112,10 @@
           </figure>
           <a href=""><p class="saiba-mais">Saiba Mais</p></a>
         </div>
+        
         <div class="card-livro">
           <figure>
-            <img src="img/livro 2.jpg">
+            <img src="img/livro 2.jpg" alt="Harry Potter">
             <figcaption class="figcaption-livro">
               <h2 class="name">Harry Potter <p>e a pedra filosofal</p></h2>
               <small>J.K Rowling</small>
@@ -87,9 +123,10 @@
           </figure>
           <a href=""><p class="saiba-mais">Saiba Mais</p></a>
         </div>
+        
         <div class="card-livro">
           <figure>
-            <img src="img/livro 3.jpg">
+            <img src="img/livro 3.jpg" alt="A Seleção">
             <figcaption class="figcaption-livro">
               <h2 class="name">A Seleção</h2>
               <small>Kiera Cass</small>
@@ -97,9 +134,10 @@
           </figure>
           <a href=""><p class="saiba-mais">Saiba Mais</p></a>
         </div>
+        
         <div class="card-livro">
           <figure>
-            <img src="img/livro 4.jpg">
+            <img src="img/livro 4.jpg" alt="O Príncipe Cruel">
             <figcaption class="figcaption-livro">
               <h2 class="name">O Principe Cruel</h2>
               <small>Holly Black</small>
@@ -107,9 +145,10 @@
           </figure>
           <a href=""><p class="saiba-mais">Saiba Mais</p></a>
         </div>
+        
         <div class="card-livro">
           <figure>
-            <img src="img/livro 5.jpg">
+            <img src="img/livro 5.jpg" alt="Quarta Asa">
             <figcaption class="figcaption-livro">
               <h2 class="name">Quarta Asa</h2>
               <small>Reecca Yarros</small>
@@ -121,174 +160,117 @@
     </section>
   </div>
 
-  <!-- (Espaço, Sobre, Depoimentos, Footer – tudo igual ao original) -->
-  <!-- ... (coloque aqui o restante do seu código original) ... -->
-
-
+  <!-- SEÇÃO LIVROS COM CARROSSEL -->
+  <section class="banner-area">
+    <div class="banner-overlay">
+      <h1 class="sec">Seção Livros</h1>
+      <p class="sec">Mergulhe na magia!</p>
+      <a href="#" class="btn-saiba">Saiba mais</a>
+    </div>
+  
+    <div class="carousel-container">
+      <button class="carousel-btn left" aria-label="Anterior">❮</button>
+  
+      <div class="carousel">
+        <div class="book-card">
+          <img src="img/livro1.png" alt="Livro de Colorir Funko Pop">
+          <h3>Livro de Colorir Funko Pop</h3>
+          <p class="preco">R$29,90</p>
+        </div>
+  
+        <div class="book-card">
+          <img src="img/livro2.png" alt="Filmes de Harry Potter">
+          <h3>Filmes de Harry Potter</h3>
+          <p class="preco">R$29,90</p>
+        </div>
+  
+        <div class="book-card">
+          <img src="img/livro3.png" alt="Natal em Hogwarts">
+          <h3>Natal em Hogwarts</h3>
+          <p class="preco">R$119,90</p>
+        </div>
+  
+        <div class="book-card">
+          <img src="img/livro4.png" alt="Um livro aí">
+          <h3>Um livro aí</h3>
+          <p class="preco">R$119,90</p>
+        </div>
+      </div>
+  
+      <button class="carousel-btn right" aria-label="Próximo">❯</button>
     </div>
   </section>
-</div>
 
- <!-- <section class="espaco">
-    <h3 class="titulo">NOSSO ESPAÇO</h3>
-    <div class="container-espaco"> 
-      <div class="coluna-central">
-        <div class="culuna-esquerda">
-          <img src="img/alfa 2.png" alt="imagem1" class="img-esquerda img-esquerda-1">
-          <img src="img/ChatGPT Image 25 de jun. de 2025, 09_09_46 (1).png" alt="imagem2"  class="img-esquerda img-esquerda-2">
-       </div>
-       <div class="cards-espaco">
-       <div class="card-central">
-        <figure>
-        <img src="img/espaco.png" alt="imagem3" class="img-central">
-        <figcaption class="figcaption-espaco">
-          <h3 class="titulo-interno">VENHA NOS VISITAR</h3>
-          <P>Estamos localizados na R. Salvador de Medeiros, 286 - São Miguel Paulista, São Paulo - SP</P>
-        </figcaption>
-      </figure>
+  <!-- SOBRE NÓS -->
+  <section class="sobre-p">
+    <h3 class="titulo-sobre">SOBRE NÓS</h3>
+    <div class="sobre">
+      <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre">
+      <div class="texto-sobre">
+        <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados. Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo diversificado e atendimento personalizado.</p>
+        <p>Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras e clássicos da literatura!</p>
       </div>
     </div>
-        <div class="culuna-direita">
-          <img src="img/alfa 3.png" alt="imagem4" class="img-direita img-direita-1">
-          <img src="img/alfa 5.png" alt="imagem5" class="img-direita img-direita-2">
-        </div>
-      </div>
-     </section>-->
+  </section>
 
-  </div>
-
-
-       <section class="banner-area">
-        <div class="banner-overlay">
-          <h1 class="sec">Seção Livros</h1>
-          <p class="sec">Mergulhe na magia!</p>
-          <a href="#" class="btn-saiba">Saiba mais</a>
-        </div>
-      
-        <div class="carousel-container">
-          <button class="carousel-btn left">❮</button>
-      
-          <div class="carousel">
-            CARD 1 
-             <div class="book-card">
-              <img src="img/livro1.png" alt="">
-              <h3>Livro de Colorir Funko Pop</h3>
-              <p class="preco">R$29,90</p>
-            </div>
-      
-            CARD 2 
-             <div class="book-card">
-              <img src="img/livro2.png" alt="">
-              <h3>Filmes de Harry Potter</h3>
-              <p class="preco">R$29,90</p>
-            </div> 
-      
-             CARD 3 
-            
-            <div class="book-card">
-              <img src="img/livro3.png" alt="">
-              <h3>Natal em Hogwarts</h3>
-              <p class="preco">R$119,90</p>
-            </div> 
-      
-             <div class="book-card">
-              <img src="img/livro4.png" alt="">
-              <h3>um livro ai</h3>
-              <p class="preco">R$119,90</p>
-            </div> 
-      
-            ADICIONE QUANTOS QUISER 
-           </div>  
-      
-           <button class="carousel-btn right">❯</button>
-        </div>
-      </section> 
-
-      <section class="sobre-p">
-        <h3 class="titulo-sobre">SOBRE NÓS</h3>
-      <div class="sobre">
-        <div class="sobre">
-         <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre">
-        <div class="texto-sobre">
-          <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados. Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo diversificado e atendimento personalizado.
-          Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras e clássicos da literatura!</p>
-          </div>
-          </div>
-          </section>
-
+  <!-- DEPOIMENTOS -->
   <section class="depoimentos">
     <h3 class="depoimento-titulo">DEPOIMENTOS</h3>
     <div class="depoimento-slider">
       <div class="depoimento-track">
-        <!-- Cards repetidos para efeito infinito -->
         <div class="depoimento-card">
           <img src="img/fotoperfil1.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Bom atendimento sempre tem os livros com os melhores preços e em bom estado</p>
           <cite class="citacao">- Juliana Ferreira</cite>
         </div>
+        
         <div class="depoimento-card">
           <img src="img/fotoperfil2.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Atendimento impecável, acervo incrível e preços justos. Um verdadeiro tesouro literário!</p>
           <cite class="citacao">- Carlos Pereira</cite>
         </div>
-        <!-- Repetição para efeito contínuo -->
+        
         <div class="depoimento-card">
           <img src="img/foroperfil4.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Sempre encontro o que procuro — e muitas vezes, o que nem sabia que precisava</p>
           <cite class="citacao">- Julia Santos</cite>
         </div>
+        
         <div class="depoimento-card">
           <img src="img/fotoperfil3.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Melhor sebo da cidade. Atendimento nota 10!</p>
           <cite class="citacao">- Luan Correia</cite>
         </div>
+        
         <div class="depoimento-card">
           <img src="img/fotoperfil5.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Encontrei uma edição antiga de Clarice Lispector que procurava há anos. Foi como achar um tesouro!</p>
           <cite class="citacao">- Maria Leite</cite>
         </div>
+        
         <div class="depoimento-card">
           <img src="img/fotoperfil6.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Visitei e já quero voltar. Que lugar especial!</p>
           <cite class="citacao">- Marcos Silva</cite>
         </div>
 
+        <!-- Duplicados para efeito infinito -->
         <div class="depoimento-card">
           <img src="img/fotoperfil1.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Bom atendimento sempre tem os livros com os melhores preços e em bom estado</p>
           <cite class="citacao">- Juliana Ferreira</cite>
         </div>
+        
         <div class="depoimento-card">
           <img src="img/fotoperfil2.jpg" alt="Foto de Perfil" class="foto-perfil">
           <p class="depoimento-texto">Atendimento impecável, acervo incrível e preços justos. Um verdadeiro tesouro literário!</p>
           <cite class="citacao">- Carlos Pereira</cite>
         </div>
-        <!-- Repetição para efeito contínuo -->
-        <div class="depoimento-card">
-          <img src="img/foroperfil4.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Sempre encontro o que procuro — e muitas vezes, o que nem sabia que precisava</p>
-          <cite class="citacao">- Julia Santos</cite>
-        </div>
-        <div class="depoimento-card">
-          <img src="img/fotoperfil3.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Melhor sebo da cidade. Atendimento nota 10!</p>
-          <cite class="citacao">- Luan Correia</cite>
-        </div>
-        <div class="depoimento-card">
-          <img src="img/fotoperfil5.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Encontrei uma edição antiga de Clarice Lispector que procurava há anos. Foi como achar um tesouro!</p>
-          <cite class="citacao">- Maria Leite</cite>
-        </div>
-        <div class="depoimento-card">
-          <img src="img/fotoperfil6.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Visitei e já quero voltar. Que lugar especial!</p>
-          <cite class="citacao">- Marcos Silva</cite>
-        </div>
-    
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container-footer">
       <div class="footer-nome">
@@ -300,36 +282,37 @@
         <div class="links">
           <h4>Links</h4>
           <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="produtos.html">Produtos</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
-          <li><a href="contato.html">Contato</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
           </ul>
         </div>
       </div>
 
       <div>
         <div class="footer-section">
-      <h4>Entre em contato</h4>
-      <p>contato@Oalfarrábio.com.br</p>
-      <p>São Miguel Paulista, São Paulo - SP</p>
-      <p>+55 (11) 93277-2737</p>
-      <p>+55 (11) 97317-8024</p>
+          <h4>Entre em contato</h4>
+          <p>contato@Oalfarrábio.com.br</p>
+          <p>São Miguel Paulista, São Paulo - SP</p>
+          <p>+55 (11) 93277-2737</p>
+          <p>+55 (11) 97317-8024</p>
+        </div>
       </div>
 
-      <div class=" footer-section footer-redes">
+      <div class="footer-section footer-redes">
         <h4 class="h4">Redes Sociais</h4>
         <a href=""><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
         <a href=""><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
       </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
-      </div>
-
     </div>
 
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+    </div>
   </footer>
+
   <script src="js/sec-livros.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

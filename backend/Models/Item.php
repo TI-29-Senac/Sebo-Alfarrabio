@@ -26,6 +26,13 @@ class Item {
     private $excluido_em;
     
     private $db;
+    private $autores_ids = []; // Array de IDs de autores associados
+    public $foto_item;
+    public $preco_item;
+    public $quantidade_item;
+    public $desconto_item;
+    private $itemModel;
+
 
     public function __construct($db){
         $this->db = $db;
@@ -164,13 +171,30 @@ class Item {
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_item', $id, PDO::PARAM_INT); 
         $stmt->execute();
-        $item = $stmt->fetch(PDO::FETCH_ASSOC);
+        $item = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if ($item) {
             $item['autores_ids'] = $this->buscarAutoresDoItem($id);
+            $item = $item[0];
+            $item += [
+                'foto_item' => $this->foto_item,
+                'preco_item' => $this->preco_item,
+                'quantidade_item' => $this->quantidade_item,
+                'desconto_item' => $this->desconto_item
+            ];
         }
         return $item;
     }
+
+    public function getItem() {
+  $id = $_GET['id'] ?? null;
+  if ($id) {
+    $item = $this->itemModel->buscarItemPorId((int)$id);
+  } else {
+    $item = $this->itemModel->buscarTodosItens();
+  }
+  echo json_encode(['status' => 'success', 'data' => $item]);
+}
 
     /**
      * Helper para buscar os IDs dos autores de um item

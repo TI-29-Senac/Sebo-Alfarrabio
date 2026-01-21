@@ -172,6 +172,35 @@
         box-shadow: 0 5px 15px rgba(141, 122, 94, 0.3);
     }
 
+    /* Campo de preço com ícone R$ */
+    .input-group {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+    }
+
+    .input-group-text {
+        background: linear-gradient(135deg, #c9a96e 0%, #b8935a 100%);
+        color: white;
+        padding: 12px 15px;
+        border: 2px solid #c9a96e;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .input-group .form-control {
+        border-radius: 0 8px 8px 0;
+        border-left: none;
+    }
+
+    .input-group .form-control:focus {
+        border-left: 2px solid #c9a96e;
+    }
+
     /* Estilos para a busca de autores */
     #autor-search-results {
         border: 2px solid #e0d4c0;
@@ -233,6 +262,12 @@
         display: none;
     }
 
+    /* Destaque para campos obrigatórios */
+    .required {
+        color: #dc6b6b;
+        margin-left: 3px;
+    }
+
     @media (max-width: 768px) {
         .form-row {
             flex-direction: column;
@@ -269,11 +304,11 @@
 
         <div class="form-row">
             <div class="form-group col-md-8">
-                <label for="titulo_item">Título*</label>
+                <label for="titulo_item">Título<span class="required">*</span></label>
                 <input type="text" class="form-control" id="titulo_item" name="titulo_item" required>
             </div>
             <div class="form-group col-md-4">
-                <label for="tipo_item">Tipo de Item*</label>
+                <label for="tipo_item">Tipo de Item<span class="required">*</span></label>
                 <select id="tipo_item" name="tipo_item" class="form-control" required>
                     <option value="" selected disabled>Selecione...</option>
                     <option value="livro">Livro</option>
@@ -286,7 +321,7 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="id_genero">Gênero*</label>
+                <label for="id_genero">Gênero<span class="required">*</span></label>
                 <select id="id_genero" name="id_genero" class="form-control" required>
                     <?php foreach ($generos as $genero): ?>
                         <option value="<?= $genero['id_genero'] ?>"><?= htmlspecialchars($genero['nome_genero']) ?></option>
@@ -294,7 +329,7 @@
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="id_categoria">Categoria*</label>
+                <label for="id_categoria">Categoria<span class="required">*</span></label>
                 <select id="id_categoria" name="id_categoria" class="form-control" required>
                     <?php foreach ($categorias as $categoria): ?>
                         <option value="<?= $categoria['id_categoria'] ?>"><?= htmlspecialchars($categoria['nome_categoria']) ?></option>
@@ -317,6 +352,14 @@
 
         <div class="form-row">
             <div class="form-group col-md-4">
+                <label for="preco_item">Preço (R$)<span class="required">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input type="number" class="form-control" id="preco_item" name="preco_item" 
+                           step="0.01" min="0" value="0.00" required>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
                 <label for="editora_gravadora">Editora / Gravadora</label>
                 <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora">
             </div>
@@ -324,13 +367,13 @@
                 <label for="ano_publicacao">Ano</label>
                 <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099">
             </div>
-            <div class="form-group col-md-4">
-                <label for="estoque">Estoque</label>
-                <input type="number" class="form-control" id="estoque" name="estoque" value="1" min="0">
-            </div>
         </div>
 
         <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="estoque">Estoque<span class="required">*</span></label>
+                <input type="number" class="form-control" id="estoque" name="estoque" value="1" min="0" required>
+            </div>
             <div class="form-group col-md-4 campo-especifico" id="campo-isbn">
                 <label for="isbn">ISBN (Livro)</label>
                 <input type="text" class="form-control" id="isbn" name="isbn">
@@ -391,7 +434,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('btn-limpar').style.display = 'none';
     };
 
-    // Busca de autores (mantido seu código original)
+    // Formatação automática do preço
+    const precoInput = document.getElementById('preco_item');
+    precoInput.addEventListener('blur', function() {
+        const valor = parseFloat(this.value);
+        if (!isNaN(valor)) {
+            this.value = valor.toFixed(2);
+        }
+    });
+
+    // Busca de autores
     const searchInput = document.getElementById('autor-search-input');
     const searchResults = document.getElementById('autor-search-results');
     const selectedList = document.getElementById('autores-selecionados-list');

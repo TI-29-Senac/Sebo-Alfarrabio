@@ -153,6 +153,7 @@ class ItemController extends AdminController {
             'ano_publicacao'    => !empty($_POST['ano_publicacao']) ? (int)$_POST['ano_publicacao'] : null,
             'editora_gravadora' => $_POST['editora_gravadora'] ?? null,
             'estoque'           => (int)($_POST['estoque'] ?? 1),
+            'preco_item'        => !empty($_POST['preco_item']) ? (float)$_POST['preco_item'] : 0.00,
             'isbn'              => $_POST['isbn'] ?? null,
             'duracao_minutos'   => !empty($_POST['duracao_minutos']) ? (int)$_POST['duracao_minutos'] : null,
             'numero_edicao'     => !empty($_POST['numero_edicao']) ? (int)$_POST['numero_edicao'] : null,
@@ -171,75 +172,76 @@ class ItemController extends AdminController {
     }
 
     /**
- * Processa o formulário de atualização de item.
- */
-public function atualizarItem()
-{
-    $id_item = (int)($_POST["id_item"] ?? 0);
-    if ($id_item <= 0) {
-        Redirect::redirecionarComMensagem("/backend/item/listar", "error", "ID do item inválido.");
-        return;
-    }
+     * Processa o formulário de atualização de item.
+     */
+    public function atualizarItem()
+    {
+        $id_item = (int)($_POST["id_item"] ?? 0);
+        if ($id_item <= 0) {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "error", "ID do item inválido.");
+            return;
+        }
 
-    // =======================================
-    //   TRATAMENTO DO UPLOAD DA FOTO (NOVO!)
-    // =======================================
-    $fotoPath = $_POST['foto_item_atual'] ?? null; // caminho antigo (se existir hidden input)
+        // =======================================
+        //   TRATAMENTO DO UPLOAD DA FOTO
+        // =======================================
+        $fotoPath = $_POST['foto_item_atual'] ?? null;
 
-    if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === UPLOAD_ERR_OK) {
-        $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
-        $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
+        if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === UPLOAD_ERR_OK) {
+            $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
+            $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
 
-        if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) { // 5MB
-            $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
-            $pasta = 'uploads/itens/';
-            if (!is_dir($pasta)) {
-                mkdir($pasta, 0777, true);
-            }
-            $caminho = $pasta . $nome;
+            if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
+                $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
+                $pasta = 'uploads/itens/';
+                if (!is_dir($pasta)) {
+                    mkdir($pasta, 0777, true);
+                }
+                $caminho = $pasta . $nome;
 
-            if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
-                $fotoPath = '/' . $caminho;
+                if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
+                    $fotoPath = '/' . $caminho;
 
-                // Opcional: apagar foto antiga se existir e for diferente
-                if (!empty($_POST['foto_item_atual']) && file_exists(ltrim($_POST['foto_item_atual'], '/'))) {
-                    @unlink(ltrim($_POST['foto_item_atual'], '/'));
+                    // Apagar foto antiga se existir
+                    if (!empty($_POST['foto_item_atual']) && file_exists(ltrim($_POST['foto_item_atual'], '/'))) {
+                        @unlink(ltrim($_POST['foto_item_atual'], '/'));
+                    }
                 }
             }
         }
-    }
 
-    // =======================================
-    //          DADOS DO ITEM
-    // =======================================
-    $dadosItem = [
-        'titulo_item'       => $_POST["titulo_item"] ?? '',
-        'tipo_item'         => $_POST["tipo_item"] ?? '',
-        'id_genero'         => (int)($_POST["id_genero"] ?? 0),
-        'id_categoria'      => (int)($_POST["id_categoria"] ?? 0),
-        'descricao'         => $_POST["descricao"] ?? null,
-        'ano_publicacao'    => !empty($_POST["ano_publicacao"]) ? (int)$_POST["ano_publicacao"] : null,
-        'editora_gravadora' => $_POST["editora_gravadora"] ?? null,
-        'estoque'           => (int)($_POST["estoque"] ?? 1),
-        'isbn'              => $_POST["isbn"] ?? null,
-        'duracao_minutos'   => !empty($_POST["duracao_minutos"]) ? (int)$_POST["duracao_minutos"] : null,
-        'numero_edicao'     => !empty($_POST["numero_edicao"]) ? (int)$_POST["numero_edicao"] : null,
-        'foto_item'         => $fotoPath,   // ← aqui vai o novo ou o antigo
-    ];
+        // =======================================
+        //          DADOS DO ITEM
+        // =======================================
+        $dadosItem = [
+            'titulo_item'       => $_POST["titulo_item"] ?? '',
+            'tipo_item'         => $_POST["tipo_item"] ?? '',
+            'id_genero'         => (int)($_POST["id_genero"] ?? 0),
+            'id_categoria'      => (int)($_POST["id_categoria"] ?? 0),
+            'descricao'         => $_POST["descricao"] ?? null,
+            'ano_publicacao'    => !empty($_POST["ano_publicacao"]) ? (int)$_POST["ano_publicacao"] : null,
+            'editora_gravadora' => $_POST["editora_gravadora"] ?? null,
+            'estoque'           => (int)($_POST["estoque"] ?? 1),
+            'preco_item'        => !empty($_POST["preco_item"]) ? (float)$_POST["preco_item"] : 0.00,
+            'isbn'              => $_POST["isbn"] ?? null,
+            'duracao_minutos'   => !empty($_POST["duracao_minutos"]) ? (int)$_POST["duracao_minutos"] : null,
+            'numero_edicao'     => !empty($_POST["numero_edicao"]) ? (int)$_POST["numero_edicao"] : null,
+            'foto_item'         => $fotoPath,
+        ];
 
-    $autores_ids = $_POST["autores_ids"] ?? [];
-    $autores_ids = array_map('intval', $autores_ids);
+        $autores_ids = $_POST["autores_ids"] ?? [];
+        $autores_ids = array_map('intval', $autores_ids);
 
-    if ($this->item->atualizarItem($id_item, $dadosItem, $autores_ids)) {
-        Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item atualizado com sucesso!");
-    } else {
-        // Se deu erro e subiu foto nova → tenta apagar para não ficar lixo no servidor
-        if ($fotoPath && $fotoPath !== ($_POST['foto_item_atual'] ?? null) && file_exists(ltrim($fotoPath, '/'))) {
-            @unlink(ltrim($fotoPath, '/'));
+        if ($this->item->atualizarItem($id_item, $dadosItem, $autores_ids)) {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item atualizado com sucesso!");
+        } else {
+            // Se deu erro e subiu foto nova
+            if ($fotoPath && $fotoPath !== ($_POST['foto_item_atual'] ?? null) && file_exists(ltrim($fotoPath, '/'))) {
+                @unlink(ltrim($fotoPath, '/'));
+            }
+            Redirect::redirecionarComMensagem("/backend/item/editar/$id_item", "error", "Erro ao atualizar item.");
         }
-        Redirect::redirecionarComMensagem("/backend/item/editar/$id_item", "error", "Erro ao atualizar item.");
     }
-}
 
     /**
      * Processa a exclusão (soft delete)
@@ -309,9 +311,3 @@ public function atualizarItem()
         exit;
     }
 }
-
-
-
-
-
-
