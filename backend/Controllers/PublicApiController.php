@@ -183,6 +183,8 @@ class PublicApiController {
         $possiveisCaminhos = [
             $foto_item,                                    // Como está no banco
             '/backend/uploads/' . basename($foto_item),     // /backend/uploads/nome.jpg
+            '/backend/uploads/itens/' . basename($foto_item),     // /backend/uploads/itens/nome.jpg
+            
 
         ];
 

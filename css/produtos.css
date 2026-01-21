@@ -580,7 +580,7 @@
    ======================================== */
 
 .card-livro {
-  background: linear-gradient(to bottom, #ffffff, #fafaf8);
+  background: linear-gradient(to bottom, #c8b896, #c8b896);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12);
@@ -617,13 +617,13 @@
 
 .card-imagem {
   position: relative;
-  height: 380px;
+  height: 360px;
   overflow: hidden;
-  background: linear-gradient(135deg, #f5f3f0, #e8dcc4);
+  
 }
 
 .card-imagem img {
-  width: 100%;
+  width: 90%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
