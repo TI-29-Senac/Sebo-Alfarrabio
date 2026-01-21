@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos - Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/modal.css">
+  
 </head>
 <body>
 
@@ -24,6 +25,21 @@
       </ul>
     </nav>
 
+    <!-- Ícone de Perfil do Usuário -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/pedidos"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
+
     <!-- Botão do Carrinho -->
     <button class="btn-carrinho" id="btn-ver-carrinho" aria-label="Ver carrinho">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -39,31 +55,27 @@
   <div class="main-layout">
     <!-- Sidebar de Filtros -->
     <aside class="sidebar-filtros">
-      <h3>Filtrar Produtos</h3>
-      <form id="form-filtros">
-        <label for="search-input">Buscar:</label>
-        <input type="text" id="search-input" placeholder="Título ou autor..." />
+      <h3>🔍 Filtros</h3>
+      
+      <label for="search-input">📖 Buscar Produto</label>
+      <input type="text" id="search-input" placeholder="Título ou autor..." />
 
-        <label for="preco-slider">Preço máximo: <span id="preco-max">R$ 200</span></label>
-        <input type="range" id="preco-slider" min="0" max="200" value="200" step="1">
+      <label for="genero-select">🏷️ Gênero</label>
+      <select id="genero-select">
+        <option value="">Todos os Gêneros</option>
+      </select>
 
-        <div class="filtro-grupo">
-          <label>Tipo:</label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="livro"> Livros
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="cd"> CDs
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="dvd"> DVDs
-          </label>
-        </div>
+      <label for="categoria-select">📚 Categoria</label>
+      <select id="categoria-select">
+        <option value="">Todas as Categorias</option>
+      </select>
 
-        <button type="button" id="btn-aplicar-filtros">Aplicar Filtros</button>
-        <button type="button" id="btn-limpar-filtros" class="btn-secundario">Limpar Filtros</button>
-      </form>
-      <div class="contador" id="total-produtos">0 produtos encontrados</div>
+      <button type="button" id="btn-aplicar-filtros">✓ Aplicar Filtros</button>
+      <button type="button" id="btn-limpar-filtros" class="btn-secundario">✕ Limpar Filtros</button>
+
+      <div class="contador" id="total-produtos">
+        <i class="fas fa-box-open"></i> 0 produtos encontrados
+      </div>
     </aside>
 
     <!-- Grid de Produtos -->

@@ -1,191 +1,509 @@
-.sobre{
+/* ========================================
+   PÁGINA SOBRE - SEBO O ALFARRÁBIO
+   CSS Melhorado e Profissional
+   ======================================== */
+
+/* ========================================
+   SEÇÃO SOBRE (HOME)
+   ======================================== */
+
+.sobre {
     display: flex;
-    flex-direction: row; /* Alinha imagem e texto lado a lado */
-    align-items: center;  /* Centraliza verticalmente */
-    background-color: #fffcfc;
-    padding: 20px 5px 15px 5px;
-    border-radius: 10px; 
-    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff, #fdfbf7);
+    padding: 40px 30px;
+    border-radius: 16px;
+    margin: 40px auto;
     max-width: 1200px;
-    margin-bottom: 20px;
+    box-shadow: 0 8px 30px rgba(139, 115, 85, 0.1);
+    border: 1px solid rgba(189, 144, 86, 0.1);
     position: relative;
-    justify-content: center;
+    overflow: hidden;
 }
 
+.sobre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(189, 144, 86, 0.03), transparent);
+    pointer-events: none;
+}
 
-.img-sobre{
-    width: 400px;
+.img-sobre {
+    width: 420px;
     height: auto;
-    border-radius: 10px;
-    margin-left: 30px; /* Espaço entre imagem e texto */
+    border-radius: 16px;
+    margin-left: 30px;
+    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    object-fit: cover;
 }
 
-.texto-sobre{
-    flex: 1; /* Ocupa o espaço restante */
+.img-sobre:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.3);
+}
+
+.texto-sobre {
+    flex: 1;
     font-family: 'Merriweather', serif;
     font-weight: 400;
     font-size: 18px;
-    line-height: 1.6;
-    color: #361800;
-    text-align: left;
-    padding:20px;
-    max-width: 800px;
+    line-height: 1.8;
+    color: #4a3f35;
+    text-align: justify;
+    padding: 20px 40px;
+    max-width: 700px;
+    position: relative;
+}
 
+.texto-sobre p {
+    margin-bottom: 1.2em;
 }
 
 .titulo-sobre {
-   font-size: 2.2rem;
-    font-weight: bold;
+    font-size: 3rem;
+    font-weight: 700;
     font-family: 'Merriweather', serif;
-    text-decoration: none;
     color: #a87e4b;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    margin-top: 20px; /* Espaço acima do título */
+    margin: 60px 0 30px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-
-
-/* Sobre Página */
-
-.texto-sobre-pag {
-    flex: 1; /* Ocupa o espaço restante */
-    font-family: 'Merriweather', serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #361800;
-    text-align: left;
-    padding: 20px;
-    max-width: 800px;
+.titulo-sobre::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #a87e4b, transparent);
+    border-radius: 2px;
 }
 
-.img-sobre-pag {
-    width: 400px;
-    height: auto;
-    border-radius: 20px;
-    margin-right: 30px; /* Espaço entre imagem e texto */
-}
+/* ========================================
+   PÁGINA SOBRE - SEÇÃO PRINCIPAL
+   ======================================== */
 
 .sobre-pag {
     display: flex;
-    flex-direction: row; /* Alinha imagem e texto lado a lado */
-    align-items: center;  /* Centraliza verticalmente */
-    background-color: #fffcfc;
-    padding: 20px;
-    border-radius: 10px; 
-    margin: 0 auto;
-    max-width: 1200px;
-    box-shadow: 0 2px 5px rgba(55, 27, 0, 0.441);
-    margin-bottom: 20px;
-    position: relative;
-    top: 0;
-    left: 0;
-}
-.titulo-pag {
-    font-size: 1.9em;
-    font-weight: bold;
-    font-family: 'Merriweather', serif;
-    text-decoration: none;
-    color: #a87e4b;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
-    
+    background: linear-gradient(135deg, #ffffff, #fdfbf7);
+    padding: 50px 40px;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.12);
+    border: 1px solid rgba(189, 144, 86, 0.15);
+    position: relative;
+    overflow: hidden;
 }
 
-
-.equipe{
-     background-color: #e1c39f;
-    padding: 20px;
-    border-radius: 10px;
+.sobre-pag::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(189, 144, 86, 0.05) 0%, transparent 70%);
+    pointer-events: none;
 }
 
-.texto-equipe-pag {
-    flex: 1; /* Ocupa o espaço restante */
-    font-family: 'Merriweather', serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #361800;
-    text-align: left;
-    padding: 20px;
-    max-width: 800px;
-    margin-right: 30px; /* Espaço entre texto e imagem */
-    position: relative; /* Permite o uso de 'left' */
-    left: -650px; /* Ajuste a posição horizontal do texto */
-    display: flex;
-}
-
-.img-equipe-pag {
-    width: 400px;
+.img-sobre-pag {
+    width: 450px;
     height: auto;
     border-radius: 20px;
-    margin-right: 30px; /* Espaço entre imagem e texto */
-    position: relative; /* Permite o uso de 'right' */
-    right: -480px;
+    margin-right: 50px;
+    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.25);
+    transition: all 0.4s ease;
+    object-fit: cover;
+    border: 3px solid rgba(189, 144, 86, 0.1);
+}
+
+.img-sobre-pag:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.35);
+}
+
+.texto-sobre-pag {
+    flex: 1;
+    font-family: 'Merriweather', serif;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.9;
+    color: #4a3f35;
+    text-align: justify;
+    padding: 20px 0;
+    max-width: 650px;
+}
+
+.texto-sobre-pag p {
+    margin-bottom: 1.5em;
+    text-indent: 2em;
+}
+
+.titulo-pag {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+    color: #a87e4b;
+    text-align: center;
+    margin: 50px 0 30px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.titulo-pag::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #a87e4b, transparent);
+    border-radius: 2px;
+}
+
+/* ========================================
+   SEÇÃO EQUIPE
+   ======================================== */
+
+.equipe {
+    background: linear-gradient(135deg, #e8d5be, #d4c5a9);
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin: 50px auto;
+    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.equipe::before {
+    content: '📚';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 80px;
+    opacity: 0.1;
 }
 
 .equipe-pag {
     display: flex;
-    flex-direction: row; /* Alinha imagem e texto lado a lado */
-    align-items: center;  /* Centraliza verticalmente */
-    padding: 20px;
-    border-radius: 10px; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    border-radius: 16px;
     margin: 0 auto;
-    max-width: 1200px;
-    margin-bottom: 20px;
-    position: relative;
-    justify-content: left;
-    align-items: left;
-    left: 15%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 20px rgba(139, 115, 85, 0.1);
+    gap: 50px;
 }
+
+.img-equipe-pag {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.3);
+    border: 5px solid white;
+    transition: all 0.4s ease;
+    flex-shrink: 0;
+}
+
+.img-equipe-pag:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.4);
+}
+
+.texto-equipe-pag {
+    flex: 1;
+    font-family: 'Merriweather', serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.8;
+    color: #4a3f35;
+    text-align: center;
+    padding: 30px;
+    max-width: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(139, 115, 85, 0.1);
+    position: relative;
+}
+
+.texto-equipe-pag::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 60px;
+    color: rgba(189, 144, 86, 0.3);
+    font-family: Georgia, serif;
+}
+
+.texto-equipe-pag p {
+    font-style: italic;
+    color: #5a4a3a;
+}
+
+/* ========================================
+   CARROSSEL DE IMAGENS
+   ======================================== */
 
 .carrossel-container {
     width: 100%;
     overflow: hidden;
     position: relative;
-      margin-top: 20px;
-      margin-bottom: 20px;
-  }
-  
-  .carrossel {
-    display: flex;
-    animation: slide 10s linear infinite;
-  }
-  
-  .carrossel img {
-    width: 600px;
-    height: auto;
-    margin-right: 20px;
-    border-radius: 10px;
-    padding: 10px;
+    margin: 60px 0;
+    background: linear-gradient(to bottom, #f9f7f4, #ffffff);
+    padding: 50px 0;
+    border-radius: 20px;
+    box-shadow: inset 0 5px 20px rgba(139, 115, 85, 0.05);
 }
 
-.carrossel-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
- 
-  .carrossel {
-    display: flex;
-    animation: slide 10s linear infinite;
-  }
- 
-  .carrossel img {
-    width: 600px;
-    height: auto;
-    margin-right: 20px;
-    border-radius: 10px;
-  }
- 
-  /* Animação infinita */
-  @keyframes slide {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+.carrossel-container .titulo-pag {
+    margin-top: 0;
+    margin-bottom: 40px;
+}
 
+.carrossel {
+    display: flex;
+    animation: slide 30s linear infinite;
+    gap: 20px;
+}
+
+.carrossel:hover {
+    animation-play-state: paused;
+}
+
+.carrossel img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(139, 115, 85, 0.2);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    border: 3px solid white;
+}
+
+.carrossel img:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.35);
+    z-index: 10;
+}
+
+/* Animação infinita */
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ========================================
+   ELEMENTOS DECORATIVOS
+   ======================================== */
+
+.sobre-pag::after,
+.equipe::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(189, 144, 86, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .sobre,
+    .sobre-pag {
+        padding: 30px 25px;
+    }
+
+    .img-sobre,
+    .img-sobre-pag {
+        width: 350px;
+    }
+
+    .texto-sobre,
+    .texto-sobre-pag {
+        font-size: 17px;
+    }
+
+    .equipe-pag {
+        gap: 30px;
+    }
+
+    .img-equipe-pag {
+        width: 300px;
+        height: 300px;
+    }
+
+    .carrossel img {
+        width: 500px;
+        height: 350px;
+    }
+}
+
+/* Tablets pequenos e Mobile */
+@media (max-width: 768px) {
+    .sobre,
+    .sobre-pag,
+    .equipe-pag {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .img-sobre,
+    .img-sobre-pag {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 0 30px 0;
+    }
+
+    .img-equipe-pag {
+        width: 250px;
+        height: 250px;
+        margin: 0 0 30px 0;
+    }
+
+    .texto-sobre,
+    .texto-sobre-pag,
+    .texto-equipe-pag {
+        padding: 20px;
+        max-width: 100%;
+        text-align: justify;
+    }
+
+    .titulo-sobre {
+        font-size: 2.2rem;
+        margin: 40px 0 20px;
+    }
+
+    .titulo-pag {
+        font-size: 2rem;
+        margin: 30px 0 20px;
+    }
+
+    .equipe {
+        padding: 40px 15px;
+    }
+
+    .carrossel img {
+        width: 90vw;
+        height: auto;
+        min-height: 250px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .titulo-sobre {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    .titulo-pag {
+        font-size: 1.6rem;
+    }
+
+    .texto-sobre,
+    .texto-sobre-pag {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .texto-equipe-pag {
+        font-size: 17px;
+    }
+
+    .img-equipe-pag {
+        width: 200px;
+        height: 200px;
+    }
+
+    .carrossel img {
+        width: 85vw;
+    }
+}
+
+/* ========================================
+   MELHORIAS DE ACESSIBILIDADE
+   ======================================== */
+
+/* Redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+    .carrossel {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus para navegação por teclado */
+.carrossel img:focus {
+    outline: 3px solid rgba(189, 144, 86, 0.5);
+    outline-offset: 5px;
+}
+
+/* ========================================
+   ANIMAÇÕES DE ENTRADA
+   ======================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sobre,
+.sobre-pag,
+.equipe {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ========================================
+   HOVER EFFECTS EXTRAS
+   ======================================== */
+
+.texto-sobre-pag:hover,
+.texto-equipe-pag:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
+}

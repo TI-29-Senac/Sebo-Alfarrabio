@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sebo & Livraria O Alfarrábio</title>
+  <title>Contato - Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
     <img src="img/logo2.png" alt="Logo" class="logo">
+    <h3 class="alfa">O Alfarrábio</h3>
+    
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -18,7 +21,21 @@
         <li><a href="contato.html">Contato</a></li>
       </ul>
     </nav>
-    
+
+    <!-- Ícone de Perfil do Usuário -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/pedidos"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
   </header>
 
   <main>

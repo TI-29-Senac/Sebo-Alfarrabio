@@ -8,23 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- CSS na ordem correta -->
-  <link rel="stylesheet" href="css/body.css">
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/banner.css">
-  <link rel="stylesheet" href="css/menu-secundario.css">
-  <link rel="stylesheet" href="css/categorias.css">
-  <link rel="stylesheet" href="css/cards.css">
-  <link rel="stylesheet" href="css/novidades.css">
-  <link rel="stylesheet" href="css/sec-livros.css">
-  <link rel="stylesheet" href="css/espaco.css">
-  <link rel="stylesheet" href="css/sobre.css">
-  <link rel="stylesheet" href="css/depoimentos.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/produtos.css">
-  <link rel="stylesheet" href="css/contato.css">
-  <link rel="stylesheet" href="css/espaco-responsivo.css">
-  <link rel="stylesheet" href="css/responsivo.css">
-  <link rel="stylesheet" href="css/deshboard.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -161,46 +145,38 @@
   </div>
 
   <!-- SEÇÃO LIVROS COM CARROSSEL -->
-  <section class="banner-area">
-    <div class="banner-overlay">
-      <h1 class="sec">Seção Livros</h1>
-      <p class="sec">Mergulhe na magia!</p>
-      <a href="#" class="btn-saiba">Saiba mais</a>
-    </div>
-  
-    <div class="carousel-container">
-      <button class="carousel-btn left" aria-label="Anterior">❮</button>
-  
-      <div class="carousel">
-        <div class="book-card">
-          <img src="img/livro1.png" alt="Livro de Colorir Funko Pop">
-          <h3>Livro de Colorir Funko Pop</h3>
-          <p class="preco">R$29,90</p>
-        </div>
-  
-        <div class="book-card">
-          <img src="img/livro2.png" alt="Filmes de Harry Potter">
-          <h3>Filmes de Harry Potter</h3>
-          <p class="preco">R$29,90</p>
-        </div>
-  
-        <div class="book-card">
-          <img src="img/livro3.png" alt="Natal em Hogwarts">
-          <h3>Natal em Hogwarts</h3>
-          <p class="preco">R$119,90</p>
-        </div>
-  
-        <div class="book-card">
-          <img src="img/livro4.png" alt="Um livro aí">
-          <h3>Um livro aí</h3>
-          <p class="preco">R$119,90</p>
+  <!-- SEÇÃO LIVROS COM CARROSSEL (DADOS DO BANCO) -->
+<section class="banner-area">
+  <div class="banner-overlay">
+    <h1 class="sec">Seção Livros</h1>
+    <p class="sec">Mergulhe na magia!</p>
+    <a href="produtos.html" class="btn-saiba">Saiba mais</a>
+  </div>
+
+  <div class="carousel-container">
+    <button class="carousel-btn left" aria-label="Anterior">◀</button>
+
+    <div class="carousel">
+      <!-- Os cards serão carregados dinamicamente via JavaScript -->
+      <div class="book-card" style="min-width: 220px; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center; color: #666;">
+          <div style="font-size: 40px; margin-bottom: 10px;">📦</div>
+          <p>Carregando...</p>
         </div>
       </div>
-  
-      <button class="carousel-btn right" aria-label="Próximo">❯</button>
     </div>
-  </section>
 
+    <button class="carousel-btn right" aria-label="Próximo">▶</button>
+  </div>
+</section>
+
+<!-- Script do carrossel (escolha uma das opções abaixo) -->
+
+<!-- OPÇÃO 1: Script que carrega do banco de dados -->
+<script src="js/sec-livros-db.js"></script>
+
+<!-- OPÇÃO 2: Script original (estático) - comente se usar a opção 1 -->
+<!-- <script src="js/sec-livros.js"></script> -->
   <!-- SOBRE NÓS -->
   <section class="sobre-p">
     <h3 class="titulo-sobre">SOBRE NÓS</h3>

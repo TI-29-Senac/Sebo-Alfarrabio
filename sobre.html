@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sebo & Livraria O Alfarrábio</title>
+  <title>Sobre - Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,10 +21,25 @@
         <li><a href="contato.html">Contato</a></li>
       </ul>
     </nav>
+
+    <!-- Ícone de Perfil do Usuário -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/pedidos"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
   </header>
 
   <main>
-             <h3 class="titulo-sobre">Sobre Nós</h3>
+    <h3 class="titulo-sobre">Sobre Nós</h3>
     <section class="sobre">
     <div class="sobre-pag">
      <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre-pag">
@@ -32,16 +48,16 @@
       Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras e clássicos da literatura!</p>
       </div>
     </div>
-      </section>
+    </section>
    
-       <section class="equipe">
-         <h3 class="titulo-pag">Nossa Equipe</h3>
-    <div class="equipe-pag">
-     <img src="img/fotin.jpg" alt="Imagem sobre nós" class="img-equipe-pag">
-    <div class="texto-equipe-pag">
-      <p>Somos a equipe que transforma páginas em pontes e livros em encontros. Com a gente, cada capítulo é escrito com paixão, café e boas risadas!</p>
+    <section class="equipe">
+      <h3 class="titulo-pag">Nossa Equipe</h3>
+      <div class="equipe-pag">
+        <img src="img/fotin.jpg" alt="Imagem sobre nós" class="img-equipe-pag">
+        <div class="texto-equipe-pag">
+          <p>Somos a equipe que transforma páginas em pontes e livros em encontros. Com a gente, cada capítulo é escrito com paixão, café e boas risadas!</p>
+        </div>
       </div>
-    </div>
     </section>
 
     <div class="carrossel-container">
@@ -53,7 +69,7 @@
         <img src="img/melhorada_3.jpg" alt="Foto do espaço">
         <img src="img/melhorada_4.jpg" alt="Foto do espaço">
         <!-- Repete as imagens pro efeito de looping -->
-         <img src="img/espaco.png" alt="Foto do espaço">
+        <img src="img/espaco.png" alt="Foto do espaço">
         <img src="img/melhorada_1.jpg" alt="Foto do espaço">
         <img src="img/melhorada_2.jpg" alt="Foto do espaço">
         <img src="img/melhorada_3.jpg" alt="Foto do espaço">
@@ -64,19 +80,17 @@
         <img src="img/melhorada_2.jpg" alt="Foto do espaço">
         <img src="img/melhorada_3.jpg" alt="Foto do espaço">
         <img src="img/melhorada_4.jpg" alt="Foto do espaço">
-      <!-- Repete as imagens pro efeito de looping -->
+        <!-- Repete as imagens pro efeito de looping -->
         <img src="img/espaco.png" alt="Foto do espaço">
         <img src="img/melhorada_1.jpg" alt="Foto do espaço">
         <img src="img/melhorada_2.jpg" alt="Foto do espaço">
         <img src="img/melhorada_3.jpg" alt="Foto do espaço">
         <img src="img/melhorada_4.jpg" alt="Foto do espaço">
-
       </div>
     </div>
   </main>
 
- 
-    <footer class="footer">
+  <footer class="footer">
     <div class="container-footer">
       <div class="footer-nome">
         <img src="img/logo2.png" alt="Logo" class="logo-footer">
