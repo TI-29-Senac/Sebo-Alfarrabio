@@ -1,690 +1,437 @@
 /* ========================================
-   SEÇÃO LIVROS - BANNER COM CARROSSEL PREMIUM
-   Design Estilizado O Alfarrábio
+   SEÇÃO LIVROS INOVADORA
    ======================================== */
-
-/* Banner Principal com Efeitos Modernos */
-.banner-area {
-    position: relative;
-    height: 90vh;
-    min-height: 650px;
-    background: url('../img/banner-sec.jpg') center/cover no-repeat fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 70px 100px 0;
-    color: #fff;
-    overflow: hidden;
+.books-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #996f3b 0%, #996f3b 50%, #75542b 100%);
+  padding: 80px 0;
+  overflow: hidden;
 }
 
-/* Overlay com Gradiente Sofisticado */
-.banner-area::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(30, 15, 5, 0.92) 0%,
-        rgba(54, 24, 0, 0.78) 30%,
-        rgba(74, 39, 21, 0.68) 60%,
-        rgba(30, 15, 5, 0.88) 100%
-    );
-    z-index: 1;
+/* Textura de fundo */
+.books-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(200, 184, 150, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168, 126, 78, 0.03) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-/* Textura Decorativa de Papel Antigo */
-.banner-area::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 25% 40%, rgba(200, 184, 150, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 75% 70%, rgba(168, 126, 78, 0.05) 0%, transparent 50%),
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 3px,
-            rgba(168, 126, 78, 0.02) 3px,
-            rgba(168, 126, 78, 0.02) 6px
-        );
-    z-index: 1;
-    pointer-events: none;
+/* Container principal */
+.books-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
 }
 
-/* Conteúdo do Banner */
-.banner-overlay {
-    position: relative;
-    z-index: 2;
-    max-width: 650px;
+/* Cabeçalho da seção */
+.books-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInDown 0.8s ease;
 }
 
-.banner-overlay h1 {
-    font-size: 48px;
-    font-weight: 900;
-    font-family: 'Merriweather', serif;
-    color: #f5f1e8;
-    margin-bottom: 20px;
-    text-shadow: 
-        4px 6px 15px rgba(0, 0, 0, 0.8),
-        2px 3px 8px rgba(139, 115, 85, 0.4);
-    line-height: 1.15;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc4 50%, #d4c5a9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.books-header h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 48px;
+  color: #f5f1e8;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
 }
 
-.banner-overlay p {
-    font-size: 24px;
-    color: #e8dcc4;
-    margin-bottom: 40px;
-    font-weight: 400;
-    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
-    font-style: italic;
-    letter-spacing: 0.8px;
-    opacity: 0.98;
-    line-height: 1.5;
+.books-header p {
+  font-size: 20px;
+  color: #d4c5a9;
+  font-style: italic;
+  opacity: 0.9;
 }
 
-/* Botão Premium com Efeitos Avançados */
-.btn-saiba {
-    display: inline-block;
-    position: relative;
-    background: linear-gradient(135deg, #d4b896 0%, #b89968 100%);
-    color: #2a1a0f;
-    padding: 18px 50px;
-    border-radius: 60px;
-    text-decoration: none;
-    font-size: 17px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    box-shadow: 
-        0 8px 25px rgba(168, 126, 78, 0.5),
-        0 4px 12px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid rgba(245, 241, 232, 0.4);
-    font-family: 'Merriweather', serif;
-    overflow: hidden;
+.books-header .divider {
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #c8b896, transparent);
+  margin: 25px auto;
 }
 
-/* Efeito de Brilho ao Passar */
-.btn-saiba::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.6s ease;
+/* Carrossel moderno */
+.carousel-modern {
+  position: relative;
+  margin: 0 60px;
+  max-width: 100%;
+  overflow: visible;
 }
 
-.btn-saiba:hover::before {
-    left: 100%;
+/* Track do carrossel */
+.carousel-track {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 30px 10px 50px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 184, 150, 0.5) rgba(200, 184, 150, 0.1);
 }
 
-.btn-saiba:hover {
-    background: linear-gradient(135deg, #b89968 0%, #a08556 100%);
-    color: #f5f1e8;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 
-        0 15px 40px rgba(168, 126, 78, 0.7),
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    border-color: #f5f1e8;
+.carousel-track::-webkit-scrollbar {
+  height: 10px;
 }
 
-.btn-saiba:active {
-    transform: translateY(-2px) scale(1.02);
+.carousel-track::-webkit-scrollbar-track {
+  background: rgba(200, 184, 150, 0.1);
+  border-radius: 10px;
 }
 
-/* ========================================
-   CONTAINER DO CARROSSEL APRIMORADO
-   ======================================== */
-
-.carousel-container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 100px 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+.carousel-track::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #c8b896, #a89968);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Carrossel com Scroll Personalizado */
-.carousel {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    gap: 28px;
-    padding: 30px 15px 45px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(200, 184, 150, 0.6) rgba(200, 184, 150, 0.12);
-    cursor: grab;
-    scroll-snap-type: x mandatory;
-    transition: opacity 0.3s ease;
+.carousel-track::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #d4c5a9, #c8b896);
 }
 
-.carousel:active {
-    cursor: grabbing;
+/* Card moderno */
+.book-card-modern {
+  flex: 0 0 280px;
+  background: linear-gradient(145deg, #f9f7f4, #ebe3d5);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  height: fit-content;
 }
 
-/* Scrollbar Customizada Webkit */
-.carousel::-webkit-scrollbar {
-    height: 10px;
+.book-card-modern:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(200, 184, 150, 0.4);
 }
 
-.carousel::-webkit-scrollbar-track {
-    background: rgba(200, 184, 150, 0.12);
-    border-radius: 10px;
-    margin: 0 20px;
+/* Badge de destaque */
+.book-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.carousel::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        90deg,
-        rgba(200, 184, 150, 0.6),
-        rgba(168, 126, 78, 0.7)
-    );
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.3s ease;
+/* Imagem com overlay */
+.book-image-wrapper {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  background: #3a2a1f;
 }
 
-.carousel::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-        90deg,
-        rgba(200, 184, 150, 0.85),
-        rgba(168, 126, 78, 0.95)
-    );
+.book-image-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(58, 42, 31, 0.9), transparent);
 }
 
-/* ========================================
-   CARDS DE LIVROS - DESIGN PREMIUM
-   ======================================== */
-
-.book-card {
-    min-width: 150px;
-    max-width: 150px;
-    background: linear-gradient(145deg, #ffffff, #fdfbf8);
-    padding: 24px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 
-        0 12px 40px rgba(139, 115, 85, 0.22),
-        0 5px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-    border: 1px solid rgba(200, 184, 150, 0.25);
-    position: relative;
-    overflow: hidden;
-    scroll-snap-align: center;
-    
+.book-card-modern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-/* Brilho Sutil no Hover */
-.book-card::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -50%;
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.18) 0%,
-        transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
+.book-card-modern:hover img {
+  transform: scale(1.1);
 }
 
-.book-card:hover::before {
-    opacity: 1;
+/* Info do livro */
+.book-info {
+  padding: 25px;
+  position: relative;
 }
 
-/* Decoração Canto Superior */
-.book-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(135deg, transparent 48%, rgba(200, 184, 150, 0.08) 52%);
-    border-radius: 0 20px 0 100%;
-    pointer-events: none;
+.book-title {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #3a2a1f;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 52px;
 }
 
-.book-card:hover {
-    transform: translateY(-18px) scale(1.04);
-    box-shadow: 
-        0 28px 65px rgba(139, 115, 85, 0.38),
-        0 12px 28px rgba(0, 0, 0, 0.14),
-        inset 0 -1px 0 rgba(200, 184, 150, 0.25);
-    border-color: #c8b896;
-    background: linear-gradient(145deg, #ffffff, #fffefb);
+.book-author {
+  font-size: 14px;
+  color: #8b7355;
+  font-style: italic;
+  margin-bottom: 15px;
+  display: block;
 }
 
-/* Imagem do Livro com Efeitos */
-.book-card img {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 14px;
-    margin-bottom: 18px;
-    box-shadow: 
-        0 8px 24px rgba(139, 115, 85, 0.28),
-        0 3px 10px rgba(0, 0, 0, 0.12);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 3px solid rgba(200, 184, 150, 0.18);
-    position: relative;
+/* Preço em destaque */
+.book-price-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 2px solid rgba(200, 184, 150, 0.2);
 }
 
-.book-card:hover img {
-    transform: scale(1.08) translateY(-5px);
-    box-shadow: 
-        0 16px 45px rgba(139, 115, 85, 0.45),
-        0 6px 18px rgba(0, 0, 0, 0.18);
-    border-color: #c8b896;
+.book-price {
+  font-family: 'Merriweather', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #c89968;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Título Estilizado */
-.book-card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #3a2a1f;
-    margin-bottom: 10px;
-    line-height: 1.4;
-    min-height: 48px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-family: 'Merriweather', serif;
-    letter-spacing: 0.3px;
-    transition: color 0.3s ease;
-    position: relative;
+.book-btn {
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Underline Animado no Título */
-.book-card h3::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 70%;
-    height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #c8b896 30%,
-        #c8b896 70%,
-        transparent
-    );
-    transition: transform 0.4s ease;
+.book-btn:hover {
+  background: linear-gradient(135deg, #a89968, #8b7355);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(168, 153, 104, 0.4);
 }
 
-.book-card:hover h3 {
-    color: #694100;
+/* Botões de navegação */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.book-card:hover h3::after {
-    transform: translateX(-50%) scaleX(1);
+.nav-btn:hover {
+  background: linear-gradient(135deg, #d4c5a9, #c8b896);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 30px rgba(200, 184, 150, 0.5);
 }
 
-/* Autor com Estilo Refinado */
-.book-card .autor {
-    font-size: 14px;
-    color: #8b7355;
-    margin-bottom: 16px;
-    font-style: italic;
-    min-height: 22px;
-    font-weight: 400;
-    letter-spacing: 0.6px;
-    transition: color 0.3s ease;
+.nav-btn.prev {
+  left: -30px;
 }
 
-.book-card:hover .autor {
-    color: #6b5638;
+.nav-btn.next {
+  right: -30px;
 }
 
-/* Preço com Destaque Premium */
-.preco {
-    margin-top: 18px;
-    font-weight: 900;
-    font-size: 26px;
-    color: #c89968;
-    font-family: 'Merriweather', serif;
-    text-shadow: 
-        2px 2px 5px rgba(0, 0, 0, 0.12),
-        0 0 25px rgba(200, 153, 104, 0.25);
-    letter-spacing: -0.5px;
-    transition: all 0.3s ease;
+/* Indicadores de página - OCULTOS */
+.carousel-indicators {
+  display: none;
 }
 
-.book-card:hover .preco {
-    color: #b8854f;
-    transform: scale(1.1);
-    text-shadow: 
-        2px 2px 6px rgba(0, 0, 0, 0.18),
-        0 0 35px rgba(200, 153, 104, 0.45);
+/* Loading state */
+.loading-card {
+  flex: 0 0 280px;
+  height: 550px;
+  background: linear-gradient(
+    90deg,
+    rgba(249, 247, 244, 0.5) 0%,
+    rgba(232, 220, 196, 0.5) 50%,
+    rgba(249, 247, 244, 0.5) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 24px;
 }
-
-/* ========================================
-   BOTÕES DE NAVEGAÇÃO MODERNOS
-   ======================================== */
-
-.carousel-btn {
-    background: linear-gradient(135deg, #ffffff, #f9f7f4);
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(200, 184, 150, 0.35);
-    padding: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 28px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    color: #6b5638;
-    box-shadow: 
-        0 8px 24px rgba(139, 115, 85, 0.28),
-        0 3px 10px rgba(0, 0, 0, 0.12);
-    flex-shrink: 0;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Merriweather', serif;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Efeito Ripple no Clique */
-.carousel-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(200, 184, 150, 0.35);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-}
-
-.carousel-btn:active::before {
-    width: 130%;
-    height: 130%;
-}
-
-.carousel-btn:hover {
-    background: linear-gradient(135deg, #c8b896, #b89968);
-    transform: scale(1.22) rotate(8deg);
-    box-shadow: 
-        0 14px 40px rgba(168, 153, 104, 0.55),
-        0 6px 18px rgba(0, 0, 0, 0.18);
-    color: #ffffff;
-    border-color: rgba(245, 241, 232, 0.5);
-}
-
-.carousel-btn:active {
-    transform: scale(1.18) rotate(8deg);
-}
-
-.carousel-btn.left {
-    order: -1;
-}
-
-.carousel-btn.right {
-    order: 1;
-}
-
-/* Estado Desabilitado */
-.carousel-btn:disabled,
-.carousel-btn[style*="opacity: 0.5"] {
-    opacity: 0.35 !important;
-    cursor: not-allowed !important;
-    background: linear-gradient(135deg, #e8e0d0, #d4c5a9) !important;
-    transform: scale(1) !important;
-}
-
-/* ========================================
-   LOADING SKELETON ANIMADO
-   ======================================== */
 
 @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.book-card.loading {
-    background: linear-gradient(
-        90deg,
-        rgba(249, 247, 244, 0.9) 0%,
-        rgba(232, 220, 196, 0.9) 50%,
-        rgba(249, 247, 244, 0.9) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.8s ease-in-out infinite;
-    pointer-events: none;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mensagem vazia */
+.empty-message {
+  text-align: center;
+  padding: 80px 20px;
+  color: #d4c5a9;
+}
+
+.empty-message-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.empty-message h3 {
+  font-size: 28px;
+  color: #f5f1e8;
+  margin-bottom: 10px;
+  font-family: 'Merriweather', serif;
 }
 
 /* ========================================
-   CLASSE UTILITÁRIA
+   RESPONSIVO
    ======================================== */
 
-.sec {
-    color: #fff;
-    position: relative;
-    z-index: 2;
-}
-
-/* ========================================
-   RESPONSIVO OTIMIZADO
-   ======================================== */
-
-/* Desktop Grande */
-@media (min-width: 1440px) {
-    .banner-overlay h1 {
-        font-size: 78px;
-    }
-    
-    .banner-overlay p {
-        font-size: 26px;
-    }
-    
-    .book-card {
-        min-width: 260px;
-        max-width: 260px;
-    }
-    
-    .book-card img {
-        height: 340px;
-    }
-}
-
-/* Tablets */
 @media (max-width: 1024px) {
-    .banner-area {
-        height: 82vh;
-        padding: 60px 50px 0;
-    }
+  .books-header h2 {
+    font-size: 40px;
+  }
 
-    .banner-overlay h1 {
-        font-size: 58px;
-    }
+  .book-card-modern {
+    flex: 0 0 240px;
+  }
 
-    .banner-overlay p {
-        font-size: 21px;
-    }
+  .book-image-wrapper {
+    height: 350px;
+  }
 
-    .carousel-container {
-        padding: 0 50px 60px;
-        gap: 25px;
-    }
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
 
-    .book-card {
-        min-width: 220px;
-        max-width: 220px;
-    }
+  .nav-btn.prev {
+    left: -25px;
+  }
 
-    .book-card img {
-        height: 300px;
-    }
+  .nav-btn.next {
+    right: -25px;
+  }
+
+  .carousel-modern {
+    margin: 0 40px;
+  }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-    .banner-area {
-        height: auto;
-        min-height: 560px;
-        padding: 50px 30px;
-        background-attachment: scroll;
-    }
+  .books-section {
+    padding: 60px 0;
+  }
 
-    .banner-overlay {
-        max-width: 100%;
-    }
+  .books-container {
+    padding: 0 20px;
+  }
 
-    .banner-overlay h1 {
-        font-size: 44px;
-    }
+  .books-header h2 {
+    font-size: 32px;
+  }
 
-    .banner-overlay p {
-        font-size: 19px;
-        margin-bottom: 32px;
-    }
+  .books-header p {
+    font-size: 18px;
+  }
 
-    .btn-saiba {
-        padding: 16px 42px;
-        font-size: 15px;
-        letter-spacing: 2px;
-    }
+  .carousel-modern {
+    margin: 0 20px;
+  }
 
-    .carousel-container {
-        padding: 20px 18px 50px;
-        gap: 18px;
-    }
+  .book-card-modern {
+    flex: 0 0 220px;
+  }
 
-    .carousel {
-        gap: 22px;
-        padding: 22px 10px 35px;
-    }
+  .book-image-wrapper {
+    height: 320px;
+  }
 
-    .book-card {
-        min-width: 200px;
-        max-width: 200px;
-        padding: 20px;
-    }
+  .nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
 
-    .book-card img {
-        height: 280px;
-    }
+  .nav-btn.prev {
+    left: -22px;
+  }
 
-    .book-card h3 {
-        font-size: 16px;
-        min-height: 46px;
-    }
-
-    .preco {
-        font-size: 24px;
-    }
-
-    .carousel-btn {
-        width: 58px;
-        height: 58px;
-        font-size: 24px;
-    }
+  .nav-btn.next {
+    right: -22px;
+  }
 }
 
-/* Mobile Pequeno */
 @media (max-width: 480px) {
-    .banner-area {
-        padding: 40px 20px;
-        min-height: 520px;
-    }
+  .books-header h2 {
+    font-size: 28px;
+  }
 
-    .banner-overlay h1 {
-        font-size: 36px;
-    }
+  .carousel-modern {
+    margin: 0 10px;
+  }
 
-    .banner-overlay p {
-        font-size: 17px;
-    }
+  .book-card-modern {
+    flex: 0 0 200px;
+  }
 
-    .btn-saiba {
-        padding: 14px 36px;
-        font-size: 14px;
-        letter-spacing: 1.8px;
-    }
+  .book-title {
+    font-size: 18px;
+  }
 
-    .carousel-container {
-        padding: 18px 12px 45px;
-    }
+  .book-price {
+    font-size: 24px;
+  }
 
-    .carousel-btn {
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 100;
-        width: 52px;
-        height: 52px;
-        font-size: 22px;
-    }
-
-    .carousel-btn.left {
-        left: 12px;
-    }
-
-    .carousel-btn.right {
-        right: 12px;
-    }
-
-    .carousel-btn:hover {
-        transform: translateY(-50%) scale(1.15);
-    }
-
-    .book-card {
-        min-width: 175px;
-        max-width: 175px;
-        padding: 18px;
-    }
-
-    .book-card img {
-        height: 250px;
-    }
-
-    .book-card h3 {
-        font-size: 15px;
-        min-height: 44px;
-    }
-
-    .book-card .autor {
-        font-size: 13px;
-    }
-
-    .preco {
-        font-size: 22px;
-    }
+  .nav-btn {
+    display: none;
+  }
 }
-
-/* ========================================
-   ANIMAÇÕES SUAVES E PROFISSIONAIS
-   ======================================== */

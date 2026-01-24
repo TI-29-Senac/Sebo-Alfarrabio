@@ -175,6 +175,9 @@ class Rotas
                 "/carrinho/adicionar/{id}" => "CartController@adicionar",
                 "/carrinho/remover/{id}" => "CartController@remover",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
+
+                '/api/item' => 'PublicApiController@getItem',
+                '/api/avaliacoes' => 'PublicApiController@getAvaliacoes', 
             ],
             
             
@@ -228,6 +231,7 @@ class Rotas
                 // ========================================
                 
                 "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
+                "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
                 "/avaliacao/atualizar" => "AvaliacaoController@atualizarAvaliacao",
                 "/avaliacao/deletar" => "AvaliacaoController@deletarAvaliacao",
                 "/avaliacao/ativar" => "AvaliacaoController@ativarAvaliacao",

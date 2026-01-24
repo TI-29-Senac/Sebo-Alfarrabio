@@ -2,16 +2,19 @@
 namespace Sebo\Alfarrabio\Controllers;
 
 use Sebo\Alfarrabio\Models\Item;
+use Sebo\Alfarrabio\Models\Avaliacao;
 use Sebo\Alfarrabio\Database\Database;
 
 class PublicApiController {
     
     private $db;
     private $item;
+    private $avaliacao;
 
     public function __construct() {
         $this->db = Database::getInstance();
         $this->item = new Item($this->db);
+        $this->avaliacao = new Avaliacao($this->db);
     }
 
     /**
@@ -61,6 +64,214 @@ class PublicApiController {
                 'status' => 'error',
                 'message' => 'Erro ao buscar dados: ' . $e->getMessage()
             ]);
+        }
+    }
+
+    /**
+     * NOVO: Endpoint público para buscar avaliações
+     * GET /api/avaliacoes
+     * GET /api/avaliacoes?limite=10
+     * GET /api/avaliacoes?nota_minima=4
+     */
+    public function getAvaliacoes() {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, OPTIONS');
+        
+        // Resposta para OPTIONS (CORS)
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+        
+        try {
+            $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
+            $nota_minima = isset($_GET['nota_minima']) ? (int)$_GET['nota_minima'] : null;
+            
+            // Query com JOIN para pegar dados relacionados
+            $sql = "SELECT 
+                        a.id_avaliacao,
+                        a.nota_avaliacao,
+                        a.comentario_avaliacao,
+                        a.data_avaliacao,
+                        a.status_avaliacao,
+                        a.criado_em,
+                        
+                        -- Dados do usuário
+                        u.id_usuario,
+                        u.nome_usuario,
+                        u.email_usuario,
+                        u.foto_usuario,
+                        
+                        -- Dados do item
+                        i.id_item,
+                        i.titulo_item,
+                        i.descricao_item,
+                        i.preco_item,
+                        i.imagem_item,
+                        
+                        -- Dados opcionais
+                        c.nome_categoria,
+                        g.nome_genero,
+                        aut.nome_autor
+                        
+                    FROM tbl_avaliacao a
+                    
+                    INNER JOIN tbl_usuario u 
+                        ON a.id_usuario = u.id_usuario
+                    
+                    INNER JOIN tbl_item i 
+                        ON a.id_item = i.id_item
+                    
+                    LEFT JOIN tbl_categoria c 
+                        ON i.id_categoria = c.id_categoria
+                    
+                    LEFT JOIN tbl_genero g 
+                        ON i.id_genero = g.id_genero
+                    
+                    LEFT JOIN tbl_autor aut 
+                        ON i.id_autor = aut.id_autor
+                    
+                    WHERE a.status_avaliacao = 'ativo' 
+                    AND a.excluido_em IS NULL
+                    AND a.comentario_avaliacao IS NOT NULL
+                    AND a.comentario_avaliacao != ''";
+            
+            // Filtro por nota mínima
+            if ($nota_minima !== null) {
+                $sql .= " AND a.nota_avaliacao >= :nota_minima";
+            }
+            
+            $sql .= " ORDER BY a.data_avaliacao DESC, a.criado_em DESC LIMIT :limite";
+            
+            // Prepara e executa
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':limite', $limite, \PDO::PARAM_INT);
+            
+            if ($nota_minima !== null) {
+                $stmt->bindValue(':nota_minima', $nota_minima, \PDO::PARAM_INT);
+            }
+            
+            $stmt->execute();
+            $avaliacoes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            
+            // Calcula estatísticas
+            $total = count($avaliacoes);
+            $soma_notas = 0;
+            $distribuicao = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+            
+            foreach ($avaliacoes as $av) {
+                $soma_notas += (int)$av['nota_avaliacao'];
+                $nota = (int)$av['nota_avaliacao'];
+                if (isset($distribuicao[$nota])) {
+                    $distribuicao[$nota]++;
+                }
+            }
+            
+            $media_notas = $total > 0 ? round($soma_notas / $total, 2) : 0;
+            
+            // Formata dados
+            $avaliacoes_formatadas = array_map(function($av) {
+                // Foto do usuário
+                $foto_usuario = $av['foto_usuario'] ?? null;
+                if ($foto_usuario && !preg_match('/^(http|\/|img)/', $foto_usuario)) {
+                    $foto_usuario = '/img/usuarios/' . $foto_usuario;
+                }
+                
+                // Imagem do item
+                $imagem_item = $av['imagem_item'] ?? null;
+                if ($imagem_item && !preg_match('/^(http|\/|img)/', $imagem_item)) {
+                    $imagem_item = '/img/livros/' . $imagem_item;
+                }
+                
+                return [
+                    'id' => (int)$av['id_avaliacao'],
+                    'nota' => (int)$av['nota_avaliacao'],
+                    'comentario' => $av['comentario_avaliacao'],
+                    'data' => date('d/m/Y', strtotime($av['data_avaliacao'])),
+                    'data_completa' => date('d/m/Y H:i', strtotime($av['criado_em'])),
+                    'data_iso' => $av['data_avaliacao'],
+                    
+                    'usuario' => [
+                        'id' => (int)$av['id_usuario'],
+                        'nome' => $av['nome_usuario'],
+                        'email' => $av['email_usuario'],
+                        'foto' => $foto_usuario,
+                        'iniciais' => strtoupper(substr($av['nome_usuario'], 0, 2))
+                    ],
+                    
+                    'item' => [
+                        'id' => (int)$av['id_item'],
+                        'titulo' => $av['titulo_item'],
+                        'descricao' => $av['descricao_item'] ?? '',
+                        'preco' => (float)($av['preco_item'] ?? 0),
+                        'imagem' => $imagem_item,
+                        'categoria' => $av['nome_categoria'] ?? 'Sem categoria',
+                        'genero' => $av['nome_genero'] ?? null,
+                        'autor' => $av['nome_autor'] ?? null
+                    ],
+                    
+                    'tempo_decorrido' => $this->calcularTempoDecorrido($av['criado_em'])
+                ];
+            }, $avaliacoes);
+            
+            // Resposta
+            echo json_encode([
+                'success' => true,
+                'total' => $total,
+                'media_notas' => $media_notas,
+                'distribuicao' => $distribuicao,
+                'avaliacoes' => $avaliacoes_formatadas,
+                'timestamp' => date('Y-m-d H:i:s'),
+                'filtros' => [
+                    'limite' => $limite,
+                    'nota_minima' => $nota_minima
+                ]
+            ], JSON_UNESCAPED_UNICODE);
+            
+        } catch (\PDOException $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Erro ao buscar avaliações',
+                'message' => 'Erro no banco de dados',
+                'details' => $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+            
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Erro interno',
+                'message' => $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    /**
+     * Calcula tempo decorrido
+     */
+    private function calcularTempoDecorrido($data) {
+        try {
+            $agora = new \DateTime();
+            $data_av = new \DateTime($data);
+            $diff = $agora->diff($data_av);
+            
+            if ($diff->y > 0) {
+                return $diff->y . ' ano' . ($diff->y > 1 ? 's' : '') . ' atrás';
+            } elseif ($diff->m > 0) {
+                return $diff->m . ' mês' . ($diff->m > 1 ? 'es' : '') . ' atrás';
+            } elseif ($diff->d > 0) {
+                return $diff->d . ' dia' . ($diff->d > 1 ? 's' : '') . ' atrás';
+            } elseif ($diff->h > 0) {
+                return $diff->h . ' hora' . ($diff->h > 1 ? 's' : '') . ' atrás';
+            } elseif ($diff->i > 0) {
+                return $diff->i . ' minuto' . ($diff->i > 1 ? 's' : '') . ' atrás';
+            } else {
+                return 'Agora mesmo';
+            }
+        } catch (\Exception $e) {
+            return date('d/m/Y', strtotime($data));
         }
     }
 
@@ -184,8 +395,6 @@ class PublicApiController {
             $foto_item,                                    // Como está no banco
             '/backend/uploads/' . basename($foto_item),     // /backend/uploads/nome.jpg
             '/backend/uploads/itens/' . basename($foto_item),     // /backend/uploads/itens/nome.jpg
-            
-
         ];
 
         // Testa qual caminho existe fisicamente

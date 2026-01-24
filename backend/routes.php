@@ -74,10 +74,5 @@ return [
     '/usuario/atualizar'    => [UsuarioController::class, 'update'],
     '/usuario/excluir'      => [UsuarioController::class, 'delete'],
 
-    // ======= API =======
-    '/backend/api/item'     => [APIItemController::class, 'listarItens'],
-    '/backend/api/item/(\d+)'    => [APIItemController::class, 'buscarItem'],
-    '/backend/api/item/pesquisar' => [APIItemController::class, 'pesquisarItens'],
-    '/backend/api/item/tipos'    => [APIItemController::class, 'listarTipos'],
-
+    
 ];

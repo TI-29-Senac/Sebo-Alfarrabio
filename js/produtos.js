@@ -787,3 +787,160 @@ carregarProdutos();
 configurarBuscaTempoReal();
 
 console.log('✅ Sistema pronto com paginação!');
+// ========================================
+// 🆕 UPGRADE: FILTRO POR URL
+// Adicione este código ao seu produtos.js existente
+// ========================================
+
+// ADICIONAR APÓS a linha 31 (após: const itensPorPagina = 12;)
+
+// ========================================
+// FUNÇÃO PARA LER PARÂMETROS DA URL
+// ========================================
+function obterParametroUrl(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
+
+function aplicarFiltrosUrl() {
+    const generoUrl = obterParametroUrl('genero');
+    const categoriaUrl = obterParametroUrl('categoria');
+    const buscaUrl = obterParametroUrl('busca');
+    
+    if (generoUrl && generoSelect) {
+        generoSelect.value = generoUrl;
+        console.log(`🔗 Filtro de URL aplicado - Gênero: ${generoUrl}`);
+    }
+    
+    if (categoriaUrl && categoriaSelect) {
+        categoriaSelect.value = categoriaUrl;
+        console.log(`🔗 Filtro de URL aplicado - Categoria: ${categoriaUrl}`);
+    }
+    
+    if (buscaUrl && searchInput) {
+        searchInput.value = buscaUrl;
+        console.log(`🔗 Filtro de URL aplicado - Busca: ${buscaUrl}`);
+    }
+    
+    // Se algum filtro foi aplicado pela URL, executa a filtragem
+    if (generoUrl || categoriaUrl || buscaUrl) {
+        aplicarFiltros();
+    }
+    // ========================================
+// 🆕 CÓDIGO COMPLETO PARA ADICIONAR AO produtos.js
+// ========================================
+
+// 1️⃣ ADICIONE ESTAS FUNÇÕES APÓS A LINHA 31 (depois de: const itensPorPagina = 12;)
+
+// ========================================
+// FUNÇÃO PARA LER PARÂMETROS DA URL
+// ========================================
+function obterParametroUrl(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
+
+
+
+// 2️⃣ MODIFIQUE A FUNÇÃO carregarProdutos
+// ENCONTRE esta parte (por volta da linha 50-60):
+
+
+async function carregarProdutos() {
+    console.log('📦 Buscando produtos do banco...');
+    mostrarLoading();
+    
+    try {
+        const response = await fetch('/backend/api/item');
+        console.log('Status:', response.status);
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const json = await response.json();
+        console.log('✅ Dados recebidos:', json);
+        
+        if (json.status === 'success' && json.data) {
+            todosOsProdutos = json.data;
+            produtosFiltrados = [...todosOsProdutos];
+            
+            extrairGenerosECategorias();
+            popularSelects();
+            
+            paginaAtual = 1; // Resetar para página 1
+            renderizarProdutos(produtosFiltrados);
+            atualizarContador();
+        } else {
+            throw new Error(json.message || 'Erro desconhecido');
+        }
+    } catch (err) {
+        console.error('❌ Erro:', err);
+        mostrarErro(err.message);
+    }
+}
+
+
+// SUBSTITUA POR ESTA VERSÃO:
+
+async function carregarProdutos() {
+    console.log('📦 Buscando produtos do banco...');
+    mostrarLoading();
+    
+    try {
+        const response = await fetch('/backend/api/item');
+        console.log('Status:', response.status);
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const json = await response.json();
+        console.log('✅ Dados recebidos:', json);
+        
+        if (json.status === 'success' && json.data) {
+            todosOsProdutos = json.data;
+            produtosFiltrados = [...todosOsProdutos];
+            
+            // Primeiro, extrai e popula os selects
+            extrairGenerosECategorias();
+            popularSelects();
+            
+            // IMPORTANTE: Aplica os filtros da URL ANTES de renderizar
+            aplicarFiltrosUrl();
+            
+            // Renderiza já com o filtro aplicado (se houver)
+            // NOTA: aplicarFiltrosUrl() já chama renderizarProdutos() se houver filtro
+            // Então só renderizamos aqui se NÃO houver filtro na URL
+            const temFiltroUrl = obterParametroUrl('genero') || obterParametroUrl('categoria') || obterParametroUrl('busca');
+            if (!temFiltroUrl) {
+                paginaAtual = 1;
+                renderizarProdutos(produtosFiltrados);
+                atualizarContador();
+            }
+        } else {
+            throw new Error(json.message || 'Erro desconhecido');
+        }
+    } catch (err) {
+        console.error('❌ Erro:', err);
+        mostrarErro(err.message);
+    }
+}
+
+
+
+function limparFiltros() {
+    console.log('🧹 Limpando filtros...');
+    
+    if (searchInput) searchInput.value = '';
+    if (generoSelect) generoSelect.value = '';
+    if (categoriaSelect) categoriaSelect.value = '';
+    
+    // Limpa a URL também
+    const url = new URL(window.location);
+    url.search = '';
+    window.history.pushState({}, '', url);
+    
+    produtosFiltrados = [...todosOsProdutos];
+    paginaAtual = 1;
+    renderizarProdutos(produtosFiltrados);
+    atualizarContador();
+}
+
+}

@@ -9,6 +9,8 @@
   
   <!-- CSS na ordem correta -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/avaliacoes-footer.css">
 </head>
 <body>
 
@@ -73,110 +75,74 @@
   <section class="categorias">
     <h3 class="cat">CATEGORIAS</h3>
     <div class="generos">
-      <div class="svg"><a href=""><img src="img/romance.svg"><h4>Romance</h4></a></div>
-      <div class="svg"><a href=""><img src="img/auto-ajuda.svg"><h4>Auto-ajuda</h4></a></div>
-      <div class="svg"><a href=""><img src="img/ficcao.svg"><h4>Ficção científica</h4></a></div>
-      <div class="svg"><a href=""><img src="img/fantasia.svg"><h4>Fantasia</h4></a></div>
-      <div class="svg"><a href=""><img src="img/terror.svg"><h4>Terror</h4></a></div>
+      <div class="svg">
+        <a href="produtos.html?genero=Romance" class="filtro-genero" data-genero="Romance">
+          <img src="img/romance.svg" alt="Romance">
+          <h4>Romance</h4>
+        </a>
+      </div>
+      <div class="svg">
+        <a href="produtos.html?genero=Auto-ajuda" class="filtro-genero" data-genero="Auto-ajuda">
+          <img src="img/auto-ajuda.svg" alt="Auto-ajuda">
+          <h4>Auto-ajuda</h4>
+        </a>
+      </div>
+      <div class="svg">
+        <a href="produtos.html?genero=Ficção científica" class="filtro-genero" data-genero="Ficção científica">
+          <img src="img/ficcao.svg" alt="Ficção científica">
+          <h4>Ficção científica</h4>
+        </a>
+      </div>
+      <div class="svg">
+        <a href="produtos.html?genero=Fantasia" class="filtro-genero" data-genero="Fantasia">
+          <img src="img/fantasia.svg" alt="Fantasia">
+          <h4>Fantasia</h4>
+        </a>
+      </div>
+      <div class="svg">
+        <a href="produtos.html?genero=Terror" class="filtro-genero" data-genero="Terror">
+          <img src="img/terror.svg" alt="Terror">
+          <h4>Terror</h4>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- NOVIDADES -->
-  <div class="container">
-    <h3 class="novidade">NOVIDADES</h3>
-    <section class="cards-novidades">
-      <div class="card-livros">
-        <div class="card-livro">
-          <figure>
-            <img src="img/livro 1.jpg" alt="IT: A coisa">
-            <figcaption class="figcaption-livro">
-              <h2 class="name">IT: A coisa</h2>
-              <small>Stephen King</small>
-            </figcaption>
-          </figure>
-          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div>
-        
-        <div class="card-livro">
-          <figure>
-            <img src="img/livro 2.jpg" alt="Harry Potter">
-            <figcaption class="figcaption-livro">
-              <h2 class="name">Harry Potter <p>e a pedra filosofal</p></h2>
-              <small>J.K Rowling</small>
-            </figcaption>
-          </figure>
-          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div>
-        
-        <div class="card-livro">
-          <figure>
-            <img src="img/livro 3.jpg" alt="A Seleção">
-            <figcaption class="figcaption-livro">
-              <h2 class="name">A Seleção</h2>
-              <small>Kiera Cass</small>
-            </figcaption>
-          </figure>
-          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div>
-        
-        <div class="card-livro">
-          <figure>
-            <img src="img/livro 4.jpg" alt="O Príncipe Cruel">
-            <figcaption class="figcaption-livro">
-              <h2 class="name">O Principe Cruel</h2>
-              <small>Holly Black</small>
-            </figcaption>
-          </figure>
-          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div>
-        
-        <div class="card-livro">
-          <figure>
-            <img src="img/livro 5.jpg" alt="Quarta Asa">
-            <figcaption class="figcaption-livro">
-              <h2 class="name">Quarta Asa</h2>
-              <small>Reecca Yarros</small>
-            </figcaption>
-          </figure>
-          <a href=""><p class="saiba-mais">Saiba Mais</p></a>
-        </div>
+  <!-- SEÇÃO LIVROS MODERNA -->
+  <section class="books-section">
+    <div class="books-container">
+      
+      <!-- Cabeçalho -->
+      <div class="books-header">
+        <h2>Descubra Novos Mundos</h2>
+        <div class="divider"></div>
+        <p>Nossa seleção especial para você</p>
       </div>
-    </section>
-  </div>
 
-  <!-- SEÇÃO LIVROS COM CARROSSEL -->
-  <!-- SEÇÃO LIVROS COM CARROSSEL (DADOS DO BANCO) -->
-<section class="banner-area">
-  <div class="banner-overlay">
-    <h1 class="sec">Seção Livros</h1>
-    <p class="sec">Mergulhe na magia!</p>
-    <a href="produtos.html" class="btn-saiba">Saiba mais</a>
-  </div>
-
-  <div class="carousel-container">
-    <button class="carousel-btn left" aria-label="Anterior">◀</button>
-
-    <div class="carousel">
-      <!-- Os cards serão carregados dinamicamente via JavaScript -->
-      <div class="book-card" style="min-width: 220px; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;">
-        <div style="text-align: center; color: #666;">
-          <div style="font-size: 40px; margin-bottom: 10px;">📦</div>
-          <p>Carregando...</p>
+      <!-- Carrossel -->
+      <div class="carousel-modern">
+        <button class="nav-btn prev" aria-label="Anterior">‹</button>
+        
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Loading inicial -->
+          <div class="loading-card"></div>
+          <div class="loading-card"></div>
+          <div class="loading-card"></div>
+          <div class="loading-card"></div>
         </div>
+
+        <button class="nav-btn next" aria-label="Próximo">›</button>
       </div>
+
+      <!-- Indicadores -->
+      <div class="carousel-indicators" id="indicators"></div>
+
     </div>
+  </section>
 
-    <button class="carousel-btn right" aria-label="Próximo">▶</button>
-  </div>
-</section>
+  <!-- Script do carrossel -->
+  <script src="js/sec-livros-db.js"></script>
 
-<!-- Script do carrossel (escolha uma das opções abaixo) -->
-
-<!-- OPÇÃO 1: Script que carrega do banco de dados -->
-<script src="js/sec-livros-db.js"></script>
-
-<!-- OPÇÃO 2: Script original (estático) - comente se usar a opção 1 -->
-<!-- <script src="js/sec-livros.js"></script> -->
   <!-- SOBRE NÓS -->
   <section class="sobre-p">
     <h3 class="titulo-sobre">SOBRE NÓS</h3>
@@ -189,68 +155,45 @@
     </div>
   </section>
 
-  <!-- DEPOIMENTOS -->
+  <!-- ========================================== -->
+  <!-- SEÇÃO DE AVALIAÇÕES / DEPOIMENTOS (NOVA!) -->
+  <!-- ========================================== -->
   <section class="depoimentos">
-    <h3 class="depoimento-titulo">DEPOIMENTOS</h3>
+    <h3 class="depoimento-titulo">
+      <i class="fas fa-star" style="color: #d4a574; margin-right: 15px;"></i>
+      O Que Nossos Clientes Dizem
+      <i class="fas fa-star" style="color: #d4a574; margin-left: 15px;"></i>
+    </h3>
+    
+    <!-- Container do slider com navegação -->
     <div class="depoimento-slider">
-      <div class="depoimento-track">
-        <div class="depoimento-card">
-          <img src="img/fotoperfil1.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Bom atendimento sempre tem os livros com os melhores preços e em bom estado</p>
-          <cite class="citacao">- Juliana Ferreira</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/fotoperfil2.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Atendimento impecável, acervo incrível e preços justos. Um verdadeiro tesouro literário!</p>
-          <cite class="citacao">- Carlos Pereira</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/foroperfil4.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Sempre encontro o que procuro — e muitas vezes, o que nem sabia que precisava</p>
-          <cite class="citacao">- Julia Santos</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/fotoperfil3.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Melhor sebo da cidade. Atendimento nota 10!</p>
-          <cite class="citacao">- Luan Correia</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/fotoperfil5.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Encontrei uma edição antiga de Clarice Lispector que procurava há anos. Foi como achar um tesouro!</p>
-          <cite class="citacao">- Maria Leite</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/fotoperfil6.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Visitei e já quero voltar. Que lugar especial!</p>
-          <cite class="citacao">- Marcos Silva</cite>
-        </div>
-
-        <!-- Duplicados para efeito infinito -->
-        <div class="depoimento-card">
-          <img src="img/fotoperfil1.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Bom atendimento sempre tem os livros com os melhores preços e em bom estado</p>
-          <cite class="citacao">- Juliana Ferreira</cite>
-        </div>
-        
-        <div class="depoimento-card">
-          <img src="img/fotoperfil2.jpg" alt="Foto de Perfil" class="foto-perfil">
-          <p class="depoimento-texto">Atendimento impecável, acervo incrível e preços justos. Um verdadeiro tesouro literário!</p>
-          <cite class="citacao">- Carlos Pereira</cite>
-        </div>
+      
+      <!-- Botões de navegação -->
+      <button class="depoimento-nav depoimento-nav-prev" aria-label="Ver avaliações anteriores" title="Anterior">
+        ‹
+      </button>
+      <button class="depoimento-nav depoimento-nav-next" aria-label="Ver próximas avaliações" title="Próximo">
+        ›
+      </button>
+      
+      <!-- Track que será preenchido dinamicamente via JavaScript -->
+      <div class="depoimento-track" id="depoimentoTrack">
+        <!-- Loading inicial - será substituído por avaliações reais do banco -->
+        <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
+        <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
+        <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
       </div>
     </div>
+    
+    <!-- Indicadores de posição (opcional - será preenchido via JS se necessário) -->
+    <div class="depoimento-indicadores" id="depoimentoIndicadores" role="tablist" aria-label="Navegação de avaliações"></div>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container-footer">
       <div class="footer-nome">
-        <img src="img/logo2.png" alt="Logo" class="logo-footer">
+        <img src="img/logo2.png" alt="Logo O Alfarrábio" class="logo-footer">
         <h3>O Alfarrábio</h3>
       </div>
 
@@ -269,17 +212,21 @@
       <div>
         <div class="footer-section">
           <h4>Entre em contato</h4>
-          <p>contato@Oalfarrábio.com.br</p>
-          <p>São Miguel Paulista, São Paulo - SP</p>
-          <p>+55 (11) 93277-2737</p>
-          <p>+55 (11) 97317-8024</p>
+          <p><i class="fas fa-envelope"></i> contato@Oalfarrábio.com.br</p>
+          <p><i class="fas fa-map-marker-alt"></i> São Miguel Paulista, São Paulo - SP</p>
+          <p><i class="fas fa-phone"></i> +55 (11) 93277-2737</p>
+          <p><i class="fas fa-phone"></i> +55 (11) 97317-8024</p>
         </div>
       </div>
 
       <div class="footer-section footer-redes">
         <h4 class="h4">Redes Sociais</h4>
-        <a href=""><img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram"></a>
-        <a href=""><img src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram">
+        </a>
+        <a href="https://amazon.com.br" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
+          <img src="img/amazon-svgrepo-com.svg" alt="Amazon">
+        </a>
       </div>
     </div>
 
@@ -287,8 +234,53 @@
       <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
     </div>
   </footer>
-<script src="js/novidades.js"></script>
-<script src="js/sec-livros.js"></script>
-<script src="js/main.js"></script>
+
+  <!-- ========================================== -->
+  <!-- SCRIPTS -->
+  <!-- ========================================== -->
+  
+  <!-- Scripts principais do site -->
+  <script src="js/novidades.js"></script>
+  <script src="js/sec-livros.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Script das avaliações dinâmicas (NOVO!) -->
+  <script src="js/footer.js"></script>
+
+  <!-- Script dos filtros de gênero -->
+  <script>
+    /**
+     * Melhoria de UX para filtros de gênero
+     * Se já estiver na página de produtos, aplica filtro sem reload
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+      const linksFiltro = document.querySelectorAll('.filtro-genero');
+      
+      linksFiltro.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Se já estiver na página de produtos, previne o reload e filtra
+          if (window.location.pathname.includes('produtos.html')) {
+            e.preventDefault();
+            const genero = this.getAttribute('data-genero');
+            
+            // Seleciona o gênero no select e aplica o filtro
+            const generoSelect = document.getElementById('genero-select');
+            if (generoSelect && typeof aplicarFiltros === 'function') {
+              generoSelect.value = genero;
+              aplicarFiltros();
+              
+              // Scroll suave até os produtos
+              const produtosSection = document.getElementById('produtos-grid');
+              if (produtosSection) {
+                produtosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          }
+          // Se não estiver na página de produtos, deixa o link redirecionar normalmente
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
