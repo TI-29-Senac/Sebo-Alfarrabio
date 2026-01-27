@@ -32,7 +32,6 @@ class PublicApiController {
             if ($id) {
                 // Buscar item específico
                 $item = $this->buscarItemCompleto((int)$id);
-                
                 if (!$item) {
                     http_response_code(404);
                     echo json_encode([

@@ -81,7 +81,7 @@ class Rotas
                 // ========================================
                 
                  "/api/item" => "PublicApiController@getItem",
-                  "/api/buscaitem" => "APIItemController@getItem",
+                "/api/buscaitem" => "APIItemController@getItem",
 
                 "/api/pedidos" => "APIPedidosController@getPedidos",
                 "/api/buscarpedidos" => "APIPedidosController@getPedidos",

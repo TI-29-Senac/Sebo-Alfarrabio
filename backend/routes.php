@@ -74,5 +74,7 @@ return [
     '/usuario/atualizar'    => [UsuarioController::class, 'update'],
     '/usuario/excluir'      => [UsuarioController::class, 'delete'],
 
+
+    
     
 ];
