@@ -135,7 +135,7 @@ class ItemController extends AdminController {
             $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
             if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
                 $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
-                $pasta = 'uploads/itens/';
+                $pasta = 'uploads';
                 if (!is_dir($pasta)) mkdir($pasta, 0777, true);
                 $caminho = $pasta . $nome;
                 if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
