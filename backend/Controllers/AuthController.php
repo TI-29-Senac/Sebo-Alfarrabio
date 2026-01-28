@@ -1,7 +1,7 @@
 <?php
 namespace Sebo\Alfarrabio\Controllers;
 
-use App\Kipedreiro\Core\NotificacaoEmail as CoreNotificacaoEmail;
+use Sebo\Alfarrabio\Core\NotificacaoEmail as CoreNotificacaoEmail;
 use Sebo\Alfarrabio\Models\Usuario;
 use Sebo\Alfarrabio\Core\Flash;
 use Sebo\Alfarrabio\Database\Database;
@@ -73,7 +73,7 @@ class AuthController{
             Redirect::redirecionarComMensagem('/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
         }
     
-        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente', 'Ativo', 'null');
+        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha);
         if ($novoUsuarioId) {
             $this->notificacaoEmail->boasVindas($email, $nome);
             Redirect::redirecionarComMensagem('/login', 'success', 'Cadastro realizado! Por favor, faça o login.');

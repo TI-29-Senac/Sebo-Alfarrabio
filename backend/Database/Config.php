@@ -17,17 +17,28 @@ class Config
     public static function get()
     {
         return [
-             'database' => array(
+            'database' => array(
                 'driver' => 'mysql',
                 'mysql' => array(
-                 'host' => '69.6.213.160',
+                 'host' => 'localhost',
                 'db_name' => 'hg6c6727_time4_ti29',
-                'username' => 'hg6c6727_time4_ti29',
-                'password' => 'jeB!O~=l-Zr~',
+                'username' => 'root',
+                'password' => '',
                 'charset' => 'utf8',
                 'port' =>  '3306',
                 ),
             ),
+            //  'database' => array(
+            //     'driver' => 'mysql',
+            //     'mysql' => array(
+            //      'host' => '69.6.213.160',
+            //     'db_name' => 'hg6c6727_time4_ti29',
+            //     'username' => 'hg6c6727_time4_ti29',
+            //     'password' => 'jeB!O~=l-Zr~',
+            //     'charset' => 'utf8',
+            //     'port' =>  '3306',
+            //     ),
+            // ),
             'app' => [
                 'name'  => 'Sebo Alfarrábio',
                 'url'   => 'http://localhost/sebo-alfarrabio',
