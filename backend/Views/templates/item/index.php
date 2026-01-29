@@ -786,7 +786,7 @@
                                 <tr>
                                     <td style="text-align: center;">
                                         <img 
-                                            src="/backend/uploads/itens/<?= htmlspecialchars($item['foto_item']) ?>" 
+                                            src="/backend/uploads<?= htmlspecialchars($item['foto_item']) ?>" 
                                             onerror="this.onerror=null;this.src='/backend/uploads/<?= htmlspecialchars($item['foto_item']) ?>';"
                                             alt="<?= htmlspecialchars($item['titulo_item']) ?>"
                                             class="item-image"

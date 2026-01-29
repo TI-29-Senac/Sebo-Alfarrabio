@@ -167,7 +167,7 @@ class ItemController extends AdminController {
             Redirect::redirecionarComMensagem("/backend/item/listar","success","Item cadastrado com sucesso!");
         } else {
             if ($fotoPath && file_exists(ltrim($fotoPath,'/'))) unlink(ltrim($fotoPath,'/'));
-            Redirect::redirecionarComMensagem("/backend/item/criar","error","Erro ao salvar item.");
+            Redirect::redirecionarComMensagem("backend/item/criar","error","Erro ao salvar item.");
         }
     }
 
