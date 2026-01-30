@@ -1,7 +1,6 @@
 <?php
 require_once 'backend/Database/Config.php';
 require_once 'backend/Database/Database.php';
-
 use Sebo\Alfarrabio\Database\Database;
 
 try {
