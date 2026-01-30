@@ -211,9 +211,13 @@ class ItemController extends AdminController
                 if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
                     $fotoPath = '/' . $caminho;
 
-                    // Apagar foto antiga se existir
-                    if (!empty($_POST['foto_item_atual']) && file_exists(ltrim($_POST['foto_item_atual'], '/'))) {
-                        @unlink(ltrim($_POST['foto_item_atual'], '/'));
+                    // Apagar foto antiga se existir de forma segura (apenas dentro da pasta itens)
+                    if (!empty($_POST['foto_item_atual'])) {
+                        $arquivoAntigo = basename($_POST['foto_item_atual']);
+                        $caminhoAntigo = 'uploads/itens/' . $arquivoAntigo;
+                        if (file_exists($caminhoAntigo)) {
+                            @unlink($caminhoAntigo);
+                        }
                     }
                 }
             }

@@ -4,6 +4,9 @@ ini_set('display_errors', 0);
 ini_set('error_log', __DIR__ . '/php_error.log');
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 require_once __DIR__ . '/../vendor/autoload.php';
+
+// Carrega variáveis de ambiente (.env)
+\Sebo\Alfarrabio\Core\Env::carregar(__DIR__);
 use Sebo\Alfarrabio\Rotas\Rotas;
 
 use Bramus\Router\Router;

@@ -437,3 +437,11 @@
 [30-Jan-2026 05:26:35 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [30-Jan-2026 05:26:40 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [30-Jan-2026 05:26:40 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[30-Jan-2026 12:24:56 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[30-Jan-2026 12:26:59 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[30-Jan-2026 12:26:59 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[30-Jan-2026 12:57:09 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[30-Jan-2026 12:58:22 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
+[30-Jan-2026 12:58:24 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
+[30-Jan-2026 12:58:27 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
+[30-Jan-2026 12:58:29 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465

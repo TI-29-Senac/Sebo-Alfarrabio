@@ -178,11 +178,11 @@ class Item
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_item', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $item = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($item) {
             $item['autores_ids'] = $this->buscarAutoresDoItem($id);
-            $item = $item[0];
+            // Adiciona propriedades da classe como padrão caso não existam no DB
             $item += [
                 'foto_item' => $this->foto_item,
                 'preco_item' => $this->preco_item,
@@ -193,21 +193,11 @@ class Item
         return $item;
     }
 
-    public function getItem()
-    {
-        $id = $_GET['id'] ?? null;
-        if ($id) {
-            $item = $this->itemModel->buscarItemPorId((int) $id);
-        } else {
-            $item = $this->itemModel->buscarTodosItens();
-        }
-        echo json_encode(['status' => 'success', 'data' => $item]);
-    }
 
     /**
      * Helper para buscar os IDs dos autores de um item
      */
-    function buscarAutoresDoItem(int $id_item)
+    private function buscarAutoresDoItem(int $id_item)
     {
         $sql = "SELECT autor_id FROM tbl_item_autores WHERE item_id = :item_id";
         $stmt = $this->db->prepare($sql);
