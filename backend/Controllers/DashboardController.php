@@ -12,23 +12,26 @@ use Sebo\Alfarrabio\Core\Session;
 class DashboardController extends AdminController
 {
     private $db;
-     private $categoriaModel;
-     private $itemModel;
-    
+    private $categoriaModel;
+    private $itemModel;
 
-    public function __construct() {
-            parent::__construct();
-            $this->db = Database::getInstance();
-            $this->categoriaModel = new Categoria($this->db);
-            $this->itemModel = new Item($this->db);
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->db = Database::getInstance();
+        $this->categoriaModel = new Categoria($this->db);
+        $this->itemModel = new Item($this->db);
     }
- public function index(){
-       
+    public function index()
+    {
+
+
 
         // Estatísticas simples
         $totalCategorias = (int) $this->categoriaModel->totalDeCategorias();
         $totalCategoriasInativas = (int) $this->categoriaModel->totalDeCategoriasInativas();
-        $totalItens = (int)$this->itemModel->totalDeItens();
+        $totalItens = (int) $this->itemModel->totalDeItens();
         $totalItensInativos = (int) $this->itemModel->totalDeItensInativos();
 
         // Vendas e faturamento (se as tabelas existirem)
@@ -36,7 +39,7 @@ class DashboardController extends AdminController
             $stmtVendas = $this->db->query("SELECT COUNT(*) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $vendasMes = (int) $stmtVendas->fetchColumn();
 
-            $stmtFaturamento =$this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
+            $stmtFaturamento = $this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $faturamentoMes = (float) $stmtFaturamento->fetchColumn();
         } catch (\Throwable $e) {
             // Se não houver tabela de vendas, definimos 0 para não quebrar a página
@@ -68,7 +71,7 @@ class DashboardController extends AdminController
             $stmt = $this->db->query($sqlVendas);
             $vendasMap = [];
             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-                $vendasMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
+                $vendasMap[sprintf('%04d-%02d', $row['yr'], $row['m'])] = (int) $row['total'];
             }
 
             // consulta agrupada para pedidos dos últimos N meses
@@ -79,14 +82,23 @@ class DashboardController extends AdminController
             $stmt2 = $this->db->query($sqlPedidos);
             $pedidosMap = [];
             while ($row = $stmt2->fetch(\PDO::FETCH_ASSOC)) {
-                $pedidosMap[ sprintf('%04d-%02d', $row['yr'], $row['m']) ] = (int) $row['total'];
-}
+                $pedidosMap[sprintf('%04d-%02d', $row['yr'], $row['m'])] = (int) $row['total'];
+            }
 
             // meses em português abreviados
             $pt_months = [
-                '01' => 'Jan', '02' => 'Fev', '03' => 'Mar', '04' => 'Abr',
-                '05' => 'Mai', '06' => 'Jun', '07' => 'Jul', '08' => 'Ago',
-                '09' => 'Set', '10' => 'Out', '11' => 'Nov', '12' => 'Dez'
+                '01' => 'Jan',
+                '02' => 'Fev',
+                '03' => 'Mar',
+                '04' => 'Abr',
+                '05' => 'Mai',
+                '06' => 'Jun',
+                '07' => 'Jul',
+                '08' => 'Ago',
+                '09' => 'Set',
+                '10' => 'Out',
+                '11' => 'Nov',
+                '12' => 'Dez'
             ];
 
             for ($i = $period - 1; $i >= 0; $i--) {
@@ -99,36 +111,36 @@ class DashboardController extends AdminController
                 $pedidos_chart_labels[] = $label;
                 $pedidos_chart_data[] = isset($pedidosMap[$key]) ? $pedidosMap[$key] : 0;
             }
-} catch (\Throwable $e) {
-    // Se não houver tabelas ou ocorrer erro, mantemos arrays vazios/zeros
-    $vendas_chart_labels = [];
-    $vendas_chart_data = [];
-    $pedidos_chart_labels = [];
-    $pedidos_chart_data = [];
-}
+        } catch (\Throwable $e) {
+            // Se não houver tabelas ou ocorrer erro, mantemos arrays vazios/zeros
+            $vendas_chart_labels = [];
+            $vendas_chart_data = [];
+            $pedidos_chart_labels = [];
+            $pedidos_chart_data = [];
+        }
 
         View::render('admin/dashboard/index', [
-    'nomeUsuario' => $this->session->get('usuario_nome')?? '', 
-    'Tipo' => $this->session->get('usuario_tipo')?? '',
-    'totalCategorias' => $totalCategorias,
-    'totalCategoriasInativas' => $totalCategoriasInativas,
-    'totalItens' => $totalItens,
-    'totalItensInativos' => $totalItensInativos,
-    'vendasMes' => $vendasMes,
-    'faturamentoMes' => $faturamentoMes,
-    'ultimosItens' => $ultimosItens,
-    'vendas_chart_labels' => $vendas_chart_labels,
-    'vendas_chart_data' => $vendas_chart_data,
-    'pedidos_chart_labels' => $pedidos_chart_labels,
-    'pedidos_chart_data' => $pedidos_chart_data
-]);
+            'nomeUsuario' => $this->session->get('usuario_nome') ?? '',
+            'Tipo' => $this->session->get('usuario_tipo') ?? '',
+            'totalCategorias' => $totalCategorias,
+            'totalCategoriasInativas' => $totalCategoriasInativas,
+            'totalItens' => $totalItens,
+            'totalItensInativos' => $totalItensInativos,
+            'vendasMes' => $vendasMes,
+            'faturamentoMes' => $faturamentoMes,
+            'ultimosItens' => $ultimosItens,
+            'vendas_chart_labels' => $vendas_chart_labels,
+            'vendas_chart_data' => $vendas_chart_data,
+            'pedidos_chart_labels' => $pedidos_chart_labels,
+            'pedidos_chart_data' => $pedidos_chart_data
+        ]);
     }
 
 
-    public function areCliente(){
+    public function areCliente()
+    {
         View::render('admin/cliente/index', [
         ]);
     }
 }
 
-       

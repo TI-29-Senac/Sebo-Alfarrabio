@@ -12,18 +12,20 @@ use Sebo\Alfarrabio\Validadores\ItemValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
-class ItemController extends AdminController {
-    
+class ItemController extends AdminController
+{
+
     public $db;
     public $item;
     public $autor;
     public $categoria;
     public $genero;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->db = Database::getInstance();
-        
+
         $this->item = new Item($this->db);
         $this->autor = new Autor($this->db);
         $this->categoria = new Categoria($this->db);
@@ -33,25 +35,26 @@ class ItemController extends AdminController {
     /**
      * Exibe a view de listagem com paginação e estatísticas.
      */
-    public function viewListarItens($pagina = 1){
-        if(empty($pagina) || $pagina <= 0){
+    public function viewListarItens($pagina = 1)
+    {
+        if (empty($pagina) || $pagina <= 0) {
             $pagina = 1;
         }
 
         // Verifica se há um termo de pesquisa
         $termoPesquisa = $_GET['search'] ?? null;
-        
+
         // Busca dados paginados
         if ($termoPesquisa) {
             $dados = $this->item->pesquisarItens($termoPesquisa, $pagina, 10);
         } else {
             $dados = $this->item->paginacao($pagina, 10);
         }
-        
+
         $totalAtivos = $this->item->totalDeItensAtivos();
         $totalInativos = $this->item->totalDeItensInativos();
         $total = $this->item->totalDeItens();
-        
+
         View::render("item/index", [
             "itens" => $dados['data'],
             "total_itens" => $total,
@@ -65,10 +68,11 @@ class ItemController extends AdminController {
     /**
      * Exibe o formulário de criação.
      */
-    public function viewCriarItem(){
+    public function viewCriarItem()
+    {
         $generos = $this->genero->buscarGeneros();
         $categorias = $this->categoria->buscarCategorias();
-        
+
         View::render("item/create", [
             "generos" => $generos,
             "categorias" => $categorias
@@ -78,11 +82,12 @@ class ItemController extends AdminController {
     /**
      * Exibe o formulário de edição com os dados do item.
      */
-    public function viewEditarItem(int $id){
-       $item = $this->item->buscarItemPorID($id);
+    public function viewEditarItem(int $id)
+    {
+        $item = $this->item->buscarItemPorID($id);
 
         if (!$item) {
-            Redirect::redirecionarComMensagem("/backend/item/listar","error","Item não encontrado!");
+            Redirect::redirecionarComMensagem("/backend/item/listar", "error", "Item não encontrado!");
             return;
         }
 
@@ -98,7 +103,7 @@ class ItemController extends AdminController {
                 }
             }
         }
-        
+
         View::render("item/edit", [
             "item" => $item,
             "generos" => $generos,
@@ -110,16 +115,17 @@ class ItemController extends AdminController {
     /**
      * Exibe a tela de confirmação de exclusão
      */
-    public function viewExcluirItem($id){
-       $item = $this->item->buscarItemPorID($id);
-       if (!$item) {
-            Redirect::redirecionarComMensagem("/backend/item/listar","error","Item não encontrado!");
+    public function viewExcluirItem($id)
+    {
+        $item = $this->item->buscarItemPorID($id);
+        if (!$item) {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "error", "Item não encontrado!");
             return;
-       }
-       View::render("item/delete", [
-           "id_item" => $item['id_item'],
-           "titulo_item" => $item['titulo_item']
-       ]);
+        }
+        View::render("item/delete", [
+            "id_item" => $item['id_item'],
+            "titulo_item" => $item['titulo_item']
+        ]);
     }
 
     // --- MÉTODOS DE PROCESSAMENTO (POST) ---
@@ -127,47 +133,50 @@ class ItemController extends AdminController {
     /**
      * Processa o formulário de salvar novo item.
      */
-    public function salvarItem(){
+    public function salvarItem()
+    {
         // === UPLOAD DA FOTO (automático) ===
         $fotoPath = null;
         if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === 0) {
-            $extensoes = ['jpg','jpeg','png','webp'];
+            $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
             $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
             if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
                 $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
                 $pasta = 'uploads';
-                if (!is_dir($pasta)) mkdir($pasta, 0777, true);
+                if (!is_dir($pasta))
+                    mkdir($pasta, 0777, true);
                 $caminho = $pasta . $nome;
                 if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
                     $fotoPath = '/' . $caminho;
                 }
             }
         }
-    
+
         $dadosItem = [
-            'titulo_item'       => $_POST['titulo_item'],
-            'tipo_item'         => $_POST['tipo_item'],
-            'id_genero'         => (int)$_POST['id_genero'],
-            'id_categoria'      => (int)$_POST['id_categoria'],
-            'descricao'         => $_POST['descricao'] ?? null,
-            'ano_publicacao'    => !empty($_POST['ano_publicacao']) ? (int)$_POST['ano_publicacao'] : null,
+            'titulo_item' => $_POST['titulo_item'],
+            'tipo_item' => $_POST['tipo_item'],
+            'id_genero' => (int) $_POST['id_genero'],
+            'id_categoria' => (int) $_POST['id_categoria'],
+            'descricao' => $_POST['descricao'] ?? null,
+            'ano_publicacao' => !empty($_POST['ano_publicacao']) ? (int) $_POST['ano_publicacao'] : null,
             'editora_gravadora' => $_POST['editora_gravadora'] ?? null,
-            'estoque'           => (int)($_POST['estoque'] ?? 1),
-            'preco_item'        => !empty($_POST['preco_item']) ? (float)$_POST['preco_item'] : 0.00,
-            'isbn'              => $_POST['isbn'] ?? null,
-            'duracao_minutos'   => !empty($_POST['duracao_minutos']) ? (int)$_POST['duracao_minutos'] : null,
-            'numero_edicao'     => !empty($_POST['numero_edicao']) ? (int)$_POST['numero_edicao'] : null,
-            'foto_item'         => $fotoPath,
+            'estoque' => (int) ($_POST['estoque'] ?? 1),
+            'preco_item' => !empty($_POST['preco_item']) ? (float) $_POST['preco_item'] : 0.00,
+            'isbn' => $_POST['isbn'] ?? null,
+            'duracao_minutos' => !empty($_POST['duracao_minutos']) ? (int) $_POST['duracao_minutos'] : null,
+            'numero_edicao' => !empty($_POST['numero_edicao']) ? (int) $_POST['numero_edicao'] : null,
+            'foto_item' => $fotoPath,
         ];
-    
+
         $autores_ids = $_POST['autores_ids'] ?? [];
         $autores_ids = array_map('intval', $autores_ids);
-    
-        if($this->item->inserirItem($dadosItem, $autores_ids)){
-            Redirect::redirecionarComMensagem("/backend/item/listar","success","Item cadastrado com sucesso!");
+
+        if ($this->item->inserirItem($dadosItem, $autores_ids)) {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item cadastrado com sucesso!");
         } else {
-            if ($fotoPath && file_exists(ltrim($fotoPath,'/'))) unlink(ltrim($fotoPath,'/'));
-            Redirect::redirecionarComMensagem("backend/item/criar","error","Erro ao salvar item.");
+            if ($fotoPath && file_exists(ltrim($fotoPath, '/')))
+                unlink(ltrim($fotoPath, '/'));
+            Redirect::redirecionarComMensagem("/backend/item/criar", "error", "Erro ao salvar item.");
         }
     }
 
@@ -176,7 +185,7 @@ class ItemController extends AdminController {
      */
     public function atualizarItem()
     {
-        $id_item = (int)($_POST["id_item"] ?? 0);
+        $id_item = (int) ($_POST["id_item"] ?? 0);
         if ($id_item <= 0) {
             Redirect::redirecionarComMensagem("/backend/item/listar", "error", "ID do item inválido.");
             return;
@@ -214,19 +223,19 @@ class ItemController extends AdminController {
         //          DADOS DO ITEM
         // =======================================
         $dadosItem = [
-            'titulo_item'       => $_POST["titulo_item"] ?? '',
-            'tipo_item'         => $_POST["tipo_item"] ?? '',
-            'id_genero'         => (int)($_POST["id_genero"] ?? 0),
-            'id_categoria'      => (int)($_POST["id_categoria"] ?? 0),
-            'descricao'         => $_POST["descricao"] ?? null,
-            'ano_publicacao'    => !empty($_POST["ano_publicacao"]) ? (int)$_POST["ano_publicacao"] : null,
+            'titulo_item' => $_POST["titulo_item"] ?? '',
+            'tipo_item' => $_POST["tipo_item"] ?? '',
+            'id_genero' => (int) ($_POST["id_genero"] ?? 0),
+            'id_categoria' => (int) ($_POST["id_categoria"] ?? 0),
+            'descricao' => $_POST["descricao"] ?? null,
+            'ano_publicacao' => !empty($_POST["ano_publicacao"]) ? (int) $_POST["ano_publicacao"] : null,
             'editora_gravadora' => $_POST["editora_gravadora"] ?? null,
-            'estoque'           => (int)($_POST["estoque"] ?? 1),
-            'preco_item'        => !empty($_POST["preco_item"]) ? (float)$_POST["preco_item"] : 0.00,
-            'isbn'              => $_POST["isbn"] ?? null,
-            'duracao_minutos'   => !empty($_POST["duracao_minutos"]) ? (int)$_POST["duracao_minutos"] : null,
-            'numero_edicao'     => !empty($_POST["numero_edicao"]) ? (int)$_POST["numero_edicao"] : null,
-            'foto_item'         => $fotoPath,
+            'estoque' => (int) ($_POST["estoque"] ?? 1),
+            'preco_item' => !empty($_POST["preco_item"]) ? (float) $_POST["preco_item"] : 0.00,
+            'isbn' => $_POST["isbn"] ?? null,
+            'duracao_minutos' => !empty($_POST["duracao_minutos"]) ? (int) $_POST["duracao_minutos"] : null,
+            'numero_edicao' => !empty($_POST["numero_edicao"]) ? (int) $_POST["numero_edicao"] : null,
+            'foto_item' => $fotoPath,
         ];
 
         $autores_ids = $_POST["autores_ids"] ?? [];
@@ -246,12 +255,13 @@ class ItemController extends AdminController {
     /**
      * Processa a exclusão (soft delete)
      */
-    public function deletarItem(){
-        $id_item = (int)$_POST["id_item"];
-         if($this->item->excluirItem($id_item)){
-            Redirect::redirecionarComMensagem("/backend/item/listar","success","Item movido para a lixeira.");
-        }else{
-            Redirect::redirecionarComMensagem("/backend/item/listar","error","Erro ao excluir item.");
+    public function deletarItem()
+    {
+        $id_item = (int) $_POST["id_item"];
+        if ($this->item->excluirItem($id_item)) {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item movido para a lixeira.");
+        } else {
+            Redirect::redirecionarComMensagem("/backend/item/listar", "error", "Erro ao excluir item.");
         }
     }
 
@@ -260,16 +270,17 @@ class ItemController extends AdminController {
     /**
      * AJAX: Pesquisa rápida de itens (para listagem dinâmica)
      */
-    public function ajaxPesquisarItens(){
+    public function ajaxPesquisarItens()
+    {
         $termo = $_GET['term'] ?? '';
-        
+
         if (empty($termo) || strlen($termo) < 2) {
             echo json_encode([]);
             exit;
         }
 
         $resultados = $this->item->pesquisarItensSimples($termo);
-        
+
         header('Content-Type: application/json');
         echo json_encode($resultados);
         exit;
@@ -278,16 +289,17 @@ class ItemController extends AdminController {
     /**
      * AJAX: Busca Autores por nome (para autocomplete)
      */
-    public function ajaxBuscarAutores(){
+    public function ajaxBuscarAutores()
+    {
         $termo = $_GET['term'] ?? '';
-        
+
         if (empty($termo) || strlen($termo) < 2) {
             echo json_encode([]);
             exit;
         }
 
         $resultados = $this->autor->buscarAutoresPorNome($termo);
-        
+
         header('Content-Type: application/json');
         echo json_encode($resultados);
         exit;
@@ -296,16 +308,17 @@ class ItemController extends AdminController {
     /**
      * AJAX: Busca Categorias por nome (para autocomplete)
      */
-    public function ajaxBuscarCategorias(){
+    public function ajaxBuscarCategorias()
+    {
         $termo = $_GET['term'] ?? '';
-        
+
         if (empty($termo) || strlen($termo) < 2) {
             echo json_encode([]);
             exit;
         }
 
         $resultados = $this->categoria->buscarCategoriasPorNome($termo);
-        
+
         header('Content-Type: application/json');
         echo json_encode($resultados);
         exit;

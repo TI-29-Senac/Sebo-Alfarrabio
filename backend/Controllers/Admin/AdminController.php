@@ -2,12 +2,15 @@
 namespace Sebo\Alfarrabio\Controllers\Admin;
 use Sebo\Alfarrabio\Core\Redirect;
 
-abstract class AdminController extends AuthenticatedController{
-    public function __construct() {
+abstract class AdminController extends AuthenticatedController
+{
+    public function __construct()
+    {
+
         parent::__construct();
-        if ($this->session->get('usuario_tipo') !== 'Admin') {
+        if (strcasecmp($this->session->get('usuario_tipo') ?? '', 'Admin') !== 0) {
             Redirect::redirecionarComMensagem(
-                '/admin/cliente',
+                '/backend/admin/cliente',
                 'success',
                 'Bem vindo (a)!! Essa é a sua área de cliente.'
             );

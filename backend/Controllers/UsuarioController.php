@@ -9,22 +9,25 @@ use Sebo\Alfarrabio\Validadores\UsuarioValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
-class UsuarioController extends AdminController {
+class UsuarioController extends AdminController
+{
     private $usuario;
     private $db;
     private $gerenciarImagem;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->db = Database::getInstance();
         $this->usuario = new Usuario($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
 
-    public function salvarUsuario() {
+    public function salvarUsuario()
+    {
         $erros = UsuarioValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/usuario/criar", "error", implode("<br>", $erros));  // ← Rota full
+            Redirect::redirecionarComMensagem("/backend/usuario/criar", "error", implode("<br>", $erros));  // ← Rota full
         }
 
         $id = $this->usuario->inseriUsuario(
@@ -36,19 +39,24 @@ class UsuarioController extends AdminController {
 
         if ($id !== false && $id > 0) {
             error_log("Usuário ID {$id} criado");
-            Redirect::redirecionarComMensagem("/usuario/listar", "success", "Usuário #{$id} cadastrado!");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "success", "Usuário #{$id} cadastrado!");
         } else {
-            Redirect::redirecionarComMensagem("/usuario/criar", "error", "Erro ao cadastrar.");
+            Redirect::redirecionarComMensagem("/backend/usuario/criar", "error", "Erro ao cadastrar.");
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $resultado = $this->usuario->buscarUsuarios();
-        echo "<pre>"; print_r($resultado); echo "</pre>";
-    }  
+        echo "<pre>";
+        print_r($resultado);
+        echo "</pre>";
+    }
 
-    public function viewListarUsuarios($pagina = 1) {
-        if (empty($pagina) || $pagina <= 0) $pagina = 1;
+    public function viewListarUsuarios($pagina = 1)
+    {
+        if (empty($pagina) || $pagina <= 0)
+            $pagina = 1;
         $dados = $this->usuario->paginacao($pagina);
         $total = $this->usuario->totalDeUsuarios();  // Scalar
         $totalInativos = $this->usuario->totalDeUsuariosInativos();
@@ -63,36 +71,41 @@ class UsuarioController extends AdminController {
         ]);
     }
 
-    public function viewCriarUsuarios() {
+    public function viewCriarUsuarios()
+    {
         View::render("usuario/create", []);
     }
 
-    public function viewEditarUsuarios(int $id) {
-        $dados = $this->usuario->buscarUsuariosPorID($id);
+    public function viewEditarUsuarios(int $id)
+    {
+        $dados = $this->usuario->buscarUsuarioPorID($id);
         if (!$dados) {
-            Redirect::redirecionarComMensagem("/usuario/listar", "error", "Usuário não encontrado.");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
         }
         View::render("usuario/edit", ["usuario" => $dados]);
     }
 
-    public function viewExcluirUsuarios($id) {
-        $dados = $this->usuario->buscarUsuariosPorID($id);
+    public function viewExcluirUsuarios($id)
+    {
+        $dados = $this->usuario->buscarUsuarioPorID($id);
         if (!$dados) {
-            Redirect::redirecionarComMensagem("/usuario/listar", "error", "Usuário não encontrado.");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
         }
         View::render("usuario/delete", ["usuario" => $dados]);  // Dados full
     }
 
-    public function relatorioUsuario($id = null, $data1 = null, $data2 = null) {
-        $usuarios = $id ? [$this->usuario->buscarUsuariosPorID($id)] : $this->usuario->buscarUsuarios();
+    public function relatorioUsuario($id = null, $data1 = null, $data2 = null)
+    {
+        $usuarios = $id ? [$this->usuario->buscarUsuarioPorID($id)] : $this->usuario->buscarUsuarios();
         View::render("usuario/relatorio", ["usuarios" => $usuarios, "id" => $id, "data1" => $data1, "data2" => $data2]);
     }
-    
-    public function atualizarUsuario() {
+
+    public function atualizarUsuario()
+    {
         $id = (int) $_POST['id_usuario'];
         $erros = UsuarioValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/usuario/editar/{$id}", "error", implode("<br>", $erros));
+            Redirect::redirecionarComMensagem("/backend/usuario/editar/{$id}", "error", implode("<br>", $erros));
         }
 
         $sucesso = $this->usuario->atualizarUsuario(
@@ -104,27 +117,29 @@ class UsuarioController extends AdminController {
         );
 
         if ($sucesso) {
-            Redirect::redirecionarComMensagem("/usuario/listar", "success", "Usuário #{$id} atualizado!");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "success", "Usuário #{$id} atualizado!");
         } else {
-            Redirect::redirecionarComMensagem("/usuario/editar/{$id}", "error", "Erro ao atualizar.");
+            Redirect::redirecionarComMensagem("/backend/usuario/editar/{$id}", "error", "Erro ao atualizar.");
         }
     }
 
-    public function deletarUsuario() {
+    public function deletarUsuario()
+    {
         $id = (int) $_POST['id_usuario'];
         if ($this->usuario->excluirUsuario($id)) {
-            Redirect::redirecionarComMensagem("/usuario/listar", "success", "Usuário #{$id} desativado!");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "success", "Usuário #{$id} desativado!");
         } else {
-            Redirect::redirecionarComMensagem("/usuario/listar", "error", "Erro ao desativar.");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Erro ao desativar.");
         }
     }
 
-    public function ativarUsuario() {
+    public function ativarUsuario()
+    {
         $id = (int) ($_POST['id_usuario'] ?? $_GET['id'] ?? 0);
         if ($this->usuario->ativarUsuario($id)) {
-            Redirect::redirecionarComMensagem("/usuario/listar", "success", "Usuário #{$id} reativado!");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "success", "Usuário #{$id} reativado!");
         } else {
-            Redirect::redirecionarComMensagem("/usuario/listar", "error", "Erro ao reativar.");
+            Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Erro ao reativar.");
         }
     }
 }

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Item - Sebo Alfarrábio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #8B7355;
@@ -40,7 +43,7 @@
         .top-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             padding: 25px 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -54,7 +57,7 @@
         .star-icon {
             font-size: 42px;
             color: #ffd700;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         .header-text h1 {
@@ -68,7 +71,7 @@
 
         .header-text p {
             font-size: 16px;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 300;
         }
 
@@ -90,7 +93,7 @@
             background: var(--bg-card);
             border-radius: 16px;
             padding: 28px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
             position: relative;
@@ -111,7 +114,7 @@
 
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .stat-card:hover::before {
@@ -221,7 +224,7 @@
         .form-container {
             background: var(--bg-card);
             border-radius: 18px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             border: 1px solid var(--border);
         }
@@ -245,7 +248,7 @@
 
         .form-subtitle {
             font-size: 15px;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 300;
         }
 
@@ -518,7 +521,7 @@
             overflow-y: auto;
             background: white;
             border-radius: 0 0 10px 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
             margin-top: -10px;
         }
 
@@ -607,13 +610,13 @@
             background: white;
             border-radius: 14px;
             padding: 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
             transition: all 0.3s;
         }
 
         .price-display:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
 
         .price-label {
@@ -809,6 +812,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header Superior -->
     <div class="top-header">
@@ -886,29 +890,36 @@
                     <i class="fas fa-edit"></i>
                     Editar Item: <?= htmlspecialchars($item['titulo_item']) ?>
                 </h2>
-                <p class="form-subtitle">Atualize as informações do produto e mantenha seu catálogo sempre atualizado</p>
+                <p class="form-subtitle">Atualize as informações do produto e mantenha seu catálogo sempre atualizado
+                </p>
             </div>
 
             <div class="form-body">
                 <form action="/backend/item/atualizar" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id_item" value="<?= htmlspecialchars($item['id_item']) ?>">
-                    <input type="hidden" name="foto_item_atual" value="<?= htmlspecialchars($item['foto_item'] ?? '') ?>">
+                    <input type="hidden" name="foto_item_atual"
+                        value="<?= htmlspecialchars($item['foto_item'] ?? '') ?>">
 
                     <!-- Image and Basic Info Section -->
                     <div class="image-section">
                         <div class="image-upload-zone">
-                            <div class="image-preview <?= !empty($item['foto_item']) ? 'has-image' : '' ?>" id="image-preview" onclick="document.getElementById('imagem-input').click()">
-                                <img id="preview-img" src="<?= htmlspecialchars($item['foto_item'] ?? '') ?>" alt="Preview">
+                            <div class="image-preview <?= !empty($item['foto_item']) ? 'has-image' : '' ?>"
+                                id="image-preview" onclick="document.getElementById('imagem-input').click()">
+                                <img id="preview-img"
+                                    src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item'] ?? '') ?>"
+                                    alt="Preview">
                                 <div class="upload-placeholder">
                                     <i class="fas fa-cloud-upload-alt"></i>
                                     <p>Clique para adicionar</p>
                                     <small>PNG, JPG até 5MB</small>
                                 </div>
-                                <button type="button" class="remove-image" onclick="event.stopPropagation(); removerImagem()">
+                                <button type="button" class="remove-image"
+                                    onclick="event.stopPropagation(); removerImagem()">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
-                            <input type="file" id="imagem-input" name="foto_item" accept="image/*" onchange="previewImagem(event)">
+                            <input type="file" id="imagem-input" name="foto_item" accept="image/*"
+                                onchange="previewImagem(event)">
                         </div>
 
                         <div class="basic-info">
@@ -917,12 +928,14 @@
                                     Título do Produto
                                     <span class="required">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="titulo_item" name="titulo_item" value="<?= htmlspecialchars($item['titulo_item']) ?>" required>
+                                <input type="text" class="form-control" id="titulo_item" name="titulo_item"
+                                    value="<?= htmlspecialchars($item['titulo_item']) ?>" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="descricao">Descrição</label>
-                                <textarea class="form-control" id="descricao" name="descricao" rows="4"><?= htmlspecialchars($item['descricao']) ?></textarea>
+                                <textarea class="form-control" id="descricao" name="descricao"
+                                    rows="4"><?= htmlspecialchars($item['descricao']) ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -941,7 +954,8 @@
                                 <div class="price-label">Preço de Venda</div>
                                 <div class="price-value">
                                     <span class="price-currency">R$</span>
-                                    <span id="display-preco-venda"><?= number_format((float)($item['preco_item'] ?? 0), 2, ',', '.') ?></span>
+                                    <span
+                                        id="display-preco-venda"><?= number_format((float) ($item['preco_item'] ?? 0), 2, ',', '.') ?></span>
                                 </div>
                                 <p class="price-note">Preço exibido ao cliente</p>
                             </div>
@@ -950,7 +964,8 @@
                                 <div class="price-label">Preço com Desconto (10%)</div>
                                 <div class="price-value">
                                     <span class="price-currency">R$</span>
-                                    <span id="display-preco-desconto"><?= number_format((float)($item['preco_item'] ?? 0) * 0.9, 2, ',', '.') ?></span>
+                                    <span
+                                        id="display-preco-desconto"><?= number_format((float) ($item['preco_item'] ?? 0) * 0.9, 2, ',', '.') ?></span>
                                 </div>
                                 <p class="price-note">Promoção ou cliente fiel</p>
                             </div>
@@ -959,7 +974,8 @@
                                 <div class="price-label">Valor Total em Estoque</div>
                                 <div class="price-value">
                                     <span class="price-currency">R$</span>
-                                    <span id="display-valor-total"><?= number_format((float)($item['preco_item'] ?? 0) * (int)($item['estoque'] ?? 0), 2, ',', '.') ?></span>
+                                    <span
+                                        id="display-valor-total"><?= number_format((float) ($item['preco_item'] ?? 0) * (int) ($item['estoque'] ?? 0), 2, ',', '.') ?></span>
                                 </div>
                                 <p class="price-note">Valor total do estoque atual</p>
                             </div>
@@ -974,7 +990,8 @@
                             <div class="calculator-inputs">
                                 <div class="form-group">
                                     <label for="custo-aquisicao">Custo de Aquisição (R$)</label>
-                                    <input type="number" class="form-control" id="custo-aquisicao" step="0.01" min="0" value="0.00">
+                                    <input type="number" class="form-control" id="custo-aquisicao" step="0.01" min="0"
+                                        value="0.00">
                                 </div>
                                 <div class="form-group">
                                     <label for="quantidade-venda">Quantidade a Vender</label>
@@ -1004,10 +1021,12 @@
                                     <span class="required">*</span>
                                 </label>
                                 <select id="tipo_item" name="tipo_item" class="form-control" required>
-                                    <option value="livro" <?= $item['tipo_item'] == 'livro' ? 'selected' : '' ?>>Livro</option>
+                                    <option value="livro" <?= $item['tipo_item'] == 'livro' ? 'selected' : '' ?>>Livro
+                                    </option>
                                     <option value="cd" <?= $item['tipo_item'] == 'cd' ? 'selected' : '' ?>>CD</option>
                                     <option value="dvd" <?= $item['tipo_item'] == 'dvd' ? 'selected' : '' ?>>DVD</option>
-                                    <option value="revista" <?= $item['tipo_item'] == 'revista' ? 'selected' : '' ?>>Revista</option>
+                                    <option value="revista" <?= $item['tipo_item'] == 'revista' ? 'selected' : '' ?>>
+                                        Revista</option>
                                 </select>
                             </div>
 
@@ -1018,8 +1037,9 @@
                                 </label>
                                 <select id="id_genero" name="id_genero" class="form-control" required>
                                     <?php foreach ($generos as $genero): ?>
-                                        <option value="<?= $genero['id_genero'] ?>" <?= $item['id_genero'] == $genero['id_genero'] ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($genero['nome_genero']) ?>
+                                        <option value="<?= $genero['id_generos'] ?>"
+                                            <?= $item['id_genero'] == $genero['id_generos'] ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($genero['nome_generos']) ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -1032,7 +1052,8 @@
                                 </label>
                                 <select id="id_categoria" name="id_categoria" class="form-control" required>
                                     <?php foreach ($categorias as $categoria): ?>
-                                        <option value="<?= $categoria['id_categoria'] ?>" <?= $item['id_categoria'] == $categoria['id_categoria'] ? 'selected' : '' ?>>
+                                        <option value="<?= $categoria['id_categoria'] ?>"
+                                            <?= $item['id_categoria'] == $categoria['id_categoria'] ? 'selected' : '' ?>>
                                             <?= htmlspecialchars($categoria['nome_categoria']) ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -1054,16 +1075,19 @@
                             <label for="autor-search-input">Buscar Autores/Artistas</label>
                             <div class="autor-search-wrapper">
                                 <i class="fas fa-search search-icon"></i>
-                                <input type="text" id="autor-search-input" class="form-control" placeholder="Digite o nome do autor ou artista...">
+                                <input type="text" id="autor-search-input" class="form-control"
+                                    placeholder="Digite o nome do autor ou artista...">
                             </div>
                             <div id="autor-search-results"></div>
                             <div id="autores-selecionados-list">
                                 <?php foreach ($autores_selecionados as $autor): ?>
                                     <span id="autor-badge-<?= $autor['id_autor'] ?>">
                                         <?= htmlspecialchars($autor['nome_autor']) ?>
-                                        <button type="button" onclick="removerAutor(<?= $autor['id_autor'] ?>)">&times;</button>
+                                        <button type="button"
+                                            onclick="removerAutor(<?= $autor['id_autor'] ?>)">&times;</button>
                                     </span>
-                                    <input type="hidden" name="autores_ids[]" value="<?= $autor['id_autor'] ?>" id="autor-input-<?= $autor['id_autor'] ?>">
+                                    <input type="hidden" name="autores_ids[]" value="<?= $autor['id_autor'] ?>"
+                                        id="autor-input-<?= $autor['id_autor'] ?>">
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -1086,19 +1110,23 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text">R$</span>
-                                    <input type="number" class="form-control" id="preco_item" name="preco_item" 
-                                           step="0.01" min="0" value="<?= number_format((float)($item['preco_item'] ?? 0), 2, '.', '') ?>" required>
+                                    <input type="number" class="form-control" id="preco_item" name="preco_item"
+                                        step="0.01" min="0"
+                                        value="<?= number_format((float) ($item['preco_item'] ?? 0), 2, '.', '') ?>"
+                                        required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="editora_gravadora">Editora / Gravadora</label>
-                                <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora" value="<?= htmlspecialchars($item['editora_gravadora']) ?>">
+                                <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora"
+                                    value="<?= htmlspecialchars($item['editora_gravadora']) ?>">
                             </div>
 
                             <div class="form-group">
                                 <label for="ano_publicacao">Ano de Publicação</label>
-                                <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099" value="<?= (int)$item['ano_publicacao'] ?>">
+                                <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao"
+                                    min="1000" max="2099" value="<?= (int) $item['ano_publicacao'] ?>">
                             </div>
                         </div>
 
@@ -1108,22 +1136,26 @@
                                     Quantidade em Estoque
                                     <span class="required">*</span>
                                 </label>
-                                <input type="number" class="form-control" id="estoque" name="estoque" min="0" value="<?= (int)$item['estoque'] ?>" required>
+                                <input type="number" class="form-control" id="estoque" name="estoque" min="0"
+                                    value="<?= (int) $item['estoque'] ?>" required>
                             </div>
 
                             <div class="form-group campo-especifico" id="campo-isbn">
                                 <label for="isbn">ISBN (Livro)</label>
-                                <input type="text" class="form-control" id="isbn" name="isbn" value="<?= htmlspecialchars($item['isbn']) ?>">
+                                <input type="text" class="form-control" id="isbn" name="isbn"
+                                    value="<?= htmlspecialchars($item['isbn']) ?>">
                             </div>
 
                             <div class="form-group campo-especifico" id="campo-duracao">
                                 <label for="duracao_minutos">Duração em Minutos (CD/DVD)</label>
-                                <input type="number" class="form-control" id="duracao_minutos" name="duracao_minutos" value="<?= (int)$item['duracao_minutos'] ?>">
+                                <input type="number" class="form-control" id="duracao_minutos" name="duracao_minutos"
+                                    value="<?= (int) $item['duracao_minutos'] ?>">
                             </div>
 
                             <div class="form-group campo-especifico" id="campo-edicao">
                                 <label for="numero_edicao">Número da Edição (Revista)</label>
-                                <input type="number" class="form-control" id="numero_edicao" name="numero_edicao" value="<?= (int)$item['numero_edicao'] ?>">
+                                <input type="number" class="form-control" id="numero_edicao" name="numero_edicao"
+                                    value="<?= (int) $item['numero_edicao'] ?>">
                             </div>
                         </div>
                     </div>
@@ -1150,7 +1182,7 @@
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     const preview = document.getElementById('image-preview');
                     const img = document.getElementById('preview-img');
                     img.src = e.target.result;
@@ -1164,7 +1196,7 @@
             const preview = document.getElementById('image-preview');
             const img = document.getElementById('preview-img');
             const input = document.getElementById('imagem-input');
-            
+
             img.src = '';
             input.value = '';
             preview.classList.remove('has-image');
@@ -1176,9 +1208,9 @@
             const estoque = parseInt(document.getElementById('estoque').value) || 0;
 
             // Update price displays
-            document.getElementById('display-preco-venda').textContent = preco.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('display-preco-desconto').textContent = (preco * 0.9).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('display-valor-total').textContent = (preco * estoque).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('display-preco-venda').textContent = preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('display-preco-desconto').textContent = (preco * 0.9).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('display-valor-total').textContent = (preco * estoque).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
             // Update stock stat
             document.getElementById('stat-estoque').textContent = estoque;
@@ -1194,7 +1226,7 @@
             const quantidade = parseInt(document.getElementById('quantidade-venda').value) || 1;
 
             const lucro = (precoVenda - custoAquisicao) * quantidade;
-            document.getElementById('lucro-estimado').textContent = 'R$ ' + lucro.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('lucro-estimado').textContent = 'R$ ' + lucro.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
         // Event listeners for price updates
@@ -1205,7 +1237,7 @@
 
         // Formatação automática do preço
         const precoInput = document.getElementById('preco_item');
-        precoInput.addEventListener('blur', function() {
+        precoInput.addEventListener('blur', function () {
             const valor = parseFloat(this.value);
             if (!isNaN(valor)) {
                 this.value = valor.toFixed(2);
@@ -1246,7 +1278,7 @@
         searchInput.addEventListener('keyup', () => {
             clearTimeout(debounceTimer);
             const termo = searchInput.value.trim();
-            
+
             if (termo.length < 2) {
                 searchResults.innerHTML = '';
                 return;
@@ -1302,4 +1334,5 @@
         });
     </script>
 </body>
+
 </html>

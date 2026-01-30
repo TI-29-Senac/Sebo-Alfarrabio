@@ -9,20 +9,23 @@ use Sebo\Alfarrabio\Validadores\AutorValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 
-class AutorController extends AdminController {
+class AutorController extends AdminController
+{
     private $autor;
     private $db;
     private $gerenciarImagem;
 
-    public function __construct() {
-         parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
         $this->db = Database::getInstance();
         $this->autor = new Autor($this->db);
         $this->gerenciarImagem = new FileManager('upload');
     }
 
     // --- CRIAR (CREATE) ---
-    public function salvarAutor() {
+    public function salvarAutor()
+    {
         $erros = AutorValidador::validarEntradas($_POST);
 
         if (!empty($erros)) {
@@ -40,12 +43,14 @@ class AutorController extends AdminController {
     }
 
     // --- LER (READ) ---
-    public function index() {
+    public function index()
+    {
         $resultado = $this->autor->buscarAutores();
         var_dump($resultado);
     }
 
-    public function viewListarAutor() {
+    public function viewListarAutor()
+    {
         $dados = $this->autor->buscarAutores();
         $total = $this->autor->totalDeAutores();
         $total_inativos = $this->autor->totalDeAutoresInativos();
@@ -59,11 +64,13 @@ class AutorController extends AdminController {
         ]);
     }
 
-    public function viewCriarAutor() {
+    public function viewCriarAutor()
+    {
         View::render("autor/create", []);
     }
 
-    public function viewEditarAutor($id_autor) {
+    public function viewEditarAutor($id_autor)
+    {
         $dados = $this->autor->buscarAutorPorID($id_autor);
 
         if (!$dados) {
@@ -73,12 +80,14 @@ class AutorController extends AdminController {
         View::render("autor/edit", ["autor" => $dados]);
     }
 
-    public function viewExcluirAutor($id_autor) {
+    public function viewExcluirAutor($id_autor)
+    {
         View::render("autor/delete", ["id_autor" => $id_autor]);
     }
 
-    public function relatorioAutor($id_autor, $data1, $data2) {
-        View::render("/backend/autor/relatorio", [
+    public function relatorioAutor($id_autor, $data1, $data2)
+    {
+        View::render("autor/relatorio", [
             "id" => $id_autor,
             "data1" => $data1,
             "data2" => $data2
@@ -86,9 +95,10 @@ class AutorController extends AdminController {
     }
 
     // --- 🔍 BUSCAR POR NOME (AJAX / AUTOCOMPLETE) ---
-    public function buscarAutoresPorNome() {
+    public function buscarAutoresPorNome()
+    {
         $termo = $_GET['q'] ?? ''; // Exemplo: /autor/buscar?q=Machado
-        $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
+        $limite = isset($_GET['limite']) ? (int) $_GET['limite'] : 10;
 
         if (empty($termo)) {
             echo json_encode([]);
@@ -102,7 +112,8 @@ class AutorController extends AdminController {
     }
 
     // --- ATUALIZAR (UPDATE) ---
-    public function atualizarAutor() {
+    public function atualizarAutor()
+    {
         $id = $_POST['id_autor'] ?? null;
         $nome = $_POST['nome_autor'] ?? '';
         $biografia = $_POST['biografia'] ?? '';
@@ -124,7 +135,8 @@ class AutorController extends AdminController {
     }
 
     // --- EXCLUIR (SOFT DELETE) ---
-    public function deletarAutor() {
+    public function deletarAutor()
+    {
         $id = $_POST['id_autor'] ?? null;
 
         if (!$id) {
@@ -132,18 +144,11 @@ class AutorController extends AdminController {
         }
 
         if ($this->autor->excluirAutor($id)) {
-            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor inativado com sucesso!");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor excluído com sucesso!");
         } else {
-            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Erro ao inativar autor.");
+            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Erro ao excluir autor.");
         }
     }
 
-    // --- REATIVAR AUTOR ---
-    public function ativarAutor($id_autor) {
-        if ($this->autor->ativarAutor($id_autor)) {
-            Redirect::redirecionarComMensagem("/backend/autor/listar", "success", "Autor reativado com sucesso!");
-        } else {
-            Redirect::redirecionarComMensagem("/backend/autor/listar", "error", "Erro ao reativar autor.");
-        }
-    }
+
 }

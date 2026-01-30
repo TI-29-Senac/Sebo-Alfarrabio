@@ -6,7 +6,8 @@ use PDO;
  * Model para gerenciar a tabela tbl_generos
  * Segue o padrão de soft-delete (excluido_em)
  */
-class Genero {
+class Genero
+{
 
     private $id_genero;
     private $nome_genero;
@@ -16,7 +17,8 @@ class Genero {
     private $db;
 
     // Construtor inicializa a conexão PDO
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
@@ -25,8 +27,9 @@ class Genero {
     /**
      * Busca todos os gêneros ativos (não excluídos)
      */
-    function buscarGeneros(){
-        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NULL ORDER BY nome_genero ASC";
+    function buscarGeneros()
+    {
+        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NULL ORDER BY nome_generos ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,8 +38,9 @@ class Genero {
     /**
      * Busca todos os gêneros inativos (excluídos)
      */
-    function buscarGenerosInativos(){
-        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NOT NULL ORDER BY nome_genero ASC";
+    function buscarGenerosInativos()
+    {
+        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NOT NULL ORDER BY nome_generos ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -45,10 +49,11 @@ class Genero {
     /**
      * Busca um gênero específico pelo seu ID (ativo ou inativo)
      */
-    function buscarGeneroPorID(int $id){
-        $sql = "SELECT * FROM tbl_generos WHERE id_genero = :id_genero";
+    function buscarGeneroPorID(int $id)
+    {
+        $sql = "SELECT * FROM tbl_generos WHERE id_generos = :id_generos";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_genero', $id, PDO::PARAM_INT); 
+        $stmt->bindParam(':id_generos', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC); // ID é único
     }
@@ -57,10 +62,11 @@ class Genero {
      * Método para busca dinâmica (autocomplete) no formulário de itens.
      * Retorna apenas gêneros ativos.
      */
-    function buscarGenerosPorNome(string $termo, int $limite = 10){
-        $sql = "SELECT id_genero, nome_genero FROM tbl_generos 
-                WHERE nome_genero LIKE :termo AND excluido_em IS NULL 
-                ORDER BY nome_genero ASC 
+    function buscarGenerosPorNome(string $termo, int $limite = 10)
+    {
+        $sql = "SELECT id_generos, nome_generos FROM tbl_generos 
+                WHERE nome_generos LIKE :termo AND excluido_em IS NULL 
+                ORDER BY nome_generos ASC 
                 LIMIT :limite";
         $stmt = $this->db->prepare($sql);
         $termoLike = '%' . $termo . '%';
@@ -72,21 +78,24 @@ class Genero {
 
     // --- MÉTODOS DE CONTAGEM (STATS) ---
 
-    function totalDeGeneros(){
+    function totalDeGeneros()
+    {
         $sql = "SELECT count(*) as total FROM tbl_generos";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_COLUMN); 
+        return $stmt->fetch(PDO::FETCH_COLUMN);
     }
-    
-    function totalDeGenerosInativos(){
+
+    function totalDeGenerosInativos()
+    {
         $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
-    function totalDeGenerosAtivos(){
+    function totalDeGenerosAtivos()
+    {
         $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -95,21 +104,22 @@ class Genero {
 
     // --- MÉTODO DE PAGINAÇÃO ---
 
-    public function paginacao(int $pagina = 1, int $por_pagina = 10): array{
-        
+    public function paginacao(int $pagina = 1, int $por_pagina = 10): array
+    {
+
         $totalQuery = "SELECT COUNT(*) FROM `tbl_generos`";
         $totalStmt = $this->db->query($totalQuery);
         $total_de_registros = $totalStmt->fetchColumn();
-        
+
         $offset = ($pagina - 1) * $por_pagina;
-        
-        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome_genero ASC LIMIT :limit OFFSET :offset";
+
+        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome_generos ASC LIMIT :limit OFFSET :offset";
         $dataStmt = $this->db->prepare($dataQuery);
         $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $dataStmt->execute();
         $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $lastPage = ceil($total_de_registros / $por_pagina);
 
         return [
@@ -128,14 +138,15 @@ class Genero {
     /**
      * Insere um novo gênero no banco de dados
      */
-    function inserirGenero(string $nome){
-        $sql = "INSERT INTO tbl_generos (nome_genero) VALUES (:nome)";
+    function inserirGenero(string $nome)
+    {
+        $sql = "INSERT INTO tbl_generos (nome_generos) VALUES (:nome)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
-        
-        if($stmt->execute()){
+
+        if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        }else{
+        } else {
             return false;
         }
     }
@@ -143,48 +154,51 @@ class Genero {
     /**
      * Atualiza um gênero existente
      */
-    function atualizarGenero(int $id, string $nome){
+    function atualizarGenero(int $id, string $nome)
+    {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET 
-                  nome_genero = :nome,
+                  nome_generos = :nome,
                   atualizado_em = :atual
-                WHERE id_genero = :id";
-        
+                WHERE id_generos = :id";
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':atual', $dataatual);
-        
+
         return $stmt->execute();
     }
 
     /**
      * Inativa um gênero (Soft Delete)
      */
-    function excluirGenero(int $id){
+    function excluirGenero(int $id)
+    {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET
                   excluido_em = :atual
-                WHERE id_genero = :id";
-        
+                WHERE id_generos = :id";
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':atual', $dataatual);
-        
+
         return $stmt->execute();
     }
 
     /**
      * Re-ativa um gênero que foi excluído
      */
-    function ativarGenero(int $id){
+    function ativarGenero(int $id)
+    {
         $sql = "UPDATE tbl_generos SET
                   excluido_em = NULL
-                WHERE id_genero = :id";
-        
+                WHERE id_generos = :id";
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        
+
         return $stmt->execute();
     }
 }

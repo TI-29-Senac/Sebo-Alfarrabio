@@ -1,8 +1,11 @@
 <?php
 namespace Sebo\Alfarrabio;
-require_once __DIR__.'/../vendor/autoload.php';
+ini_set('display_errors', 0);
+ini_set('error_log', __DIR__ . '/php_error.log');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+require_once __DIR__ . '/../vendor/autoload.php';
 use Sebo\Alfarrabio\Rotas\Rotas;
- 
+
 use Bramus\Router\Router;
 use Sebo\Alfarrabio\Controllers\Api\APIItemController;
 
@@ -35,13 +38,14 @@ use Sebo\Alfarrabio\Controllers\Api\APIItemController;
 // }
 
 $router = new Router();
- 
- 
+$router->setBasePath('/backend');
+
+
 $rotas = Rotas::get();
 $router->setNamespace('Sebo\Alfarrabio\Controllers');
- 
+
 foreach ($rotas as $metodoHttp => $rota) {
-    foreach ($rota as $uri => $acao){
+    foreach ($rota as $uri => $acao) {
         $metodoBramus = strtolower($metodoHttp);
         $router->{$metodoBramus}($uri, $acao); // a dor de cabeça começa aqui
     }
@@ -50,8 +54,19 @@ $router->set404(function () {
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
     echo '404, Rota não encontrada!';
 });
- 
-$router->run();
+
+try {
+    $router->run();
+} catch (\Throwable $e) {
+    http_response_code(500);
+    echo "<div style='background: #fee; border: 2px solid red; padding: 20px; font-family: monospace;'>";
+    echo "<h1>❌ Erro Fatal no Sistema</h1>";
+    echo "<p><strong>Mensagem:</strong> " . $e->getMessage() . "</p>";
+    echo "<p><strong>Arquivo:</strong> " . $e->getFile() . " (Linha " . $e->getLine() . ")</p>";
+    echo "<h3>Stack Trace:</h3>";
+    echo "<pre>" . $e->getTraceAsString() . "</pre>";
+    echo "</div>";
+}
 
 /**
  * Rotas da API

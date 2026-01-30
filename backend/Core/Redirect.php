@@ -2,16 +2,20 @@
 namespace Sebo\Alfarrabio\Core;
 use Sebo\Alfarrabio\Core\Flash;
 
-class Redirect {
-    public static function redirecionarPara($url){
-        header("Location:"."/backend". $url);
+class Redirect
+{
+    public static function redirecionarPara($url)
+    {
+        header("Location: " . $url);
         exit;
     }
-    public static function redirecionarComMensagem($url, $type, $message){
+    public static function redirecionarComMensagem($url, $type, $message)
+    {
         Flash::set($type, $message);
         self::redirecionarPara($url);
     }
-    public static function voltarPaginaAnteriorComMensagem($type, $message){
+    public static function voltarPaginaAnteriorComMensagem($type, $message)
+    {
         $url = $_SERVER['HTTP_REFERER'] ?? '/';
         self::redirecionarComMensagem($url, $type, $message);
     }

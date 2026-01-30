@@ -1,21 +1,22 @@
 <div class="w3-container">
-    <h3>Editando Gênero: <?= htmlspecialchars($genero['nome_genero']); ?></h3>
+    <h3>Editando Gênero: <?= htmlspecialchars($genero['nome_generos']); ?></h3>
 
-    <form action="/backend/genero/atualizar/<?= $genero['id_genero']; ?>" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
+    <form action="/backend/genero/atualizar/<?= $genero['id_generos']; ?>" method="POST" enctype="multipart/form-data"
+        class="w3-container w3-card-4">
 
-        <input type="hidden" name="id_genero" value="<?= $genero['id_genero']; ?>">
+        <input type="hidden" name="id_genero" value="<?= $genero['id_generos']; ?>">
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="nome_genero">Gênero Literário*</label>
                 <input type="text" class="form-control" id="nome_genero" name="nome_genero"
-                       value="<?= htmlspecialchars($genero['nome_genero']); ?>" required>
+                    value="<?= htmlspecialchars($genero['nome_generos']); ?>" required>
             </div>
 
             <div class="form-group col-md-6">
                 <label for="nome_genero_musica">Gênero Musical</label>
                 <input type="text" class="form-control" id="nome_genero_musica" name="nome_genero_musica"
-                       value="<?= htmlspecialchars($genero['nome_genero_musica'] ?? ''); ?>">
+                    value="<?= htmlspecialchars($genero['nome_genero_musica'] ?? ''); ?>">
             </div>
         </div>
 

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Itens - Sebo Alfarrábio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #8B7355;
@@ -40,7 +43,7 @@
         .top-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             padding: 25px 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -60,7 +63,7 @@
         .header-icon {
             font-size: 42px;
             color: #ffd700;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         .header-text h1 {
@@ -74,14 +77,14 @@
 
         .header-text p {
             font-size: 16px;
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 300;
         }
 
         .btn-add-new {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             color: white;
             padding: 14px 28px;
             border-radius: 12px;
@@ -95,9 +98,9 @@
         }
 
         .btn-add-new:hover {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .container {
@@ -118,7 +121,7 @@
             background: var(--bg-card);
             border-radius: 16px;
             padding: 28px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
             position: relative;
@@ -139,7 +142,7 @@
 
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .stat-card:hover::before {
@@ -199,7 +202,7 @@
             border-radius: 16px;
             padding: 28px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
             border: 1px solid var(--border);
         }
 
@@ -291,7 +294,7 @@
         .table-container {
             background: var(--bg-card);
             border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
             overflow: hidden;
             border: 1px solid var(--border);
         }
@@ -363,13 +366,13 @@
             height: 100px;
             object-fit: cover;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
 
         .item-image:hover {
             transform: scale(1.5);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
             z-index: 10;
         }
 
@@ -643,6 +646,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -672,6 +676,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header Superior -->
     <div class="top-header">
@@ -723,30 +728,26 @@
             <form method="GET" action="/backend/item/listar" class="search-form">
                 <div class="search-input-wrapper">
                     <i class="fas fa-search search-icon"></i>
-                    <input 
-                        type="text" 
-                        name="search" 
-                        class="search-input"
-                        placeholder="Pesquisar por título, autor, categoria, gênero ou ISBN..." 
-                        value="<?= htmlspecialchars($termo_pesquisa ?? '') ?>"
-                    />
+                    <input type="text" name="search" class="search-input"
+                        placeholder="Pesquisar por título, autor, categoria, gênero ou ISBN..."
+                        value="<?= htmlspecialchars($termo_pesquisa ?? '') ?>" />
                 </div>
                 <button type="submit" class="btn btn-search">
                     <i class="fas fa-search"></i>
                     Pesquisar
                 </button>
                 <?php if (!empty($termo_pesquisa)): ?>
-                <a href="/backend/item/listar" class="btn btn-clear">
-                    <i class="fas fa-times"></i>
-                    Limpar
-                </a>
+                    <a href="/backend/item/listar" class="btn btn-clear">
+                        <i class="fas fa-times"></i>
+                        Limpar
+                    </a>
                 <?php endif; ?>
             </form>
-            
+
             <?php if (!empty($termo_pesquisa)): ?>
-            <div class="search-result-text">
-                Resultados para: <strong><?= htmlspecialchars($termo_pesquisa) ?></strong>
-            </div>
+                <div class="search-result-text">
+                    Resultados para: <strong><?= htmlspecialchars($termo_pesquisa) ?></strong>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -785,12 +786,8 @@
                             <?php foreach ($itens as $item): ?>
                                 <tr>
                                     <td style="text-align: center;">
-                                        <img 
-                                            src="/backend/uploads<?= htmlspecialchars($item['foto_item']) ?>" 
-                                            onerror="this.onerror=null;this.src='/backend/uploads/<?= htmlspecialchars($item['foto_item']) ?>';"
-                                            alt="<?= htmlspecialchars($item['titulo_item']) ?>"
-                                            class="item-image"
-                                        />
+                                        <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']) ?>"
+                                            alt="<?= htmlspecialchars($item['titulo_item']) ?>" class="item-image" />
                                     </td>
                                     <td>
                                         <div class="item-title"><?= htmlspecialchars($item['titulo_item']) ?></div>
@@ -806,14 +803,15 @@
                                     <td style="text-align: center;">
                                         <div class="price-display-cell">
                                             <span class="price-currency">R$</span>
-                                            <span class="price-value"><?= number_format((float)($item['preco_item'] ?? 0), 2, ',', '.') ?></span>
+                                            <span
+                                                class="price-value"><?= number_format((float) ($item['preco_item'] ?? 0), 2, ',', '.') ?></span>
                                         </div>
                                     </td>
                                     <td style="text-align: center;">
-                                        <?php 
-                                            $estoque = (int)$item['estoque'];
-                                            $stockClass = $estoque > 10 ? 'high' : ($estoque > 5 ? 'medium' : 'low');
-                                            $stockIcon = $estoque > 10 ? 'fa-check-circle' : ($estoque > 5 ? 'fa-exclamation-circle' : 'fa-exclamation-triangle');
+                                        <?php
+                                        $estoque = (int) $item['estoque'];
+                                        $stockClass = $estoque > 10 ? 'high' : ($estoque > 5 ? 'medium' : 'low');
+                                        $stockIcon = $estoque > 10 ? 'fa-check-circle' : ($estoque > 5 ? 'fa-exclamation-circle' : 'fa-exclamation-triangle');
                                         ?>
                                         <span class="stock-badge <?= $stockClass ?>">
                                             <i class="fas <?= $stockIcon ?>"></i>
@@ -822,10 +820,13 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <div class="action-buttons">
-                                            <a href="/backend/item/editar/<?= $item['id_item'] ?>" class="btn-action btn-edit" title="Editar">
+                                            <a href="/backend/item/editar/<?= $item['id_item'] ?>" class="btn-action btn-edit"
+                                                title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="/backend/item/excluir/<?= $item['id_item'] ?>" class="btn-action btn-delete" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este item?')">
+                                            <a href="/backend/item/excluir/<?= $item['id_item'] ?>"
+                                                class="btn-action btn-delete" title="Excluir"
+                                                onclick="return confirm('Tem certeza que deseja excluir este item?')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -838,50 +839,51 @@
             </div>
 
             <?php if (!empty($itens)): ?>
-            <div class="pagination-wrapper">
-                <nav>
-                    <ul class="pagination">
-                        <?php $pag = $paginacao; ?>
+                <div class="pagination-wrapper">
+                    <nav>
+                        <ul class="pagination">
+                            <?php $pag = $paginacao; ?>
 
-                        <li class="<?= ($pag['pagina_atual'] <= 1) ? 'disabled' : '' ?>">
-                            <?php if ($pag['pagina_atual'] > 1): ?>
-                                <a href="/backend/item/listar/<?= $pag['pagina_atual'] - 1 ?>">
-                                    <i class="fas fa-chevron-left"></i>
-                                    Anterior
-                                </a>
-                            <?php else: ?>
-                                <span>
-                                    <i class="fas fa-chevron-left"></i>
-                                    Anterior
-                                </span>
-                            <?php endif; ?>
-                        </li>
+                            <li class="<?= ($pag['pagina_atual'] <= 1) ? 'disabled' : '' ?>">
+                                <?php if ($pag['pagina_atual'] > 1): ?>
+                                    <a href="/backend/item/listar/<?= $pag['pagina_atual'] - 1 ?>">
+                                        <i class="fas fa-chevron-left"></i>
+                                        Anterior
+                                    </a>
+                                <?php else: ?>
+                                    <span>
+                                        <i class="fas fa-chevron-left"></i>
+                                        Anterior
+                                    </span>
+                                <?php endif; ?>
+                            </li>
 
-                        <li class="active">
-                            <span>Página <?= $pag['pagina_atual'] ?> de <?= $pag['ultima_pagina'] ?></span>
-                        </li>
+                            <li class="active">
+                                <span>Página <?= $pag['pagina_atual'] ?> de <?= $pag['ultima_pagina'] ?></span>
+                            </li>
 
-                        <li class="<?= ($pag['pagina_atual'] >= $pag['ultima_pagina']) ? 'disabled' : '' ?>">
-                            <?php if ($pag['pagina_atual'] < $pag['ultima_pagina']): ?>
-                                <a href="/backend/item/listar/<?= $pag['pagina_atual'] + 1 ?>">
-                                    Próxima
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
-                            <?php else: ?>
-                                <span>
-                                    Próxima
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                            <?php endif; ?>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="pagination-info">
-                    Mostrando de <?= $pag['de'] ?> até <?= $pag['para'] ?> de <?= $pag['total'] ?> registros
+                            <li class="<?= ($pag['pagina_atual'] >= $pag['ultima_pagina']) ? 'disabled' : '' ?>">
+                                <?php if ($pag['pagina_atual'] < $pag['ultima_pagina']): ?>
+                                    <a href="/backend/item/listar/<?= $pag['pagina_atual'] + 1 ?>">
+                                        Próxima
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <span>
+                                        Próxima
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                <?php endif; ?>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="pagination-info">
+                        Mostrando de <?= $pag['de'] ?> até <?= $pag['para'] ?> de <?= $pag['total'] ?> registros
+                    </div>
                 </div>
-            </div>
             <?php endif; ?>
         </div>
     </div>
 </body>
+
 </html>
