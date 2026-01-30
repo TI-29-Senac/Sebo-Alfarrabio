@@ -18,9 +18,11 @@
     maxDuration: 4000,              // Duração máxima da animação (ms)
   };
 
-  // Caracteres que serão usados (alfabeto + números)
-  const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('')
-  ;
+  // Caracteres que serão usados (alfabeto + números + emojis temáticos)
+  const CHARACTERS = [
+    ...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    '📚', '✨', '🕯️', '📜', '✒️', '🗝️', '🪐', '🌙', '⭐', '📖', '🦉', '🎓'
+  ];
 
   // Variáveis de controle
   let animationContainer;
@@ -38,11 +40,104 @@
       return;
     }
 
-    // Inicia geração de letras
+    // Inicia geração de letras (buraco negro)
     startAnimation();
+
+    // Inicia animação de digitação do texto principal
+    initTypingAnimation();
 
     // Pausa quando a página não está visível (performance)
     document.addEventListener('visibilitychange', handleVisibilityChange);
+  }
+
+  /**
+   * Inicializa a animação de digitação/formação do texto
+   */
+  function initTypingAnimation() {
+    const heroText = document.querySelector('.hero-text');
+    if (!heroText) return;
+
+    // Função recursiva para processar nós de texto
+    const processNode = (node) => {
+      // Se for nó de texto, separar em caracteres
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent;
+        // Ignorar espaços vazios grandes (quebras de linha do HTML)
+        if (!text.trim() && text.includes('\n')) return document.createTextNode(text);
+
+        const fragment = document.createDocumentFragment();
+        // Usar spread operator para dividir strings com emojis corretamente
+        const chars = [...text];
+
+        chars.forEach(char => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.className = 'hero-char';
+          // Se for espaço simples, garantir que ele ocupe espaço visualmente
+          if (char === ' ') span.innerHTML = '&nbsp;';
+
+          fragment.appendChild(span);
+        });
+        return fragment;
+      }
+
+      // Se for elemento (ex: <span>), processar seus filhos
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const newElement = node.cloneNode(false); // Clone raso (sem filhos)
+        const childNodes = Array.from(node.childNodes);
+
+        childNodes.forEach(child => {
+          const processedChild = processNode(child);
+          if (processedChild) {
+            newElement.appendChild(processedChild);
+          }
+        });
+        return newElement;
+      }
+
+      return node.cloneNode(true);
+    };
+
+    // Processar todo o conteúdo do h2
+    const originalContent = Array.from(heroText.childNodes);
+    const newContent = document.createDocumentFragment();
+
+    originalContent.forEach(node => {
+      const processed = processNode(node);
+      if (processed) newContent.appendChild(processed);
+    });
+
+    // Substituir conteúdo
+    heroText.innerHTML = '';
+    heroText.appendChild(newContent);
+
+    // Aplicar delays escalonados e índice para a onda
+    const allChars = heroText.querySelectorAll('.hero-char');
+    const totalChars = allChars.length;
+
+    allChars.forEach((char, index) => {
+      // Atraso base + escalonado para entrada
+      char.style.animationDelay = `${index * 50}ms`;
+      // Índice para a animação de onda
+      char.style.setProperty('--char-index', index);
+    });
+
+    // Calcular tempo total da entrada (delay do último + duração da animação formLetter 500ms)
+    // Pequena folga extra (+500ms)
+    const totalEntryTime = (totalChars * 50) + 1000;
+
+    // Ativar modo onda após a entrada terminar
+    setTimeout(() => {
+      heroText.classList.add('wave-active');
+      // Remover propriedade de delay de animação inline para que o CSS da onda assuma o controle
+      // Ou o CSS da onda deve usar !important ou resetar animation-delay
+
+      // Vamos forçar um reflow/reset limpando o animation-delay inline
+      allChars.forEach(char => {
+        char.style.animationDelay = '';
+      });
+
+    }, totalEntryTime);
   }
 
   /**

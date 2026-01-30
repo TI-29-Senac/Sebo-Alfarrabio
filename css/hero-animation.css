@@ -132,24 +132,37 @@
   text-shadow: -6px 0px 5px rgba(105, 65, 0, 0.39);
   line-height: 1.3;
   margin: 0;
-  animation: fadeInText 1s ease-out;
+  /* animation removed, handled by JS */
+  opacity: 1;
+  /* Ensure visible container */
 }
 
-.hero-text span {
+.hero-text>span {
   display: block;
   font-size: 2.5rem;
   margin-top: 10px;
 }
 
-@keyframes fadeInText {
+/* Character animation styles */
+.hero-text .hero-char {
+  display: inline-block;
+  opacity: 0;
+  animation: formLetter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  white-space: pre;
+  /* Preserve spaces */
+}
+
+@keyframes formLetter {
   0% {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-20px) scale(1.5) rotate(-10deg);
+    filter: blur(5px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0);
   }
 }
 
@@ -261,5 +274,39 @@
 
   .flying-letter {
     font-size: 16px;
+  }
+}
+
+/* ========================================== */
+/* ANIMAÇÃO DE ONDA (PÓS-ENTRADA) */
+/* ========================================== */
+
+.hero-text.wave-active .hero-char {
+  animation: waveLetter 3s ease-in-out infinite;
+  animation-delay: calc(var(--char-index) * 0.1s);
+  opacity: 1;
+  /* Garante que fique visível */
+  transform: translateY(0);
+  /* Reseta transformações anteriores */
+}
+
+@keyframes waveLetter {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    color: #d4a574;
+  }
+
+  25% {
+    transform: translateY(-8px);
+    color: #e7ba77;
+    /* Brilho */
+    text-shadow: 0 0 15px rgba(235, 154, 5, 0.8);
+  }
+
+  50% {
+    transform: translateY(0);
+    color: #d4a574;
   }
 }
