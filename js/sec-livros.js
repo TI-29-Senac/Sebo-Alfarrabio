@@ -22,15 +22,15 @@ const nextBtn = document.querySelector('.nav-btn.next');
 async function carregarProdutos() {
   try {
     console.log('📦 Carregando produtos...');
-    
+
     const response = await fetch(`${API_CONFIG.baseUrl}/item?por_pagina=${API_CONFIG.itemsLimit}`);
-    
+
     if (!response.ok) {
       throw new Error(`Erro HTTP: ${response.status}`);
     }
-    
+
     const json = await response.json();
-    
+
     if (json.status === 'success' && json.data && json.data.length > 0) {
       // Garante que mostra apenas 8 produtos
       const produtos = json.data.slice(0, 8);
@@ -40,7 +40,7 @@ async function carregarProdutos() {
     } else {
       mostrarMensagemVazia();
     }
-    
+
   } catch (error) {
     console.error('❌ Erro ao carregar produtos:', error);
     mostrarErro();
@@ -52,7 +52,7 @@ async function carregarProdutos() {
 // ========================================
 function renderizarCards(produtos) {
   carouselTrack.innerHTML = '';
-  
+
   produtos.forEach((produto, index) => {
     const card = criarCard(produto, index);
     carouselTrack.appendChild(card);
@@ -60,25 +60,25 @@ function renderizarCards(produtos) {
 }
 
 function criarCard(produto, index) {
-  const preco = parseFloat(produto.preco_item || produto.preco || 0);
+  const preco = parseFloat(produto.preco || 0);
   const precoFormatado = preco.toFixed(2).replace('.', ',');
-  
+
   const card = document.createElement('div');
   card.className = 'book-card-modern';
   card.style.animation = `fadeInUp 0.6s ease ${index * 0.1}s both`;
-  
+
   // Badge opcional (se houver campo de destaque)
   const badge = produto.destaque ? '<div class="book-badge">Destaque</div>' : '';
-  
+
   card.innerHTML = `
     ${badge}
     <div class="book-image-wrapper">
       <img src="${produto.caminho_imagem || '/img/sem-imagem.png'}" 
-           alt="${produto.titulo_item}"
+           alt="${produto.titulo}"
            onerror="this.src='/img/sem-imagem.png'">
     </div>
     <div class="book-info">
-      <h3 class="book-title">${produto.titulo_item}</h3>
+      <h3 class="book-title">${produto.titulo}</h3>
       ${produto.autores ? `<span class="book-author">${produto.autores}</span>` : ''}
       <div class="book-price-wrapper">
         <span class="book-price">R$ ${precoFormatado}</span>
@@ -86,7 +86,7 @@ function criarCard(produto, index) {
       </div>
     </div>
   `;
-  
+
   return card;
 }
 
@@ -95,7 +95,7 @@ function criarCard(produto, index) {
 // ========================================
 function inicializarNavegacao() {
   const scrollAmount = 310; // 280px (card) + 30px (gap)
-  
+
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       carouselTrack.scrollBy({
@@ -104,7 +104,7 @@ function inicializarNavegacao() {
       });
     });
   }
-  
+
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
       carouselTrack.scrollBy({

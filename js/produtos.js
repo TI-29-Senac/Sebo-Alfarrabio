@@ -130,7 +130,7 @@ function aplicarFiltros() {
 
     produtosFiltrados = todosOsProdutos.filter(produto => {
         if (termoBusca) {
-            const tituloMatch = produto.titulo_item?.toLowerCase().includes(termoBusca);
+            const tituloMatch = produto.titulo?.toLowerCase().includes(termoBusca);
             const autorMatch = produto.autores?.toLowerCase().includes(termoBusca);
 
             if (!tituloMatch && !autorMatch) {
@@ -339,7 +339,7 @@ function renderizarProdutos(produtos) {
 }
 
 function criarCard(item, index) {
-    const preco = parseFloat(item.preco_item || item.preco || 0);
+    const preco = parseFloat(item.preco || 0);
     const precoFormatado = preco.toFixed(2).replace('.', ',');
     const estoque = parseInt(item.estoque) || 0;
     const disponivel = estoque > 0;
@@ -353,17 +353,17 @@ function criarCard(item, index) {
     card.innerHTML = `
         <div class="card-imagem" style="position: relative;">
             <img src="${item.caminho_imagem || '/img/sem-imagem.png'}" 
-                 alt="${item.titulo_item}"
+                 alt="${item.titulo}"
                  onerror="this.src='/img/sem-imagem.png'">
             
             ${!disponivel ? '<div class="badge-status">ESGOTADO</div>' : ''}
         </div>
         
         <div class="card-info">
-            <div class="card-tipo">${item.tipo_item || 'PRODUTO'}</div>
+            <div class="card-tipo">${item.tipo || 'PRODUTO'}</div>
             
-            <h3 class="card-titulo" title="${item.titulo_item}">
-                ${item.titulo_item}
+            <h3 class="card-titulo" title="${item.titulo}">
+                ${item.titulo}
             </h3>
             
             ${item.autores ? `
@@ -372,7 +372,7 @@ function criarCard(item, index) {
                 </p>
             ` : '<p class="card-autor">Autor desconhecido</p>'}
             
-            ${item.editora_gravadora ? `
+            ${item.editora ? `
                 <p class="card-editora" style="
                     font-size: 11px;
                     color: #999;
@@ -380,8 +380,8 @@ function criarCard(item, index) {
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-                " title="${item.editora_gravadora}">
-                    📚 ${item.editora_gravadora}
+                " title="${item.editora}">
+                    📚 ${item.editora}
                 </p>
             ` : ''}
             
@@ -535,16 +535,16 @@ function mostrarMensagemVazia() {
 function abrirModalProduto(produto) {
     if (!modalProduto) return;
 
-    const preco = parseFloat(produto.preco_item || produto.preco || 0);
+    const preco = parseFloat(produto.preco || 0);
     const precoFormatado = preco.toFixed(2).replace('.', ',');
 
     document.getElementById('modal-capa').src = produto.caminho_imagem || '/img/sem-imagem.png';
-    document.getElementById('modal-titulo').textContent = produto.titulo_item;
+    document.getElementById('modal-titulo').textContent = produto.titulo;
     document.getElementById('modal-autor').textContent = produto.autores || 'Autor desconhecido';
-    document.getElementById('modal-tipo').textContent = produto.tipo_item || 'Produto';
+    document.getElementById('modal-tipo').textContent = produto.tipo || 'Produto';
     document.getElementById('modal-preco').textContent = `R$ ${precoFormatado}`;
     document.getElementById('modal-descricao').textContent = produto.descricao || 'Produto em excelente estado.';
-    document.getElementById('modal-editora').textContent = produto.editora_gravadora || '-';
+    document.getElementById('modal-editora').textContent = produto.editora || '-';
     document.getElementById('modal-ano').textContent = produto.ano_publicacao || '-';
     document.getElementById('modal-isbn').textContent = produto.isbn || '-';
     document.getElementById('modal-estoque').textContent = produto.estoque || '0';
@@ -594,8 +594,8 @@ function adicionarAoCarrinho(produto) {
     } else {
         carrinho.push({
             id_item: produto.id_item,
-            titulo_item: produto.titulo_item,
-            preco_item: parseFloat(produto.preco_item || produto.preco || 0),
+            titulo_item: produto.titulo,
+            preco_item: parseFloat(produto.preco || 0),
             caminho_imagem: produto.caminho_imagem,
             quantidade: 1,
             estoque: produto.estoque || 10

@@ -10,26 +10,24 @@ use Exception;
 class Item
 {
 
-    private $id_item;
-    private $titulo_item;
-    private $tipo_item;
+    private $id;
+    private $titulo;
+    private $tipo;
     private $id_genero;
     private $id_categoria;
     private $descricao;
     private $ano_publicacao;
-    private $editora_gravadora;
+    private $editora;
     private $estoque;
     private $isbn;
-    private $duracao_minutos;
-    private $numero_edicao;
     private $criado_em;
     private $atualizado_em;
-    private $excluido_em;
+    private $deleted_at;
 
     private $db;
-    private $autores_ids = []; // Array de IDs de autores associados
-    public $foto_item;
-    public $preco_item;
+    private $autores_ids = [];
+    public $imagem;
+    public $preco;
     public $quantidade_item;
     public $desconto_item;
     private $itemModel;
@@ -100,7 +98,7 @@ class Item
         }
         $setString = implode(', ', $setParts);
 
-        $sqlItem = "UPDATE tbl_itens SET $setString WHERE id_item = :id_item";
+        $sqlItem = "UPDATE tbl_itens SET $setString WHERE id = :id";
         $sqlDeletePivot = "DELETE FROM tbl_item_autores WHERE item_id = :item_id";
         $sqlInsertPivot = "INSERT INTO tbl_item_autores (item_id, autor_id) VALUES (:item_id, :autor_id)";
 
@@ -108,7 +106,7 @@ class Item
             $this->db->beginTransaction();
 
             $stmtItem = $this->db->prepare($sqlItem);
-            $stmtItem->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+            $stmtItem->bindParam(':id', $id_item, PDO::PARAM_INT);
             foreach ($dadosItem as $coluna => &$valor) {
                 $stmtItem->bindValue(":$coluna", $valor);
             }
@@ -149,7 +147,7 @@ class Item
     function excluirItem(int $id)
     {
         $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_itens SET excluido_em = :atual WHERE id_item = :id";
+        $sql = "UPDATE tbl_itens SET deleted_at = :atual WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':atual', $dataatual);
@@ -161,7 +159,7 @@ class Item
      */
     function ativarItem(int $id)
     {
-        $sql = "UPDATE tbl_itens SET excluido_em = NULL WHERE id_item = :id";
+        $sql = "UPDATE tbl_itens SET deleted_at = NULL WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
@@ -174,9 +172,9 @@ class Item
      */
     function buscarItemPorID(int $id)
     {
-        $sql = "SELECT * FROM tbl_itens WHERE id_item = :id_item";
+        $sql = "SELECT * FROM tbl_itens WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_item', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -184,8 +182,8 @@ class Item
             $item['autores_ids'] = $this->buscarAutoresDoItem($id);
             // Adiciona propriedades da classe como padrão caso não existam no DB
             $item += [
-                'foto_item' => $this->foto_item,
-                'preco_item' => $this->preco_item,
+                'imagem' => $this->imagem,
+                'preco' => $this->preco,
                 'quantidade_item' => $this->quantidade_item,
                 'desconto_item' => $this->desconto_item
             ];
@@ -218,20 +216,18 @@ class Item
 
         // Contagem Total
         $totalQuery = "
-            SELECT COUNT(DISTINCT i.id_item) 
+            SELECT COUNT(DISTINCT i.id) 
             FROM tbl_itens i
-            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
-            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
-            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
-            WHERE i.excluido_em IS NULL
+            LEFT JOIN tbl_item_autores ia ON i.id = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id
+            LEFT JOIN tbl_generos g ON i.genero_id = g.id
+            WHERE i.deleted_at IS NULL
             AND (
-                i.titulo_item LIKE :termo
-                OR a.nome_autor LIKE :termo
-                OR c.nome_categoria LIKE :termo
-                OR g.nome_generos LIKE :termo
+                i.titulo LIKE :termo
+                OR a.nome LIKE :termo
+                OR g.nome LIKE :termo
                 OR i.isbn LIKE :termo
-                OR i.editora_gravadora LIKE :termo
+                OR i.editora LIKE :termo
             )
         ";
 
@@ -247,28 +243,25 @@ class Item
         $dataQuery = "
             SELECT 
                 i.*, 
-                g.nome_generos AS nome_genero, 
-                c.nome_categoria,
-                (SELECT GROUP_CONCAT(a2.nome_autor SEPARATOR ', ') 
+                g.nome AS nome_genero,
+                (SELECT GROUP_CONCAT(a2.nome SEPARATOR ', ') 
                  FROM tbl_item_autores ia2
-                 JOIN tbl_autores a2 ON ia2.autor_id = a2.id_autor
-                 WHERE ia2.item_id = i.id_item) AS autores
+                 JOIN tbl_autores a2 ON ia2.autor_id = a2.id
+                 WHERE ia2.item_id = i.id) AS autores
             FROM tbl_itens i
-            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
-            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
-            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
-            WHERE i.excluido_em IS NULL
+            LEFT JOIN tbl_item_autores ia ON i.id = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id
+            LEFT JOIN tbl_generos g ON i.genero_id = g.id
+            WHERE i.deleted_at IS NULL
             AND (
-                i.titulo_item LIKE :termo
-                OR a.nome_autor LIKE :termo
-                OR c.nome_categoria LIKE :termo
-                OR g.nome_generos LIKE :termo
+                i.titulo LIKE :termo
+                OR a.nome LIKE :termo
+                OR g.nome LIKE :termo
                 OR i.isbn LIKE :termo
-                OR i.editora_gravadora LIKE :termo
+                OR i.editora LIKE :termo
             )
-            GROUP BY i.id_item
-            ORDER BY i.titulo_item ASC
+            GROUP BY i.id
+            ORDER BY i.titulo ASC
             LIMIT :limit OFFSET :offset
         ";
 
@@ -304,17 +297,17 @@ class Item
 
         $sql = "
             SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
+                i.id,
+                i.titulo,
+                i.tipo,
+                (SELECT GROUP_CONCAT(a.nome SEPARATOR ', ') 
                  FROM tbl_item_autores ia
-                 JOIN tbl_autores a ON ia.autor_id = a.id_autor
-                 WHERE ia.item_id = i.id_item) AS autores
+                 JOIN tbl_autores a ON ia.autor_id = a.id
+                 WHERE ia.item_id = i.id) AS autores
             FROM tbl_itens i
-            WHERE i.excluido_em IS NULL
-            AND i.titulo_item LIKE :termo
-            ORDER BY i.titulo_item ASC
+            WHERE i.deleted_at IS NULL
+            AND i.titulo LIKE :termo
+            ORDER BY i.titulo ASC
             LIMIT :limite
         ";
 
@@ -333,14 +326,14 @@ class Item
      */
     public function paginacao(int $pagina = 1, int $por_pagina = 8, ?string $tipo = null): array
     {
-        $whereClause = "i.excluido_em IS NULL";
+        $whereClause = "i.deleted_at IS NULL";
         $params = [];
         if ($tipo) {
-            $whereClause .= " AND i.tipo_item = :tipo";
+            $whereClause .= " AND i.tipo = :tipo";
             $params[':tipo'] = $tipo;
         }
 
-        $totalQuery = "SELECT COUNT(DISTINCT i.id_item) FROM tbl_itens i WHERE $whereClause";
+        $totalQuery = "SELECT COUNT(DISTINCT i.id) FROM tbl_itens i WHERE $whereClause";
         $totalStmt = $this->db->prepare($totalQuery);
         $totalStmt->execute($params);
         $total_de_registros = $totalStmt->fetchColumn();
@@ -350,18 +343,16 @@ class Item
         $dataQuery = "
             SELECT 
                 i.*, 
-                g.nome_generos AS nome_genero, 
-                c.nome_categoria,
-                (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
+                g.nome AS nome_genero,
+                (SELECT GROUP_CONCAT(a.nome SEPARATOR ', ') 
                  FROM tbl_item_autores ia
-                 JOIN tbl_autores a ON ia.autor_id = a.id_autor
-                 WHERE ia.item_id = i.id_item) AS autores
+                 JOIN tbl_autores a ON ia.autor_id = a.id
+                 WHERE ia.item_id = i.id) AS autores
             FROM tbl_itens i
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
-            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
+            LEFT JOIN tbl_generos g ON i.genero_id = g.id
             WHERE $whereClause
-            GROUP BY i.id_item
-            ORDER BY i.titulo_item ASC
+            GROUP BY i.id
+            ORDER BY i.titulo ASC
             LIMIT :limit OFFSET :offset
         ";
 
@@ -395,7 +386,7 @@ class Item
         $sql = "SELECT count(*) as total FROM tbl_itens";
         $params = [];
         if ($tipo) {
-            $sql .= " WHERE tipo_item = :tipo";
+            $sql .= " WHERE tipo = :tipo";
             $params[':tipo'] = $tipo;
         }
         $stmt = $this->db->prepare($sql);
@@ -405,10 +396,10 @@ class Item
 
     function totalDeItensInativos(?string $tipo = null)
     {
-        $sql = "SELECT count(*) as total FROM tbl_itens WHERE excluido_em IS NOT NULL";
+        $sql = "SELECT count(*) as total FROM tbl_itens WHERE deleted_at IS NOT NULL";
         $params = [];
         if ($tipo) {
-            $sql .= " AND tipo_item = :tipo";
+            $sql .= " AND tipo = :tipo";
             $params[':tipo'] = $tipo;
         }
         $stmt = $this->db->prepare($sql);
@@ -418,10 +409,10 @@ class Item
 
     function totalDeItensAtivos(?string $tipo = null)
     {
-        $sql = "SELECT count(*) as total FROM tbl_itens WHERE excluido_em IS NULL";
+        $sql = "SELECT count(*) as total FROM tbl_itens WHERE deleted_at IS NULL";
         $params = [];
         if ($tipo) {
-            $sql .= " AND tipo_item = :tipo";
+            $sql .= " AND tipo = :tipo";
             $params[':tipo'] = $tipo;
         }
         $stmt = $this->db->prepare($sql);
@@ -431,11 +422,11 @@ class Item
 
     public function buscarItemAtivos()
     {
-        $sql = "SELECT item.id_item, titulo_item, tipo_item, preco_item, foto_item, autor.nome_autor 
+        $sql = "SELECT item.id, titulo, tipo, preco, imagem, autor.nome AS nome_autor 
                 FROM tbl_itens as item
-                INNER JOIN tbl_item_autores as item_autor ON item_autor.item_id = item.id_item
-                INNER JOIN tbl_autores as autor ON autor.id_autor = item_autor.autor_id
-                WHERE item.excluido_em IS NULL";
+                INNER JOIN tbl_item_autores as item_autor ON item_autor.item_id = item.id
+                INNER JOIN tbl_autores as autor ON autor.id = item_autor.autor_id
+                WHERE item.deleted_at IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -447,7 +438,7 @@ class Item
     public static function corrigirCaminhoImagem($foto_item)
     {
         if (empty($foto_item)) {
-            return '/img/alfa 2.png'; // Placeholder que sabemos que existe
+            return '/img/sem-imagem.png'; // Placeholder padrão
         }
 
         $foto_item = trim($foto_item);

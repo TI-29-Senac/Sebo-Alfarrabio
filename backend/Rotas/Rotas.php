@@ -47,8 +47,8 @@ class Rotas
                 "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/api/usuarios/{pagina}" => "APIUsarioController@getUsuarios",
-                "/api/usuarios" => "APIUsarioController@getUsuarios",
+                "/api/usuarios/{pagina}" => "Api\APIUsarioController@getUsuarios",
+                "/api/usuarios" => "Api\APIUsarioController@getUsuarios",
 
                 // ========================================
                 // VENDAS
@@ -80,11 +80,11 @@ class Rotas
                 // API PÚBLICA / API ITEM
                 // ========================================
 
-                "/api/item" => "PublicApiController@getItem",
-                "/api/buscaitem" => "APIItemController@getItem",
+                "/api/item" => "Api\APIItemController@getItem",
+                "/api/buscaitem" => "Api\APIItemController@getItem",
 
-                "/api/pedidos" => "APIPedidosController@getPedidos",
-                "/api/buscarpedidos" => "APIPedidosController@getPedidos",
+                "/api/pedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
 
 
                 // ========================================

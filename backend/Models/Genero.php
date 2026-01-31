@@ -9,11 +9,11 @@ use PDO;
 class Genero
 {
 
-    private $id_genero;
-    private $nome_genero;
+    private $id;
+    private $nome;
     private $criado_em;
     private $atualizado_em;
-    private $excluido_em;
+    private $deleted_at;
     private $db;
 
     // Construtor inicializa a conexão PDO
@@ -29,7 +29,7 @@ class Genero
      */
     function buscarGeneros()
     {
-        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NULL ORDER BY nome_generos ASC";
+        $sql = "SELECT * FROM tbl_generos WHERE deleted_at IS NULL ORDER BY nome ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -40,7 +40,7 @@ class Genero
      */
     function buscarGenerosInativos()
     {
-        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NOT NULL ORDER BY nome_generos ASC";
+        $sql = "SELECT * FROM tbl_generos WHERE deleted_at IS NOT NULL ORDER BY nome ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,9 +51,9 @@ class Genero
      */
     function buscarGeneroPorID(int $id)
     {
-        $sql = "SELECT * FROM tbl_generos WHERE id_generos = :id_generos";
+        $sql = "SELECT * FROM tbl_generos WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_generos', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC); // ID é único
     }
@@ -64,9 +64,9 @@ class Genero
      */
     function buscarGenerosPorNome(string $termo, int $limite = 10)
     {
-        $sql = "SELECT id_generos, nome_generos FROM tbl_generos 
-                WHERE nome_generos LIKE :termo AND excluido_em IS NULL 
-                ORDER BY nome_generos ASC 
+        $sql = "SELECT id, nome FROM tbl_generos 
+                WHERE nome LIKE :termo AND deleted_at IS NULL 
+                ORDER BY nome ASC 
                 LIMIT :limite";
         $stmt = $this->db->prepare($sql);
         $termoLike = '%' . $termo . '%';
@@ -88,7 +88,7 @@ class Genero
 
     function totalDeGenerosInativos()
     {
-        $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NOT NULL";
+        $sql = "SELECT count(*) as total FROM tbl_generos WHERE deleted_at IS NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
@@ -96,7 +96,7 @@ class Genero
 
     function totalDeGenerosAtivos()
     {
-        $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NULL";
+        $sql = "SELECT count(*) as total FROM tbl_generos WHERE deleted_at IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
@@ -113,7 +113,7 @@ class Genero
 
         $offset = ($pagina - 1) * $por_pagina;
 
-        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome_generos ASC LIMIT :limit OFFSET :offset";
+        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome ASC LIMIT :limit OFFSET :offset";
         $dataStmt = $this->db->prepare($dataQuery);
         $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -140,7 +140,7 @@ class Genero
      */
     function inserirGenero(string $nome)
     {
-        $sql = "INSERT INTO tbl_generos (nome_generos) VALUES (:nome)";
+        $sql = "INSERT INTO tbl_generos (nome) VALUES (:nome)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
 
@@ -158,9 +158,9 @@ class Genero
     {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET 
-                  nome_generos = :nome,
+                  nome = :nome,
                   atualizado_em = :atual
-                WHERE id_generos = :id";
+                WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -177,8 +177,8 @@ class Genero
     {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET
-                  excluido_em = :atual
-                WHERE id_generos = :id";
+                  deleted_at = :atual
+                WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -193,8 +193,8 @@ class Genero
     function ativarGenero(int $id)
     {
         $sql = "UPDATE tbl_generos SET
-                  excluido_em = NULL
-                WHERE id_generos = :id";
+                  deleted_at = NULL
+                WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
