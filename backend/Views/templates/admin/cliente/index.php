@@ -39,7 +39,6 @@
             opacity: 0;
             transform: translateY(20px);
         }
-
         to {
             opacity: 1;
             transform: translateY(0);
@@ -114,13 +113,8 @@
     }
 
     @keyframes floatPattern {
-        from {
-            background-position: 0 0;
-        }
-
-        to {
-            background-position: 200px 200px;
-        }
+        from { background-position: 0 0; }
+        to { background-position: 200px 200px; }
     }
 
     /* Avatar com Badge de Upload */
@@ -131,7 +125,7 @@
         transform: translateX(-50%);
         z-index: 10;
     }
-
+    
     .profile-header {
         position: relative;
     }
@@ -391,15 +385,8 @@
     }
 
     @keyframes floatTree {
-
-        0%,
-        100% {
-            transform: translateY(0px);
-        }
-
-        50% {
-            transform: translateY(-15px);
-        }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
     }
 
     .tree-image {
@@ -432,119 +419,31 @@
         z-index: 100;
     }
 
-    .flying-letter:nth-child(1) {
-        animation-delay: 0s;
-        top: -80px;
-        left: 10%;
-    }
-
-    .flying-letter:nth-child(2) {
-        animation-delay: 0.4s;
-        top: -80px;
-        right: 10%;
-    }
-
-    .flying-letter:nth-child(3) {
-        animation-delay: 0.8s;
-        left: -80px;
-        top: 20%;
-    }
-
-    .flying-letter:nth-child(4) {
-        animation-delay: 1.2s;
-        right: -80px;
-        top: 30%;
-    }
-
-    .flying-letter:nth-child(5) {
-        animation-delay: 1.6s;
-        left: -80px;
-        top: 50%;
-    }
-
-    .flying-letter:nth-child(6) {
-        animation-delay: 2s;
-        right: -80px;
-        top: 60%;
-    }
-
-    .flying-letter:nth-child(7) {
-        animation-delay: 2.4s;
-        bottom: -80px;
-        left: 20%;
-    }
-
-    .flying-letter:nth-child(8) {
-        animation-delay: 2.8s;
-        bottom: -80px;
-        right: 20%;
-    }
+    .flying-letter:nth-child(1) { animation-delay: 0s; top: -80px; left: 10%; }
+    .flying-letter:nth-child(2) { animation-delay: 0.4s; top: -80px; right: 10%; }
+    .flying-letter:nth-child(3) { animation-delay: 0.8s; left: -80px; top: 20%; }
+    .flying-letter:nth-child(4) { animation-delay: 1.2s; right: -80px; top: 30%; }
+    .flying-letter:nth-child(5) { animation-delay: 1.6s; left: -80px; top: 50%; }
+    .flying-letter:nth-child(6) { animation-delay: 2s; right: -80px; top: 60%; }
+    .flying-letter:nth-child(7) { animation-delay: 2.4s; bottom: -80px; left: 20%; }
+    .flying-letter:nth-child(8) { animation-delay: 2.8s; bottom: -80px; right: 20%; }
 
     @keyframes flyToPerson {
-        0% {
-            opacity: 0;
-            transform: translate(0, 0) rotate(0deg) scale(1);
-        }
-
-        15% {
-            opacity: 1;
-        }
-
-        40% {
-            opacity: 1;
-            transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(0.9);
-        }
-
-        60% {
-            opacity: 0.8;
-            transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) rotate(540deg) scale(0.6);
-        }
-
-        100% {
-            opacity: 0;
-            transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) rotate(720deg) scale(0.2);
-        }
+        0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(1); }
+        15% { opacity: 1; }
+        40% { opacity: 1; transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(0.9); }
+        60% { opacity: 0.8; transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) rotate(540deg) scale(0.6); }
+        100% { opacity: 0; transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) rotate(720deg) scale(0.2); }
     }
 
-    .flying-letter:nth-child(1) {
-        --tx: 150px;
-        --ty: 200px;
-    }
-
-    .flying-letter:nth-child(2) {
-        --tx: -150px;
-        --ty: 200px;
-    }
-
-    .flying-letter:nth-child(3) {
-        --tx: 200px;
-        --ty: 100px;
-    }
-
-    .flying-letter:nth-child(4) {
-        --tx: -200px;
-        --ty: 100px;
-    }
-
-    .flying-letter:nth-child(5) {
-        --tx: 180px;
-        --ty: 50px;
-    }
-
-    .flying-letter:nth-child(6) {
-        --tx: -180px;
-        --ty: 50px;
-    }
-
-    .flying-letter:nth-child(7) {
-        --tx: 100px;
-        --ty: -150px;
-    }
-
-    .flying-letter:nth-child(8) {
-        --tx: -100px;
-        --ty: -150px;
-    }
+    .flying-letter:nth-child(1) { --tx: 150px; --ty: 200px; }
+    .flying-letter:nth-child(2) { --tx: -150px; --ty: 200px; }
+    .flying-letter:nth-child(3) { --tx: 200px; --ty: 100px; }
+    .flying-letter:nth-child(4) { --tx: -200px; --ty: 100px; }
+    .flying-letter:nth-child(5) { --tx: 180px; --ty: 50px; }
+    .flying-letter:nth-child(6) { --tx: -180px; --ty: 50px; }
+    .flying-letter:nth-child(7) { --tx: 100px; --ty: -150px; }
+    .flying-letter:nth-child(8) { --tx: -100px; --ty: -150px; }
 
     .magic-glow {
         position: absolute;
@@ -560,17 +459,8 @@
     }
 
     @keyframes pulseGlow {
-
-        0%,
-        100% {
-            opacity: 0.4;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        50% {
-            opacity: 0.8;
-            transform: translate(-50%, -50%) scale(1.15);
-        }
+        0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.15); }
     }
 
     .sparkle {
@@ -583,48 +473,15 @@
         box-shadow: 0 0 10px #d4c4a8;
     }
 
-    .sparkle:nth-child(1) {
-        top: 15%;
-        left: 15%;
-        animation-delay: 0s;
-    }
-
-    .sparkle:nth-child(2) {
-        top: 25%;
-        right: 20%;
-        animation-delay: 0.5s;
-    }
-
-    .sparkle:nth-child(3) {
-        bottom: 30%;
-        left: 25%;
-        animation-delay: 1s;
-    }
-
-    .sparkle:nth-child(4) {
-        bottom: 20%;
-        right: 15%;
-        animation-delay: 1.5s;
-    }
-
-    .sparkle:nth-child(5) {
-        top: 40%;
-        left: 10%;
-        animation-delay: 2s;
-    }
+    .sparkle:nth-child(1) { top: 15%; left: 15%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 25%; right: 20%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3) { bottom: 30%; left: 25%; animation-delay: 1s; }
+    .sparkle:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
+    .sparkle:nth-child(5) { top: 40%; left: 10%; animation-delay: 2s; }
 
     @keyframes sparkleFloat {
-
-        0%,
-        100% {
-            opacity: 0;
-            transform: translateY(0) scale(0);
-        }
-
-        50% {
-            opacity: 1;
-            transform: translateY(-20px) scale(1);
-        }
+        0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+        50% { opacity: 1; transform: translateY(-20px) scale(1); }
     }
 
     .particles {
@@ -642,50 +499,17 @@
         animation: float 20s infinite;
     }
 
-    .particle:nth-child(1) {
-        left: 10%;
-        animation-delay: 0s;
-    }
-
-    .particle:nth-child(2) {
-        left: 30%;
-        animation-delay: 4s;
-    }
-
-    .particle:nth-child(3) {
-        left: 50%;
-        animation-delay: 8s;
-    }
-
-    .particle:nth-child(4) {
-        left: 70%;
-        animation-delay: 12s;
-    }
-
-    .particle:nth-child(5) {
-        left: 90%;
-        animation-delay: 16s;
-    }
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 30%; animation-delay: 4s; }
+    .particle:nth-child(3) { left: 50%; animation-delay: 8s; }
+    .particle:nth-child(4) { left: 70%; animation-delay: 12s; }
+    .particle:nth-child(5) { left: 90%; animation-delay: 16s; }
 
     @keyframes float {
-
-        0%,
-        100% {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0;
-        }
-
-        10% {
-            opacity: 0.3;
-        }
-
-        90% {
-            opacity: 0.3;
-        }
-
-        50% {
-            transform: translateY(-20px) rotate(180deg);
-        }
+        0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.3; }
+        90% { opacity: 0.3; }
+        50% { transform: translateY(-20px) rotate(180deg); }
     }
 
     /* Orders Section */
@@ -709,7 +533,6 @@
         .content-wrapper {
             grid-template-columns: 1fr;
         }
-
         .reading-scene {
             transform: scale(0.85);
         }
@@ -719,11 +542,9 @@
         .profile-actions {
             flex-direction: column;
         }
-
         .btn-secondary {
             width: 100%;
         }
-
         .reading-scene {
             transform: scale(0.65);
         }
@@ -747,21 +568,17 @@
                     <?php if (!empty($usuario['foto_perfil_usuario'])): ?>
                         <img src="<?= htmlspecialchars($usuario['foto_perfil_usuario']) ?>" alt="Avatar" id="avatar-img">
                     <?php else: ?>
-                        <div
-                            style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#d4c4a8; color:white; font-size:48px; font-weight:600;">
+                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#d4c4a8; color:white; font-size:48px; font-weight:600;">
                             <?= strtoupper(substr($usuario['nome_usuario'] ?? 'U', 0, 1)) ?>
                         </div>
                     <?php endif; ?>
 
                     <!-- Upload functionality -->
-                    <form id="form-foto" action="/backend/admin/cliente/foto" method="POST"
-                        enctype="multipart/form-data" style="display:none;">
-                        <input type="file" name="foto_usuario" id="input-foto" accept="image/*"
-                            onchange="document.getElementById('form-foto').submit()">
+                    <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data" style="display:none;">
+                        <input type="file" name="foto_usuario" id="input-foto" accept="image/*" onchange="document.getElementById('form-foto').submit()">
                     </form>
 
-                    <div class="avatar-badge" onclick="document.getElementById('input-foto').click()"
-                        title="Alterar Foto">
+                    <div class="avatar-badge" onclick="document.getElementById('input-foto').click()" title="Alterar Foto">
                         <i class="fa fa-camera"></i>
                     </div>
                 </div>
@@ -841,39 +658,47 @@
             </div>
         </div>
 
-
-
-        <div class="reading-scene">
-            <div class="magic-glow"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-
-            <div class="tree-container">
-                <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+        <!-- Reading Scene Animation -->
+        <div class="animation-container">
+            <div class="particles">
+                <div class="particle">📖</div>
+                <div class="particle">📚</div>
+                <div class="particle">📕</div>
+                <div class="particle">📗</div>
+                <div class="particle">📘</div>
             </div>
 
-            <div class="letters-container">
-                <div class="flying-letter">A</div>
-                <div class="flying-letter">L</div>
-                <div class="flying-letter">F</div>
-                <div class="flying-letter">A</div>
-                <div class="flying-letter">R</div>
-                <div class="flying-letter">R</div>
-                <div class="flying-letter">Á</div>
-                <div class="flying-letter">B</div>
+            <div class="reading-scene">
+                <div class="magic-glow"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+
+                <div class="tree-container">
+                    <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+                </div>
+
+                <div class="letters-container">
+                    <div class="flying-letter">A</div>
+                    <div class="flying-letter">L</div>
+                    <div class="flying-letter">F</div>
+                    <div class="flying-letter">A</div>
+                    <div class="flying-letter">R</div>
+                    <div class="flying-letter">R</div>
+                    <div class="flying-letter">Á</div>
+                    <div class="flying-letter">B</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Orders Section (mantida do original) -->
-<div class="orders-section">
-    <div class="section-header">
-        <i class="fa fa-shopping-bag"></i> Meus Pedidos
+    <!-- Orders Section (mantida do original) -->
+    <div class="orders-section">
+        <div class="section-header">
+            <i class="fa fa-shopping-bag"></i> Meus Pedidos
+        </div>
+        <!-- Resto do código de pedidos... -->
     </div>
-    <!-- Resto do código de pedidos... -->
-</div>
 </div>
