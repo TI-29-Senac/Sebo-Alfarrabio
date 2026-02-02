@@ -1959,3 +1959,40 @@
 [02-Feb-2026 13:40:17 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [02-Feb-2026 13:40:17 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [02-Feb-2026 13:40:17 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:04 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:04 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:05 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:05 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:05 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:05 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:06 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:06 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:11 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:11 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:42:24 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:42:24 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:44:32 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:44:32 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:44:42 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:44:42 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:44:50 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:44:50 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:44:54 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:44:54 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:44:57 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:44:57 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:45:01 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:45:01 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:46:16 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[02-Feb-2026 13:46:18 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 13:46:18 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 13:47:59 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 13:49:31 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[02-Feb-2026 13:50:05 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 14:00:24 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 14:02:07 Europe/Berlin] === INSERINDO USUÁRIO ===
+[02-Feb-2026 14:02:07 Europe/Berlin] Nome: nathalycssilva@gmail.com, Email: nathalycssilva@gmail.com, Tipo: Cliente
+[02-Feb-2026 14:02:07 Europe/Berlin] ✅ Usuário criado com ID: 45
+[02-Feb-2026 14:02:31 Europe/Berlin] Login bem-sucedido: nathalycssilva@gmail.com
+[02-Feb-2026 14:03:06 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 14:32:26 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
