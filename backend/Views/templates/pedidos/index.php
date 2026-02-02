@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +53,7 @@
         .action-btn:hover {
             background: #f9f6f0;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .action-btn i {
@@ -76,10 +77,21 @@
             overflow: hidden;
         }
 
-        .stat-card.blue { border-color: #5b9bd5; }
-        .stat-card.orange { border-color: #f4a261; }
-        .stat-card.green { border-color: #8b9556; }
-        .stat-card.purple { border-color: #9b7bb3; }
+        .stat-card.blue {
+            border-color: #5b9bd5;
+        }
+
+        .stat-card.orange {
+            border-color: #f4a261;
+        }
+
+        .stat-card.green {
+            border-color: #8b9556;
+        }
+
+        .stat-card.purple {
+            border-color: #9b7bb3;
+        }
 
         .stat-icon {
             position: absolute;
@@ -90,10 +102,21 @@
             opacity: 0.2;
         }
 
-        .stat-card.blue .stat-icon { color: #5b9bd5; }
-        .stat-card.orange .stat-icon { color: #f4a261; }
-        .stat-card.green .stat-icon { color: #8b9556; }
-        .stat-card.purple .stat-icon { color: #9b7bb3; }
+        .stat-card.blue .stat-icon {
+            color: #5b9bd5;
+        }
+
+        .stat-card.orange .stat-icon {
+            color: #f4a261;
+        }
+
+        .stat-card.green .stat-icon {
+            color: #8b9556;
+        }
+
+        .stat-card.purple .stat-icon {
+            color: #9b7bb3;
+        }
 
         .stat-number {
             font-size: 36px;
@@ -181,7 +204,7 @@
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         table {
@@ -265,35 +288,38 @@
         }
 
         @media (max-width: 768px) {
+
             .stats-grid,
             .action-buttons,
             .alerts-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             table {
                 font-size: 12px;
             }
-            
-            thead th, tbody td {
+
+            thead th,
+            tbody td {
                 padding: 10px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Botões de Ação -->
         <div class="action-buttons">
-            <a href="/produtos/adicionar" class="action-btn">
+            <a href="/backend/item/criar" class="action-btn">
                 <i class="fa-solid fa-circle-plus"></i>
                 Adicionar Produto
             </a>
-            <a href="/reservas" class="action-btn">
+            <a href="/backend/pedidos/listar" class="action-btn">
                 <i class="fa-regular fa-calendar-check"></i>
                 Ver Reservas
             </a>
-            <a href="/estoque" class="action-btn">
+            <a href="/backend/item/listar" class="action-btn">
                 <i class="fa-solid fa-boxes-stacked"></i>
                 Gerenciar Estoque
             </a>
@@ -343,7 +369,7 @@
                 <i class="fa-solid fa-list"></i>
                 Últimos Itens Cadastrados
             </h2>
-            <a href="backend/itens" class="view-all-btn">
+            <a href="/backend/item/listar" class="view-all-btn">
                 Ver todos <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
@@ -409,7 +435,7 @@
             </h2>
         </div>
 
-        <a href="/pedidos/criar" class="new-order-btn">
+        <a href="/backend/pedidos/criar" class="new-order-btn">
             <i class="fa-solid fa-plus"></i>
             Novo Pedido
         </a>
@@ -419,6 +445,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Itens</th>
                         <th>Valor Total</th>
                         <th>Data</th>
                         <th>Status</th>
@@ -427,25 +454,47 @@
                 </thead>
                 <tbody>
                     <?php foreach ($pedidos as $p): ?>
-                    <tr>
-                        <td><?= $p['id_pedido'] ?></td>
-                        <td>R$ <?= number_format($p['valor_total'], 2, ',', '.') ?></td>
-                        <td><?= date('d/m/Y', strtotime($p['data_pedido'])) ?></td>
-                        <td><span class="status-badge"><?= $p['status_pedido'] ?></span></td>
-                        <td class="action-links">
-                            <a href="backend/pedidos/editar/<?= $p['id_pedido'] ?>">
-                                <i class="fa-solid fa-pen-to-square"></i> Editar
-                            </a> |
-                            <a href="backend/pedidos/excluir/<?= $p['id_pedido'] ?>" 
-                               onclick="return confirm('Tem certeza que deseja excluir?')">
-                                <i class="fa-solid fa-trash"></i> Excluir
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><?= $p['id_pedidos'] ?></td>
+                            <td style="max-width: 300px;">
+                                <?php if (!empty($p['itens'])): ?>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <?php foreach ($p['itens'] as $item): ?>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']) ?>"
+                                                    style="width: 40px; height: 50px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+                                                    alt="Item">
+                                                <div style="line-height: 1.2;">
+                                                    <span
+                                                        style="font-size: 13px; font-weight: 600; color: #5a4a3a; display: block;"><?= htmlspecialchars($item['titulo_item']) ?></span>
+                                                    <span style="font-size: 11px; color: #8a7a6a;">Qtd:
+                                                        <?= $item['quantidade'] ?></span>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <span style="color: #999; font-style: italic;">Sem itens</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>R$ <?= number_format($p['valor_total'], 2, ',', '.') ?></td>
+                            <td><?= date('d/m/Y', strtotime($p['data_pedido'])) ?></td>
+                            <td><span class="status-badge"><?= $p['status'] ?></span></td>
+                            <td class="action-links">
+                                <a href="/backend/pedidos/editar/<?= $p['id_pedidos'] ?>">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </a> |
+                                <a href="/backend/pedidos/excluir/<?= $p['id_pedidos'] ?>"
+                                    onclick="return confirm('Tem certeza que deseja excluir?')">
+                                    <i class="fa-solid fa-trash"></i> Excluir
+                                </a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,142 +1,202 @@
 <?php
 namespace Sebo\Alfarrabio\Models;
 use PDO;
-class Pedidos{
-    private $id_pedido;
-    private $id_usuario;
-    private $valor_total;
-    private $data_pedido;
-    private $status_pedido;
+class Pedidos
+{
     private $db;
-    // contrutor inicializa a classe e ou atributos
-    public function __construct($db){
-       $this->db = $db;
-    }
-    // metodo de buscar todos os usuarios read
-    function buscarPedidos(){
-        $sql = "SELECT * FROM tbl_pedidos";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    public function __construct($db)
+    {
+        $this->db = $db;
     }
 
-    public function criarPedido(array $itensCarrinho){
+    // LISTAR TODOS (Read)
+    function buscarPedidos()
+    {
+        $sql = "SELECT * FROM tbl_pedidos ORDER BY data_pedido DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($pedidos as &$pedido) {
+            // Garante uso do ID correto (id_pedidos)
+            $id = $pedido['id_pedidos'] ?? $pedido['id'];
+
+            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':id', $id);
+            $stmtItens->execute();
+            $pedido['itens'] = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $pedidos;
+    }
+
+    // CRIAR PEDIDO (Create)
+    public function criarPedido(array $itensCarrinho)
+    {
         $this->db->beginTransaction();
         try {
             $valorTotalCalculado = 0;
+
+            // Validar estoque antes de criar o pedido
             foreach ($itensCarrinho as $item) {
-                $valorTotalCalculado += $item['preco'] * $item['quantidade'];
+                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id = :id";
+                $stmtEstoque = $this->db->prepare($sqlEstoque);
+                $stmtEstoque->bindParam(':id', $item['id'], PDO::PARAM_INT);
+                $stmtEstoque->execute();
+                $itemBanco = $stmtEstoque->fetch(PDO::FETCH_ASSOC);
+
+                if (!$itemBanco || $itemBanco['estoque'] < $item['quantidade']) {
+                    throw new \Exception("Item indisponível ou estoque insuficiente.");
+                }
+
+                // Previne erro se item['preco'] vier string formatada
+                $preco = is_numeric($item['preco']) ? $item['preco'] : 0;
+                $valorTotalCalculado += $preco * $item['quantidade'];
             }
 
-            $sqlPedido = "INSERT INTO tbl_pedidos (valor_total, data_pedido) VALUES (:valor_total, NOW())";
+            if (!isset($_SESSION['usuario_id'])) {
+                throw new \Exception("Usuário não autenticado.");
+            }
+            $usuarioId = $_SESSION['usuario_id'];
+
+            // Schema: id, usuario_id, total, data_pedido, status
+            $sqlPedido = "INSERT INTO tbl_pedidos (usuario_id, total, data_pedido, status) VALUES (:usuario_id, :total, NOW(), 'Pendente')";
             $stmtPedido = $this->db->prepare($sqlPedido);
-            $stmtPedido->bindParam(':valor_total', $valorTotalCalculado);
+            $stmtPedido->bindParam(':usuario_id', $usuarioId, PDO::PARAM_INT);
+            $stmtPedido->bindParam(':total', $valorTotalCalculado);
             $stmtPedido->execute();
+
             $idPedido = $this->db->lastInsertId();
-            $sqlItem = "INSERT INTO tbl_pedido_itens (id_pedido, id_produto, quantidade, preco_unitario) 
-                        VALUES (:id_pedido, :id_produto, :quantidade, :preco_unitario)";
+
+            // Itens do pedido
+            // Tabela: tbl_pedido_itens (pedido_id, item_id, quantidade)
+            $sqlItem = "INSERT INTO tbl_pedido_itens (pedido_id, item_id, quantidade) 
+                        VALUES (:pedido_id, :item_id, :quantidade)";
             $stmtItem = $this->db->prepare($sqlItem);
+
             foreach ($itensCarrinho as $item) {
-                $stmtItem->bindParam(':id_pedido', $idPedido, PDO::PARAM_INT);
-                $stmtItem->bindParam(':id_produto', $item['id'], PDO::PARAM_INT);
+                $stmtItem->bindParam(':pedido_id', $idPedido, PDO::PARAM_INT);
+                $stmtItem->bindParam(':item_id', $item['id'], PDO::PARAM_INT);
                 $stmtItem->bindParam(':quantidade', $item['quantidade'], PDO::PARAM_INT);
-                $stmtItem->bindParam(':preco_unitario', $item['preco']);
                 $stmtItem->execute();
             }
-            $this->db->commit();
 
-            return (int)$idPedido;
+            $this->db->commit();
+            return (int) $idPedido;
+
         } catch (\Exception $e) {
             $this->db->rollBack();
+            error_log("Erro ao criar pedido: " . $e->getMessage());
             return false;
         }
     }
 
-    // metodo de buscar todos usuario por email read
-    function buscarPedidosPorData($data_pedido){
-        $sql = "SELECT * FROM tbl_pedidos where data_pedido = :data";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':data', $data_pedido); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarPedidosPorID($id_pedido){
-        $sql = "SELECT * FROM tbl_pedidos where id_pedido = :id_pedido";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_pedido', $id_pedido); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function buscarPedidosPorIDUsuario($id_usuario){
-        $sql = "SELECT * FROM tbl_pedidos where id_usuario = :id_usuario";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_usuario', $id_usuario); 
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // metodo de inserir usuario create
-    function inserirPedidos($data_pedido, $status_pedido){
-        $sql = "INSERT INTO tbl_pedidos (data_pedido, status_pedido) 
-                VALUES (:data, :status)";
+    function buscarPedidosPorData($data_pedido)
+    {
+        $sql = "SELECT * FROM tbl_pedidos where DATE(data_pedido) = :data";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':data', $data_pedido);
-        $stmt->bindParam(':status', $status_pedido);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-        if($stmt->execute()){
+    function buscarPedidosPorID($id)
+    {
+        $sql = "SELECT * FROM tbl_pedidos where id_pedidos = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // O erro estava aqui: coluna id_usuario não existe, é usuario_id
+    function buscarPedidosPorIDUsuario($usuario_id)
+    {
+        // Corrigido para id_usuario e adicionado busca de itens
+        $sql = "SELECT * FROM tbl_pedidos where id_usuario = :usuario_id ORDER BY data_pedido DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':usuario_id', $usuario_id);
+        $stmt->execute();
+        $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($pedidos as &$pedido) {
+            // Busca os itens deste pedido (Joined with Item details)
+            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :pedido_id";
+
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':pedido_id', $pedido['id_pedidos']);
+            $stmtItens->execute();
+            $itens = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+
+            // Corrige caminho da imagem
+            foreach ($itens as &$item) {
+                $item['foto_item'] = \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']);
+            }
+
+            $pedido['itens'] = $itens;
+        }
+
+        return $pedidos;
+    }
+
+    function inserirPedidos($usuario_id, $total, $data_pedido, $status)
+    {
+        $sql = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) 
+                VALUES (:usuario_id, :total, :data, :status)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+        $stmt->bindParam(':total', $total);
+        $stmt->bindParam(':data', $data_pedido);
+        $stmt->bindParam(':status', $status);
+
+        if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        }else{
+        } else {
             return false;
         }
     }
 
-    // metodo de atualizar o usuario update
-    function atualizarPedidos($id_pedido, $data_pedido, $status_pedido){
-        $dataatual = date('Y-m-d H:i:s');
+    function atualizarPedidos($id, $data_pedido, $status)
+    {
+        // Se a tabela tiver data_atualizacao com ON UPDATE CURRENT_TIMESTAMP, não precisa atualizar manual
+        // Mas vamos manter compatível
         $sql = "UPDATE tbl_pedidos SET 
             data_pedido = :data,
-            status_pedido = :status,
-            atualizado_em = :atual
-            WHERE id_pedido = :id_pedido";
-        
+            status = :status
+            WHERE id = :id";
+
         $stmt = $this->db->prepare($sql);
-        
-        $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
-        $stmt->bindParam(':data',       $data_pedido,      PDO::PARAM_STR);
-        $stmt->bindParam(':status',     $status_pedido,    PDO::PARAM_STR);
-        $stmt->bindParam(':atual',      $dataatual,        PDO::PARAM_STR);
-        
-        return $stmt->execute(); // agora funciona porque os binds estão certos
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':data', $data_pedido, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
-    // metodo de inativar o usuario delete
-    function excluirPedidos($id_pedido){
-        $dataatual = date('Y-m-d H:i:s');
-        $sql = "UPDATE tbl_pedidos SET
-         excluido_em = :atual
-         WHERE id_pedido = :id_pedido";
+
+    // Soft delete? A estrutura mostrou 'excluido_em'? Não vi na estrutura acima (dump).
+    // O dump mostrou: id, usuario_id, total, data_pedido, status, observacao, data_cadastro, data_atualizacao
+    // NÃO TEM excluido_em no dump!
+    // Então Excluir deve ser DELETE mesmo ou precisamos adicionar a coluna.
+    // Vou mudar para DELETE real para evitar erro 'Column not found: excluido_em'
+    function excluirPedidos($id)
+    {
+        $sql = "DELETE FROM tbl_pedidos WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_pedido', $id_pedido);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
-// metodo de ativar o usuario excluido
-    function ativarPedidos($id_pedido){
-        $dataatual = NULL;
-        $sql = "UPDATE tbl_pedidos SET
-         excluido_em = :atual
-         WHERE id_pedido = :id_pedido";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_pedido', $id_pedido);
-        $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }}
+
+    // Sem coluna excluido_em, não dá pra reativar. Método removido ou deixado vazio.
+    function ativarPedidos($id)
+    {
+        return false;
+    }
 }

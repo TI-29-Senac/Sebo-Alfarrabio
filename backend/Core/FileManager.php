@@ -2,13 +2,16 @@
 
 namespace Sebo\Alfarrabio\Core;
 
-class FileManager{
+class FileManager
+{
     private string $diretorioBase;
-    public function __construct(string $diretorioBase){
+    public function __construct(string $diretorioBase)
+    {
         $this->diretorioBase = rtrim($diretorioBase, '/');
     }
 
-    public function salvarArquivo(array $file,string $subDiretorio,array $tiposPermitidos = ['image/jpeg', 'image/png', 'application/pdf'],int $tamanhoMaximo = 2097152) {
+    public function salvarArquivo(array $file, string $subDiretorio, array $tiposPermitidos = ['image/jpeg', 'image/png', 'application/pdf'], int $tamanhoMaximo = 2097152)
+    {
         $this->validarArquivo($file, $tiposPermitidos, $tamanhoMaximo);
 
         $diretorioDestino = $this->diretorioBase . '/' . trim($subDiretorio, '/');
@@ -28,29 +31,37 @@ class FileManager{
         return trim($subDiretorio, '/') . '/' . $novoNome;
     }
 
-    private function validarArquivo(array $file, array $tiposPermitidos, int $tamanhoMaximo){
+    private function validarArquivo(array $file, array $tiposPermitidos, int $tamanhoMaximo)
+    {
         if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new \Exception("Erro no upload do arquivo. Código: " . $file['error']);
         }
         if ($file['size'] > $tamanhoMaximo) {
             throw new \Exception("O arquivo excede o tamanho máximo de " . ($tamanhoMaximo / 1024 / 1024) . "MB.");
         }
-        $tipoArquivo = mime_content_type($file['tmp_name']);
+        if (function_exists('mime_content_type')) {
+            $tipoArquivo = mime_content_type($file['tmp_name']);
+        } else {
+            // Fallback para ambientes sem extensão fileinfo habilitada
+            $tipoArquivo = $file['type'];
+        }
         if (!in_array($tipoArquivo, $tiposPermitidos)) {
             throw new \Exception("Tipo de arquivo inválido. Permitidos: " . implode(', ', $tiposPermitidos));
         }
     }
 
-    private function gerarNomeUnico(array $file){
+    private function gerarNomeUnico(array $file)
+    {
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
         return uniqid('', true) . '.' . strtolower($extension);
     }
-    
-    public function delete(?string $caminhoRelativo){
+
+    public function delete(?string $caminhoRelativo)
+    {
         if (empty($caminhoRelativo)) {
             return true;
         }
-        
+
         $caminhoCompleto = $this->diretorioBase . '/' . $caminhoRelativo;
         if (file_exists($caminhoCompleto) && is_file($caminhoCompleto)) {
             return unlink($caminhoCompleto);

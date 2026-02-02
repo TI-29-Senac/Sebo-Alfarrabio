@@ -4,74 +4,96 @@ use PDO;
 use Exception;
 
 /**
- * Model para gerenciar a tabela tbl_itens (Livros, CDs, DVDs, Revistas)
- * Lida com o relacionamento N:N com Autores (tbl_item_autores)
+ * Model para gerenciar a tabela tbl_itens (Remoto)
+ * Schema Remoto: id_item, titulo_item, preco_item, foto_item, id_genero, id_categoria, estoque, excluido_em
  */
-class Item {
-
-    private $id_item;
-    private $titulo_item;
-    private $tipo_item;
-    private $id_genero;
-    private $id_categoria;
-    private $descricao;
-    private $ano_publicacao;
-    private $editora_gravadora;
-    private $estoque;
-    private $isbn;
-    private $duracao_minutos;
-    private $numero_edicao;
-    private $criado_em;
-    private $atualizado_em;
-    private $excluido_em;
-    
+class Item
+{
     private $db;
-    private $autores_ids = []; // Array de IDs de autores associados
-    public $foto_item;
-    public $preco_item;
-    public $quantidade_item;
-    public $desconto_item;
-    private $itemModel;
+    public $imagem; // Mantido para compatibilidade, mas o banco usa foto_item
 
-
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->db = $db;
+    }
+
+    // --- HELPER PARA ALIASES ---
+    // Cria a string de seleção para converter nomes do banco remoto para o esperado pela aplicação
+    private function getSelectFields($prefix = 'i')
+    {
+        return "
+            {$prefix}.id_item AS id,
+            {$prefix}.titulo_item,
+            {$prefix}.titulo_item AS titulo,
+            {$prefix}.tipo_item AS tipo,
+            {$prefix}.preco_item AS preco,
+            {$prefix}.foto_item AS imagem,
+            {$prefix}.foto_item,
+            {$prefix}.id_genero,
+            {$prefix}.id_categoria,
+            {$prefix}.descricao,
+            {$prefix}.ano_publicacao,
+            {$prefix}.editora_gravadora AS editora,
+            {$prefix}.estoque,
+            {$prefix}.isbn,
+            {$prefix}.criado_em,
+            {$prefix}.atualizado_em,
+            {$prefix}.excluido_em
+        ";
     }
 
     // --- MÉTODOS DE ESCRITA (CREATE, UPDATE, DELETE) ---
 
-    /**
-     * Insere um novo item e seus autores associados usando uma transação.
-     */
-    function inserirItem(array $dadosItem, array $autores_ids){
-        $colunas = implode(', ', array_keys($dadosItem));
-        $placeholders = ':' . implode(', :', array_keys($dadosItem));
+    function inserirItem(array $dadosItem, array $autores_ids)
+    {
+        // Mapeia chaves do formulário (local) para colunas do banco (remoto)
+        $map = [
+            'titulo' => 'titulo_item',
+            'preco' => 'preco_item',
+            'imagem' => 'foto_item',
+            'genero_id' => 'id_genero',
+            'categoria_id' => 'id_categoria',
+            'editora' => 'editora_gravadora',
+            'tipo' => 'tipo_item',
+            // Outros campos diretos: descricao, ano_publicacao, isbn, estoque
+        ];
+
+        $dadosRemotos = [];
+        foreach ($dadosItem as $key => $val) {
+            $col = $map[$key] ?? $key; // Se não tiver no mapa, usa a chave original
+            $dadosRemotos[$col] = $val;
+        }
+
+        // Garante campos obrigatórios ou defaults
+        if (!isset($dadosRemotos['estoque']))
+            $dadosRemotos['estoque'] = 1;
+
+        $colunas = implode(', ', array_keys($dadosRemotos));
+        $placeholders = ':' . implode(', :', array_keys($dadosRemotos));
 
         $sqlItem = "INSERT INTO tbl_itens ($colunas) VALUES ($placeholders)";
-        $sqlPivot = "INSERT INTO tbl_item_autores (id_item, id_autor) VALUES (:id_item, :id_autor)";
+        $sqlPivot = "INSERT INTO tbl_item_autores (item_id, autor_id) VALUES (:item_id, :autor_id)";
 
         try {
             $this->db->beginTransaction();
 
             $stmtItem = $this->db->prepare($sqlItem);
-            foreach ($dadosItem as $coluna => &$valor) {
+            foreach ($dadosRemotos as $coluna => &$valor) {
                 $stmtItem->bindValue(":$coluna", $valor);
             }
-            
+
             if (!$stmtItem->execute()) {
                 throw new Exception("Falha ao inserir o item principal.");
             }
-            
+
             $idNovoItem = $this->db->lastInsertId();
 
             if (!empty($autores_ids)) {
                 $stmtPivot = $this->db->prepare($sqlPivot);
                 foreach ($autores_ids as $id_autor) {
-                    $stmtPivot->bindParam(':id_item', $idNovoItem, PDO::PARAM_INT);
-                    $stmtPivot->bindParam(':id_autor', $id_autor, PDO::PARAM_INT);
-                    if (!$stmtPivot->execute()) {
-                        throw new Exception("Falha ao inserir autor ID: $id_autor.");
-                    }
+                    $stmtPivot->bindParam(':item_id', $idNovoItem, PDO::PARAM_INT);
+                    $stmtPivot->bindParam(':autor_id', $id_autor, PDO::PARAM_INT);
+                    $stmtPivot->execute();
                 }
             }
 
@@ -80,53 +102,58 @@ class Item {
 
         } catch (Exception $e) {
             $this->db->rollBack();
+            error_log("Erro ao inserir item: " . $e->getMessage());
             return false;
         }
     }
 
-    /**
-     * Atualiza um item e seus autores associados usando uma transação.
-     */
-    function atualizarItem(int $id_item, array $dadosItem, array $autores_ids){
-        $dadosItem['atualizado_em'] = date('Y-m-d H:i:s');
-        
+    function atualizarItem(int $id_item, array $dadosItem, array $autores_ids)
+    {
+        $map = [
+            'titulo' => 'titulo_item',
+            'preco' => 'preco_item',
+            'imagem' => 'foto_item',
+            'genero_id' => 'id_genero',
+            'categoria_id' => 'id_categoria',
+            'editora' => 'editora_gravadora',
+            'tipo' => 'tipo_item'
+        ];
+
+        $dadosRemotos = ['atualizado_em' => date('Y-m-d H:i:s')];
+        foreach ($dadosItem as $key => $val) {
+            $col = $map[$key] ?? $key;
+            $dadosRemotos[$col] = $val;
+        }
+
         $setParts = [];
-        foreach ($dadosItem as $coluna => $valor) {
+        foreach ($dadosRemotos as $coluna => $valor) {
             $setParts[] = "$coluna = :$coluna";
         }
         $setString = implode(', ', $setParts);
 
-        $sqlItem = "UPDATE tbl_itens SET $setString WHERE id_item = :id_item";
-        $sqlDeletePivot = "DELETE FROM tbl_item_autores WHERE id_item = :id_item";
-        $sqlInsertPivot = "INSERT INTO tbl_item_autores (id_item, id_autor) VALUES (:id_item, :id_autor)";
+        $sqlItem = "UPDATE tbl_itens SET $setString WHERE id_item = :id";
 
         try {
             $this->db->beginTransaction();
 
             $stmtItem = $this->db->prepare($sqlItem);
-            $stmtItem->bindParam(':id_item', $id_item, PDO::PARAM_INT);
-            foreach ($dadosItem as $coluna => &$valor) {
+            $stmtItem->bindParam(':id', $id_item, PDO::PARAM_INT);
+            foreach ($dadosRemotos as $coluna => &$valor) {
                 $stmtItem->bindValue(":$coluna", $valor);
             }
+            $stmtItem->execute();
 
-            if (!$stmtItem->execute()) {
-                throw new Exception("Falha ao atualizar o item principal.");
-            }
-
-            $stmtDelete = $this->db->prepare($sqlDeletePivot);
-            $stmtDelete->bindParam(':id_item', $id_item, PDO::PARAM_INT);
-            if (!$stmtDelete->execute()) {
-                throw new Exception("Falha ao limpar autores antigos.");
-            }
+            // Atualiza autores (Delete all + Insert new)
+            $stmtDelete = $this->db->prepare("DELETE FROM tbl_item_autores WHERE item_id = :item_id");
+            $stmtDelete->bindParam(':item_id', $id_item, PDO::PARAM_INT);
+            $stmtDelete->execute();
 
             if (!empty($autores_ids)) {
-                $stmtInsert = $this->db->prepare($sqlInsertPivot);
+                $stmtInsert = $this->db->prepare("INSERT INTO tbl_item_autores (item_id, autor_id) VALUES (:item_id, :autor_id)");
                 foreach ($autores_ids as $id_autor) {
-                    $stmtInsert->bindParam(':id_item', $id_item, PDO::PARAM_INT);
-                    $stmtInsert->bindParam(':id_autor', $id_autor, PDO::PARAM_INT);
-                    if (!$stmtInsert->execute()) {
-                        throw new Exception("Falha ao inserir novo autor ID: $id_autor.");
-                    }
+                    $stmtInsert->bindParam(':item_id', $id_item, PDO::PARAM_INT);
+                    $stmtInsert->bindParam(':autor_id', $id_autor, PDO::PARAM_INT);
+                    $stmtInsert->execute();
                 }
             }
 
@@ -139,10 +166,8 @@ class Item {
         }
     }
 
-    /**
-     * Inativa um item (Soft Delete)
-     */
-    function excluirItem(int $id){
+    function excluirItem(int $id)
+    {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_itens SET excluido_em = :atual WHERE id_item = :id";
         $stmt = $this->db->prepare($sql);
@@ -151,10 +176,8 @@ class Item {
         return $stmt->execute();
     }
 
-    /**
-     * Re-ativa um item que foi excluído
-     */
-    function ativarItem(int $id){
+    function ativarItem(int $id)
+    {
         $sql = "UPDATE tbl_itens SET excluido_em = NULL WHERE id_item = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -163,110 +186,92 @@ class Item {
 
     // --- MÉTODOS DE LEITURA (READ) ---
 
-    /**
-     * Busca um item específico pelo seu ID
-     */
-    function buscarItemPorID(int $id){
-        $sql = "SELECT * FROM tbl_itens WHERE id_item = :id_item";
+    function buscarItemPorID(int $id)
+    {
+        $select = $this->getSelectFields('i');
+        $sql = "SELECT $select FROM tbl_itens i WHERE i.id_item = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_item', $id, PDO::PARAM_INT); 
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $item = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($item) {
             $item['autores_ids'] = $this->buscarAutoresDoItem($id);
-            $item = $item[0];
-            $item += [
-                'foto_item' => $this->foto_item,
-                'preco_item' => $this->preco_item,
-                'quantidade_item' => $this->quantidade_item,
-                'desconto_item' => $this->desconto_item
-            ];
+            // Corrige caminho da imagem caso use helper estático na View
+            $item['imagem'] = self::corrigirCaminhoImagem($item['imagem']);
         }
         return $item;
     }
 
-    public function getItem() {
-  $id = $_GET['id'] ?? null;
-  if ($id) {
-    $item = $this->itemModel->buscarItemPorId((int)$id);
-  } else {
-    $item = $this->itemModel->buscarTodosItens();
-  }
-  echo json_encode(['status' => 'success', 'data' => $item]);
-}
-
-    /**
-     * Helper para buscar os IDs dos autores de um item
-     */
-    function buscarAutoresDoItem(int $id_item){
-        $sql = "SELECT id_autor FROM tbl_item_autores WHERE id_item = :id_item";
+    private function buscarAutoresDoItem(int $id_item)
+    {
+        $sql = "SELECT autor_id FROM tbl_item_autores WHERE item_id = :item_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+        $stmt->bindParam(':item_id', $id_item, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN); 
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    // --- MÉTODOS DE PESQUISA ---
-
-    /**
-     * Pesquisa itens com paginação
-     * Busca por: título, autor, categoria, gênero, ISBN
-     */
-    public function pesquisarItens(string $termo, int $pagina = 1, int $por_pagina = 10): array {
+    public function pesquisarItens(string $termo, int $pagina = 1, int $por_pagina = 10): array
+    {
         $termo = "%{$termo}%";
-        
-        // Contagem Total
+        $whereClause = "i.excluido_em IS NULL";
+
+        // Contagem
         $totalQuery = "
             SELECT COUNT(DISTINCT i.id_item) 
             FROM tbl_itens i
-            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.id_item
-            LEFT JOIN tbl_autores a ON ia.id_autor = a.id_autor
-            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_genero
-            WHERE i.excluido_em IS NULL
+            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
+            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
+            WHERE $whereClause
             AND (
                 i.titulo_item LIKE :termo
                 OR a.nome_autor LIKE :termo
-                OR c.nome_categoria LIKE :termo
-                OR g.nome_genero LIKE :termo
+                OR g.nome_generos LIKE :termo
                 OR i.isbn LIKE :termo
                 OR i.editora_gravadora LIKE :termo
             )
         ";
-        
-        
         $totalStmt = $this->db->prepare($totalQuery);
         $totalStmt->bindParam(':termo', $termo);
         $totalStmt->execute();
-        $total_de_registros = $totalStmt->fetchColumn();
+        $total = $totalStmt->fetchColumn();
 
-        // Busca Paginada
+        // Dados
+        $select = $this->getSelectFields('i');
         $offset = ($pagina - 1) * $por_pagina;
-        
+
         $dataQuery = "
             SELECT 
-                i.*, 
-                g.nome_genero, 
+                i.id_item,
+                i.titulo_item,
+                i.tipo_item,
+                i.preco_item,
+                i.foto_item,
+                i.estoque,
+                i.isbn,
+                i.editora_gravadora,
+                i.ano_publicacao,
+                i.criado_em,
+                i.atualizado_em,
+                i.excluido_em,
+                g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a2.nome_autor SEPARATOR ', ') 
                  FROM tbl_item_autores ia2
-                 JOIN tbl_autores a2 ON ia2.id_autor = a2.id_autor
-                 WHERE ia2.id_item = i.id_item
-                 AND a2.excluido_em IS NULL) AS autores
+                 JOIN tbl_autores a2 ON ia2.autor_id = a2.id_autor
+                 WHERE ia2.item_id = i.id_item) AS autores
             FROM tbl_itens i
-            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.id_item
-            LEFT JOIN tbl_autores a ON ia.id_autor = a.id_autor
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_genero
+            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
+            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
             LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
-            WHERE i.excluido_em IS NULL
+            WHERE $whereClause
             AND (
                 i.titulo_item LIKE :termo
                 OR a.nome_autor LIKE :termo
-                OR c.nome_categoria LIKE :termo
-                OR g.nome_genero LIKE :termo
-                OR i.isbn LIKE :termo
-                OR i.editora_gravadora LIKE :termo
+                OR g.nome_generos LIKE :termo
             )
             GROUP BY i.id_item
             ORDER BY i.titulo_item ASC
@@ -279,60 +284,23 @@ class Item {
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $dataStmt->execute();
         $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        $lastPage = ceil($total_de_registros / $por_pagina);
+
+        // Processa imagens
+        foreach ($dados as &$d) {
+            $d['foto_item'] = self::corrigirCaminhoImagem($d['foto_item']);
+        }
 
         return [
             'data' => $dados,
-            'total' => (int) $total_de_registros,
+            'total' => (int) $total,
             'por_pagina' => (int) $por_pagina,
             'pagina_atual' => (int) $pagina,
-            'ultima_pagina' => (int) $lastPage,
-            'de' => $offset + 1,
-            'para' => $offset + count($dados)
+            'ultima_pagina' => (int) ceil($total / $por_pagina)
         ];
     }
 
-
-    
-    /**
-     * Pesquisa simples para autocomplete/AJAX
-     * Retorna apenas id e título
-     */
-    public function pesquisarItensSimples(string $termo, int $limite = 10): array {
-        $termo = "%{$termo}%";
-        
-        $sql = "
-            SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
-                 FROM tbl_item_autores ia
-                 JOIN tbl_autores a ON ia.id_autor = a.id_autor
-                 WHERE ia.id_item = i.id_item
-                 AND a.excluido_em IS NULL) AS autores
-            FROM tbl_itens i
-            WHERE i.excluido_em IS NULL
-            AND i.titulo_item LIKE :termo
-            ORDER BY i.titulo_item ASC
-            LIMIT :limite
-        ";
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':termo', $termo);
-        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
-        $stmt->execute();
-        
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // --- MÉTODOS DE PAGINAÇÃO E CONTAGEM ---
-
-    /**
-     * Paginação de itens com dados relacionados
-     */
-    public function paginacao(int $pagina = 1, int $por_pagina = 8, string $tipo = null): array {
+    public function paginacao(int $pagina = 1, int $por_pagina = 8, ?string $tipo = null): array
+    {
         $whereClause = "i.excluido_em IS NULL";
         $params = [];
         if ($tipo) {
@@ -340,29 +308,41 @@ class Item {
             $params[':tipo'] = $tipo;
         }
 
+        // Total
         $totalQuery = "SELECT COUNT(DISTINCT i.id_item) FROM tbl_itens i WHERE $whereClause";
         $totalStmt = $this->db->prepare($totalQuery);
         $totalStmt->execute($params);
-        $total_de_registros = $totalStmt->fetchColumn();
+        $total = $totalStmt->fetchColumn();
 
         $offset = ($pagina - 1) * $por_pagina;
-        
+        $select = $this->getSelectFields('i');
+
         $dataQuery = "
             SELECT 
-                i.*, 
-                g.nome_genero, 
+                i.id_item,
+                i.titulo_item,
+                i.tipo_item,
+                i.preco_item,
+                i.foto_item,
+                i.estoque,
+                i.isbn,
+                i.editora_gravadora,
+                i.ano_publicacao,
+                i.criado_em,
+                i.atualizado_em,
+                i.excluido_em,
+                g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
                  FROM tbl_item_autores ia
-                 JOIN tbl_autores a ON ia.id_autor = a.id_autor
-                 WHERE ia.id_item = i.id_item
-                 AND a.excluido_em IS NULL) AS autores
+                 JOIN tbl_autores a ON ia.autor_id = a.id_autor
+                 WHERE ia.item_id = i.id_item) AS autores
             FROM tbl_itens i
-            LEFT JOIN tbl_generos g ON i.id_genero = g.id_genero
+            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
             LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
             WHERE $whereClause
             GROUP BY i.id_item
-            ORDER BY i.titulo_item ASC
+            ORDER BY i.criado_em DESC
             LIMIT :limit OFFSET :offset
         ";
 
@@ -372,70 +352,115 @@ class Item {
         foreach ($params as $key => $value) {
             $dataStmt->bindValue($key, $value);
         }
-        
         $dataStmt->execute();
         $dados = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        $lastPage = ceil($total_de_registros / $por_pagina);
+
+        foreach ($dados as &$d) {
+            $d['foto_item'] = self::corrigirCaminhoImagem($d['foto_item']);
+        }
 
         return [
             'data' => $dados,
-            'total' => (int) $total_de_registros,
+            'total' => (int) $total,
             'por_pagina' => (int) $por_pagina,
             'pagina_atual' => (int) $pagina,
-            'ultima_pagina' => (int) $lastPage,
-            'de' => $offset + 1,
-            'para' => $offset + count($dados)
+            'ultima_pagina' => (int) ceil($total / $por_pagina)
         ];
     }
 
-    // --- Métodos de Contagem Simples ---
-
-    function totalDeItens(string $tipo = null){
-        $sql = "SELECT count(*) as total FROM tbl_itens";
-        $params = [];
-        if ($tipo) {
-            $sql .= " WHERE tipo_item = :tipo";
-            $params[':tipo'] = $tipo;
-        }
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetch(PDO::FETCH_COLUMN);
-    }
-    
-    function totalDeItensInativos(string $tipo = null){
-        $sql = "SELECT count(*) as total FROM tbl_itens WHERE excluido_em IS NOT NULL";
-        $params = [];
-        if ($tipo) {
-            $sql .= " AND tipo_item = :tipo";
-            $params[':tipo'] = $tipo;
-        }
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetch(PDO::FETCH_COLUMN);
-    }
-
-    function totalDeItensAtivos(string $tipo = null){
-        $sql = "SELECT count(*) as total FROM tbl_itens WHERE excluido_em IS NULL";
-        $params = [];
-        if ($tipo) {
-            $sql .= " AND tipo_item = :tipo";
-            $params[':tipo'] = $tipo;
-        }
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetch(PDO::FETCH_COLUMN);
-    }
-
-    public function buscarItemAtivos() {
-        $sql = "SELECT item.id_item, titulo_item, tipo_item, preco_item, foto_item, autor.nome_autor 
+    public function buscarItemAtivos()
+    {
+        $select = $this->getSelectFields('item');
+        $sql = "SELECT $select, autor.nome_autor AS nome_autor 
                 FROM tbl_itens as item
-                INNER JOIN tbl_item_autores as item_autor ON item_autor.id_item = item.id_item
-                INNER JOIN tbl_autores as autor ON autor.id_autor = item_autor.id_autor
+                INNER JOIN tbl_item_autores as item_autor ON item_autor.item_id = item.id_item
+                INNER JOIN tbl_autores as autor ON autor.id_autor = item_autor.autor_id
                 WHERE item.excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($dados as &$d) {
+            $d['imagem'] = self::corrigirCaminhoImagem($d['imagem']);
+        }
+        return $dados;
+    }
+
+    public static function corrigirCaminhoImagem($foto_item)
+    {
+        if (empty($foto_item))
+            return '/img/sem-imagem.png';
+
+        // Verifica se é URL completa
+        if (filter_var($foto_item, FILTER_VALIDATE_URL)) {
+            return $foto_item;
+        }
+
+        // Se já tem o caminho base completo (/backend/uploads/)
+        if (strpos($foto_item, '/backend/uploads/') !== false) {
+            return $foto_item;
+        }
+
+        // Remove barra inicial para padronizar
+        $caminhoLimpo = ltrim($foto_item, '/');
+
+        // Se começa com uploads/ (ex: uploads/itens/foto.jpg)
+        if (strpos($caminhoLimpo, 'uploads/') === 0) {
+            return '/backend/' . $caminhoLimpo;
+        }
+
+        // Caso contrário, assume que é apenas o nome do arquivo na raiz de uploads
+        return '/backend/uploads/' . $caminhoLimpo;
+    }
+
+    // --- MÉTODOS DE CONTAGEM (STATS) ---
+
+    function totalDeItens()
+    {
+        $sql = "SELECT count(*) FROM tbl_itens";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    function totalDeItensAtivos()
+    {
+        $sql = "SELECT count(*) FROM tbl_itens WHERE excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    function totalDeItensInativos()
+    {
+        $sql = "SELECT count(*) FROM tbl_itens WHERE excluido_em IS NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    // --- MÉTODOS AUXILIARES ---
+
+    function pesquisarItensSimples(string $termo)
+    {
+        $termo = "%{$termo}%";
+        $sql = "SELECT id_item, titulo_item, foto_item, preco_item 
+                FROM tbl_itens 
+                WHERE excluido_em IS NULL 
+                AND titulo_item LIKE :termo 
+                LIMIT 10";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':termo', $termo);
+        $stmt->execute();
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Alias para o frontend
+        foreach ($dados as &$d) {
+            $d['imagem'] = self::corrigirCaminhoImagem($d['foto_item']);
+            $d['titulo'] = $d['titulo_item'];
+            $d['id'] = $d['id_item'];
+            $d['preco'] = $d['preco_item'];
+        }
+        return $dados;
     }
 }
 

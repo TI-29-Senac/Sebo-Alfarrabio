@@ -11,49 +11,49 @@ class Rotas
                 // ========================================
                 // ROTAS PÚBLICAS
                 // ========================================
-                
+
                 // Produtos públicos (catálogo)
                 "/produtos" => "Public\PublicItemController@viewProdutos",
                 "/produtos/{pagina}" => "Public\PublicItemController@viewProdutos",
-                
+
                 // ========================================
                 // AUTENTICAÇÃO
                 // ========================================
-                
+
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
-                
+
 
                 // ========================================
                 // CLIENTE
                 // ========================================
-                '/admin/cliente'=> "DashboardControllerCliente@index",
+                '/admin/cliente' => "DashboardControllerCliente@index",
 
                 // ========================================
                 // ÁREA ADMINISTRATIVA
                 // ========================================
-                
+
                 "/admin/dashboard" => "DashboardController@index",
-                
-                
+
+
                 // ========================================
                 // USUÁRIOS
                 // ========================================
-                
+
                 "/usuarios" => "UsuarioController@index",
                 "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
                 "/usuario/listar" => "UsuarioController@viewListarUsuarios",
                 "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
                 "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
                 "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
-                "/api/usuarios/{pagina}" => "APIUsarioController@getUsuarios",
-                "/api/usuarios" => "APIUsarioController@getUsuarios",
-                
+                "/api/usuarios/{pagina}" => "Api\APIUsarioController@getUsuarios",
+                "/api/usuarios" => "Api\APIUsarioController@getUsuarios",
+
                 // ========================================
                 // VENDAS
                 // ========================================
-                
+
                 "/vendas" => "VendasController@index",
                 "/vendas/criar" => "VendasController@viewCriarVendas",
                 "/vendas/listar" => "VendasController@viewListarVendas",
@@ -62,11 +62,11 @@ class Rotas
                 "/vendas/excluir/{id}" => "VendasController@viewExcluirVendas",
                 "/vendas/relatorio" => "VendasController@relatorioVendas",
                 "/vendas/relatorio/{id}/{dataInicial}/{dataFinal}" => "VendasController@relatorioVendas",
-                
+
                 // ========================================
                 // RESERVAS
                 // ========================================
-                
+
                 "/pedidos" => "PedidosController@index",
                 "/pedidos/criar" => "PedidosController@viewCriarPedidos",
                 "/pedidos/listar" => "PedidosController@viewListarPedidos",
@@ -76,21 +76,21 @@ class Rotas
                 "/pedidos/relatorio" => "PedidosController@relatorioPedidos",
                 "/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}" => "PedidosController@relatorioPedidos",
 
-                  // ========================================
-                 // API PÚBLICA / API ITEM
                 // ========================================
-                
-                 "/api/item" => "PublicApiController@getItem",
-                "/api/buscaitem" => "APIItemController@getItem",
+                // API PÚBLICA / API ITEM
+                // ========================================
 
-                "/api/pedidos" => "APIPedidosController@getPedidos",
-                "/api/buscarpedidos" => "APIPedidosController@getPedidos",
+                "/api/item" => "PublicApiController@getItem",
+                "/api/buscaitem" => "PublicApiController@getItem",
 
-                
+                "/api/pedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
+
+
                 // ========================================
                 // PERFIL USUÁRIO
                 // ========================================
-                
+
                 "/perfil" => "PerfilController@index",
                 "/perfil/criar" => "PerfilController@viewCriarPerfil",
                 "/perfil/listar" => "PerfilController@viewListarPerfil",
@@ -99,11 +99,11 @@ class Rotas
                 "/perfil/excluir/{id}" => "PerfilController@viewExcluirPerfil",
                 "/perfil/relatorio" => "PerfilController@relatorioPerfil",
                 "/perfil/relatorio/{id}/{dataInicial}/{dataFinal}" => "PerfilController@relatorioPerfil",
-                
+
                 // ========================================
                 // AVALIAÇÃO
                 // ========================================
-                
+
                 "/avaliacao" => "AvaliacaoController@index",
                 "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
                 "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
@@ -112,35 +112,35 @@ class Rotas
                 "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
                 "/avaliacao/relatorio" => "AvaliacaoController@relatorioAvaliacao",
                 "/avaliacao/relatorio/{id}/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
-                
+
                 // ========================================
                 // ITENS (Livros do acervo)
                 // ========================================
-                
-                
+
+
                 "/item/listar" => "ItemController@viewListarItens",
                 "/item/listar/{pagina}" => "ItemController@viewListarItens",
                 "/item/criar" => "ItemController@viewCriarItem",
                 "/item/editar/{id}" => "ItemController@viewEditarItem",
                 "/item/excluir/{id}" => "ItemController@viewExcluirItem",
 
-                 
+
 
                 // ========================================
                 // AUTOR    
                 // ========================================
-                "/autor" => "autorController@index",
+                "/autor" => "AutorController@index",
                 "/autor/criar" => "AutorController@viewCriarAutor",
                 "/autor/listar" => "AutorController@viewListarAutor",
                 "/autor/editar/{id}" => "AutorController@viewEditarAutor",
                 "/autor/excluir/{id}" => "AutorController@viewExcluirAutor",
                 "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
 
-                 // ========================================
+                // ========================================
                 // CATEGORIA
                 // ========================================
-                "/" => "AdminDashboardController@index",
-                "/backend" => "AdminDashboardController@index",
+                "/" => "DashboardController@index",
+
                 "/categoria" => "CategoriaController@index",
                 "/categoria/criar" => "CategoriaController@viewCriarCategoria",
                 "/categoria/listar" => "CategoriaController@viewListarCategoria",
@@ -151,18 +151,18 @@ class Rotas
                 // ========================================
                 // GENERO
                 // ========================================
-                "/genero" => "generoConstroller@index",
+                "/genero" => "GeneroController@index",
                 "/genero/criar" => "GeneroController@viewCriarGenero",
                 "/genero/listar/" => "GeneroController@viewListarGenero",
                 "/genero/editar/{id}" => "GeneroController@viewEditarGenero",
                 "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
                 "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
 
-                
+
                 // ========================================
                 // AJAX (Busca dinâmica)
                 // ========================================
-                
+
                 "/ajax/buscar/autores" => "ItemController@ajaxBuscarAutores",
                 "/ajax/buscar/categorias" => "ItemController@ajaxBuscarCategorias",
                 "/ajax/buscar/generos" => "ItemController@ajaxBuscarGeneros",
@@ -176,82 +176,85 @@ class Rotas
                 "/carrinho/remover/{id}" => "CartController@remover",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
-                '/api/item' => 'PublicApiController@getItem',
-                '/api/avaliacoes' => 'PublicApiController@getAvaliacoes', 
+                '/api/avaliacoes' => 'PublicApiController@getAvaliacoes',
             ],
-            
-            
+
+
             "POST" => [
                 // ========================================
                 // AUTENTICAÇÃO (post)
                 // ========================================
-                
+
                 "/register" => "AuthController@cadastrarUsuario",
                 "/login" => "AuthController@authenticar",
-                
+
                 // ========================================
                 // USUÁRIOS (post)
                 // ========================================
-                
+
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
                 "/usuario/deletar" => "UsuarioController@deletarUsuario",
-                
-                
+
+
                 // ========================================
                 // VENDAS (post)
                 // ========================================
-                
+
                 "/vendas/salvar" => "VendasController@salvarVendas",
                 "/vendas/atualizar" => "VendasController@atualizarVendas",
                 "/vendas/deletar" => "VendasController@deletarVendas",
                 "/vendas/ativar" => "VendasController@ativarVenda",
-                
+
                 // ========================================
                 // Pedidos (post)
                 // ========================================
-                "/pedidos/salvar"     => "PedidosController@salvarPedidos",
-                "/pedidos/atualizar"  => "PedidosController@atualizarPedidos",
-                "/pedidos/deletar"    => "PedidosController@deletarPedidos",
+                "/pedidos/salvar" => "PedidosController@salvarPedidos",
+                "/pedidos/atualizar" => "PedidosController@atualizarPedidos",
+                "/pedidos/deletar" => "PedidosController@deletarPedidos",
 
                 // Opcional: se quiser ativar pedido excluído
-                "/pedidos/ativar"     => "PedidosController@ativarPedidos",
-                
+                "/pedidos/ativar" => "PedidosController@ativarPedidos",
+
                 // ========================================
                 // PERFIL USUÁRIO (post)
                 // ========================================
-                
+
+                // PERFIL USUÁRIO (post)
+                // ========================================
+
+                "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",
                 "/perfil/deletar" => "PerfilController@deletarPerfil",
                 "/perfil/ativar" => "PerfilController@ativarPerfil",
-                
+
                 // ========================================
                 // AVALIAÇÃO (post)
                 // ========================================
-                
+
                 "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
                 "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
                 "/avaliacao/atualizar" => "AvaliacaoController@atualizarAvaliacao",
                 "/avaliacao/deletar" => "AvaliacaoController@deletarAvaliacao",
                 "/avaliacao/ativar" => "AvaliacaoController@ativarAvaliacao",
-                
+
                 // ========================================
                 // ITENS (Livros do acervo)
                 // ========================================
-                
+
                 "/item/salvar" => "ItemController@salvarItem",
                 "/item/atualizar" => "ItemController@atualizarItem",
                 "/item/deletar" => "ItemController@deletarItem",
                 "/item/ativar" => "ItemController@ativarItem",
-                
+
                 // ========================================
                 // API PÚBLICA (post)
                 // ========================================
-                
 
 
-               // ========================================
+
+                // ========================================
                 // AUTORES (post)
                 // ========================================
                 "/autor/salvar" => "AutorController@salvarAutor",
@@ -259,13 +262,13 @@ class Rotas
                 "/autor/excluir/{id}" => "AutorController@deletarAutor",
 
                 // ========================================
-               // CATEGORIA (post)
+                // CATEGORIA (post)
                 // ========================================
                 "/categoria/salvar" => "CategoriaController@salvarCategoria",
                 "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
                 "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
 
-                  // ========================================
+                // ========================================
                 // GENERO (post)
                 // ========================================
                 "/genero/salvar" => "GeneroController@salvarGenero",

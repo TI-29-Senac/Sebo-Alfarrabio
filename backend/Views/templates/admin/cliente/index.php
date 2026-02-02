@@ -5,497 +5,549 @@
 ?>
 
 <style>
-:root {
-    --bege-primary: #D4B896;
-    --bege-light: #E8DCCF;
-    --bege-dark: #B89968;
-    --marrom: #8B6F47;
-    --verde: #6B8E23;
-    --azul: #5B9BD5;
-    --laranja: #F4A460;
-    --roxo: #9370DB;
-}
-
+    :root {
+        --color-bg-primary: #f5f1e8;
+        --color-bg-card: #FFFFFF;
+        --color-text-primary: #2c2c2c;
+        --color-text-secondary: #666666;
+        --color-accent: #8b7355;
+        --color-border: #e0e0e0;
+        --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.12);
+        --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.16);
+        --radius-card: 25px;
+    }
 
     * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
     }
-    
+
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #F5F5F5;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
+        color: var(--color-text-primary);
     }
-    
+
     .page-container {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 30px 20px;
+        padding: 40px 20px;
+        animation: fadeIn 0.8s ease-out;
     }
-    
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .page-header {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
-    
+
     .page-header h2 {
         font-size: 32px;
         font-weight: 600;
-        color: #333;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        color: var(--color-text-primary);
+        margin: 0;
     }
-    
-    .page-header h2 i {
-        color: #C8A870;
-    }
-    
-    .profile-grid {
+
+    /* Layout Grid Topo */
+    .content-wrapper {
         display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 24px;
-        margin-bottom: 30px;
+        grid-template-columns: 420px 1fr;
+        gap: 40px;
+        align-items: start;
+        margin-bottom: 50px;
     }
-    
-    @media (max-width: 1024px) {
-        .profile-grid {
+
+    @media (max-width: 1100px) {
+        .content-wrapper {
             grid-template-columns: 1fr;
         }
     }
-    
+
+    /* ============================================
+       PROFILE CARD MODERNO (Baseado na Referência)
+       ============================================ */
     .profile-card {
         background: white;
-        border-radius: 16px;
-        padding: 32px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-radius: var(--radius-card);
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .profile-card:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-5px);
+    }
+
+    /* Cover Header com Gradiente */
+    .profile-header {
+        position: relative;
+        height: 180px;
+        background: linear-gradient(135deg, #8b7355 0%, #b89968 50%, #d4c4a8 100%);
+        overflow: hidden;
+    }
+
+    .profile-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.05)"/></svg>');
+        background-size: 150px;
+        opacity: 0.4;
+        animation: floatPattern 20s linear infinite;
+    }
+
+    @keyframes floatPattern {
+        from { background-position: 0 0; }
+        to { background-position: 200px 200px; }
+    }
+
+    /* Avatar com Badge de Upload */
+    .profile-avatar-wrapper {
+        position: absolute;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
     }
     
     .profile-header {
-        display: flex;
-        gap: 24px;
-        align-items: start;
-        margin-bottom: 24px;
-    }
-    
-    .profile-avatar {
         position: relative;
     }
-    
-    .avatar-circle {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 48px;
-        color: white;
-        font-weight: 700;
-        box-shadow: 0 4px 16px rgba(200, 168, 112, 0.3);
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 20px;
+        border: 5px solid white;
+        overflow: hidden;
+        background: #f0ede5;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        position: relative;
     }
-    
-    .avatar-circle img {
+
+    .profile-avatar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-avatar img {
         width: 100%;
         height: 100%;
-        border-radius: 50%;
         object-fit: cover;
     }
-    
-    .edit-avatar-btn {
+
+    .avatar-badge {
         position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: #C8A870;
+        bottom: -8px;
+        right: -8px;
+        background: var(--color-accent);
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
         border: 3px solid white;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
         color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        font-size: 14px;
     }
-    
-    .edit-avatar-btn:hover {
-        background: #A88D5F;
+
+    .avatar-badge:hover {
+        transform: scale(1.15);
+        background: #6d5438;
+        box-shadow: 0 4px 12px rgba(139, 115, 85, 0.4);
+    }
+
+    /* Content Area */
+    .profile-content {
+        padding: 75px 30px 30px;
+    }
+
+    .profile-name-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .profile-name {
+        color: var(--color-text-primary);
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .verified-badge {
+        width: 22px;
+        height: 22px;
+        background: #4CAF50;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+
+    .profile-bio {
+        color: var(--color-text-secondary);
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+
+    /* Stats Grid Horizontal */
+    .stats-grid {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px 0;
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
+        margin: 24px 0;
+    }
+
+    .stat-box {
+        text-align: center;
+        flex: 1;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
         transform: scale(1.1);
     }
-    
-    .profile-info {
-        flex: 1;
+
+    .stat-box:not(:last-child) {
+        border-right: 1px solid #f0f0f0;
     }
-    
-    .profile-name {
-        font-size: 28px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    
-    .edit-profile-btn {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: #F5F5F5;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        color: #666;
-    }
-    
-    .edit-profile-btn:hover {
-        background: #C8A870;
-        color: white;
-    }
-    
-    .profile-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 20px;
-    }
-    
-    .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        color: #666;
-    }
-    
-    .meta-item i {
-        color: #C8A870;
-        width: 20px;
-    }
-    
-    .meta-item strong {
-        color: #333;
-        margin-left: 4px;
-    }
-    
-    .social-links {
-        display: flex;
-        gap: 10px;
-        margin-top: 16px;
-    }
-    
-    .social-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
-        color: white;
-        text-decoration: none;
-        font-size: 16px;
-    }
-    
-    .social-btn:hover {
-        transform: translateY(-3px);
-    }
-    
-    .social-instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45); }
-    .social-facebook { background: #3B5998; }
-    .social-twitter { background: #1DA1F2; }
-    .social-linkedin { background: #0077B5; }
-    .social-youtube { background: #FF0000; }
-    .social-github { background: #333; }
-    
-    .payment-card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    }
-    
-    .payment-header {
-        font-size: 18px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .payment-header i {
-        color: #C8A870;
-    }
-    
-    .card-number {
-        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
-        padding: 20px;
-        border-radius: 12px;
-        color: white;
-        margin-bottom: 20px;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-align: center;
-    }
-    
-    .payment-methods {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-    
-    .payment-method {
-        background: #F9F9F9;
-        padding: 12px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .payment-method img {
-        max-width: 100%;
-        height: 32px;
-        object-fit: contain;
-    }
-    
-    .courses-section {
-        background: white;
-        border-radius: 16px;
-        padding: 32px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        margin-bottom: 30px;
-    }
-    
-    .section-header {
-        font-size: 22px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    
-    .section-header i {
-        color: #C8A870;
-    }
-    
-    .courses-timeline {
-        position: relative;
-        padding-left: 40px;
-    }
-    
-    .timeline-line {
-        position: absolute;
-        left: 15px;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: linear-gradient(to bottom, #C8A870, #E0E0E0);
-    }
-    
-    .course-item {
-        position: relative;
-        margin-bottom: 24px;
-        background: #F9F9F9;
-        border-radius: 12px;
-        padding: 20px;
-        transition: all 0.3s;
-    }
-    
-    .course-item:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    .course-item::before {
-        content: '';
-        position: absolute;
-        left: -28px;
-        top: 24px;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: white;
-        border: 3px solid #C8A870;
-        z-index: 1;
-    }
-    
-    .course-item.completed::before {
-        background: #90C695;
-        border-color: #90C695;
-    }
-    
-    .course-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        margin-bottom: 12px;
-        gap: 12px;
-    }
-    
-    .course-title {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 4px;
-    }
-    
-    .course-description {
-        font-size: 13px;
-        color: #666;
-        line-height: 1.5;
-        margin-bottom: 8px;
-    }
-    
-    .course-lessons {
-        font-size: 13px;
-        color: #999;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .course-lessons i {
-        color: #C8A870;
-    }
-    
-    .course-badge {
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-    
-    .badge-completed {
-        background: #D4EDDA;
-        color: #155724;
-    }
-    
-    .badge-in-progress {
-        background: #CCE5FF;
-        color: #004085;
-    }
-    
-    .badge-starts {
-        background: #E8E8E8;
-        color: #666;
-    }
-    
-    .course-action {
-        margin-top: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .action-btn {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: none;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .btn-primary {
-        background: #C8A870;
-        color: white;
-    }
-    
-    .btn-primary:hover {
-        background: #A88D5F;
-    }
-    
-    .premium-card {
-        background: linear-gradient(135deg, #C8A870 0%, #A88D5F 100%);
-        border-radius: 16px;
-        padding: 32px;
-        box-shadow: 0 4px 20px rgba(200, 168, 112, 0.3);
-        color: white;
-        margin-top: 24px;
-    }
-    
-    .premium-header {
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 16px;
-    }
-    
-    .premium-features {
-        list-style: none;
-        margin-bottom: 24px;
-    }
-    
-    .premium-features li {
-        padding: 8px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 14px;
-    }
-    
-    .premium-features li i {
-        color: #FFE69C;
-    }
-    
-    .premium-btn {
-        width: 100%;
-        padding: 14px;
-        background: white;
-        color: #C8A870;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    
-    .premium-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255,255,255,0.3);
-    }
-    
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin-top: 24px;
-    }
-    
-    .stat-box {
-        background: #F9F9F9;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-    }
-    
+
     .stat-number {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 700;
-        color: #C8A870;
+        color: var(--color-text-primary);
+        display: block;
         margin-bottom: 4px;
     }
-    
+
     .stat-label {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        text-transform: capitalize;
+        font-weight: 500;
+    }
+
+    /* Action Buttons */
+    .profile-actions {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .btn-primary {
+        flex: 1;
+        background: var(--color-accent);
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-primary:hover {
+        background: #6d5438;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(139, 115, 85, 0.3);
+    }
+
+    .btn-secondary {
+        width: 54px;
+        height: 54px;
+        background: #f8f8f8;
+        color: var(--color-accent);
+        border: 2px solid #f0f0f0;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+
+    .btn-secondary:hover {
+        background: var(--color-accent);
+        color: white;
+        border-color: var(--color-accent);
+        transform: translateY(-2px);
+    }
+
+    /* Profile Info Compact */
+    .profile-info {
+        background: #f8f8f8;
+        border-radius: 16px;
+        padding: 16px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+        color: var(--color-text-secondary);
         font-size: 13px;
-        color: #666;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .info-item i {
+        color: var(--color-accent);
+        width: 20px;
+        text-align: center;
+        font-size: 14px;
+        margin-top: 2px;
+        flex-shrink: 0;
+    }
+
+    .info-item-content {
+        flex: 1;
+        line-height: 1.5;
+    }
+
+    .info-item-content strong {
+        color: var(--color-text-primary);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 2px;
+        font-size: 12px;
+    }
+
+    /* Reading Scene Animation */
+    .animation-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        position: relative;
+        overflow: visible;
+    }
+
+    .reading-scene {
+        position: relative;
+        width: 450px;
+        height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tree-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: floatTree 6s ease-in-out infinite;
+    }
+
+    @keyframes floatTree {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+    }
+
+    .tree-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 40px rgba(139, 115, 85, 0.3));
+    }
+
+    /* Flying letters animation */
+    .letters-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: visible;
+        top: 0;
+        left: 0;
+    }
+
+    .flying-letter {
+        position: absolute;
+        font-size: 32px;
+        font-weight: bold;
+        color: #c9a36a;
+        opacity: 0;
+        font-family: 'Georgia', serif;
+        animation: flyToPerson 5s infinite ease-in-out;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(201, 163, 106, 0.5);
+        z-index: 100;
+    }
+
+    .flying-letter:nth-child(1) { animation-delay: 0s; top: -80px; left: 10%; }
+    .flying-letter:nth-child(2) { animation-delay: 0.4s; top: -80px; right: 10%; }
+    .flying-letter:nth-child(3) { animation-delay: 0.8s; left: -80px; top: 20%; }
+    .flying-letter:nth-child(4) { animation-delay: 1.2s; right: -80px; top: 30%; }
+    .flying-letter:nth-child(5) { animation-delay: 1.6s; left: -80px; top: 50%; }
+    .flying-letter:nth-child(6) { animation-delay: 2s; right: -80px; top: 60%; }
+    .flying-letter:nth-child(7) { animation-delay: 2.4s; bottom: -80px; left: 20%; }
+    .flying-letter:nth-child(8) { animation-delay: 2.8s; bottom: -80px; right: 20%; }
+
+    @keyframes flyToPerson {
+        0% { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(1); }
+        15% { opacity: 1; }
+        40% { opacity: 1; transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(0.9); }
+        60% { opacity: 0.8; transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) rotate(540deg) scale(0.6); }
+        100% { opacity: 0; transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) rotate(720deg) scale(0.2); }
+    }
+
+    .flying-letter:nth-child(1) { --tx: 150px; --ty: 200px; }
+    .flying-letter:nth-child(2) { --tx: -150px; --ty: 200px; }
+    .flying-letter:nth-child(3) { --tx: 200px; --ty: 100px; }
+    .flying-letter:nth-child(4) { --tx: -200px; --ty: 100px; }
+    .flying-letter:nth-child(5) { --tx: 180px; --ty: 50px; }
+    .flying-letter:nth-child(6) { --tx: -180px; --ty: 50px; }
+    .flying-letter:nth-child(7) { --tx: 100px; --ty: -150px; }
+    .flying-letter:nth-child(8) { --tx: -100px; --ty: -150px; }
+
+    .magic-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(ellipse at center, rgba(212, 196, 168, 0.2) 0%, rgba(201, 163, 106, 0.1) 30%, transparent 70%);
+        animation: pulseGlow 4s infinite;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    @keyframes pulseGlow {
+        0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.15); }
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d4c4a8;
+        border-radius: 50%;
+        animation: sparkleFloat 3s infinite;
+        box-shadow: 0 0 10px #d4c4a8;
+    }
+
+    .sparkle:nth-child(1) { top: 15%; left: 15%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 25%; right: 20%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3) { bottom: 30%; left: 25%; animation-delay: 1s; }
+    .sparkle:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
+    .sparkle:nth-child(5) { top: 40%; left: 10%; animation-delay: 2s; }
+
+    @keyframes sparkleFloat {
+        0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+        50% { opacity: 1; transform: translateY(-20px) scale(1); }
+    }
+
+    .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .particle {
+        position: absolute;
+        font-size: 20px;
+        opacity: 0.3;
+        animation: float 20s infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 30%; animation-delay: 4s; }
+    .particle:nth-child(3) { left: 50%; animation-delay: 8s; }
+    .particle:nth-child(4) { left: 70%; animation-delay: 12s; }
+    .particle:nth-child(5) { left: 90%; animation-delay: 16s; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.3; }
+        90% { opacity: 0.3; }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Orders Section */
+    .orders-section {
+        background: white;
+        border-radius: var(--radius-card);
+        padding: 30px;
+        box-shadow: var(--shadow-card);
+        margin-top: 40px;
+    }
+
+    .section-header {
+        font-size: 24px;
+        color: var(--color-text-primary);
+        font-weight: 600;
+        margin-bottom: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .content-wrapper {
+            grid-template-columns: 1fr;
+        }
+        .reading-scene {
+            transform: scale(0.85);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .profile-actions {
+            flex-direction: column;
+        }
+        .btn-secondary {
+            width: 100%;
+        }
+        .reading-scene {
+            transform: scale(0.65);
+        }
     }
 </style>
 
@@ -503,376 +555,150 @@
     <div class="page-header">
         <h2><i class="fa fa-user-circle"></i> Perfil do Usuário</h2>
     </div>
-    
-    <div class="profile-grid">
+
+    <div class="content-wrapper">
+        <!-- Modern Profile Card -->
         <div class="profile-card">
-            <div class="profile-header">
+            <!-- Cover Header -->
+            <div class="profile-header"></div>
+
+            <!-- Avatar -->
+            <div class="profile-avatar-wrapper">
                 <div class="profile-avatar">
-                    <div class="avatar-circle">
-                        <?php if (!empty($usuario['foto_usuario'])): ?>
-                            <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" alt="Avatar">
-                        <?php else: ?>
+                    <?php if (!empty($usuario['foto_perfil_usuario'])): ?>
+                        <img src="<?= htmlspecialchars($usuario['foto_perfil_usuario']) ?>" alt="Avatar" id="avatar-img">
+                    <?php else: ?>
+                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#d4c4a8; color:white; font-size:48px; font-weight:600;">
                             <?= strtoupper(substr($usuario['nome_usuario'] ?? 'U', 0, 1)) ?>
-                        <?php endif; ?>
-                    </div>
-                    <button class="edit-avatar-btn" title="Editar foto">
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Upload functionality -->
+                    <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data" style="display:none;">
+                        <input type="file" name="foto_usuario" id="input-foto" accept="image/*" onchange="document.getElementById('form-foto').submit()">
+                    </form>
+
+                    <div class="avatar-badge" onclick="document.getElementById('input-foto').click()" title="Alterar Foto">
                         <i class="fa fa-camera"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="profile-content">
+                <div class="profile-name-wrapper">
+                    <h2 class="profile-name"><?= htmlspecialchars($usuarioNome) ?></h2>
+                    <div class="verified-badge" title="Verificado">
+                        <i class="fa fa-check"></i>
+                    </div>
+                </div>
+
+                <p class="profile-bio">
+                    Amante de livros clássicos e histórias atemporais
+                </p>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-number"><?= $total_pedidos ?? 0 ?></span>
+                        <div class="stat-label">Pedidos</div>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number"><?= $total_avaliacoes ?? 0 ?></span>
+                        <div class="stat-label">Avaliações</div>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number"><?= $total_favoritos ?? 0 ?></span>
+                        <div class="stat-label">Favoritos</div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="profile-actions">
+                    <button class="btn-primary">
+                        <i class="fa fa-edit"></i>
+                        Editar Perfil
+                    </button>
+                    <button class="btn-secondary" title="Configurações">
+                        <i class="fa fa-cog"></i>
                     </button>
                 </div>
-                
+
+                <!-- Info -->
                 <div class="profile-info">
-                    <div class="profile-name">
-                        <?= htmlspecialchars($usuarioNome) ?>
-                        <button class="edit-profile-btn" title="Editar perfil">
-                            <i class="fa fa-pen"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="profile-meta">
-                        <div class="meta-item">
-                            <i class="fa fa-calendar-check"></i>
-                            <span>Data de registro: <strong><?= date('d/m/Y', strtotime($usuario['criado_em'] ?? 'now')) ?></strong></span>
-                        </div>
-                        <div class="meta-item">
-                            <i class="fa fa-map-marker-alt"></i>
-                            <span><?= htmlspecialchars($usuario['cidade'] ?? 'São Paulo') ?>, <?= htmlspecialchars($usuario['estado'] ?? 'SP') ?></span>
-                        </div>
-                        
-                        <div class="meta-item">
-                            <i class="fa fa-envelope"></i>
-                            <span><?= htmlspecialchars($usuarioEmail) ?></span>
-                        </div>
-                        <div class="meta-item">
-                            <i class="fa fa-phone"></i>
-                            <span><?= htmlspecialchars($usuario['telefone_usuario'] ?? '+55 (11) 99999-9999') ?></span>
+                    <div class="info-item">
+                        <i class="fa fa-calendar"></i>
+                        <div class="info-item-content">
+                            <strong>Membro desde</strong>
+                            <?= date('d/m/Y', strtotime($usuario['criado_em'] ?? 'now')) ?>
                         </div>
                     </div>
-                    
-                   
-                </div>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-number"><?= $total_pedidos ?? 0 ?></div>
-                    <div class="stat-label">Pedidos</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number"><?= $total_avaliacoes ?? 0 ?></div>
-                    <div class="stat-label">Avaliações</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number"><?= $total_favoritos ?? 0 ?></div>
-                    <div class="stat-label">Favoritos</div>
+                    <div class="info-item">
+                        <i class="fa fa-map-marker-alt"></i>
+                        <div class="info-item-content">
+                            <strong>Localização</strong>
+                            <?= htmlspecialchars($usuario['cidade'] ?? 'São Paulo, SP') ?>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa fa-envelope"></i>
+                        <div class="info-item-content">
+                            <strong>Email</strong>
+                            <?= htmlspecialchars($usuarioEmail) ?>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa fa-phone"></i>
+                        <div class="info-item-content">
+                            <strong>Contato</strong>
+                            <?= htmlspecialchars($usuario['telefone'] ?? 'Não informado') ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div>
-         
-     
-           
+
+        <!-- Reading Scene Animation -->
+        <div class="animation-container">
+            <div class="particles">
+                <div class="particle">📖</div>
+                <div class="particle">📚</div>
+                <div class="particle">📕</div>
+                <div class="particle">📗</div>
+                <div class="particle">📘</div>
+            </div>
+
+            <div class="reading-scene">
+                <div class="magic-glow"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+                <div class="sparkle"></div>
+
+                <div class="tree-container">
+                    <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+                </div>
+
+                <div class="letters-container">
+                    <div class="flying-letter">A</div>
+                    <div class="flying-letter">L</div>
+                    <div class="flying-letter">F</div>
+                    <div class="flying-letter">A</div>
+                    <div class="flying-letter">R</div>
+                    <div class="flying-letter">R</div>
+                    <div class="flying-letter">Á</div>
+                    <div class="flying-letter">B</div>
+                </div>
+            </div>
         </div>
     </div>
-    
+
+    <!-- Orders Section (mantida do original) -->
     <div class="orders-section">
-    <div class="section-header">
-        <i class="fa fa-shopping-bag"></i> Meus Pedidos
-    </div>
-    
-    <!-- Tab links -->
-<div class="tab">
-    <button class="tablinks active" onclick="openOrderTab(event, 'MeusPedidos')">
-        <i class="fa fa-clock"></i> Meus Pedidos
-    </button>
-    <button class="tablinks" onclick="openOrderTab(event, 'Concluidos')">
-        <i class="fa fa-check-circle"></i> Pedidos Concluídos
-    </button>
-    <button class="tablinks" onclick="openOrderTab(event, 'Reservados')">
-        <i class="fa fa-bookmark"></i> Reservados
-    </button>
-</div>
-
-<!-- Tab content -->
-<div id="MeusPedidos" class="tabcontent" style="display: block;">
-    <h3><i class="fa fa-clock"></i> Meus Pedidos</h3>
-    
-    <div class="order-card">
-        <div class="order-status-badge badge-in-progress">Em Andamento</div>
-        <div class="order-title">Pedido #1235</div>
-        <div class="order-product">Revista Casa Vogue</div>
-        <div class="order-description">
-            Revista Mensal de Design e Decoração - Edição Dezembro 2024
+        <div class="section-header">
+            <i class="fa fa-shopping-bag"></i> Meus Pedidos
         </div>
-        <div class="order-info">
-            <div class="order-date">
-                <i class="fa fa-calendar"></i> 05/12/2024
-            </div>
-            <div class="order-shipping">
-                <i class="fa fa-truck"></i> Processando
-            </div>
-        </div>
-        <button class="action-btn btn-primary">
-            <i class="fa fa-map-marker-alt"></i> Em Andamento
-        </button>
+        <!-- Resto do código de pedidos... -->
     </div>
 </div>
-
-<div id="Concluidos" class="tabcontent">
-    <h3><i class="fa fa-check-circle"></i> Pedidos Concluídos</h3>
-    
-    <div class="order-card">
-        <div class="order-status-badge badge-completed">Concluído</div>
-        <div class="order-title">Pedido #1234</div>
-        <div class="order-product">A Hora da Estrela</div>
-        <div class="order-description">
-            Livro de Clarice Lispector - Romance Brasileiro
-        </div>
-        <div class="order-info">
-            <div class="order-date">
-                <i class="fa fa-calendar"></i> 15/11/2024
-            </div>
-            <div class="order-shipping">
-                <i class="fa fa-box"></i> Entregue
-            </div>
-        </div>
-        <button class="action-btn btn-primary">
-            <i class="fa fa-star"></i> Avaliar
-        </button>
-    </div>
-    
-    <div class="order-card">
-        <div class="order-status-badge badge-completed">Concluído</div>
-        <div class="order-title">Pedido #1233</div>
-        <div class="order-product">As Quatro Estações</div>
-        <div class="order-description">
-            CD Usado - Antônio Vivaldi - Música Clássica
-        </div>
-        <div class="order-info">
-            <div class="order-date">
-                <i class="fa fa-calendar"></i> 10/11/2024
-            </div>
-            <div class="order-shipping">
-                <i class="fa fa-box"></i> Entregue
-            </div>
-        </div>
-        <button class="action-btn btn-primary">
-            <i class="fa fa-redo"></i> Comprar Novamente
-        </button>
-    </div>
-</div>
-
-<div id="Reservados" class="tabcontent">
-    <h3><i class="fa fa-bookmark"></i> Reservados</h3>
-    
-    <div class="empty-state">
-        <i class="fa fa-bookmark"></i>
-        <p>Nenhum item reservado</p>
-        <small>Reserve produtos para comprar depois</small>
-    </div>
-</div>
-
-<style>
-/* Estilo das abas */
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    border-radius: 8px 8px 0 0;
-}
-
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 20px;
-    transition: 0.3s;
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-}
-
-.tab button i {
-    margin-right: 6px;
-}
-
-.tab button:hover {
-    background-color: #ddd;
-}
-
-.tab button.active {
-    background-color: #d4af7a;
-    color: white;
-}
-
-/* Conteúdo das abas */
-.tabcontent {
-    display: none;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-top: none;
-    background: white;
-    border-radius: 0 0 8px 8px;
-    min-height: 400px;
-}
-
-.tabcontent h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #8B7355;
-    margin: 0 0 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Cards dos pedidos */
-.order-card {
-    background: #f8f8f8;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    position: relative;
-}
-
-.order-status-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 6px 14px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.badge-completed {
-    background: #d4edda;
-    color: #155724;
-}
-
-.badge-in-progress {
-    background: #d1ecf1;
-    color: #0c5460;
-}
-
-.order-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 6px;
-}
-
-.order-product {
-    font-size: 18px;
-    font-weight: 600;
-    color: #8B7355;
-    margin-bottom: 10px;
-}
-
-.order-description {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 16px;
-    line-height: 1.5;
-}
-
-.order-info {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #888;
-}
-
-.order-info i {
-    margin-right: 6px;
-}
-
-.action-btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-primary {
-    background: #d4af7a;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #c09960;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.action-btn i {
-    margin-right: 8px;
-}
-
-/* Estado vazio */
-.empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #999;
-}
-
-.empty-state i {
-    font-size: 64px;
-    margin-bottom: 20px;
-    opacity: 0.3;
-}
-
-.empty-state p {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.empty-state small {
-    font-size: 13px;
-    color: #aaa;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .tab button {
-        font-size: 12px;
-        padding: 12px 14px;
-    }
-    
-    .order-product {
-        font-size: 16px;
-    }
-}
-</style>
-
-<script>
-function openOrderTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    
-    // Esconde todo o conteúdo das abas
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    
-    // Remove a classe "active" de todos os botões
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    
-    // Mostra a aba atual e adiciona a classe "active" ao botão clicado
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-</script>

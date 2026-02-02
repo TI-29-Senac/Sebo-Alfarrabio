@@ -1,0 +1,312 @@
+/* ========================================== */
+/* HERO SECTION COM ANIMAÇÃO DE BURACO NEGRO */
+/* ========================================== */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  height: 500px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
+  box-shadow: #6941004f 10px 4px 10px 4px;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========================================== */
+/* ANIMAÇÃO DE LETRAS (BURACO NEGRO) */
+/* ========================================== */
+
+.letters-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flying-letter {
+  position: absolute;
+  font-family: 'Merriweather', serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #d4a574;
+  text-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: flyToCenter var(--duration) ease-in forwards;
+}
+
+@keyframes flyToCenter {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0.3) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+/* ========================================== */
+/* LIVRO NO CENTRO (BURACO NEGRO) */
+/* ========================================== */
+
+.book-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.book-emoji {
+  font-size: 120px;
+  filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.6));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.4));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 40px rgba(212, 165, 116, 0.8));
+  }
+}
+
+/* ========================================== */
+/* CONTEÚDO HERO (TEXTO + INPUT) */
+/* ========================================== */
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-text {
+  font-family: 'Merriweather', serif;
+  font-size: 2.8rem;
+  color: #d4a574;
+  text-shadow: -6px 0px 5px rgba(105, 65, 0, 0.39);
+  line-height: 1.3;
+  margin: 0;
+  /* animation removed, handled by JS */
+  opacity: 1;
+  /* Ensure visible container */
+}
+
+.hero-text>span {
+  display: block;
+  font-size: 2.5rem;
+  margin-top: 10px;
+}
+
+/* Character animation styles */
+.hero-text .hero-char {
+  display: inline-block;
+  opacity: 0;
+  animation: formLetter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  white-space: pre;
+  /* Preserve spaces */
+}
+
+@keyframes formLetter {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(1.5) rotate(-10deg);
+    filter: blur(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+/* ========================================== */
+/* INPUT DE PESQUISA FLUTUANTE */
+/* ========================================== */
+
+.hero-search {
+  background: rgba(170, 109, 11, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(212, 165, 116, 0.3);
+  border-radius: 50px;
+  padding: 18px 40px;
+  width: 100%;
+  max-width: 600px;
+  font-size: 1.1rem;
+  font-family: 'Merriweather', serif;
+  color: #d4a574;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: floatSearch 3s ease-in-out infinite;
+}
+
+.hero-search::placeholder {
+  color: rgba(212, 165, 116, 0.6);
+  font-style: italic;
+}
+
+.hero-search:focus {
+  background: rgba(170, 109, 11, 0.6);
+  border-color: #d4a574;
+  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.4);
+  transform: translateY(-5px);
+}
+
+.hero-search:hover {
+  border-color: rgba(212, 165, 116, 0.5);
+}
+
+@keyframes floatSearch {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ========================================== */
+/* RESPONSIVIDADE */
+/* ========================================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 400px;
+    height: 400px;
+  }
+
+  .book-emoji {
+    font-size: 80px;
+  }
+
+  .hero-text {
+    font-size: 1.8rem;
+  }
+
+  .hero-text span {
+    font-size: 1.6rem;
+  }
+
+  .hero-search {
+    font-size: 1rem;
+    padding: 15px 30px;
+    max-width: 90%;
+  }
+
+  .flying-letter {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: 350px;
+    height: 350px;
+  }
+
+  .book-emoji {
+    font-size: 60px;
+  }
+
+  .hero-text {
+    font-size: 1.4rem;
+  }
+
+  .hero-text span {
+    font-size: 1.3rem;
+  }
+
+  .hero-search {
+    font-size: 0.9rem;
+    padding: 12px 25px;
+  }
+
+  .flying-letter {
+    font-size: 16px;
+  }
+}
+
+/* ========================================== */
+/* ANIMAÇÃO DE ONDA (PÓS-ENTRADA) */
+/* ========================================== */
+
+.hero-text.wave-active .hero-char {
+  animation: waveLetter 3s ease-in-out infinite;
+  animation-delay: calc(var(--char-index) * 0.1s);
+  opacity: 1;
+  /* Garante que fique visível */
+  transform: translateY(0);
+  /* Reseta transformações anteriores */
+}
+
+@keyframes waveLetter {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    color: #d4a574;
+  }
+
+  25% {
+    transform: translateY(-8px);
+    color: #e7ba77;
+    /* Brilho */
+    text-shadow: 0 0 15px rgba(235, 154, 5, 0.8);
+  }
+
+  50% {
+    transform: translateY(0);
+    color: #d4a574;
+  }
+}

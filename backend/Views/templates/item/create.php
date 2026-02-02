@@ -284,22 +284,25 @@
         }
     }
 </style>
- 
+
 <div class="container">
     <h1>Novo Item</h1>
 
     <form action="/backend/item/salvar" method="POST" enctype="multipart/form-data">
-    
+
         <!-- UPLOAD DE FOTO -->
         <div class="form-group text-center mb-4">
             <label>Foto do Item</label><br>
-            <img id="preview-foto" src="/img/no-image.png" style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
+            <img id="preview-foto" src="/img/no-image.png"
+                style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
             <br><br>
             <input type="file" name="foto_item" id="foto_item" accept="image/*" style="display:none">
-            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('foto_item').click()">
+            <button type="button" class="btn btn-outline-primary"
+                onclick="document.getElementById('foto_item').click()">
                 Escolher Foto
             </button>
-            <button type="button" class="btn btn-outline-danger" onclick="limparFoto()" style="display:none" id="btn-limpar">Remover</button>
+            <button type="button" class="btn btn-outline-danger" onclick="limparFoto()" style="display:none"
+                id="btn-limpar">Remover</button>
         </div>
 
         <div class="form-row">
@@ -324,7 +327,8 @@
                 <label for="id_genero">Gênero<span class="required">*</span></label>
                 <select id="id_genero" name="id_genero" class="form-control" required>
                     <?php foreach ($generos as $genero): ?>
-                        <option value="<?= $genero['id_genero'] ?>"><?= htmlspecialchars($genero['nome_genero']) ?></option>
+                        <option value="<?= $genero['id_generos'] ?>"><?= htmlspecialchars($genero['nome_generos']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -332,7 +336,8 @@
                 <label for="id_categoria">Categoria<span class="required">*</span></label>
                 <select id="id_categoria" name="id_categoria" class="form-control" required>
                     <?php foreach ($categorias as $categoria): ?>
-                        <option value="<?= $categoria['id_categoria'] ?>"><?= htmlspecialchars($categoria['nome_categoria']) ?></option>
+                        <option value="<?= $categoria['id_categoria'] ?>">
+                            <?= htmlspecialchars($categoria['nome_categoria']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -355,8 +360,8 @@
                 <label for="preco_item">Preço (R$)<span class="required">*</span></label>
                 <div class="input-group">
                     <span class="input-group-text">R$</span>
-                    <input type="number" class="form-control" id="preco_item" name="preco_item" 
-                           step="0.01" min="0" value="0.00" required>
+                    <input type="number" class="form-control" id="preco_item" name="preco_item" step="0.01" min="0"
+                        value="0.00" required>
                 </div>
             </div>
             <div class="form-group col-md-4">
@@ -365,7 +370,8 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="ano_publicacao">Ano</label>
-                <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000" max="2099">
+                <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000"
+                    max="2099">
             </div>
         </div>
 
@@ -394,112 +400,112 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Campos Condicionais
-    const tipoSelect = document.getElementById('tipo_item');
-    const campoIsbn = document.getElementById('campo-isbn');
-    const campoDuracao = document.getElementById('campo-duracao');
-    const campoEdicao = document.getElementById('campo-edicao');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Campos Condicionais
+        const tipoSelect = document.getElementById('tipo_item');
+        const campoIsbn = document.getElementById('campo-isbn');
+        const campoDuracao = document.getElementById('campo-duracao');
+        const campoEdicao = document.getElementById('campo-edicao');
 
-    function toggleCamposEspeciais() {
-        const tipo = tipoSelect.value;
-        campoIsbn.style.display = 'none';
-        campoDuracao.style.display = 'none';
-        campoEdicao.style.display = 'none';
+        function toggleCamposEspeciais() {
+            const tipo = tipoSelect.value;
+            campoIsbn.style.display = 'none';
+            campoDuracao.style.display = 'none';
+            campoEdicao.style.display = 'none';
 
-        if (tipo === 'livro') campoIsbn.style.display = 'block';
-        else if (tipo === 'cd' || tipo === 'dvd') campoDuracao.style.display = 'block';
-        else if (tipo === 'revista') campoEdicao.style.display = 'block';
-    }
+            if (tipo === 'livro') campoIsbn.style.display = 'block';
+            else if (tipo === 'cd' || tipo === 'dvd') campoDuracao.style.display = 'block';
+            else if (tipo === 'revista') campoEdicao.style.display = 'block';
+        }
 
-    tipoSelect.addEventListener('change', toggleCamposEspeciais);
-    toggleCamposEspeciais();
+        tipoSelect.addEventListener('change', toggleCamposEspeciais);
+        toggleCamposEspeciais();
 
-    // Preview da foto
-    document.getElementById('foto_item').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                document.getElementById('preview-foto').src = ev.target.result;
-                document.getElementById('btn-limpar').style.display = 'inline-block';
+        // Preview da foto
+        document.getElementById('foto_item').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    document.getElementById('preview-foto').src = ev.target.result;
+                    document.getElementById('btn-limpar').style.display = 'inline-block';
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
-        }
-    });
+        });
 
-    window.limparFoto = function() {
-        document.getElementById('foto_item').value = '';
-        document.getElementById('preview-foto').src = '/img/no-image.png';
-        document.getElementById('btn-limpar').style.display = 'none';
-    };
+        window.limparFoto = function () {
+            document.getElementById('foto_item').value = '';
+            document.getElementById('preview-foto').src = '/img/no-image.png';
+            document.getElementById('btn-limpar').style.display = 'none';
+        };
 
-    // Formatação automática do preço
-    const precoInput = document.getElementById('preco_item');
-    precoInput.addEventListener('blur', function() {
-        const valor = parseFloat(this.value);
-        if (!isNaN(valor)) {
-            this.value = valor.toFixed(2);
-        }
-    });
+        // Formatação automática do preço
+        const precoInput = document.getElementById('preco_item');
+        precoInput.addEventListener('blur', function () {
+            const valor = parseFloat(this.value);
+            if (!isNaN(valor)) {
+                this.value = valor.toFixed(2);
+            }
+        });
 
-    // Busca de autores
-    const searchInput = document.getElementById('autor-search-input');
-    const searchResults = document.getElementById('autor-search-results');
-    const selectedList = document.getElementById('autores-selecionados-list');
-    let debounceTimer;
+        // Busca de autores
+        const searchInput = document.getElementById('autor-search-input');
+        const searchResults = document.getElementById('autor-search-results');
+        const selectedList = document.getElementById('autores-selecionados-list');
+        let debounceTimer;
 
-    searchInput.addEventListener('keyup', () => {
-        clearTimeout(debounceTimer);
-        const termo = searchInput.value.trim();
-        
-        if (termo.length < 2) {
-            searchResults.innerHTML = '';
-            return;
-        }
+        searchInput.addEventListener('keyup', () => {
+            clearTimeout(debounceTimer);
+            const termo = searchInput.value.trim();
 
-        debounceTimer = setTimeout(() => {
-            fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(termo)}`)
-                .then(response => response.json())
-                .then(autores => {
-                    searchResults.innerHTML = '';
-                    autores.forEach(autor => {
-                        const div = document.createElement('div');
-                        div.textContent = autor.nome_autor;
-                        div.dataset.id = autor.id_autor;
-                        div.addEventListener('click', () => adicionarAutor(autor.id_autor, autor.nome_autor));
-                        searchResults.appendChild(div);
+            if (termo.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(termo)}`)
+                    .then(response => response.json())
+                    .then(autores => {
+                        searchResults.innerHTML = '';
+                        autores.forEach(autor => {
+                            const div = document.createElement('div');
+                            div.textContent = autor.nome_autor;
+                            div.dataset.id = autor.id_autor;
+                            div.addEventListener('click', () => adicionarAutor(autor.id_autor, autor.nome_autor));
+                            searchResults.appendChild(div);
+                        });
                     });
-                });
-        }, 300);
-    });
+            }, 300);
+        });
 
-    window.adicionarAutor = function(id, nome) {
-        if (document.querySelector(`#autores-selecionados-list input[value="${id}"]`)) {
+        window.adicionarAutor = function (id, nome) {
+            if (document.querySelector(`#autores-selecionados-list input[value="${id}"]`)) {
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            const span = document.createElement('span');
+            span.id = `autor-badge-${id}`;
+            span.innerHTML = `${nome} <button type="button" onclick="removerAutor(${id})">×</button>`;
+            selectedList.appendChild(span);
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'autores_ids[]';
+            input.value = id;
+            input.id = `autor-input-${id}`;
+            selectedList.appendChild(input);
+
             searchInput.value = '';
             searchResults.innerHTML = '';
-            return;
-        }
+        };
 
-        const span = document.createElement('span');
-        span.id = `autor-badge-${id}`;
-        span.innerHTML = `${nome} <button type="button" onclick="removerAutor(${id})">×</button>`;
-        selectedList.appendChild(span);
-
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'autores_ids[]';
-        input.value = id;
-        input.id = `autor-input-${id}`;
-        selectedList.appendChild(input);
-
-        searchInput.value = '';
-        searchResults.innerHTML = '';
-    };
-
-    window.removerAutor = function(id) {
-        document.getElementById(`autor-badge-${id}`).remove();
-        document.getElementById(`autor-input-${id}`).remove();
-    };
-});
+        window.removerAutor = function (id) {
+            document.getElementById(`autor-badge-${id}`).remove();
+            document.getElementById(`autor-input-${id}`).remove();
+        };
+    });
 </script>

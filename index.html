@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sebo & Livraria O Alfarrábio</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- CSS na ordem correta -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/books-letters-animation.css">
+  <link rel="stylesheet" href="css/hero-animation.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/avaliacoes-footer.css">
 </head>
+
 <body>
 
   <!-- HEADER COM ÍCONE DE PERFIL -->
   <header>
     <img src="img/logo2.png" alt="Logo" class="logo">
     <h3 class="alfa">O Alfarrábio</h3>
-    
+
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -44,16 +48,24 @@
     </div>
   </header>
 
-  <!-- BANNER -->
-  <section class="banner">
-    <div class="container">
-      <figure>
-        <img src="img/banner.png" alt="banner-img" class="banner-img">
-        <figcaption class="fig">
-          <h2 class="text">Onde cada livro tem uma nova <p>chance de ser descoberto.</p></h2>
-          <input class="pesquisa" type="text" placeholder="Buscar livros">
-        </figcaption>
-      </figure>
+  <!-- ========================================== -->
+  <!-- NOVA HERO SECTION - ANIMAÇÃO BURACO NEGRO -->
+  <!-- ========================================== -->
+  <section class="banner hero-section">
+    <div class="hero-container">
+      <!-- Container de animação de letras -->
+      <div class="letters-animation" id="lettersAnimation"></div>
+
+      <!-- Emoji de livro aberto (centro/buraco negro) -->
+      <div class="book-center">
+        <span class="book-emoji">📖</span>
+      </div>
+
+      <!-- Texto e input de pesquisa flutuante -->
+      <div class="hero-content">
+        <h2 class="hero-text">Onde cada livro tem uma nova <span>chance de ser descoberto.</span></h2>
+        <input class="hero-search" type="text" placeholder="🔍 Buscar livros..." aria-label="Campo de busca de livros">
+      </div>
     </div>
   </section>
 
@@ -108,10 +120,13 @@
     </div>
   </section>
 
-  <!-- SEÇÃO LIVROS MODERNA -->
+  <!-- SEÇÃO LIVROS COM ANIMAÇÃO -->
   <section class="books-section">
+    <!-- Canvas para animação de letras -->
+    <canvas id="books-letters-canvas" class="books-letters-canvas"></canvas>
+
     <div class="books-container">
-      
+
       <!-- Cabeçalho -->
       <div class="books-header">
         <h2>Descubra Novos Mundos</h2>
@@ -122,7 +137,7 @@
       <!-- Carrossel -->
       <div class="carousel-modern">
         <button class="nav-btn prev" aria-label="Anterior">‹</button>
-        
+
         <div class="carousel-track" id="carouselTrack">
           <!-- Loading inicial -->
           <div class="loading-card"></div>
@@ -140,6 +155,9 @@
     </div>
   </section>
 
+  <!-- Script da animação de letras -->
+  <script src="js/books-letters-animation.js"></script>
+
   <!-- Script do carrossel -->
   <script src="js/sec-livros-db.js"></script>
 
@@ -149,8 +167,12 @@
     <div class="sobre">
       <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre">
       <div class="texto-sobre">
-        <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados. Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo diversificado e atendimento personalizado.</p>
-        <p>Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras e clássicos da literatura!</p>
+        <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados.
+          Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo
+          diversificado e atendimento personalizado.</p>
+        <p>Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou
+          simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras e
+          clássicos da literatura!</p>
       </div>
     </div>
   </section>
@@ -164,10 +186,10 @@
       O Que Nossos Clientes Dizem
       <i class="fas fa-star" style="color: #d4a574; margin-left: 15px;"></i>
     </h3>
-    
+
     <!-- Container do slider com navegação -->
     <div class="depoimento-slider">
-      
+
       <!-- Botões de navegação -->
       <button class="depoimento-nav depoimento-nav-prev" aria-label="Ver avaliações anteriores" title="Anterior">
         ‹
@@ -175,7 +197,7 @@
       <button class="depoimento-nav depoimento-nav-next" aria-label="Ver próximas avaliações" title="Próximo">
         ›
       </button>
-      
+
       <!-- Track que será preenchido dinamicamente via JavaScript -->
       <div class="depoimento-track" id="depoimentoTrack">
         <!-- Loading inicial - será substituído por avaliações reais do banco -->
@@ -184,9 +206,10 @@
         <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
       </div>
     </div>
-    
+
     <!-- Indicadores de posição (opcional - será preenchido via JS se necessário) -->
-    <div class="depoimento-indicadores" id="depoimentoIndicadores" role="tablist" aria-label="Navegação de avaliações"></div>
+    <div class="depoimento-indicadores" id="depoimentoIndicadores" role="tablist" aria-label="Navegação de avaliações">
+    </div>
   </section>
 
   <!-- FOOTER -->
@@ -238,13 +261,16 @@
   <!-- ========================================== -->
   <!-- SCRIPTS -->
   <!-- ========================================== -->
-  
+
+  <!-- Script da animação do hero (NOVO!) -->
+  <script src="js/hero-animation.js"></script>
+
   <!-- Scripts principais do site -->
   <script src="js/novidades.js"></script>
   <script src="js/sec-livros.js"></script>
   <script src="js/main.js"></script>
 
-  <!-- Script das avaliações dinâmicas (NOVO!) -->
+  <!-- Script das avaliações dinâmicas -->
   <script src="js/footer.js"></script>
 
   <!-- Script dos filtros de gênero -->
@@ -253,22 +279,22 @@
      * Melhoria de UX para filtros de gênero
      * Se já estiver na página de produtos, aplica filtro sem reload
      */
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const linksFiltro = document.querySelectorAll('.filtro-genero');
-      
+
       linksFiltro.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
           // Se já estiver na página de produtos, previne o reload e filtra
           if (window.location.pathname.includes('produtos.html')) {
             e.preventDefault();
             const genero = this.getAttribute('data-genero');
-            
+
             // Seleciona o gênero no select e aplica o filtro
             const generoSelect = document.getElementById('genero-select');
             if (generoSelect && typeof aplicarFiltros === 'function') {
               generoSelect.value = genero;
               aplicarFiltros();
-              
+
               // Scroll suave até os produtos
               const produtosSection = document.getElementById('produtos-grid');
               if (produtosSection) {
@@ -283,4 +309,5 @@
   </script>
 
 </body>
+
 </html>

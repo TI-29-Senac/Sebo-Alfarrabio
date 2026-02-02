@@ -17,50 +17,125 @@ class DashboardControllerCliente extends AuthenticatedController
     private $categoriaModel;
     private $itemModel;
     private $pedidosModel;
-    
-
-     public function __construct() {
+    private $perfil;
+    private $fileManager;
+    public function __construct()
+    {
         parent::__construct();
         $this->db = Database::getInstance();
         $this->usuario = new Usuario($this->db);
-        $this->pedidosModel = new Pedidos($this->db);  // Adicione isso!
+        $this->pedidosModel = new Pedidos($this->db);
         $this->categoriaModel = new Categoria($this->db);
         $this->itemModel = new Item($this->db);
+        $this->perfil = new \Sebo\Alfarrabio\Models\Perfil($this->db);
+        $this->fileManager = new \Sebo\Alfarrabio\Core\FileManager('uploads');
+    }
 
-     }
-        public function index() {
-            $session = new Session();
-            $usuarioId = $session->get('usuario_id');
-    
-            if (!$usuarioId) {
-                // Se não logado, redirecione para login
-                header('Location: /login');
-                exit;
-            }
-    
-            // Busca dados do usuário
-            $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
-    
-            if (!$usuario) {
-                die("Usuário não encontrado.");
-            }
-    
-            // Busca pedidos do usuário
-            $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
-    
-            // Renderiza o view com os dados
-            View::render('admin/cliente/index', [
-                'usuario' => $usuario,
-                'pedidos' => $pedidos
-            ]);
-        }
-    
-        public function ListarSeuPerfil() {
-            // ... (mantenha se precisar)
+    public function index()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
         }
 
+        // Busca dados do usuário (login/nome)
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
 
+        if (!$usuario) {
+            die("Usuário não encontrado.");
+        }
 
+        // Busca dados do perfil (foto, endereço...)
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+
+        // Mescla dados para a view
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca pedidos do usuário
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+
+        // Verifica se pedidos tem itens (caso o model buscarPedidosPorIDUsuario não traga itens por padrão)
+        foreach ($pedidos as &$pedido) {
+            // Garante uso do ID correto (id_pedidos)
+            $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
+
+            // Busca itens se não existirem
+            if (!isset($pedido['itens'])) {
+                // Query manual pois buscarPedidosPorIDUsuario pode não ter sido atualizado com join
+                // Idealmente atualizar PedidosModel::buscarPedidosPorIDUsuario também
+                $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                             FROM tbl_pedido_itens pi 
+                             JOIN tbl_itens i ON pi.item_id = i.id_item 
+                             WHERE pi.pedido_id = :id";
+                $stmtItens = $this->db->prepare($sqlItens);
+                $stmtItens->bindValue(':id', $idPedido);
+                $stmtItens->execute();
+                $pedido['itens'] = $stmtItens->fetchAll(\PDO::FETCH_ASSOC);
+            }
+        }
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/index', [
+            'usuario' => $dadosView,
+            'pedidos' => $pedidos,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario']
+        ]);
+    }
+
+    public function atualizarFotoPerfil()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId || empty($_FILES['foto_usuario'])) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Nenhuma imagem enviada.");
+            return;
+        }
+
+        // Busca perfil atual para saber se já existe
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfilExistente = $perfilData ? $perfilData[0] : null;
+
+        try {
+            $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
+            $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
+        } catch (\Exception $e) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
+            return;
+        }
+
+        if (!$caminhoFoto) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem.");
+            return;
+        }
+
+        // Caminho já definido no try/catch acima
+
+        if ($perfilExistente) {
+            // Atualiza
+            // Nota: Perfil::atualizarPerfil requer id_perfil_usuario, telefone, endereco, foto
+            // Vamos manter os dados antigos de telefone/endereço
+            $this->perfil->atualizarPerfil(
+                $perfilExistente['id_perfil_usuario'],
+                $perfilExistente['telefone'],
+                $perfilExistente['endereco'],
+                $caminhoFoto
+            );
+        } else {
+            // Cria novo perfil
+            $this->perfil->inserirPerfil(
+                $usuarioId,
+                '', // telefone
+                '', // endereco
+                $caminhoFoto
+            );
+        }
+
+        \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "success", "Foto atualizada com sucesso!");
+    }
 }
 
-       

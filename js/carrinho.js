@@ -8,7 +8,7 @@ function renderizarCarrinho() {
             <li>
                 ${item.titulo_item} - R$ ${parseFloat(item.preco_item).toFixed(2)} x ${item.quantidade} = R$ ${preco_itemItemTotal}
                 <button class="btn-remove-cart w3-button w3-tiny w3-red w3-padding-small" 
-                        data-id="${item.id}" 
+                        data-id="${item.id_item}" 
                         style="margin-left: 10px;">
                     Remover 1
                 </button>
@@ -20,7 +20,7 @@ function renderizarCarrinho() {
 
     cartCountEl.textContent = totalItens;
     cartTotalEl.textContent = total.toFixed(2);
-    salvarCarrinhoLocalStorage(); 
+    salvarCarrinhoLocalStorage();
 }
 
 
@@ -30,18 +30,18 @@ function adicionarAoCarrinho(id_item, titulo_item, preco_item) {
     if (itemExistente) {
         itemExistente.quantidade++;
     } else {
-        carrinho.push({ id, titulo_item, preco_item: parseFloat(preco_item), quantidade: 1 });
+        carrinho.push({ id_item, titulo_item, preco_item: parseFloat(preco_item), quantidade: 1 });
     }
     renderizarCarrinho();
 }
 
 function removerDoCarrinho(id) {
-    const itemIndex = carrinho.findIndex(item => item.id === id);
-    if (itemIndex > -1) { 
+    const itemIndex = carrinho.findIndex(item => item.id_item === id);
+    if (itemIndex > -1) {
         if (carrinho[itemIndex].quantidade > 1) {
             carrinho[itemIndex].quantidade--;
         } else {
-            carrinho.splice(itemIndex, 1); 
+            carrinho.splice(itemIndex, 1);
         }
         renderizarCarrinho();
     }
