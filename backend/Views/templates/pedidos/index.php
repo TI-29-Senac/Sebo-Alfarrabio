@@ -445,6 +445,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Itens</th>
                         <th>Valor Total</th>
                         <th>Data</th>
                         <th>Status</th>
@@ -454,15 +455,36 @@
                 <tbody>
                     <?php foreach ($pedidos as $p): ?>
                         <tr>
-                            <td><?= $p['id_pedido'] ?></td>
+                            <td><?= $p['id_pedidos'] ?></td>
+                            <td style="max-width: 300px;">
+                                <?php if (!empty($p['itens'])): ?>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <?php foreach ($p['itens'] as $item): ?>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']) ?>"
+                                                    style="width: 40px; height: 50px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+                                                    alt="Item">
+                                                <div style="line-height: 1.2;">
+                                                    <span
+                                                        style="font-size: 13px; font-weight: 600; color: #5a4a3a; display: block;"><?= htmlspecialchars($item['titulo_item']) ?></span>
+                                                    <span style="font-size: 11px; color: #8a7a6a;">Qtd:
+                                                        <?= $item['quantidade'] ?></span>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <span style="color: #999; font-style: italic;">Sem itens</span>
+                                <?php endif; ?>
+                            </td>
                             <td>R$ <?= number_format($p['valor_total'], 2, ',', '.') ?></td>
                             <td><?= date('d/m/Y', strtotime($p['data_pedido'])) ?></td>
-                            <td><span class="status-badge"><?= $p['status_pedido'] ?></span></td>
+                            <td><span class="status-badge"><?= $p['status'] ?></span></td>
                             <td class="action-links">
-                                <a href="/backend/pedidos/editar/<?= $p['id_pedido'] ?>">
+                                <a href="/backend/pedidos/editar/<?= $p['id_pedidos'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar
                                 </a> |
-                                <a href="/backend/pedidos/excluir/<?= $p['id_pedido'] ?>"
+                                <a href="/backend/pedidos/excluir/<?= $p['id_pedidos'] ?>"
                                     onclick="return confirm('Tem certeza que deseja excluir?')">
                                     <i class="fa-solid fa-trash"></i> Excluir
                                 </a>

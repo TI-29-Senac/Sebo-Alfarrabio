@@ -1,7 +1,8 @@
 <?php
 namespace Sebo\Alfarrabio\Models;
 use PDO;
-class Perfil{
+class Perfil
+{
     private $id_perfil_usuario;
     private $id_usuario;
     private $telefone_usuario;
@@ -12,33 +13,38 @@ class Perfil{
     private $excluido_em;
     private $db;
     // contrutor inicializa a classe e ou atributos
-    public function __construct($db){
-       $this->db = $db;
+    public function __construct($db)
+    {
+        $this->db = $db;
     }
     // metodo de buscar todos os usuarios read
-    function buscarPerfil(){
+    function buscarPerfil()
+    {
         $sql = "SELECT * FROM tbl_perfil_usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
-    function totalDePerfil(){
+
+    function totalDePerfil()
+    {
         $sql = "SELECT count(*) as total FROM tbl_perfil_usuario";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    function totalDePerfilInativos(){
+    function totalDePerfilInativos()
+    {
         $sql = "SELECT count(*) as total_inativos FROM tbl_perfil_usuario where excluido_em is NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    function totalDePerfilAtivos(){
+    function totalDePerfilAtivos()
+    {
         $sql = "SELECT count(*) as total_ativos FROM tbl_perfil_usuario where excluido_em is NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -47,76 +53,86 @@ class Perfil{
 
 
     // metodo de buscar todos usuario por email read
-    function buscarPerfilPorTelefone($telefone_usuario){
+    function buscarPerfilPorTelefone($telefone_usuario)
+    {
         $sql = "SELECT * FROM tbl_perfil_usuario where telefone_usuario = :telefone";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':telefone', $telefone_usuario); 
+        $stmt->bindParam(':telefone', $telefone_usuario);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarPerfilPorEndereco($endereco_usuario){
+    function buscarPerfilPorEndereco($endereco_usuario)
+    {
         $sql = "SELECT * FROM tbl_perfil_usuario where endereco_usuario = :endereco";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':endereco', $endereco_usuario); 
+        $stmt->bindParam(':endereco', $endereco_usuario);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarPerfilPorID($id_perfil_usuario){
+    function buscarPerfilPorID($id_perfil_usuario)
+    {
         $sql = "SELECT * FROM tbl_perfil_usuario where id_perfil_usuario = :id_perfil_usuario";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario); 
+        $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarPerfilPorIDUsuario($id_usuario){
-        $sql = "SELECT * FROM tbl_perfil_usuario where id_usuario = :id_usuario";
+    function buscarPerfilPorIDUsuario($id_usuario)
+    {
+        $sql = "SELECT * FROM tbl_perfil_usuario where usuario_id = :id_usuario";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_usuario', $id_usuario); 
+        $stmt->bindParam(':id_usuario', $id_usuario);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // metodo de inserir usuario create
-    function inserirPerfil($telefone_usuario, $endereco_usuario, $foto_usuario){
-        $sql = "INSERT INTO tbl_perfil_usuario (telefone_usuario, endereco_usuario, 
-        foto_usuario) 
-                VALUES (:telefone, :endereco, :foto)";
+    // metodo de inserir usuario create
+    function inserirPerfil($usuario_id, $telefone, $endereco, $foto)
+    {
+        $sql = "INSERT INTO tbl_perfil_usuario (usuario_id, telefone, endereco, 
+        foto_perfil_usuario) 
+                VALUES (:uid, :telefone, :endereco, :foto)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':telefone', $telefone_usuario);
-        $stmt->bindParam(':endereco', $endereco_usuario);
-        $stmt->bindParam(':foto', $foto_usuario);
+        $stmt->bindParam(':uid', $usuario_id);
+        $stmt->bindParam(':telefone', $telefone);
+        $stmt->bindParam(':endereco', $endereco);
+        $stmt->bindParam(':foto', $foto);
 
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        }else{
+        } else {
             return false;
         }
     }
 
     // metodo de atualizar o usuario update
-    function atualizarPerfil($id_perfil_usuario, $telefone_usuario, $endereco_usuario, $foto_usuario){
-    $dataatual = date('Y-m-d H:i:s');
-    $sql = "UPDATE tbl_perfil_usuario SET 
-        telefone_usuario = :telefone,
-        endereco_usuario = :endereco, 
-        foto_usuario = :foto,
+    // metodo de atualizar o usuario update
+    function atualizarPerfil($id_perfil_usuario, $telefone, $endereco, $foto)
+    {
+        $dataatual = date('Y-m-d H:i:s');
+        $sql = "UPDATE tbl_perfil_usuario SET 
+        telefone = :telefone,
+        endereco = :endereco, 
+        foto_perfil_usuario = :foto,
         atualizado_em = :atual
         WHERE id_perfil_usuario = :id_perfil_usuario";
-    
-    $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario, PDO::PARAM_INT);
-    $stmt->bindParam(':telefone', $telefone_usuario);
-    $stmt->bindParam(':endereco', $endereco_usuario);
-    $stmt->bindParam(':foto', $foto_usuario);
-    $stmt->bindParam(':atual', $dataatual);
-    
-    return $stmt->execute();
-}
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':telefone', $telefone);
+        $stmt->bindParam(':endereco', $endereco);
+        $stmt->bindParam(':foto', $foto);
+        $stmt->bindParam(':atual', $dataatual);
+
+        return $stmt->execute();
+    }
     // metodo de inativar o usuario delete
-    function excluirPerfil($id_perfil_usuario){
+    function excluirPerfil($id_perfil_usuario)
+    {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_perfil_usuario SET
          excluido_em = :atual
@@ -124,14 +140,15 @@ class Perfil{
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario);
         $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-// metodo de ativar o usuario excluido
-    function ativarVendas($id_perfil_usuario){
+    // metodo de ativar o usuario excluido
+    function ativarVendas($id_perfil_usuario)
+    {
         $dataatual = NULL;
         $sql = "UPDATE tbl_perfil_usuario SET
          excluido_em = :atual
@@ -139,9 +156,10 @@ class Perfil{
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_perfil_usuario', $id_perfil_usuario);
         $stmt->bindParam(':atual', $dataatual);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }else{
+        } else {
             return false;
-        }}
+        }
+    }
 }

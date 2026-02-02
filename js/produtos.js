@@ -441,7 +441,7 @@ function criarCard(item, index) {
             
             <button class="card-btn ${disponivel ? 'disponivel' : 'indisponivel'}" 
                     ${!disponivel ? 'disabled' : ''}>
-                ${disponivel ? '🛒 Adicionar ao Carrinho' : 'Indisponível'}
+                ${disponivel ? '📌 Adicionar às Reservas' : 'Indisponível'}
             </button>
         </div>
     `;
@@ -604,7 +604,7 @@ function adicionarAoCarrinho(produto) {
 
     salvarCarrinho();
     atualizarContadorCarrinho();
-    mostrarNotificacao('✓ Produto adicionado!', 'success');
+    mostrarNotificacao('✓ Item adicionado às reservas!', 'success');
 }
 
 function salvarCarrinho() {
@@ -633,7 +633,7 @@ function removerDoCarrinho(id_item) {
     salvarCarrinho();
     atualizarContadorCarrinho();
     renderizarCarrinho();
-    mostrarNotificacao('🗑️ Item removido', 'info');
+    mostrarNotificacao('🗑️ Item removido das reservas', 'info');
 }
 
 function renderizarCarrinho() {

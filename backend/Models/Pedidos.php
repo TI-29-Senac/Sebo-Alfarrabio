@@ -16,7 +16,23 @@ class Pedidos
         $sql = "SELECT * FROM tbl_pedidos ORDER BY data_pedido DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($pedidos as &$pedido) {
+            // Garante uso do ID correto (id_pedidos)
+            $id = $pedido['id_pedidos'] ?? $pedido['id'];
+
+            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':id', $id);
+            $stmtItens->execute();
+            $pedido['itens'] = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        return $pedidos;
     }
 
     // CRIAR PEDIDO (Create)
@@ -25,7 +41,19 @@ class Pedidos
         $this->db->beginTransaction();
         try {
             $valorTotalCalculado = 0;
+
+            // Validar estoque antes de criar o pedido
             foreach ($itensCarrinho as $item) {
+                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id = :id";
+                $stmtEstoque = $this->db->prepare($sqlEstoque);
+                $stmtEstoque->bindParam(':id', $item['id'], PDO::PARAM_INT);
+                $stmtEstoque->execute();
+                $itemBanco = $stmtEstoque->fetch(PDO::FETCH_ASSOC);
+
+                if (!$itemBanco || $itemBanco['estoque'] < $item['quantidade']) {
+                    throw new \Exception("Item indisponível ou estoque insuficiente.");
+                }
+
                 // Previne erro se item['preco'] vier string formatada
                 $preco = is_numeric($item['preco']) ? $item['preco'] : 0;
                 $valorTotalCalculado += $preco * $item['quantidade'];
@@ -79,7 +107,7 @@ class Pedidos
 
     function buscarPedidosPorID($id)
     {
-        $sql = "SELECT * FROM tbl_pedidos where id = :id";
+        $sql = "SELECT * FROM tbl_pedidos where id_pedidos = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -89,16 +117,39 @@ class Pedidos
     // O erro estava aqui: coluna id_usuario não existe, é usuario_id
     function buscarPedidosPorIDUsuario($usuario_id)
     {
-        $sql = "SELECT * FROM tbl_pedidos where usuario_id = :usuario_id ORDER BY data_pedido DESC";
+        // Corrigido para id_usuario e adicionado busca de itens
+        $sql = "SELECT * FROM tbl_pedidos where id_usuario = :usuario_id ORDER BY data_pedido DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':usuario_id', $usuario_id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($pedidos as &$pedido) {
+            // Busca os itens deste pedido (Joined with Item details)
+            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :pedido_id";
+
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':pedido_id', $pedido['id_pedidos']);
+            $stmtItens->execute();
+            $itens = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+
+            // Corrige caminho da imagem
+            foreach ($itens as &$item) {
+                $item['foto_item'] = \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']);
+            }
+
+            $pedido['itens'] = $itens;
+        }
+
+        return $pedidos;
     }
 
     function inserirPedidos($usuario_id, $total, $data_pedido, $status)
     {
-        $sql = "INSERT INTO tbl_pedidos (usuario_id, total, data_pedido, status) 
+        $sql = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) 
                 VALUES (:usuario_id, :total, :data, :status)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);

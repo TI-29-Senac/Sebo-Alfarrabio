@@ -593,3 +593,157 @@
 [02-Feb-2026 00:03:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [02-Feb-2026 00:03:33 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
 [02-Feb-2026 00:03:33 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[02-Feb-2026 01:39:01 UTC] Senha incorreta para: seboalfarrabio@gmail.com
+[02-Feb-2026 01:39:22 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "status_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 460
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:39:25 UTC] PHP Warning:  Undefined array key "id_pedido" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:44:52 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 457
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "total" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 458
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 462
+[02-Feb-2026 01:45:01 UTC] PHP Warning:  Undefined array key "id" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\index.php on line 465
+[02-Feb-2026 01:49:22 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:49:22 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 01:49:30 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[02-Feb-2026 01:49:30 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[02-Feb-2026 01:54:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 01:54:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 02:02:44 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 02:02:44 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 02:03:06 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 02:03:06 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 02:26:49 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 02:26:49 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 02:38:06 UTC] Usuário não encontrado ou duplicado: carla.menezes@email.com
+[02-Feb-2026 02:38:18 UTC] Usuário não encontrado ou duplicado: naty@naty.com
+[02-Feb-2026 02:38:37 UTC] Usuário não encontrado ou duplicado: bvalquiaria988@gmail.com
+[02-Feb-2026 02:43:26 UTC] Usuário não encontrado ou duplicado: carla.menezes@email.com
+[02-Feb-2026 02:43:49 UTC] Usuário não encontrado ou duplicado: carla.menezes@email.com
+[02-Feb-2026 02:45:41 UTC] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 02:48:28 UTC] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 02:50:50 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 02:50:50 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 02:56:51 UTC] Login bem-sucedido: carla.menezes@email.com

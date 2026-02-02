@@ -878,7 +878,11 @@
                         </ul>
                     </nav>
                     <div class="pagination-info">
-                        Mostrando de <?= $pag['de'] ?> até <?= $pag['para'] ?> de <?= $pag['total'] ?> registros
+                        <?php
+                        $de = (($pag['pagina_atual'] - 1) * $pag['por_pagina']) + 1;
+                        $para = min($pag['pagina_atual'] * $pag['por_pagina'], $pag['total']);
+                        ?>
+                        Mostrando de <?= $de ?> até <?= $para ?> de <?= $pag['total'] ?> registros
                     </div>
                 </div>
             <?php endif; ?>

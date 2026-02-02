@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +54,7 @@
             padding: 25px 30px;
             border-radius: 12px;
             margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-left: 5px solid #d4a574;
         }
 
@@ -75,7 +76,7 @@
             background: white;
             padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         /* Form Groups */
@@ -297,6 +298,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Breadcrumb -->
@@ -307,14 +309,14 @@
             <i class="fa-solid fa-chevron-right"></i>
             <a href="backend/pedidos/listar">Pedidos</a>
             <i class="fa-solid fa-chevron-right"></i>
-            <span>Editar Pedido #<?= $pedidos['id_pedido'] ?></span>
+            <span>Editar Pedido #<?= $pedidos['id_pedidos'] ?></span>
         </div>
 
         <!-- Page Header -->
         <div class="page-header">
             <h2>
                 <i class="fa-solid fa-pen-to-square"></i>
-                Editar Pedido #<?= $pedidos['id_pedido'] ?>
+                Editar Pedido #<?= $pedidos['id_pedidos'] ?>
             </h2>
         </div>
 
@@ -325,13 +327,14 @@
                 <div class="info-box-content">
                     <div class="info-box-title">Atualizando Pedido</div>
                     <div class="info-box-text">
-                        Preencha os campos abaixo para atualizar as informações do pedido. Todos os campos marcados com <span class="required">*</span> são obrigatórios.
+                        Preencha os campos abaixo para atualizar as informações do pedido. Todos os campos marcados com
+                        <span class="required">*</span> são obrigatórios.
                     </div>
                 </div>
             </div>
 
             <form action="/backend/pedidos/atualizar" method="POST">
-                <input type="hidden" name="id_pedido" value="<?= $pedidos['id_pedido'] ?>">
+                <input type="hidden" name="id_pedido" value="<?= $pedidos['id_pedidos'] ?>">
 
                 <!-- Valor Total -->
                 <div class="form-group">
@@ -340,14 +343,8 @@
                         Valor Total<span class="required">*</span>
                     </label>
                     <div class="input-wrapper">
-                        <input 
-                            type="number" 
-                            step="0.01" 
-                            name="valor_total" 
-                            value="<?= $pedidos['valor_total'] ?>" 
-                            placeholder="0,00"
-                            required
-                        >
+                        <input type="number" step="0.01" name="valor_total" value="<?= $pedidos['total'] ?>"
+                            placeholder="0,00" required>
                         <i class="fa-solid fa-money-bill-wave input-icon"></i>
                     </div>
                 </div>
@@ -359,12 +356,7 @@
                         Data do Pedido<span class="required">*</span>
                     </label>
                     <div class="input-wrapper">
-                        <input 
-                            type="date" 
-                            name="data_pedido" 
-                            value="<?= $pedidos['data_pedido'] ?>" 
-                            required
-                        >
+                        <input type="date" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" required>
                         <i class="fa-solid fa-calendar-check input-icon"></i>
                     </div>
                 </div>
@@ -376,21 +368,21 @@
                         Status do Pedido<span class="required">*</span>
                     </label>
                     <select name="status_pedido" required id="statusSelect">
-                        <option value="Pendente" <?= $pedidos['status_pedido'] == 'Pendente' ? 'selected' : '' ?>>
+                        <option value="Pendente" <?= $pedidos['status'] == 'Pendente' ? 'selected' : '' ?>>
                             📋 Pendente
                         </option>
-                        <option value="Pago" <?= $pedidos['status_pedido'] == 'Pago' ? 'selected' : '' ?>>
+                        <option value="Pago" <?= $pedidos['status'] == 'Pago' ? 'selected' : '' ?>>
                             ✅ Pago
                         </option>
-                        <option value="Enviado" <?= $pedidos['status_pedido'] == 'Enviado' ? 'selected' : '' ?>>
+                        <option value="Enviado" <?= $pedidos['status'] == 'Enviado' ? 'selected' : '' ?>>
                             📦 Enviado
                         </option>
-                        <option value="Cancelado" <?= $pedidos['status_pedido'] == 'Cancelado' ? 'selected' : '' ?>>
+                        <option value="Cancelado" <?= $pedidos['status'] == 'Cancelado' ? 'selected' : '' ?>>
                             ❌ Cancelado
                         </option>
                     </select>
-                    <span class="status-preview status-<?= strtolower($pedidos['status_pedido']) ?>" id="statusPreview">
-                        Status atual: <?= $pedidos['status_pedido'] ?>
+                    <span class="status-preview status-<?= strtolower($pedidos['status']) ?>" id="statusPreview">
+                        Status atual: <?= $pedidos['status'] ?>
                     </span>
                 </div>
 
@@ -399,7 +391,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Atualizar Pedido
-                     
+
                     </button>
                     <a href="/pedidos/listar" class="btn btn-secondary">
                         <i class="fa-solid fa-xmark"></i>
@@ -415,11 +407,12 @@
         const statusSelect = document.getElementById('statusSelect');
         const statusPreview = document.getElementById('statusPreview');
 
-        statusSelect.addEventListener('change', function() {
+        statusSelect.addEventListener('change', function () {
             const selectedStatus = this.value;
             statusPreview.textContent = 'Status atual: ' + selectedStatus;
             statusPreview.className = 'status-preview status-' + selectedStatus.toLowerCase();
         });
     </script>
 </body>
+
 </html>

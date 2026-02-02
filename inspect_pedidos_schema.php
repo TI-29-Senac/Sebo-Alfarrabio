@@ -1,20 +1,17 @@
 <?php
-require_once __DIR__ . '/backend/Core/Env.php';
-\Sebo\Alfarrabio\Core\Env::carregar(__DIR__ . '/backend');
+require_once __DIR__ . '/vendor/autoload.php';
 
-$host = getenv('DB_HOST') ?: 'localhost';
-$db = getenv('DB_NAME') ?: 'alfarrabio_novo';
-$user = getenv('DB_USER') ?: 'root';
-$pass = getenv('DB_PASS') ?: '';
+use Sebo\Alfarrabio\Database\Database;
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
-    $stmt = $pdo->query("DESCRIBE tbl_pedidos");
-    $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo "<h1>Colunas da tabela tbl_pedidos</h1>";
+    $db = Database::getInstance();
+
+    echo "<h1>Schema tbl_pedidos</h1>";
+    $stmt = $db->query("DESCRIBE tbl_pedidos");
     echo "<pre>";
-    print_r($columns);
+    print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
     echo "</pre>";
-} catch (PDOException $e) {
-    echo "Erro: " . $e->getMessage();
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }

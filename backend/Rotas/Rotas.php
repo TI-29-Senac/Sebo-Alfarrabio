@@ -220,6 +220,10 @@ class Rotas
                 // PERFIL USUÁRIO (post)
                 // ========================================
 
+                // PERFIL USUÁRIO (post)
+                // ========================================
+
+                "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",
                 "/perfil/deletar" => "PerfilController@deletarPerfil",

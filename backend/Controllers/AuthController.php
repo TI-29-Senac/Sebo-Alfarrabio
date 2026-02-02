@@ -54,7 +54,11 @@ class AuthController
             $this->session->set('usuario_tipo', $usuario['tipo_usuario']);
             $this->session->set('usuario_email', $usuario['email_usuario']);
 
-            Redirect::redirecionarPara('/backend/admin/dashboard');
+            if ($usuario['tipo_usuario'] === 'Cliente') {
+                Redirect::redirecionarPara('/backend/admin/cliente');
+            } else {
+                Redirect::redirecionarPara('/backend/admin/dashboard');
+            }
         } else {
             Redirect::redirecionarComMensagem('/backend/login', 'error', 'Email ou senha incorretos');
         }
