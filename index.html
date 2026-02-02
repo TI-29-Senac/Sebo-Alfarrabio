@@ -10,6 +10,7 @@
 
   <!-- CSS na ordem correta -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/books-letters-animation.css">
   <link rel="stylesheet" href="css/hero-animation.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/avaliacoes-footer.css">
@@ -119,8 +120,11 @@
     </div>
   </section>
 
-  <!-- SEÇÃO LIVROS MODERNA -->
+  <!-- SEÇÃO LIVROS COM ANIMAÇÃO -->
   <section class="books-section">
+    <!-- Canvas para animação de letras -->
+    <canvas id="books-letters-canvas" class="books-letters-canvas"></canvas>
+
     <div class="books-container">
 
       <!-- Cabeçalho -->
@@ -150,6 +154,9 @@
 
     </div>
   </section>
+
+  <!-- Script da animação de letras -->
+  <script src="js/books-letters-animation.js"></script>
 
   <!-- Script do carrossel -->
   <script src="js/sec-livros-db.js"></script>

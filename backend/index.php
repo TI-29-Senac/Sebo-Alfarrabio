@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('error_log', __DIR__ . '/php_error.log');
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/Core/helpers.php';
 
 // Carrega variáveis de ambiente (.env)
 \Sebo\Alfarrabio\Core\Env::carregar(__DIR__);
@@ -41,7 +42,9 @@ use Sebo\Alfarrabio\Controllers\Api\APIItemController;
 // }
 
 $router = new Router();
-$router->setBasePath('/backend');
+// Define o base path dinamicamente
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
+$router->setBasePath($basePath);
 
 
 $rotas = Rotas::get();

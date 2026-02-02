@@ -11,13 +11,7 @@
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label for="descricao_genero">Descrição</label>
-                <textarea class="form-control" id="descricao_genero" name="descricao_genero" rows="4"
-                    placeholder="Fale um pouco sobre esse gênero..."></textarea>
-            </div>
-        </div>
+
 
         <p>
             <button type="submit" class="w3-button w3-blue">Salvar Gênero</button>

@@ -21,7 +21,6 @@ class CategoriaController
     {
         $this->db = Database::getInstance();
         $this->categoria = new Categoria($this->db);
-        $this->gerenciarImagem = new FileManager('upload');
     }
 
     public function salvarCategoria()

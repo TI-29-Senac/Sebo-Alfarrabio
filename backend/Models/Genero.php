@@ -4,19 +4,17 @@ use PDO;
 
 /**
  * Model para gerenciar a tabela tbl_generos
- * Segue o padrão de soft-delete (excluido_em)
+ * Schema Remoto: id_generos, nome_generos, excluido_em
  */
 class Genero
 {
-
-    private $id;
-    private $nome;
+    private $id_generos;
+    private $nome_generos;
     private $criado_em;
     private $atualizado_em;
-    private $deleted_at;
+    private $excluido_em;
     private $db;
 
-    // Construtor inicializa a conexão PDO
     public function __construct($db)
     {
         $this->db = $db;
@@ -24,49 +22,36 @@ class Genero
 
     // --- MÉTODOS DE LEITURA (READ) ---
 
-    /**
-     * Busca todos os gêneros ativos (não excluídos)
-     */
     function buscarGeneros()
     {
-        $sql = "SELECT * FROM tbl_generos WHERE deleted_at IS NULL ORDER BY nome ASC";
+        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NULL ORDER BY nome_generos ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca todos os gêneros inativos (excluídos)
-     */
     function buscarGenerosInativos()
     {
-        $sql = "SELECT * FROM tbl_generos WHERE deleted_at IS NOT NULL ORDER BY nome ASC";
+        $sql = "SELECT * FROM tbl_generos WHERE excluido_em IS NOT NULL ORDER BY nome_generos ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca um gênero específico pelo seu ID (ativo ou inativo)
-     */
     function buscarGeneroPorID(int $id)
     {
-        $sql = "SELECT * FROM tbl_generos WHERE id = :id";
+        $sql = "SELECT * FROM tbl_generos WHERE id_generos = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC); // ID é único
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Método para busca dinâmica (autocomplete) no formulário de itens.
-     * Retorna apenas gêneros ativos.
-     */
     function buscarGenerosPorNome(string $termo, int $limite = 10)
     {
-        $sql = "SELECT id, nome FROM tbl_generos 
-                WHERE nome LIKE :termo AND deleted_at IS NULL 
-                ORDER BY nome ASC 
+        $sql = "SELECT id_generos, nome_generos FROM tbl_generos 
+                WHERE nome_generos LIKE :termo AND excluido_em IS NULL 
+                ORDER BY nome_generos ASC 
                 LIMIT :limite";
         $stmt = $this->db->prepare($sql);
         $termoLike = '%' . $termo . '%';
@@ -88,7 +73,7 @@ class Genero
 
     function totalDeGenerosInativos()
     {
-        $sql = "SELECT count(*) as total FROM tbl_generos WHERE deleted_at IS NOT NULL";
+        $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NOT NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
@@ -96,24 +81,23 @@ class Genero
 
     function totalDeGenerosAtivos()
     {
-        $sql = "SELECT count(*) as total FROM tbl_generos WHERE deleted_at IS NULL";
+        $sql = "SELECT count(*) as total FROM tbl_generos WHERE excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
-    // --- MÉTODO DE PAGINAÇÃO ---
+    // --- MÉTODOS DE PAGINAÇÃO ---
 
     public function paginacao(int $pagina = 1, int $por_pagina = 10): array
     {
-
         $totalQuery = "SELECT COUNT(*) FROM `tbl_generos`";
         $totalStmt = $this->db->query($totalQuery);
         $total_de_registros = $totalStmt->fetchColumn();
 
         $offset = ($pagina - 1) * $por_pagina;
 
-        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome ASC LIMIT :limit OFFSET :offset";
+        $dataQuery = "SELECT * FROM `tbl_generos` ORDER BY nome_generos ASC LIMIT :limit OFFSET :offset";
         $dataStmt = $this->db->prepare($dataQuery);
         $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -133,14 +117,11 @@ class Genero
         ];
     }
 
-    // --- MÉTODOS DE ESCRITA (CREATE, UPDATE, DELETE) ---
+    // --- MÉTODOS DE ESCRITA ---
 
-    /**
-     * Insere um novo gênero no banco de dados
-     */
     function inserirGenero(string $nome)
     {
-        $sql = "INSERT INTO tbl_generos (nome) VALUES (:nome)";
+        $sql = "INSERT INTO tbl_generos (nome_generos) VALUES (:nome)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nome', $nome);
 
@@ -151,16 +132,13 @@ class Genero
         }
     }
 
-    /**
-     * Atualiza um gênero existente
-     */
     function atualizarGenero(int $id, string $nome)
     {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET 
-                  nome = :nome,
+                  nome_generos = :nome,
                   atualizado_em = :atual
-                WHERE id = :id";
+                WHERE id_generos = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -170,15 +148,12 @@ class Genero
         return $stmt->execute();
     }
 
-    /**
-     * Inativa um gênero (Soft Delete)
-     */
     function excluirGenero(int $id)
     {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_generos SET
-                  deleted_at = :atual
-                WHERE id = :id";
+                  excluido_em = :atual
+                WHERE id_generos = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -187,14 +162,11 @@ class Genero
         return $stmt->execute();
     }
 
-    /**
-     * Re-ativa um gênero que foi excluído
-     */
     function ativarGenero(int $id)
     {
         $sql = "UPDATE tbl_generos SET
-                  deleted_at = NULL
-                WHERE id = :id";
+                  excluido_em = NULL
+                WHERE id_generos = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

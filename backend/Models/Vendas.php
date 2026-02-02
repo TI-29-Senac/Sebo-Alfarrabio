@@ -1,6 +1,7 @@
 <?php
 namespace Sebo\Alfarrabio\Models;
 use PDO;
+use PDOException;
 
 class Vendas
 {
@@ -183,7 +184,16 @@ class Vendas
 
         $offset = ($pagina - 1) * $por_pagina;
 
-        $dataQuery = "SELECT * FROM tbl_vendas 
+        $dataQuery = "SELECT 
+                      id_vendas AS id_venda,
+                      id_usuario,
+                      data_venda,
+                      valor_total,
+                      forma_pagamento,
+                      criado_em,
+                      atualizado_em,
+                      excluido_em
+                      FROM tbl_vendas 
                       WHERE excluido_em IS NULL 
                       ORDER BY data_venda ASC
                       LIMIT :limit OFFSET :offset";

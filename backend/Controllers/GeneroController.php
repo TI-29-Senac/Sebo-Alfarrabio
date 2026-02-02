@@ -34,7 +34,8 @@ class GeneroController
             Redirect::redirecionarComMensagem("/backend/genero/criar", "error", implode("<br>", $erros));
         }
 
-        $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'genero');
+        // Sem imagem na tabela remota
+        // $imagem = $this->gerenciarImagem->salvarArquivo($_FILES['imagem'], 'genero');
 
         if ($this->genero->inserirGenero($_POST["nome_genero"])) {
             Redirect::redirecionarComMensagem("/backend/genero/listar", "success", "Gênero cadastrado com sucesso!");

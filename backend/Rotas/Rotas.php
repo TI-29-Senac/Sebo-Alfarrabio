@@ -80,8 +80,8 @@ class Rotas
                 // API PÚBLICA / API ITEM
                 // ========================================
 
-                "/api/item" => "Api\APIItemController@getItem",
-                "/api/buscaitem" => "Api\APIItemController@getItem",
+                "/api/item" => "PublicApiController@getItem",
+                "/api/buscaitem" => "PublicApiController@getItem",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
                 "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",

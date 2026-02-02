@@ -445,3 +445,151 @@
 [30-Jan-2026 12:58:24 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
 [30-Jan-2026 12:58:27 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
 [30-Jan-2026 12:58:29 Europe/Berlin] PHP Fatal error:  Cannot redeclare Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem() in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 465
+[01-Feb-2026 22:51:50 UTC] Usuário não encontrado ou duplicado: seboalfarrabio@gmail.com
+[01-Feb-2026 22:52:11 UTC] === INSERINDO USUÁRIO ===
+[01-Feb-2026 22:52:11 UTC] Nome: seboalfarrabio2@gmail.com, Email: seboalfarrabio2@gmail.com, Tipo: Cliente
+[01-Feb-2026 22:52:11 UTC] ✅ Usuário criado com ID: 3
+[01-Feb-2026 22:52:26 UTC] Login bem-sucedido: seboalfarrabio2@gmail.com
+[01-Feb-2026 22:54:11 UTC] Usuário não encontrado ou duplicado: seboAlfarrabio@gmail.com
+[01-Feb-2026 22:54:21 UTC] Login bem-sucedido: seboalfarrabio2@gmail.com
+[01-Feb-2026 22:58:11 UTC] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
+[01-Feb-2026 23:00:32 UTC] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
+[01-Feb-2026 23:00:41 UTC] Login bem-sucedido: seboalfarrabio2@gmail.com
+[01-Feb-2026 23:00:44 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:00:44 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:08:29 UTC] Senha incorreta para: seboalfarrabio@gmail.com
+[01-Feb-2026 23:36:37 UTC] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
+[01-Feb-2026 23:37:25 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[01-Feb-2026 23:37:25 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\admin\dashboard\index.php on line 512
+[01-Feb-2026 23:37:25 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\admin\dashboard\index.php on line 512
+[01-Feb-2026 23:37:25 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\admin\dashboard\index.php on line 512
+[01-Feb-2026 23:37:25 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\admin\dashboard\index.php on line 512
+[01-Feb-2026 23:37:25 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\admin\dashboard\index.php on line 512
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 796
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 797
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "nome_categoria" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 801
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 823
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 827
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:37:31 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:41:08 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "imagem" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 359
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:41:28 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:43:06 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:43:06 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 500
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 519
+[01-Feb-2026 23:43:22 UTC] PHP Warning:  Undefined array key "id_venda" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\vendas\index.php on line 523
+[01-Feb-2026 23:46:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:46:51 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:46:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:46:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:46:55 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:46:55 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:47:04 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:47:04 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:47:08 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:47:08 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:47:14 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[01-Feb-2026 23:47:14 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[01-Feb-2026 23:47:34 UTC] === DESATIVANDO USUÁRIO #44 ===
+[01-Feb-2026 23:47:34 UTC] ✅ Usuário desativado. Linhas: 1
+[01-Feb-2026 23:47:48 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[01-Feb-2026 23:47:48 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[02-Feb-2026 00:03:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[02-Feb-2026 00:03:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[02-Feb-2026 00:03:33 UTC] PHP Warning:  Undefined array key "de" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881
+[02-Feb-2026 00:03:33 UTC] PHP Warning:  Undefined array key "para" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\index.php on line 881

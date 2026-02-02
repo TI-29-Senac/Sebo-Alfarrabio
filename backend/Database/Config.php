@@ -20,19 +20,14 @@ class Config
              'database' => array(
                 'driver' => 'mysql',
                 'mysql' => array(
-                    'host' => getenv('DB_HOST') ?: 'localhost',
-                    'db_name' => getenv('DB_NAME') ?: '',
-                    'username' => getenv('DB_USER') ?: '',
-                    'password' => getenv('DB_PASS') ?: '',
+                    'host' =>'69.6.213.160',
+                    'db_name' => 'hg6c6727_time4_ti29',
+                    'username' => 'hg6c6727_time4_ti29',
+                    'password' => 'jeB!O~=l-Zr~',
                     'charset' => 'utf8',
-                    'port' =>  getenv('DB_PORT') ?: '3306',
+                    'port' =>  '3306',
                 ),
             ),
-            'app' => [
-                'name'  => getenv('APP_NAME') ?: 'Sebo Alfarrábio',
-                'url'   => getenv('APP_URL') ?: 'http://localhost/sebo-alfarrabio',
-                'email' => getenv('APP_EMAIL') ?: 'admin@seboalfarrabio.com'
-            ]
         ];
     }
 }

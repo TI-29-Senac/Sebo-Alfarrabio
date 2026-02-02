@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  
+
 </head>
+
 <body>
 
   <!-- HEADER -->
   <header>
     <img src="img/logo2.png" alt="Logo" class="logo">
     <h3 class="alfa">O Alfarrábio</h3>
-    
+
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -43,9 +45,9 @@
     <!-- Botão do Carrinho -->
     <button class="btn-carrinho" id="btn-ver-carrinho" aria-label="Ver carrinho">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="9" cy="21" r="1"/>
-        <circle cx="20" cy="21" r="1"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
       </svg>
       <span class="cart-count" id="cart-count">0</span>
     </button>
@@ -56,7 +58,7 @@
     <!-- Sidebar de Filtros -->
     <aside class="sidebar-filtros">
       <h3>🔍 Filtros</h3>
-      
+
       <label for="search-input">📖 Buscar Produto</label>
       <input type="text" id="search-input" placeholder="Título ou autor..." />
 
@@ -88,25 +90,25 @@
   <div class="modal-overlay" id="modal-produto">
     <div class="modal-content modal-produto">
       <button class="modal-close" aria-label="Fechar">&times;</button>
-      
+
       <div class="modal-body">
         <div class="modal-imagem">
           <img id="modal-capa" src="" alt="Capa do produto">
         </div>
-        
+
         <div class="modal-info">
           <h2 id="modal-titulo">Título do Produto</h2>
           <p class="modal-autor" id="modal-autor">Autor</p>
           <p class="modal-tipo" id="modal-tipo">Tipo</p>
-          
+
           <div class="modal-preco-container">
             <span class="modal-preco" id="modal-preco">R$ 0,00</span>
           </div>
-          
+
           <p class="modal-descricao" id="modal-descricao">
             Descrição do produto...
           </p>
-          
+
           <div class="modal-detalhes">
             <div class="detalhe-item">
               <strong>Editora:</strong>
@@ -125,7 +127,7 @@
               <span id="modal-estoque">0</span>
             </div>
           </div>
-          
+
           <div class="modal-acoes">
             <button class="btn-primary" id="btn-add-carrinho">
               Adicionar ao Carrinho
@@ -143,31 +145,31 @@
   <div class="modal-overlay" id="modal-carrinho">
     <div class="modal-content modal-carrinho">
       <button class="modal-close" aria-label="Fechar">&times;</button>
-      
+
       <div class="modal-header">
         <h2>Meu Carrinho</h2>
       </div>
-      
+
       <div class="modal-body">
         <div id="carrinho-vazio" class="carrinho-vazio">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
           </svg>
           <p>Seu carrinho está vazio</p>
         </div>
-        
+
         <ul id="cart-items" class="cart-items">
           <!-- Itens do carrinho renderizados via JS -->
         </ul>
-        
+
         <div class="cart-total">
           <span>Total:</span>
           <span id="cart-total">R$ 0,00</span>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <button class="btn-secundario" id="btn-continuar-comprando">
           Continuar Comprando
@@ -219,4 +221,5 @@
 
   <script src="js/produtos.js"></script>
 </body>
+
 </html>

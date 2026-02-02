@@ -1,16 +1,24 @@
 <?php
 namespace Sebo\Alfarrabio\Validadores;
 
-class ItemValidador{
-    public static function ValidarEntradas($dados){
+class ItemValidador
+{
+    public static function ValidarEntradas($dados)
+    {
         $erros = [];
-        if(isset($dados['nome_autor']) && empty($dados['nome_autor'])){
-            $erros[] = "O campo do autor é obrigatório.";
+        if (empty($dados['titulo_item'])) {
+            $erros[] = "O título do item é obrigatório.";
         }
-        if(isset($dados['biografia_autor']) && empty($dados['biografia_autor'])){
-            $erros[] = "A biografia do autor é obrigatória.";
+        if (empty($dados['preco_item'])) {
+            $erros[] = "O preço do item é obrigatório.";
         }
-        
+        if (empty($dados['id_genero'])) {
+            $erros[] = "O gênero é obrigatório.";
+        }
+        if (empty($dados['id_categoria'])) {
+            $erros[] = "A categoria é obrigatória.";
+        }
+
         return $erros;
     }
 }

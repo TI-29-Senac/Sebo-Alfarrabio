@@ -135,6 +135,11 @@ class ItemController extends AdminController
      */
     public function salvarItem()
     {
+        $erros = ItemValidador::ValidarEntradas($_POST);
+        if (!empty($erros)) {
+            Redirect::redirecionarComMensagem("/backend/item/criar", "error", implode("<br>", $erros));
+        }
+
         // === UPLOAD DA FOTO (automático) ===
         $fotoPath = null;
         if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === 0) {
@@ -185,6 +190,14 @@ class ItemController extends AdminController
      */
     public function atualizarItem()
     {
+        $erros = ItemValidador::ValidarEntradas($_POST);
+        if (!empty($erros)) {
+            // Redireciona para editar com o ID se disponível, ou lista
+            $id = $_POST['id_item'] ?? '';
+            $url = $id ? "/backend/item/editar/{$id}" : "/backend/item/listar";
+            Redirect::redirecionarComMensagem($url, "error", implode("<br>", $erros));
+        }
+
         $id_item = (int) ($_POST["id_item"] ?? 0);
         if ($id_item <= 0) {
             Redirect::redirecionarComMensagem("/backend/item/listar", "error", "ID do item inválido.");
