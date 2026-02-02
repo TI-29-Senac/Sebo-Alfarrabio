@@ -747,3 +747,5 @@
 [02-Feb-2026 02:50:50 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [02-Feb-2026 02:50:50 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [02-Feb-2026 02:56:51 UTC] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 03:00:34 UTC] Login bem-sucedido: carla.menezes@email.com
+[02-Feb-2026 03:06:47 UTC] Login bem-sucedido: carla.menezes@email.com
