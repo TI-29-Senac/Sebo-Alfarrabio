@@ -9,6 +9,7 @@ use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Controllers\Admin\AuthenticatedController;
 use Sebo\Alfarrabio\Core\Session;
 use Sebo\Alfarrabio\Models\Pedidos;
+use Sebo\Alfarrabio\Models\Avaliacao;
 
 class DashboardControllerCliente extends AuthenticatedController
 {
@@ -19,6 +20,8 @@ class DashboardControllerCliente extends AuthenticatedController
     private $pedidosModel;
     private $perfil;
     private $fileManager;
+    private $avaliacaoModel;
+    
     public function __construct()
     {
         parent::__construct();
@@ -29,6 +32,7 @@ class DashboardControllerCliente extends AuthenticatedController
         $this->itemModel = new Item($this->db);
         $this->perfil = new \Sebo\Alfarrabio\Models\Perfil($this->db);
         $this->fileManager = new \Sebo\Alfarrabio\Core\FileManager('uploads');
+        $this->avaliacaoModel = new Avaliacao($this->db);
     }
 
     public function index()
@@ -136,6 +140,46 @@ class DashboardControllerCliente extends AuthenticatedController
         }
 
         \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "success", "Foto atualizada com sucesso!");
+    }
+
+    /**
+     * Exibe a página de avaliações do cliente
+     */
+    public function avaliacoes()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+
+        if (!$usuario) {
+            die("Usuário não encontrado.");
+        }
+
+        // Busca dados do perfil
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+
+        // Mescla dados para a view
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca avaliações do usuário
+        $avaliacoes = $this->avaliacaoModel->buscarAvaliacoesPorIDUsuario($usuarioId);
+        $total_avaliacoes = count($avaliacoes);
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/avaliacoes', [
+            'usuario' => $dadosView,
+            'avaliacoes' => $avaliacoes,
+            'total_avaliacoes' => $total_avaliacoes,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario']
+        ]);
     }
 }
 
