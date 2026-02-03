@@ -2027,3 +2027,5 @@
 [03-Feb-2026 12:49:10 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [03-Feb-2026 12:57:02 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 >>>>>>> 6a5ae88b203f9f9cd2573be79c74811ec34d6bf3
+[03-Feb-2026 13:37:01 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 13:46:09 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
