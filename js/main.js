@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     const servicosCards = document.querySelectorAll('.servicos .card');
 
@@ -24,11 +24,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, {
-            threshold: 0.1 
+            threshold: 0.1
         });
 
         itensAnimados.forEach(item => {
             observer.observe(item);
+        });
+    }
+
+    // ========================================
+    // BUSCA HERO SECTION
+    // ========================================
+    const heroSearchInput = document.querySelector('.hero-search');
+
+    if (heroSearchInput) {
+        heroSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const termo = heroSearchInput.value.trim();
+                if (termo) {
+                    // Redireciona para a página de produtos com o termo de busca
+                    window.location.href = `produtos.html?busca=${encodeURIComponent(termo)}`;
+                }
+            }
         });
     }
 

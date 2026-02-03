@@ -22,6 +22,7 @@ let todosOsProdutos = [];
 let produtosFiltrados = [];
 let generosDisponiveis = [];
 let categoriasDisponiveis = [];
+let activeTipoFilter = ''; // Novo filtro de tipo (URL)
 const localStorageKey = 'carrinhoSebo';
 
 // ========================================
@@ -146,6 +147,19 @@ function aplicarFiltros() {
             return false;
         }
 
+        if (categoriaSelecionada && produto.nome_categoria !== categoriaSelecionada) {
+            return false;
+        }
+
+        // Filtro por TIPO (vindo da URL/Menu Secundário)
+        if (activeTipoFilter) {
+            // Tratamento especial para "Disco" que pode não estar exato no banco ou mapear para algo similar
+            // Mas vamos assumir comparação direta case-insensitive por enquanto
+            if (!produto.tipo || produto.tipo.toLowerCase() !== activeTipoFilter.toLowerCase()) {
+                return false;
+            }
+        }
+
         return true;
     });
 
@@ -162,6 +176,7 @@ function limparFiltros() {
     if (searchInput) searchInput.value = '';
     if (generoSelect) generoSelect.value = '';
     if (categoriaSelect) categoriaSelect.value = '';
+    activeTipoFilter = ''; // Limpa filtro de tipo
 
     // Limpa a URL
     const url = new URL(window.location);
@@ -818,14 +833,56 @@ function aplicarFiltrosUrl() {
     const generoUrl = obterParametroUrl('genero');
     const categoriaUrl = obterParametroUrl('categoria');
     const buscaUrl = obterParametroUrl('busca');
+    const tipoUrl = obterParametroUrl('tipo'); // Novo parametro
+
+    if (tipoUrl) {
+        activeTipoFilter = tipoUrl;
+        console.log(`🔗 Filtro de URL aplicado - Tipo: ${tipoUrl}`);
+    }
 
     if (generoUrl && generoSelect) {
-        generoSelect.value = generoUrl;
+        // Tenta encontrar a opção correspondente ignorando case
+        let match = false;
+        for (let i = 0; i < generoSelect.options.length; i++) {
+            if (generoSelect.options[i].value.toLowerCase() === generoUrl.toLowerCase()) {
+                generoSelect.selectedIndex = i;
+                match = true;
+                break;
+            }
+        }
+
+        // Se não achou a opção, cria uma temporária para que o filtro funcione (retornando 0 produtos)
+        // em vez de mostrar todos os produtos
+        if (!match) {
+            const option = document.createElement('option');
+            option.value = generoUrl;
+            option.textContent = generoUrl;
+            generoSelect.appendChild(option);
+            generoSelect.value = generoUrl;
+        }
+
         console.log(`🔗 Filtro de URL aplicado - Gênero: ${generoUrl}`);
     }
 
     if (categoriaUrl && categoriaSelect) {
-        categoriaSelect.value = categoriaUrl;
+        // Tenta encontrar a opção correspondente ignorando case
+        let match = false;
+        for (let i = 0; i < categoriaSelect.options.length; i++) {
+            if (categoriaSelect.options[i].value.toLowerCase() === categoriaUrl.toLowerCase()) {
+                categoriaSelect.selectedIndex = i;
+                match = true;
+                break;
+            }
+        }
+
+        if (!match) {
+            const option = document.createElement('option');
+            option.value = categoriaUrl;
+            option.textContent = categoriaUrl;
+            categoriaSelect.appendChild(option);
+            categoriaSelect.value = categoriaUrl;
+        }
+
         console.log(`🔗 Filtro de URL aplicado - Categoria: ${categoriaUrl}`);
     }
 
@@ -835,7 +892,7 @@ function aplicarFiltrosUrl() {
     }
 
     // Se algum filtro foi aplicado pela URL, executa a filtragem
-    if (generoUrl || categoriaUrl || buscaUrl) {
+    if (generoUrl || categoriaUrl || buscaUrl || activeTipoFilter) {
         aplicarFiltros();
     }
 }

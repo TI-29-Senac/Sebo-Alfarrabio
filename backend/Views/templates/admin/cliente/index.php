@@ -1,719 +1,562 @@
 <?php
 // O header e footer já são incluídos pelo View::render
-// Variáveis esperadas (passadas pelo controller):
-// totalCategorias, totalCategoriasInativas, totalItens, totalItensInativos, vendasMes, faturamentoMes, ultimosItens
+// Variáveis esperadas: $usuario, $usuarioNome, $usuarioEmail, $total_pedidos, $total_avaliacoes, $total_favoritos, $pedidos
 ?>
 
 <style>
     :root {
-        --color-bg-primary: #f5f1e8;
-        --color-bg-card: #f5f1e8;
-        --color-text-primary: #2c2c2c;
-        --color-text-secondary: #666666;
-        --color-accent: #8b7355;
-        --color-border: #e0e0e0;
-        --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.12);
-        --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.16);
-        --radius-card: 25px;
-    }
-
-    * {
-        box-sizing: border-box;
+        --color-bg-primary: #F8F5F1;
+        --color-card-bg: #FFFFFF;
+        --color-stats-bg: #FDFBF7;
+        --color-text-primary: #3D3D3D;
+        --color-text-secondary: #8C8C8C;
+        --color-accent: #C8B896;
+        /* Dourado suave para bordas/detalhes */
+        --color-vintage-brown: #8B7355;
+        /* Marrom Alfarrábio */
+        --color-vintage-red: #D46A6A;
+        --shadow-soft: 0 10px 40px rgba(139, 115, 85, 0.08);
+        --radius-main: 30px;
+        --radius-sm: 15px;
     }
 
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc8 100%);
-        color: var(--color-text-primary);
-    }
-
-    .page-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 40px 20px;
-        animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .page-header {
-        margin-bottom: 40px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .page-header h2 {
-        font-size: 32px;
-        font-weight: 600;
+        font-family: 'Outfit', 'Inter', sans-serif;
+        background: var(--color-bg-primary);
         color: var(--color-text-primary);
         margin: 0;
+        padding: 0;
     }
 
+    /* LAYOUT PRINCIPAL */
+    .profile-main-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px 40px;
+    }
 
-
-    /* ============================================
-       PROFILE CARD MODERNO (Estilo Referência)
-       ============================================ */
-    .profile-card {
+    /* CARD DE PERFIL HERO */
+    .profile-hero-card {
         background: white;
-        border-radius: var(--radius-card);
-        overflow: hidden;
-        box-shadow: var(--shadow-card);
-        transition: all 0.3s ease;
-        position: relative;
-        margin-bottom: 40px;
-    }
-
-    .profile-card:hover {
-        box-shadow: var(--shadow-hover);
-        transform: translateY(-5px);
-    }
-
-    /* Cover Header com fundo BRANCO e Animação */
-    .profile-header {
-        position: relative;
-        height: 450px;
-        background: linear-gradient(135deg, #ffffff 0%, #fafafa 50%, #f5f5f5 100%);
-        overflow: hidden;
-    }
-
-    .profile-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="rgba(139,115,85,0.02)"/></svg>');
-        background-size: 150px;
-        opacity: 0.5;
-        animation: floatPattern 20s linear infinite;
-    }
-
-    /* Esfumado suave em todo o header até embaixo */
-    .profile-header::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to bottom, 
-            rgba(255, 255, 255, 0.8) 0%, 
-            rgba(255, 255, 255, 0.6) 20%,
-            rgba(255, 255, 255, 0.3) 40%,
-            rgba(245, 237, 220, 0) 60%,
-            rgba(245, 237, 220, 0.3) 75%, 
-            rgba(245, 237, 220, 0.7) 85%, 
-            #f5eddc 100%);
-        pointer-events: none;
-        z-index: 5;
-    }
-
-    @keyframes floatPattern {
-        from { background-position: 0 0; }
-        to { background-position: 200px 200px; }
-    }
-
-    /* Cena de Leitura CENTRALIZADA no Header */
-    .reading-scene {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 450px;
-        height: 380px;
+        border-radius: var(--radius-main);
+        padding: 40px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        animation: gentleFloat 6s ease-in-out infinite;
-        z-index: 2;
-    }
-
-    @keyframes gentleFloat {
-        0%, 100% { transform: translate(-50%, -50%); }
-        50% { transform: translate(-50%, calc(-50% - 15px)); }
-    }
-
-    .tree-container {
+        gap: 40px;
+        box-shadow: var(--shadow-soft);
         position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+        overflow: hidden;
+        margin-top: 20px;
     }
 
-    .tree-image {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        animation: fadeInScale 1.2s ease-out;
-    }
-
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    /* Flying Letters */
-    .letters-container {
+    .tree-overlay {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        right: -30px;
+        bottom: -20px;
+        width: 420px;
+        opacity: 0.8;
         pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-avatar-wrapper {
+        position: relative;
         z-index: 1;
     }
 
-    .flying-letter {
-        position: absolute;
-        font-size: 28px;
-        font-weight: 700;
-        color: rgba(139, 115, 85, 0.3);
-        opacity: 0;
-        animation: letterFly 8s ease-in-out infinite;
-    }
-
-    .flying-letter:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-    .flying-letter:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
-    .flying-letter:nth-child(3) { bottom: 25%; left: 20%; animation-delay: 2s; }
-    .flying-letter:nth-child(4) { bottom: 35%; right: 25%; animation-delay: 3s; }
-    .flying-letter:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
-    .flying-letter:nth-child(6) { top: 60%; right: 10%; animation-delay: 5s; }
-    .flying-letter:nth-child(7) { bottom: 45%; left: 15%; animation-delay: 6s; }
-    .flying-letter:nth-child(8) { top: 30%; right: 30%; animation-delay: 7s; }
-
-    @keyframes letterFly {
-        0%, 100% { opacity: 0; transform: translateY(0) rotate(0deg); }
-        10% { opacity: 0.6; }
-        50% { opacity: 0.8; transform: translateY(-40px) rotate(15deg); }
-        90% { opacity: 0.6; }
-    }
-
-    .magic-glow {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 550px;
-        height: 450px;
-        background: radial-gradient(ellipse at center, rgba(139, 115, 85, 0.08) 0%, rgba(139, 115, 85, 0.04) 30%, transparent 70%);
-        animation: pulseGlow 4s infinite;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    @keyframes pulseGlow {
-        0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-        50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.15); }
-    }
-
-    .sparkle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: rgba(201, 163, 106, 0.7);
+    .hero-avatar {
+        width: 170px;
+        height: 170px;
         border-radius: 50%;
-        animation: sparkleFloat 3s infinite;
-        box-shadow: 0 0 12px rgba(201, 163, 106, 0.5);
-        z-index: 3;
-    }
-
-    .sparkle:nth-child(1) { top: 15%; left: 15%; animation-delay: 0s; }
-    .sparkle:nth-child(2) { top: 25%; right: 20%; animation-delay: 0.5s; }
-    .sparkle:nth-child(3) { bottom: 30%; left: 25%; animation-delay: 1s; }
-    .sparkle:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
-    .sparkle:nth-child(5) { top: 40%; left: 10%; animation-delay: 2s; }
-    .sparkle:nth-child(6) { top: 55%; right: 35%; animation-delay: 2.5s; }
-
-    @keyframes sparkleFloat {
-        0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-        50% { opacity: 1; transform: translateY(-20px) scale(1); }
-    }
-
-    /* Avatar posicionado no topo esquerdo sobre o header */
-    .profile-avatar-wrapper {
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        z-index: 10;
-    }
-
-    .profile-avatar {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        border: 5px solid white;
-        overflow: hidden;
-        background: #f0ede5;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .profile-avatar:hover {
-        transform: scale(1.05);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-    }
-
-    .profile-avatar img {
-        width: 100%;
-        height: 100%;
+        border: 6px solid white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         object-fit: cover;
     }
 
-    .avatar-badge {
+    .hero-edit-badge {
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        background: var(--color-vintage-brown);
+        color: white;
+        border: 3px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .hero-info {
+        flex: 1;
+        z-index: 1;
+    }
+
+    .hero-name {
+        font-size: 34px;
+        font-weight: 800;
+        margin: 0 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .hero-bio {
+        color: var(--color-text-secondary);
+        font-size: 16px;
+        margin: 0 0 25px;
+    }
+
+    .hero-stats-card {
+        background: var(--color-stats-bg);
+        border-radius: 20px;
+        padding: 20px 45px;
+        display: inline-flex;
+        gap: 60px;
+        border: 1px solid #F5EFE6;
+    }
+
+    .hero-stat-item {
+        text-align: center;
+    }
+
+    .hero-stat-val {
+        display: block;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--color-text-primary);
+    }
+
+    .hero-stat-label {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        font-weight: 600;
+    }
+
+    /* ========================================
+       SEÇÃO DE PEDIDOS
+       ======================================== */
+    .orders-container {
+        background: white;
+        border-radius: var(--radius-main);
+        padding: 40px;
+        box-shadow: var(--shadow-soft);
+        margin-top: 30px;
+    }
+
+    .orders-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .orders-title-row h2 {
+        font-size: 26px;
+        margin: 0;
+        font-weight: 800;
+    }
+
+    .orders-search-bar {
+        display: flex;
+        gap: 12px;
+    }
+
+    .orders-search-bar input {
+        width: 350px;
+        padding: 12px 20px;
+        border-radius: 50px;
+        border: 1px solid #E6E0D5;
+        font-size: 14px;
+        background: #FDFBF7;
+    }
+
+    .btn-search-orders {
+        padding: 12px 25px;
+        background: #3D3D3D;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    /* Abas de Pedidos */
+    .tabs-navigation {
+        display: flex;
+        gap: 30px;
+        border-bottom: 2px solid #F5EFE6;
+        margin-bottom: 25px;
+    }
+
+    .tab-btn {
+        padding: 12px 0;
+        color: var(--color-text-secondary);
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .tab-btn.active {
+        color: var(--color-vintage-brown);
+    }
+
+    .tab-btn.active::after {
+        content: '';
         position: absolute;
         bottom: -2px;
-        right: -2px;
-        background: var(--color-accent);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 4px solid white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 10;
-        font-size: 16px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--color-vintage-brown);
+        border-radius: 5px;
     }
 
-    .avatar-badge:hover {
-        transform: scale(1.15);
-        background: #6d5438;
-        box-shadow: 0 6px 16px rgba(139, 115, 85, 0.5);
+    .orders-meta-info {
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        margin-bottom: 30px;
     }
 
-    /* Bookmark icon no canto superior direito */
-    .bookmark-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: rgba(139, 115, 85, 0.1);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--color-accent);
-        font-size: 18px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
-
-    .bookmark-icon:hover {
-        background: rgba(139, 115, 85, 0.2);
-        transform: scale(1.1);
-    }
-
-    /* Content Area com fundo BEGE */
-    .profile-content {
-        padding: 30px;
-        background: #f5eddc;
-    }
-
-    .profile-name-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 5px;
-    }
-
-    .profile-name {
+    .orders-meta-info strong {
         color: var(--color-text-primary);
-        font-size: 24px;
-        font-weight: 700;
-        margin: 0;
     }
 
-    .verified-badge {
-        width: 22px;
-        height: 22px;
-        background: #4CAF50;
-        border-radius: 50%;
+    .year-filter {
+        padding: 8px 15px;
+        border-radius: 5px;
+        background: #F5EFE6;
+        border: none;
+        margin-left: 10px;
+        font-weight: 700;
+        color: var(--color-vintage-brown);
+    }
+
+    /* CARD DE PEDIDO INDIVIDUAL */
+    .order-card {
+        border: 1px solid #F0ECE4;
+        border-radius: 18px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        transition: 0.2s;
+    }
+
+    .order-card:hover {
+        border-color: var(--color-accent);
+    }
+
+    .order-header {
+        background: #F9F7F4;
+        padding: 18px 25px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        color: white;
+        border-bottom: 1px solid #F0ECE4;
+    }
+
+    .header-group-row {
+        display: flex;
+        gap: 40px;
+    }
+
+    .header-cell label {
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .header-cell span {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-text-primary);
+    }
+
+    .order-number-link {
         font-size: 12px;
-        flex-shrink: 0;
-    }
-
-    .profile-bio {
         color: var(--color-text-secondary);
-        font-size: 14px;
-        margin-bottom: 20px;
-        line-height: 1.5;
+        text-align: right;
     }
 
-    /* Stats Grid Horizontal */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        padding: 24px 0;
-        border-top: 1px solid #f0f0f0;
-        border-bottom: 1px solid #f0f0f0;
-        margin: 24px 0;
-    }
-
-    .stat-box {
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
+    .order-links-row {
+        margin-top: 4px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
+        gap: 15px;
+        font-weight: 600;
+        text-decoration: underline;
+        color: #666;
+        font-size: 12px;
     }
 
-    .stat-box:hover {
-        transform: scale(1.05);
+    /* Corpo do Pedido */
+    .order-body {
+        padding: 25px;
+        display: flex;
+        gap: 25px;
     }
 
-    .stat-icon {
+    .order-item-image {
+        width: 90px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .order-item-details {
+        flex: 1;
+    }
+
+    .status-text {
         font-size: 18px;
-        margin-bottom: 5px;
-    }
-
-    .stat-number {
-        font-size: 24px;
-        font-weight: 700;
+        font-weight: 800;
+        margin: 0 0 10px;
         color: var(--color-text-primary);
-        display: block;
     }
 
-    .stat-label {
+    .item-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--color-vintage-brown);
+        margin: 0 0 5px;
+        text-decoration: none;
+    }
+
+    .item-vendor {
         font-size: 13px;
         color: var(--color-text-secondary);
-        font-weight: 500;
+        margin-bottom: 15px;
     }
 
-    /* Action Buttons */
-    .profile-actions {
+    .order-action-buttons {
         display: flex;
         gap: 12px;
-        margin-bottom: 24px;
     }
 
-    .btn-primary {
-        flex: 1;
-        background: #000;
-        color: white;
-        border: none;
-        padding: 14px 24px;
+    .btn-action {
+        padding: 10px 22px;
         border-radius: 50px;
-        font-size: 15px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 700;
         cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        transition: 0.2s;
+        border: 1px solid #E0E0E0;
+        background: white;
     }
 
-    .btn-primary:hover {
-        background: #1a1a1a;
-        transform: scale(1.02);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    .btn-action.gold {
+        background: #F2E3C0;
+        border-color: #D4B673;
+        color: #7A5C1F;
     }
 
-    .btn-secondary {
-        background: var(--color-accent);
-        color: white;
-        border: none;
-        padding: 14px;
-        border-radius: 12px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .btn-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     }
 
-    .btn-secondary:hover {
-        background: #6d5438;
-        transform: scale(1.05);
-    }
-
-    /* Info Items */
-    .profile-info {
+    .order-side-actions {
+        width: 220px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 10px;
     }
 
-    .info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 12px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.6);
-        transition: all 0.3s ease;
-    }
-
-    .info-item:hover {
-        background: rgba(255, 255, 255, 0.9);
-        transform: translateX(5px);
-    }
-
-    .info-item i {
-        color: var(--color-accent);
-        font-size: 16px;
-        margin-top: 2px;
-        min-width: 20px;
-    }
-
-    .info-item-content {
-        flex: 1;
-        font-size: 14px;
-        line-height: 1.5;
-        color: var(--color-text-secondary);
-    }
-
-    .info-item-content strong {
-        display: block;
-        color: var(--color-text-primary);
-        font-weight: 600;
-        margin-bottom: 2px;
-        font-size: 13px;
-    }
-
-    /* Orders Section */
-    .orders-section {
+    .btn-side {
+        width: 100%;
+        padding: 10px;
+        border-radius: 50px;
+        border: 1px solid #E0E0E0;
         background: white;
-        border-radius: var(--radius-card);
-        padding: 30px;
-        box-shadow: var(--shadow-card);
-    }
-
-    .section-header {
-        font-size: 24px;
-        color: var(--color-text-primary);
+        font-size: 13px;
         font-weight: 600;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        cursor: pointer;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        .profile-header {
-            height: 320px;
-        }
-        
-        .reading-scene {
-            width: 280px;
-            height: 240px;
+    @media (max-width: 1100px) {
+        .hero-stats-card {
+            gap: 30px;
+            width: 100%;
+            justify-content: space-around;
         }
 
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border: 4px solid white;
-        }
-
-        .avatar-badge {
-            width: 32px;
-            height: 32px;
-            font-size: 14px;
-            border: 3px solid white;
-        }
-
-        .profile-actions {
+        .order-body {
             flex-direction: column;
         }
-        
-        .btn-secondary {
-            width: 100%;
-        }
-        
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
 
-        .flying-letter {
-            font-size: 20px;
+        .order-side-actions {
+            width: 100%;
         }
     }
 </style>
 
-<div class="page-container">
-    <div class="page-header">
-        <h2><i class="fa fa-user-circle"></i> Perfil do Usuário</h2>
-    </div>
+<div class="profile-main-container">
 
-    <!-- Modern Profile Card -->
-    <div class="profile-card">
-        <!-- Cover Header -->
-        <div class="profile-header">
-            <div class="magic-glow"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
-            <div class="sparkle"></div>
+    <!-- HEADER DO PERFIL -->
+    <div class="profile-hero-card">
+        <div class="hero-avatar-wrapper">
+            <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.png' ?>"
+                class="hero-avatar" alt="Perfil">
+            <div class="hero-edit-badge" onclick="document.getElementById('input-foto').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+            <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data"
+                style="display:none;">
+                <input type="file" name="foto_usuario" id="input-foto" accept="image/*"
+                    onchange="document.getElementById('form-foto').submit()">
+            </form>
+        </div>
 
-            <!-- Cena de Leitura -->
-            <div class="reading-scene">
-                <div class="tree-container">
-                    <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+        <div class="hero-info">
+            <h1 class="hero-name">
+                <?= htmlspecialchars($usuarioNome) ?>
+                <i class="fas fa-check-circle" style="color:var(--color-verify); font-size:22px;"></i>
+            </h1>
+            <p class="hero-bio">Amante de livros clássicos e histórias atemporais</p>
+
+            <div class="hero-stats-card">
+                <div class="hero-stat-item">
+                    <span class="hero-stat-val">
+                        <?= $total_pedidos ?? 0 ?>
+                    </span>
+                    <span class="hero-stat-label">Pedidos</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-val">
+                        <?= $total_avaliacoes ?? 0 ?>
+                    </span>
+                    <span class="hero-stat-label">Avaliações</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-val">
+                        <?= $total_favoritos ?? 0 ?>
+                    </span>
+                    <span class="hero-stat-label">Favoritos</span>
                 </div>
             </div>
+        </div>
 
-            <!-- Letras Voando -->
-            <div class="letters-container">
-                <div class="flying-letter">A</div>
-                <div class="flying-letter">L</div>
-                <div class="flying-letter">F</div>
-                <div class="flying-letter">A</div>
-                <div class="flying-letter">R</div>
-                <div class="flying-letter">R</div>
-                <div class="flying-letter">Á</div>
-                <div class="flying-letter">B</div>
+        <img src="/img/banner2.png" alt="Árvore" class="tree-overlay">
+    </div>
+
+    <!-- SEÇÃO DE PEDIDOS REDESENHADA -->
+    <section class="orders-container">
+        <div class="orders-title-row">
+            <h2>Seus pedidos</h2>
+            <div class="orders-search-bar">
+                <input type="text" placeholder="Pesquisar todos os pedidos">
+                <button class="btn-search-orders">Buscar pedidos</button>
             </div>
+        </div>
 
-            <!-- Bookmark Icon -->
-            <div class="bookmark-icon">
-                <i class="fa fa-bookmark"></i>
-            </div>
+        <div class="tabs-navigation">
+            <div class="tab-btn active">Pedidos</div>
+            <div class="tab-btn">Compre Novamente</div>
+            <div class="tab-btn">Ainda não enviado</div>
+        </div>
 
-            <!-- Avatar -->
-            <div class="profile-avatar-wrapper">
-                <div class="profile-avatar">
-                    <?php if (!empty($usuario['foto_perfil_usuario'])): ?>
-                        <img src="<?= htmlspecialchars($usuario['foto_perfil_usuario']) ?>" alt="Avatar" id="avatar-img">
-                    <?php else: ?>
-                        <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#2c2c2c; color:white; font-size:48px; font-weight:600;">
-                            <?= strtoupper(substr($usuario['nome_usuario'] ?? 'U', 0, 1)) ?>
+        <div class="orders-meta-info">
+            <strong>
+                <?= count($pedidos ?? []) ?> pedidos
+            </strong> feitos em
+            <select class="year-filter">
+                <option>2025</option>
+                <option>2024</option>
+            </select>
+        </div>
+
+        <!-- Listagem de Pedidos Real -->
+        <?php if (!empty($pedidos)): ?>
+            <?php foreach ($pedidos as $pedido): ?>
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="header-group-row">
+                            <div class="header-cell">
+                                <label>PEDIDO REALIZADO</label>
+                                <span>
+                                    <?= date('d \d\e F \d\e Y', strtotime($pedido['data_pedido'])) ?>
+                                </span>
+                            </div>
+                            <div class="header-cell">
+                                <label>TOTAL</label>
+                                <span>R$
+                                    <?= number_format($pedido['valor_total'], 2, ',', '.') ?>
+                                </span>
+                            </div>
+                            <div class="header-cell">
+                                <label>ENVIAR PARA</label>
+                                <span>
+                                    <?= htmlspecialchars($usuarioNome) ?> <i class="fas fa-caret-down"></i>
+                                </span>
+                            </div>
                         </div>
-                    <?php endif; ?>
-
-                    <!-- Upload functionality -->
-                    <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data" style="display:none;">
-                        <input type="file" name="foto_usuario" id="input-foto" accept="image/*" onchange="document.getElementById('form-foto').submit()">
-                    </form>
-
-                    <div class="avatar-badge" onclick="document.getElementById('input-foto').click()" title="Alterar Foto">
-                        <i class="fa fa-camera"></i>
+                        <div class="order-number-link">
+                            <label>PEDIDO Nº
+                                <?= $pedido['id_pedidos'] ?? $pedido['id'] ?? '---' ?>
+                            </label>
+                            <div class="order-links-row">
+                                <a href="#">Exibir detalhes do pedido</a>
+                                <a href="#">Fatura</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <img src="/img/book_placeholder.jpg" class="order-item-image" alt="Item">
+                        <div class="order-item-details">
+                            <h3 class="status-text">
+                                <?= $pedido['status'] ?? 'Entregue' ?>
+                            </h3>
+                            <p class="item-title">Item do Pedido #
+                                <?= $pedido['id_pedidos'] ?? $pedido['id'] ?? '---' ?>
+                            </p>
+                            <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
+                            <div class="order-action-buttons">
+                                <button class="btn-action gold">Comprar novamente</button>
+                                <button class="btn-action">Ver o seu item</button>
+                            </div>
+                        </div>
+                        <div class="order-side-actions">
+                            <button class="btn-side">Avaliar o produto</button>
+                            <button class="btn-side">Rastrear pacote</button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- Exemplo ilustrativo se não houver pedidos -->
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="header-group-row">
+                        <div class="header-cell"><label>PEDIDO REALIZADO</label><span>15 de Janeiro de 2025</span></div>
+                        <div class="header-cell"><label>TOTAL</label><span>R$ 54,90</span></div>
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div
+                        style="width:90px; height:120px; background:#f0f0f0; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-book" style="color:#ccc; font-size:32px;"></i>
+                    </div>
+                    <div class="order-item-details">
+                        <h3 class="status-text">Entregue</h3>
+                        <p class="item-title">Memórias Póstumas de Brás Cubas</p>
+                        <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
+                        <div class="order-action-buttons">
+                            <button class="btn-action gold">Comprar novamente</button>
+                            <button class="btn-action">Ver o seu item</button>
+                        </div>
+                    </div>
+                    <div class="order-side-actions">
+                        <button class="btn-side">Avaliar o produto</button>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Content -->
-        <div class="profile-content">
-            <div class="profile-name-wrapper">
-                <h2 class="profile-name"><?= htmlspecialchars($usuarioNome) ?></h2>
-                <div class="verified-badge" title="Verificado">
-                    <i class="fa fa-check"></i>
-                </div>
-            </div>
-
-            <p class="profile-bio">
-                Amante de livros clássicos e histórias atemporais
-            </p>
-
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-icon">📦</div>
-                    <span class="stat-number"><?= $total_pedidos ?? 0 ?></span>
-                    <div class="stat-label">Pedidos</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon">⭐</div>
-                    <span class="stat-number"><?= $total_avaliacoes ?? 0 ?></span>
-                    <div class="stat-label">Avaliações</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon">❤️</div>
-                    <span class="stat-number"><?= $total_favoritos ?? 0 ?></span>
-                    <div class="stat-label">Favoritos</div>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="profile-actions">
-                <button class="btn-primary">
-                    <i class="fa fa-edit"></i>
-                    Editar Perfil
-                </button>
-                <button class="btn-secondary" title="Configurações">
-                    <i class="fa fa-cog"></i>
-                </button>
-            </div>
-
-            <!-- Info -->
-            <div class="profile-info">
-                <div class="info-item">
-                    <i class="fa fa-calendar"></i>
-                    <div class="info-item-content">
-                        <strong>Membro desde</strong>
-                        <?= date('d/m/Y', strtotime($usuario['criado_em'] ?? 'now')) ?>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fa fa-map-marker-alt"></i>
-                    <div class="info-item-content">
-                        <strong>Localização</strong>
-                        <?= htmlspecialchars($usuario['cidade'] ?? 'São Paulo, SP') ?>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fa fa-envelope"></i>
-                    <div class="info-item-content">
-                        <strong>Email</strong>
-                        <?= htmlspecialchars($usuarioEmail) ?>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fa fa-phone"></i>
-                    <div class="info-item-content">
-                        <strong>Contato</strong>
-                        <?= htmlspecialchars($usuario['telefone'] ?? 'Não informado') ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Orders Section -->
-    <div class="orders-section">
-        <div class="section-header">
-            <i class="fa fa-shopping-bag"></i> Meus Pedidos
-        </div>
-        <!-- Resto do código de pedidos... -->
-    </div>
+        <?php endif; ?>
+    </section>
 </div>
