@@ -2005,6 +2005,7 @@
 [03-Feb-2026 01:33:26 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [03-Feb-2026 01:33:26 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
 [03-Feb-2026 01:33:44 UTC] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [03-Feb-2026 12:30:08 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 12:30:34 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [03-Feb-2026 12:30:34 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
@@ -2017,3 +2018,12 @@
 [03-Feb-2026 12:52:22 Europe/Berlin] PHP Warning:  Undefined array key "id_item" in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\admin\cliente\index.php on line 711
 [03-Feb-2026 13:04:47 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Session.php on line 7
 [03-Feb-2026 13:04:47 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+=======
+[03-Feb-2026 12:45:15 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 12:45:44 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[03-Feb-2026 12:45:44 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[03-Feb-2026 12:47:20 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 12:49:10 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[03-Feb-2026 12:49:10 Europe/Berlin] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[03-Feb-2026 12:57:02 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> 6a5ae88b203f9f9cd2573be79c74811ec34d6bf3

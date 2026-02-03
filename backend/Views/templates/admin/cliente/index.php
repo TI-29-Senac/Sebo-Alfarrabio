@@ -421,11 +421,29 @@
     }
 
     .order-item-image {
-        width: 90px;
-        height: 120px;
+        width: 120px;
+        height: 160px;
         object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        flex-shrink: 0;
+    }
+
+    .order-item-placeholder {
+        width: 120px;
+        height: 160px;
+        background: linear-gradient(135deg, #F5EFE6 0%, #E8DCCF 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .order-item-placeholder i {
+        font-size: 40px;
+        color: var(--color-vintage-brown);
+        opacity: 0.4;
     }
 
     .order-item-details {
@@ -433,18 +451,32 @@
     }
 
     .status-text {
-        font-size: 18px;
-        font-weight: 800;
-        margin: 0 0 10px;
-        color: var(--color-text-primary);
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 50px;
+        margin: 0 0 12px;
     }
 
+    .status-entregue { background: #D4EDDA; color: #155724; }
+    .status-pendente { background: #FFF3CD; color: #856404; }
+    .status-cancelado { background: #F8D7DA; color: #721C24; }
+    .status-enviado { background: #CCE5FF; color: #004085; }
+    .status-preparo { background: #E2E3E5; color: #383D41; }
+
     .item-title {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 700;
         color: var(--color-vintage-brown);
-        margin: 0 0 5px;
+        margin: 0 0 6px;
         text-decoration: none;
+    }
+
+    .item-quantity {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        margin-bottom: 4px;
     }
 
     .item-vendor {
@@ -664,18 +696,48 @@
                         </div>
                     </div>
                     <div class="order-body">
-                        <img src="/img/book_placeholder.jpg" class="order-item-image" alt="Item">
+                        <?php 
+                        // Pega o primeiro item do pedido para exibir a foto
+                        $primeiroItem = !empty($pedido['itens']) ? $pedido['itens'][0] : null;
+                        $fotoItem = $primeiroItem['foto_item'] ?? null;
+                        $tituloItem = $primeiroItem['titulo_item'] ?? 'Item do Pedido';
+                        $qtdItens = count($pedido['itens'] ?? []);
+                        
+                        // Determina a classe de status
+                        $statusRaw = strtolower($pedido['status'] ?? 'pendente');
+                        $statusClass = 'status-pendente';
+                        if (strpos($statusRaw, 'entreg') !== false) $statusClass = 'status-entregue';
+                        elseif (strpos($statusRaw, 'cancel') !== false) $statusClass = 'status-cancelado';
+                        elseif (strpos($statusRaw, 'envia') !== false || strpos($statusRaw, 'transit') !== false) $statusClass = 'status-enviado';
+                        elseif (strpos($statusRaw, 'prepar') !== false || strpos($statusRaw, 'process') !== false) $statusClass = 'status-preparo';
+                        ?>
+                        
+                        <?php if (!empty($fotoItem)): ?>
+                            <img src="<?= htmlspecialchars($fotoItem) ?>" 
+                                 class="order-item-image" 
+                                 alt="<?= htmlspecialchars($tituloItem) ?>"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="order-item-placeholder" style="display:none;">
+                                <i class="fa fa-book"></i>
+                            </div>
+                        <?php else: ?>
+                            <div class="order-item-placeholder">
+                                <i class="fa fa-book"></i>
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="order-item-details">
-                            <h3 class="status-text">
-                                <?= $pedido['status'] ?? 'Entregue' ?>
-                            </h3>
-                            <p class="item-title">Item do Pedido #
-                                <?= $pedido['id_pedidos'] ?? $pedido['id'] ?? '---' ?>
-                            </p>
+                            <span class="status-text <?= $statusClass ?>">
+                                <?= htmlspecialchars($pedido['status'] ?? 'Pendente') ?>
+                            </span>
+                            <p class="item-title"><?= htmlspecialchars($tituloItem) ?></p>
+                            <?php if ($qtdItens > 1): ?>
+                                <p class="item-quantity">+ <?= $qtdItens - 1 ?> outro(s) item(ns)</p>
+                            <?php endif; ?>
                             <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
                             <div class="order-action-buttons">
                                 <button class="btn-action gold">Comprar novamente</button>
-                                <button class="btn-action">Ver o seu item</button>
+                                <button class="btn-action">Ver detalhes</button>
                             </div>
                         </div>
                         <div class="order-side-actions">
@@ -686,32 +748,16 @@
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <!-- Exemplo ilustrativo se não houver pedidos -->
-            <div class="order-card">
-                <div class="order-header">
-                    <div class="header-group-row">
-                        <div class="header-cell"><label>PEDIDO REALIZADO</label><span>15 de Janeiro de 2025</span></div>
-                        <div class="header-cell"><label>TOTAL</label><span>R$ 54,90</span></div>
-                    </div>
+            <!-- Estado vazio - nenhum pedido encontrado -->
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #F5EFE6 0%, #E8DCCF 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
+                    <i class="fa fa-shopping-bag" style="font-size: 40px; color: var(--color-vintage-brown); opacity: 0.5;"></i>
                 </div>
-                <div class="order-body">
-                    <div
-                        style="width:90px; height:120px; background:#f0f0f0; border-radius:8px; display:flex; align-items:center; justify-content:center;">
-                        <i class="fas fa-book" style="color:#ccc; font-size:32px;"></i>
-                    </div>
-                    <div class="order-item-details">
-                        <h3 class="status-text">Entregue</h3>
-                        <p class="item-title">Memórias Póstumas de Brás Cubas</p>
-                        <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
-                        <div class="order-action-buttons">
-                            <button class="btn-action gold">Comprar novamente</button>
-                            <button class="btn-action">Ver o seu item</button>
-                        </div>
-                    </div>
-                    <div class="order-side-actions">
-                        <button class="btn-side">Avaliar o produto</button>
-                    </div>
-                </div>
+                <h3 style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin: 0 0 10px;">Você ainda não fez nenhum pedido</h3>
+                <p style="color: var(--color-text-secondary); font-size: 15px; max-width: 400px; margin: 0 auto 25px;">Explore nosso acervo e encontre livros incríveis para sua coleção.</p>
+                <a href="/produtos.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--color-vintage-brown); color: white; border: none; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">
+                    <i class="fa fa-search"></i> Explorar Acervo
+                </a>
             </div>
         <?php endif; ?>
     </section>

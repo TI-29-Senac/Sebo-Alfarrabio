@@ -174,4 +174,42 @@ class Avaliacao {
             return false;
         }
     }
+
+    /**
+     * Busca todas as avaliações feitas por um usuário específico
+     * Retorna dados da avaliação junto com informações do item avaliado
+     */
+    function buscarAvaliacoesPorIDUsuario($id_usuario) {
+        $sql = "SELECT 
+                    a.id_avaliacao,
+                    a.id_item,
+                    a.id_usuario,
+                    a.nota_avaliacao,
+                    a.comentario_avaliacao,
+                    a.data_avaliacao,
+                    a.status_avaliacao,
+                    i.titulo_item,
+                    i.foto_item,
+                    i.preco_item
+                FROM tbl_avaliacao a
+                LEFT JOIN tbl_itens i ON a.id_item = i.id_item
+                WHERE a.id_usuario = :id_usuario AND a.excluido_em IS NULL
+                ORDER BY a.data_avaliacao DESC";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Conta total de avaliações feitas por um usuário
+     */
+    function totalDeAvaliacaoPorUsuario($id_usuario) {
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE id_usuario = :id_usuario AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
 }

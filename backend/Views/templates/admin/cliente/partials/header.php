@@ -183,7 +183,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     $session = new Session();
     $usuarioNome = $session->get('usuario_nome') ?? 'Usuário';
     $usuarioTipo = $session->get('usuario_tipo') ?? 'Admin';
-    $usuarioEmail = $session->get('email_usuario')?? 'Email';
+    $usuarioEmail = $session->get('usuario_email')?? 'Email';
 ?>
 
 <!-- Top Bar -->
@@ -209,7 +209,8 @@ if (!$isLoginOrRegister):
     <div class="user-profile">
         <div class="w3-row">
             <div class="w3-col s3">
-                <img src="/img/logo2.png" class="user-avatar" alt="Logo">
+                <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.png' ?>"
+                class="user-avatar" alt="Logo">
             </div>
             <div class="w3-col s9" style="padding-left: 12px; padding-top: 10px;">
                 <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
@@ -236,10 +237,10 @@ if (!$isLoginOrRegister):
         <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
             <i class="fa fa-user"></i> Seu Perfil
         </a>
-        <a href="/backend/admin/dashboard" class="menu-item w3-bar-item w3-button w3-padding active">
+        <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
             <i class="fa fa-check"></i> Suas Reservas
         </a>
-        <a href="/backend/admin/dashboard" class="menu-item w3-bar-item w3-button w3-padding active">
+        <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
             <i class="fa fa-heart"></i> Favoritos
         </a>
         
@@ -247,10 +248,10 @@ if (!$isLoginOrRegister):
         <div class="menu-section-title">
             <i class="fa fa-comment"></i> Interações
         </div>
-        <a href="/backend/item/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/admin/cliente/avaliacoes" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-comment"></i> Avaliações
         </a>
-        <a href="/backend/categoria/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-bell"></i> Notificações
         </a>
 
@@ -258,7 +259,7 @@ if (!$isLoginOrRegister):
         <div class="menu-section-title">
             <i class="fa fa-cog"></i> Configurações do Sistema
         </div>
-        <a href="/backend/vendas/listar" class="menu-item w3-bar-item w3-button w3-padding">
+        <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding">
             <i class="fa fa-cog"></i> Configurações
         </a>
         
