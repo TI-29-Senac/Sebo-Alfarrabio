@@ -556,6 +556,255 @@
             display: none;
         }
     }
+
+    /* ========================================
+       BOTÃO JÁ AVALIADO
+       ======================================== */
+    .btn-avaliado {
+        background: #D4EDDA !important;
+        border-color: #28A745 !important;
+        color: #155724 !important;
+        cursor: default;
+    }
+
+    .btn-avaliar i {
+        color: #F5A623;
+    }
+
+    /* ========================================
+       MODAL DE AVALIAÇÃO
+       ======================================== */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 20px;
+        padding: 35px;
+        max-width: 480px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #F0ECE4;
+    }
+
+    .modal-item-image {
+        width: 60px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-item-placeholder {
+        width: 60px;
+        height: 80px;
+        background: linear-gradient(135deg, #F5EFE6 0%, #E8DCCF 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-item-placeholder i {
+        font-size: 24px;
+        color: var(--color-vintage-brown);
+        opacity: 0.5;
+    }
+
+    .modal-item-info h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 5px;
+        color: var(--color-text-primary);
+    }
+
+    .modal-item-info p {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+        color: #333;
+    }
+
+    /* Seletor de Estrelas */
+    .star-rating {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .star-rating .star {
+        font-size: 32px;
+        color: #DDD;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .star-rating .star:hover,
+    .star-rating .star.active {
+        color: #F5A623;
+        transform: scale(1.1);
+    }
+
+    .star-rating .star.hover {
+        color: #F5A623;
+    }
+
+    .rating-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        margin-bottom: 10px;
+    }
+
+    .rating-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-vintage-brown);
+        margin-top: 8px;
+        min-height: 20px;
+    }
+
+    /* Campo de Comentário */
+    .modal-textarea {
+        width: 100%;
+        height: 100px;
+        padding: 15px;
+        border: 1px solid #E6E0D5;
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: inherit;
+        resize: none;
+        margin-bottom: 8px;
+        transition: border-color 0.2s;
+    }
+
+    .modal-textarea:focus {
+        outline: none;
+        border-color: var(--color-vintage-brown);
+    }
+
+    .char-counter {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    /* Botões do Modal */
+    .modal-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+
+    .btn-modal {
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+    }
+
+    .btn-modal.primary {
+        background: var(--color-vintage-brown);
+        color: white;
+    }
+
+    .btn-modal.primary:hover {
+        background: #6B5235;
+        transform: translateY(-2px);
+    }
+
+    .btn-modal.primary:disabled {
+        background: #CCC;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .btn-modal.secondary {
+        background: white;
+        color: var(--color-text-primary);
+        border: 1px solid #E0E0E0;
+    }
+
+    .btn-modal.secondary:hover {
+        background: #F5F5F5;
+    }
+
+    /* Mensagem de Sucesso */
+    .success-message {
+        text-align: center;
+        padding: 30px;
+    }
+
+    .success-message i {
+        font-size: 50px;
+        color: #28A745;
+        margin-bottom: 15px;
+    }
+
+    .success-message h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 10px;
+    }
+
+    .success-message p {
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
 </style>
 
 <div class="profile-main-container">
@@ -701,7 +950,11 @@
                         $primeiroItem = !empty($pedido['itens']) ? $pedido['itens'][0] : null;
                         $fotoItem = $primeiroItem['foto_item'] ?? null;
                         $tituloItem = $primeiroItem['titulo_item'] ?? 'Item do Pedido';
+                        $idItem = $primeiroItem['id_item'] ?? null;
                         $qtdItens = count($pedido['itens'] ?? []);
+                        
+                        // Verifica se o item já foi avaliado
+                        $jaAvaliado = $idItem && in_array($idItem, $itensAvaliados ?? []);
                         
                         // Determina a classe de status
                         $statusRaw = strtolower($pedido['status'] ?? 'pendente');
@@ -741,7 +994,19 @@
                             </div>
                         </div>
                         <div class="order-side-actions">
-                            <button class="btn-side">Avaliar o produto</button>
+                            <?php if ($idItem && !$jaAvaliado): ?>
+                                <button class="btn-side btn-avaliar" 
+                                        data-item-id="<?= $idItem ?>"
+                                        data-item-titulo="<?= htmlspecialchars($tituloItem) ?>"
+                                        data-item-foto="<?= htmlspecialchars($fotoItem ?? '') ?>"
+                                        onclick="abrirModalAvaliacao(this)">
+                                    <i class="fa fa-star"></i> Avaliar o produto
+                                </button>
+                            <?php elseif ($jaAvaliado): ?>
+                                <button class="btn-side btn-avaliado" disabled>
+                                    <i class="fa fa-check"></i> Já avaliado
+                                </button>
+                            <?php endif; ?>
                             <button class="btn-side">Rastrear pacote</button>
                         </div>
                     </div>
@@ -762,3 +1027,243 @@
         <?php endif; ?>
     </section>
 </div>
+
+<!-- ========================================
+     MODAL DE AVALIAÇÃO
+     ======================================== -->
+<div class="modal-overlay" id="modalAvaliacao">
+    <div class="modal-content" style="position: relative;">
+        <button class="modal-close" onclick="fecharModalAvaliacao()">&times;</button>
+        
+        <!-- Formulário de Avaliação -->
+        <div id="formAvaliacao">
+            <div class="modal-header">
+                <div id="modalItemImage"></div>
+                <div class="modal-item-info">
+                    <h3 id="modalItemTitulo">Título do Item</h3>
+                    <p>Avalie este produto</p>
+                </div>
+            </div>
+            
+            <div class="rating-label">Como você avalia este item?</div>
+            
+            <div class="star-rating" id="starRating">
+                <i class="fa fa-star star" data-rating="1"></i>
+                <i class="fa fa-star star" data-rating="2"></i>
+                <i class="fa fa-star star" data-rating="3"></i>
+                <i class="fa fa-star star" data-rating="4"></i>
+                <i class="fa fa-star star" data-rating="5"></i>
+            </div>
+            <div class="rating-text" id="ratingText"></div>
+            
+            <div class="rating-label" style="margin-top: 20px;">Comentário (opcional)</div>
+            <textarea 
+                class="modal-textarea" 
+                id="comentarioAvaliacao" 
+                placeholder="Conte sua experiência com este produto..."
+                maxlength="500"
+            ></textarea>
+            <div class="char-counter"><span id="charCount">0</span>/500 caracteres</div>
+            
+            <div class="modal-buttons">
+                <button class="btn-modal secondary" onclick="fecharModalAvaliacao()">Cancelar</button>
+                <button class="btn-modal primary" id="btnEnviarAvaliacao" onclick="enviarAvaliacao()" disabled>
+                    Enviar avaliação
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mensagem de Sucesso -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <i class="fa fa-check-circle"></i>
+            <h3>Avaliação enviada!</h3>
+            <p>Obrigado por compartilhar sua opinião.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// ========================================
+// JAVASCRIPT DO MODAL DE AVALIAÇÃO
+// ========================================
+
+let currentItemId = null;
+let currentRating = 0;
+let currentBtnElement = null;
+
+const ratingTexts = {
+    1: 'Péssimo',
+    2: 'Ruim',
+    3: 'Regular',
+    4: 'Bom',
+    5: 'Excelente!'
+};
+
+// Abre o modal com dados do item
+function abrirModalAvaliacao(btnElement) {
+    currentBtnElement = btnElement;
+    currentItemId = btnElement.dataset.itemId;
+    const titulo = btnElement.dataset.itemTitulo;
+    const foto = btnElement.dataset.itemFoto;
+    
+    // Preenche dados do modal
+    document.getElementById('modalItemTitulo').textContent = titulo;
+    
+    // Imagem ou placeholder
+    const imgContainer = document.getElementById('modalItemImage');
+    if (foto) {
+        imgContainer.innerHTML = `<img src="${foto}" alt="${titulo}" class="modal-item-image" onerror="this.parentElement.innerHTML='<div class=\\'modal-item-placeholder\\'><i class=\\'fa fa-book\\'></i></div>'">`;
+    } else {
+        imgContainer.innerHTML = `<div class="modal-item-placeholder"><i class="fa fa-book"></i></div>`;
+    }
+    
+    // Reset estado
+    currentRating = 0;
+    document.getElementById('comentarioAvaliacao').value = '';
+    document.getElementById('charCount').textContent = '0';
+    document.getElementById('ratingText').textContent = '';
+    document.getElementById('btnEnviarAvaliacao').disabled = true;
+    resetStars();
+    
+    // Mostra form, esconde sucesso
+    document.getElementById('formAvaliacao').style.display = 'block';
+    document.getElementById('successMessage').style.display = 'none';
+    
+    // Abre modal
+    document.getElementById('modalAvaliacao').classList.add('active');
+}
+
+// Fecha o modal
+function fecharModalAvaliacao() {
+    document.getElementById('modalAvaliacao').classList.remove('active');
+    currentItemId = null;
+    currentRating = 0;
+}
+
+// Reset estrelas
+function resetStars() {
+    document.querySelectorAll('#starRating .star').forEach(star => {
+        star.classList.remove('active', 'hover');
+    });
+}
+
+// Interação com estrelas
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('#starRating .star');
+    
+    stars.forEach(star => {
+        // Hover
+        star.addEventListener('mouseenter', function() {
+            const rating = parseInt(this.dataset.rating);
+            stars.forEach((s, i) => {
+                s.classList.toggle('hover', i < rating);
+            });
+        });
+        
+        // Mouse leave - volta ao estado selecionado
+        star.addEventListener('mouseleave', function() {
+            stars.forEach((s, i) => {
+                s.classList.remove('hover');
+            });
+        });
+        
+        // Click - seleciona rating
+        star.addEventListener('click', function() {
+            currentRating = parseInt(this.dataset.rating);
+            stars.forEach((s, i) => {
+                s.classList.toggle('active', i < currentRating);
+            });
+            document.getElementById('ratingText').textContent = ratingTexts[currentRating] || '';
+            document.getElementById('btnEnviarAvaliacao').disabled = false;
+        });
+    });
+    
+    // Contador de caracteres
+    const textarea = document.getElementById('comentarioAvaliacao');
+    if (textarea) {
+        textarea.addEventListener('input', function() {
+            document.getElementById('charCount').textContent = this.value.length;
+        });
+    }
+    
+    // Fechar modal clicando fora
+    document.getElementById('modalAvaliacao').addEventListener('click', function(e) {
+        if (e.target === this) {
+            fecharModalAvaliacao();
+        }
+    });
+    
+    // Fechar com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            fecharModalAvaliacao();
+        }
+    });
+});
+
+// Envia avaliação via AJAX
+async function enviarAvaliacao() {
+    if (!currentItemId || currentRating < 1) {
+        alert('Selecione uma nota para avaliar.');
+        return;
+    }
+    
+    const comentario = document.getElementById('comentarioAvaliacao').value.trim();
+    const btnEnviar = document.getElementById('btnEnviarAvaliacao');
+    
+    // Desabilita botão e mostra loading
+    btnEnviar.disabled = true;
+    btnEnviar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando...';
+    
+    try {
+        const formData = new FormData();
+        formData.append('id_item', currentItemId);
+        formData.append('nota', currentRating);
+        formData.append('comentario', comentario);
+        
+        const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Mostra mensagem de sucesso
+            document.getElementById('formAvaliacao').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Atualiza botão na listagem
+            if (currentBtnElement) {
+                currentBtnElement.outerHTML = `
+                    <button class="btn-side btn-avaliado" disabled>
+                        <i class="fa fa-check"></i> Já avaliado
+                    </button>
+                `;
+            }
+            
+            // Atualiza contador de avaliações no card de stats (se existir)
+            const statVal = document.querySelector('.hero-stat-item:nth-child(2) .hero-stat-val');
+            if (statVal) {
+                statVal.textContent = parseInt(statVal.textContent) + 1;
+            }
+            
+            // Fecha modal após 2 segundos
+            setTimeout(() => {
+                fecharModalAvaliacao();
+            }, 2000);
+            
+        } else {
+            alert(data.message || 'Erro ao enviar avaliação.');
+            btnEnviar.disabled = false;
+            btnEnviar.innerHTML = 'Enviar avaliação';
+        }
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro de conexão. Tente novamente.');
+        btnEnviar.disabled = false;
+        btnEnviar.innerHTML = 'Enviar avaliação';
+    }
+}
+</script>

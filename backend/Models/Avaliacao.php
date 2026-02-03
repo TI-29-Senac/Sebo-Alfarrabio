@@ -212,4 +212,34 @@ class Avaliacao {
         $stmt->execute();
         return $stmt->fetchColumn();
     }
+
+    /**
+     * Verifica se um item já foi avaliado por um usuário específico
+     * @return bool true se já existe avaliação ativa
+     */
+    function verificarSeItemJaAvaliado($id_usuario, $id_item) {
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao 
+                WHERE id_usuario = :id_usuario 
+                AND id_item = :id_item 
+                AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    /**
+     * Retorna array com IDs de todos os itens já avaliados por um usuário
+     * Útil para verificar múltiplos itens de uma vez
+     */
+    function buscarItensAvaliadosPorUsuario($id_usuario) {
+        $sql = "SELECT id_item FROM tbl_avaliacao 
+                WHERE id_usuario = :id_usuario 
+                AND excluido_em IS NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);  // Retorna array simples [id1, id2, ...]
+    }
 }
