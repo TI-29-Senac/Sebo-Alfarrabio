@@ -39,24 +39,142 @@
     .profile-hero-card {
         background: white;
         border-radius: var(--radius-main);
-        padding: 40px;
+        padding: 50px;
         display: flex;
         align-items: center;
         gap: 40px;
         box-shadow: var(--shadow-soft);
         position: relative;
         overflow: hidden;
-        margin-top: 20px;
+        margin-top: 70px;
     }
 
-    .tree-overlay {
+    /* Container da animação no canto direito */
+    .tree-animation-container {
         position: absolute;
-        right: -30px;
-        bottom: -20px;
-        width: 420px;
-        opacity: 0.8;
+        right: 20px;
+        bottom: 15px;
+        width: 260px;
+        height: 260px;
         pointer-events: none;
         z-index: 0;
+    }
+
+    .reading-scene {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: gentleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    .tree-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+    }
+
+    .tree-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        opacity: 0.75;
+        animation: fadeInScale 1.2s ease-out;
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 0.75;
+            transform: scale(1);
+        }
+    }
+
+    .letters-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
+    .flying-letter {
+        position: absolute;
+        font-size: 18px;
+        font-weight: 700;
+        color: rgba(139, 115, 85, 0.2);
+        opacity: 0;
+        animation: letterFly 8s ease-in-out infinite;
+    }
+
+    .flying-letter:nth-child(1) { top: 8%; left: 5%; animation-delay: 0s; }
+    .flying-letter:nth-child(2) { top: 18%; right: 8%; animation-delay: 1s; }
+    .flying-letter:nth-child(3) { bottom: 22%; left: 12%; animation-delay: 2s; }
+    .flying-letter:nth-child(4) { bottom: 32%; right: 15%; animation-delay: 3s; }
+    .flying-letter:nth-child(5) { top: 45%; left: 2%; animation-delay: 4s; }
+    .flying-letter:nth-child(6) { top: 58%; right: 5%; animation-delay: 5s; }
+    .flying-letter:nth-child(7) { bottom: 40%; left: 10%; animation-delay: 6s; }
+    .flying-letter:nth-child(8) { top: 28%; right: 20%; animation-delay: 7s; }
+
+    @keyframes letterFly {
+        0%, 100% { opacity: 0; transform: translateY(0) rotate(0deg); }
+        10% { opacity: 0.4; }
+        50% { opacity: 0.6; transform: translateY(-25px) rotate(10deg); }
+        90% { opacity: 0.4; }
+    }
+
+    .magic-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 280px;
+        background: radial-gradient(ellipse at center, rgba(139, 115, 85, 0.04) 0%, rgba(139, 115, 85, 0.02) 30%, transparent 70%);
+        animation: pulseGlow 4s infinite;
+        pointer-events: none;
+    }
+
+    @keyframes pulseGlow {
+        0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.08); }
+    }
+
+    .sparkle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(201, 163, 106, 0.5);
+        border-radius: 50%;
+        animation: sparkleFloat 3s infinite;
+        box-shadow: 0 0 6px rgba(201, 163, 106, 0.3);
+    }
+
+    .sparkle:nth-child(1) { top: 12%; left: 8%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 22%; right: 12%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3) { bottom: 28%; left: 15%; animation-delay: 1s; }
+    .sparkle:nth-child(4) { bottom: 18%; right: 10%; animation-delay: 1.5s; }
+    .sparkle:nth-child(5) { top: 38%; left: 6%; animation-delay: 2s; }
+    .sparkle:nth-child(6) { top: 52%; right: 22%; animation-delay: 2.5s; }
+
+    @keyframes sparkleFloat {
+        0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+        50% { opacity: 1; transform: translateY(-12px) scale(1); }
     }
 
     .hero-avatar-wrapper {
@@ -387,6 +505,11 @@
             justify-content: space-around;
         }
 
+        .tree-animation-container {
+            width: 200px;
+            height: 180px;
+        }
+
         .order-body {
             flex-direction: column;
         }
@@ -395,12 +518,47 @@
             width: 100%;
         }
     }
+
+    @media (max-width: 768px) {
+        .tree-animation-container {
+            display: none;
+        }
+    }
 </style>
 
 <div class="profile-main-container">
 
     <!-- HEADER DO PERFIL -->
     <div class="profile-hero-card">
+        
+        <!-- Animação no canto direito -->
+        <div class="tree-animation-container">
+            <div class="magic-glow"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+
+            <div class="reading-scene">
+                <div class="tree-container">
+                    <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+                </div>
+            </div>
+
+            <div class="letters-container">
+                <div class="flying-letter">A</div>
+                <div class="flying-letter">L</div>
+                <div class="flying-letter">F</div>
+                <div class="flying-letter">A</div>
+                <div class="flying-letter">R</div>
+                <div class="flying-letter">R</div>
+                <div class="flying-letter">Á</div>
+                <div class="flying-letter">B</div>
+            </div>
+        </div>
+
         <div class="hero-avatar-wrapper">
             <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.png' ?>"
                 class="hero-avatar" alt="Perfil">
@@ -417,9 +575,9 @@
         <div class="hero-info">
             <h1 class="hero-name">
                 <?= htmlspecialchars($usuarioNome) ?>
-                <i class="fas fa-check-circle" style="color:var(--color-verify); font-size:22px;"></i>
+                <i class="fas fa-check-circle" style="color:#4CAF50; font-size:22px;"></i>
             </h1>
-            <p class="hero-bio">Amante de livros clássicos e histórias atemporais</p>
+            
 
             <div class="hero-stats-card">
                 <div class="hero-stat-item">
@@ -442,8 +600,6 @@
                 </div>
             </div>
         </div>
-
-        <img src="/img/banner2.png" alt="Árvore" class="tree-overlay">
     </div>
 
     <!-- SEÇÃO DE PEDIDOS REDESENHADA -->
