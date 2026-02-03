@@ -71,7 +71,7 @@ class DashboardControllerCliente extends AuthenticatedController
             if (!isset($pedido['itens'])) {
                 // Query manual pois buscarPedidosPorIDUsuario pode não ter sido atualizado com join
                 // Idealmente atualizar PedidosModel::buscarPedidosPorIDUsuario também
-                $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+                $sqlItens = "SELECT i.id_item, i.titulo_item, i.foto_item, pi.quantidade 
                              FROM tbl_pedido_itens pi 
                              JOIN tbl_itens i ON pi.item_id = i.id_item 
                              WHERE pi.pedido_id = :id";
@@ -82,11 +82,39 @@ class DashboardControllerCliente extends AuthenticatedController
             }
         }
 
+        // ====== CONTADORES DINÂMICOS ======
+        
+        // Total de pedidos do usuário
+        $total_pedidos = count($pedidos);
+        
+        // Total de avaliações do usuário
+        $total_avaliacoes = $this->avaliacaoModel->totalDeAvaliacaoPorUsuario($usuarioId);
+        
+        // Lista de IDs de itens já avaliados (para controlar botão de avaliar)
+        $itensAvaliados = $this->avaliacaoModel->buscarItensAvaliadosPorUsuario($usuarioId);
+        
+        // Total de favoritos do usuário (verifica se a tabela existe)
+        $total_favoritos = 0;
+        try {
+            $sqlFavoritos = "SELECT COUNT(*) FROM tbl_favoritos WHERE id_usuario = :id";
+            $stmtFavoritos = $this->db->prepare($sqlFavoritos);
+            $stmtFavoritos->bindValue(':id', $usuarioId);
+            $stmtFavoritos->execute();
+            $total_favoritos = (int) $stmtFavoritos->fetchColumn();
+        } catch (\PDOException $e) {
+            // Tabela não existe ou erro, mantém 0
+            $total_favoritos = 0;
+        }
+
         \Sebo\Alfarrabio\Core\View::render('admin/cliente/index', [
             'usuario' => $dadosView,
             'pedidos' => $pedidos,
             'usuarioNome' => $usuario['nome_usuario'],
-            'usuarioEmail' => $usuario['email_usuario']
+            'usuarioEmail' => $usuario['email_usuario'],
+            'total_pedidos' => $total_pedidos,
+            'total_avaliacoes' => $total_avaliacoes,
+            'total_favoritos' => $total_favoritos,
+            'itensAvaliados' => $itensAvaliados
         ]);
     }
 

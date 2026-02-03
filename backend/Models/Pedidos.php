@@ -126,7 +126,7 @@ class Pedidos
 
         foreach ($pedidos as &$pedido) {
             // Busca os itens deste pedido (Joined with Item details)
-            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade 
+            $sqlItens = "SELECT i.id_item, i.titulo_item, i.foto_item, pi.quantidade 
                          FROM tbl_pedido_itens pi 
                          JOIN tbl_itens i ON pi.item_id = i.id_item 
                          WHERE pi.pedido_id = :pedido_id";

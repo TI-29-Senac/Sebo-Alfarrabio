@@ -240,6 +240,9 @@ class Rotas
                 "/avaliacao/deletar" => "AvaliacaoController@deletarAvaliacao",
                 "/avaliacao/ativar" => "AvaliacaoController@ativarAvaliacao",
 
+                // API Cliente - Avaliações (AJAX)
+                "/api/cliente/avaliacao/salvar" => "AvaliacaoClienteController@salvarAvaliacao",
+
                 // ========================================
                 // ITENS (Livros do acervo)
                 // ========================================
