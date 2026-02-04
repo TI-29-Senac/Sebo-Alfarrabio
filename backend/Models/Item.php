@@ -22,20 +22,26 @@ class Item
     private function getSelectFields($prefix = 'i')
     {
         return "
+            {$prefix}.id_item,
             {$prefix}.id_item AS id,
             {$prefix}.titulo_item,
             {$prefix}.titulo_item AS titulo,
+            {$prefix}.tipo_item,
             {$prefix}.tipo_item AS tipo,
+            {$prefix}.preco_item,
             {$prefix}.preco_item AS preco,
-            {$prefix}.foto_item AS imagem,
             {$prefix}.foto_item,
+            {$prefix}.foto_item AS imagem,
             {$prefix}.id_genero,
             {$prefix}.id_categoria,
             {$prefix}.descricao,
             {$prefix}.ano_publicacao,
+            {$prefix}.editora_gravadora,
             {$prefix}.editora_gravadora AS editora,
             {$prefix}.estoque,
             {$prefix}.isbn,
+            {$prefix}.duracao_minutos,
+            {$prefix}.numero_edicao,
             {$prefix}.criado_em,
             {$prefix}.atualizado_em,
             {$prefix}.excluido_em
@@ -244,18 +250,7 @@ class Item
 
         $dataQuery = "
             SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                i.preco_item,
-                i.foto_item,
-                i.estoque,
-                i.isbn,
-                i.editora_gravadora,
-                i.ano_publicacao,
-                i.criado_em,
-                i.atualizado_em,
-                i.excluido_em,
+                $select,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a2.nome_autor SEPARATOR ', ') 
@@ -319,18 +314,7 @@ class Item
 
         $dataQuery = "
             SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                i.preco_item,
-                i.foto_item,
-                i.estoque,
-                i.isbn,
-                i.editora_gravadora,
-                i.ano_publicacao,
-                i.criado_em,
-                i.atualizado_em,
-                i.excluido_em,
+                $select,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 

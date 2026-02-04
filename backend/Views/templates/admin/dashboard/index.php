@@ -224,6 +224,7 @@
 
     .modern-table tbody tr:hover {
         background: var(--bege-light);
+        cursor: pointer;
     }
 
     .modern-table tbody td {
@@ -504,7 +505,7 @@
             <tbody>
                 <?php if (!empty($ultimosItens)): ?>
                     <?php foreach ($ultimosItens as $item): ?>
-                        <tr>
+                        <tr onclick="window.location.href='/backend/item/editar/<?= $item['id_item']; ?>'">
                             <td style="text-align: center;">
                                 <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item'] ?? ''); ?>"
                                     alt="Capa" class="table-img">

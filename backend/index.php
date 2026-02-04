@@ -1,6 +1,9 @@
 <?php
 namespace Sebo\Alfarrabio;
 ini_set('display_errors', 1);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ini_set('error_log', __DIR__ . '/php_error.log');
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 require_once __DIR__ . '/../vendor/autoload.php';

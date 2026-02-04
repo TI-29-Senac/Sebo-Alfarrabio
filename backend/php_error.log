@@ -2063,3 +2063,28 @@
 >>>>>>> 83b7cffc13ff66afc92489be4a7f587b8786a13e
 >>>>>>> 813c13ed5f36ce4833c69cc94b1e368932e575a3
 >>>>>>> 9016eea4e32200533c9ca024d2aa86c48d06077e
+[04-Feb-2026 17:16:30 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 899
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1024
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1026
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1027
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1028
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "editora_gravadora" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1123
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "duracao_minutos" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1152
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "numero_edicao" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1158
+[04-Feb-2026 17:29:00 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 17:30:12 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 17:30:16 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 17:30:16 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 17:30:24 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 17:30:24 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 18:08:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 18:08:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 899
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1024
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1026
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1027
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1028
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "editora_gravadora" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1123
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "duracao_minutos" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1152
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "numero_edicao" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1158
