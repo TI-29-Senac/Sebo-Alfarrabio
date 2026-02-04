@@ -80,7 +80,7 @@ function setupGuestUser() {
     if (!profileContainer) return;
 
     // Ícone padrão de visitante
-    profileBtn.innerHTML = `<i class="far fa-user" style="font-size: 24px;"></i> <span style="font-size: 14px; font-weight: bold; margin-left: 5px;">Entrar</span>`;
+    profileBtn.innerHTML = `<i class="far fa-user" style="font-size: 24px;"></i>`;
     profileBtn.style.display = 'flex';
     profileBtn.style.alignItems = 'center';
     profileBtn.style.background = 'none';
