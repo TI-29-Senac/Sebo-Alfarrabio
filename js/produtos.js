@@ -788,7 +788,16 @@ async function finalizarReserva() {
             headers: { 'Content-Type': 'application/json' }
         });
 
-        const data = await response.json();
+        const rawText = await response.text();
+        console.log('Raw response:', rawText);
+
+        let data;
+        try {
+            data = JSON.parse(rawText);
+        } catch (e) {
+            console.error('Erro ao processar JSON:', e);
+            throw new Error('Resposta do servidor inválida (Não é JSON)');
+        }
 
         if (data.success) {
             mostrarNotificacao('🎉 Reserva realizada com sucesso!', 'success');
@@ -806,8 +815,8 @@ async function finalizarReserva() {
             btn.innerHTML = originalText;
         }
     } catch (err) {
-        console.error('Erro ao finalizar reserva:', err);
-        mostrarNotificacao('❌ Erro de conexão com o servidor', 'error');
+        console.error('Erro detalhado ao finalizar reserva:', err);
+        mostrarNotificacao(`❌ ${err.message || 'Erro de conexão com o servidor'}`, 'error');
         btn.disabled = false;
         btn.innerHTML = originalText;
     }

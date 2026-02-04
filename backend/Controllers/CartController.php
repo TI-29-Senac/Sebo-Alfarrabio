@@ -5,17 +5,20 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Cart;
 use Sebo\Alfarrabio\Core\Session;
 use Sebo\Alfarrabio\Core\Redirect;
+use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Models\Pedidos;
 use Sebo\Alfarrabio\Database\Database;
 
 class CartController
 {
     private $pedidos;
+    private $itemModel;
     private $session;
 
     public function __construct()
     {
         $this->pedidos = new Pedidos(Database::getInstance());
+        $this->itemModel = new Item(Database::getInstance());
         $this->session = new Session();
     }
 
@@ -107,6 +110,25 @@ class CartController
             exit;
         }
 
+        // Validação de Estoque
+        $item = $this->itemModel->buscarItemPorID($id_item);
+        if (!$item) {
+            echo json_encode(['success' => false, 'message' => 'Item não encontrado']);
+            exit;
+        }
+
+        $estoqueDisponivel = (int) $item['estoque'];
+        $quantidadeNoCarrinho = Cart::getItemQuantity($id_item);
+        $totalDesejado = $quantidadeNoCarrinho + $quantidade;
+
+        if ($totalDesejado > $estoqueDisponivel) {
+            echo json_encode([
+                'success' => false,
+                'message' => "Desculpe, temos apenas {$estoqueDisponivel} unid. em estoque deste item."
+            ]);
+            exit;
+        }
+
         Cart::add($id_item, (int) $quantidade);
 
         echo json_encode([
@@ -129,6 +151,17 @@ class CartController
             $quantidade = (int) $_POST['quantidade'];
 
             if ($quantidade > 0) {
+                // Validação de estoque para atualização manual
+                $item = $this->itemModel->buscarItemPorID($_POST['id_item']);
+                if ($item && $quantidade > (int) $item['estoque']) {
+                    Redirect::redirecionarComMensagem(
+                        '/carrinho',
+                        'error',
+                        "Ops! Temos apenas {$item['estoque']} unid. em estoque deste item."
+                    );
+                    return;
+                }
+
                 Cart::update($_POST['id_item'], $quantidade);
                 Redirect::redirecionarComMensagem(
                     '/carrinho',
@@ -271,7 +304,7 @@ class CartController
      * Finalizar pedido via AJAX (JSON)
      * Usado pelo JavaScript da página de produtos
      */
-    private function finalizarAjax()
+    public function finalizarAjax()
     {
         header('Content-Type: application/json');
 
@@ -298,8 +331,8 @@ class CartController
                 ];
             }
 
-            // Cria o pedido usando o model Pedidos com status 'Reservado'
-            $idPedido = $this->pedidos->criarPedido($itensCarrinho, 'Reservado');
+            // Cria o pedido usando o model Pedidos com status 'Pendente'
+            $idPedido = $this->pedidos->criarPedido($itensCarrinho, 'Pendente');
 
             if ($idPedido) {
                 // Limpa o carrinho

@@ -301,6 +301,12 @@ use Sebo\Alfarrabio\Core\Session;
                     <i class="fa fa-users fa-fw"></i> Gerenciar Usuários
                 </a>
 
+                <!-- Ações Finais -->
+                <a href="/index.html" class="menu-item w3-bar-item w3-button w3-padding"
+                    style="background-color: #28a745 !important; color: white !important; border-radius: 8px; margin: 10px 15px;">
+                    <i class="fa fa-arrow-left fa-fw"></i> Continuar Navegando
+                </a>
+
                 <!-- Logout -->
                 <a href="/backend/logout" class="logout-btn w3-bar-item w3-button w3-padding">
                     <i class="fa fa-sign-out fa-fw"></i> Sair do Sistema
