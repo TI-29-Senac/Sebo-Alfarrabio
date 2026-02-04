@@ -3,14 +3,20 @@
  * Gerencia a exibição do header autenticado em todas as páginas
  */
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     console.log('Verificando autenticação...');
-    
+
+    // Globais para outros scripts usarem
+    window.isAuthenticated = false;
+    window.currentUser = null;
+
     try {
         const response = await fetch('/backend/api/check_session.php');
         const data = await response.json();
-        
+
         if (data.authenticated) {
+            window.isAuthenticated = true;
+            window.currentUser = data.user;
             setupAuthenticatedUser(data.user);
         } else {
             setupGuestUser();
@@ -18,12 +24,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     } catch (error) {
         console.error('Erro ao verificar sessão:', error);
         setupGuestUser();
+    } finally {
+        // Notificar outros scripts que o status de auth foi verificado
+        document.dispatchEvent(new CustomEvent('authChecked', {
+            detail: { authenticated: window.isAuthenticated, user: window.currentUser }
+        }));
     }
 });
 
 function setupAuthenticatedUser(user) {
     console.log('Usuário logado:', user.name);
-    
+
     const profileContainer = document.querySelector('.user-profile-header');
     const profileBtn = document.querySelector('.profile-btn-header');
     const profileDropdown = document.querySelector('.profile-dropdown-header');
@@ -40,10 +51,10 @@ function setupAuthenticatedUser(user) {
     }
 
     // 2. Definir link do Painel baseado na Role
-    const painelLink = user.role === 'Cliente' 
-        ? '/backend/admin/cliente' 
+    const painelLink = user.role === 'Cliente'
+        ? '/backend/admin/cliente'
         : '/backend/admin/dashboard';
-    
+
     // 3. Atualizar Dropdown
     profileDropdown.innerHTML = `
         <div style="padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 5px;">
@@ -92,7 +103,7 @@ function setupGuestUser() {
 
     // Ao clicar em Entrar, vai pro login direto (sem dropdown) ou abre dropdown simplificado
     // Solução: Botão leva direto pro login
-    profileBtn.onclick = function() {
+    profileBtn.onclick = function () {
         window.location.href = '/backend/login';
     };
 
@@ -103,13 +114,13 @@ function setupGuestUser() {
 }
 
 function setupDropdownBehavior(btn, dropdown) {
-    btn.onclick = function(e) {
+    btn.onclick = function (e) {
         e.stopPropagation();
         dropdown.classList.toggle('active');
     };
 
     // Fechar ao clicar fora
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.remove('active');
         }

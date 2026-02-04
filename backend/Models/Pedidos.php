@@ -36,7 +36,7 @@ class Pedidos
     }
 
     // CRIAR PEDIDO (Create)
-    public function criarPedido(array $itensCarrinho)
+    public function criarPedido(array $itensCarrinho, $status = 'Pendente')
     {
         $this->db->beginTransaction();
         try {
@@ -44,9 +44,11 @@ class Pedidos
 
             // Validar estoque antes de criar o pedido
             foreach ($itensCarrinho as $item) {
-                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id = :id";
+                // O banco usa id_item, não id
+                $id_item = $item['id_item'] ?? $item['id'];
+                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id_item = :id";
                 $stmtEstoque = $this->db->prepare($sqlEstoque);
-                $stmtEstoque->bindParam(':id', $item['id'], PDO::PARAM_INT);
+                $stmtEstoque->bindParam(':id', $id_item, PDO::PARAM_INT);
                 $stmtEstoque->execute();
                 $itemBanco = $stmtEstoque->fetch(PDO::FETCH_ASSOC);
 
@@ -65,10 +67,11 @@ class Pedidos
             $usuarioId = $_SESSION['usuario_id'];
 
             // Schema: id, usuario_id, total, data_pedido, status
-            $sqlPedido = "INSERT INTO tbl_pedidos (usuario_id, total, data_pedido, status) VALUES (:usuario_id, :total, NOW(), 'Pendente')";
+            $sqlPedido = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) VALUES (:usuario_id, :total, NOW(), :status)";
             $stmtPedido = $this->db->prepare($sqlPedido);
             $stmtPedido->bindParam(':usuario_id', $usuarioId, PDO::PARAM_INT);
             $stmtPedido->bindParam(':total', $valorTotalCalculado);
+            $stmtPedido->bindParam(':status', $status);
             $stmtPedido->execute();
 
             $idPedido = $this->db->lastInsertId();

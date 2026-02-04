@@ -83,6 +83,8 @@ class Rotas
 
                 "/api/item" => "PublicApiController@getItem",
                 "/api/buscaitem" => "PublicApiController@getItem",
+                "/api/categorias" => "PublicApiController@getCategorias",
+                "/api/generos" => "PublicApiController@getGeneros",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
                 "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
@@ -175,6 +177,7 @@ class Rotas
                 "/carrinho" => "CartController@index",
                 "/carrinho/adicionar/{id}" => "CartController@adicionar",
                 "/carrinho/remover/{id}" => "CartController@remover",
+                "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
                 '/api/avaliacoes' => 'PublicApiController@getAvaliacoes',
@@ -182,6 +185,8 @@ class Rotas
 
 
             "POST" => [
+                "/api/carrinho/adicionar" => "CartController@adicionarApi",
+                "/api/carrinho/remover" => "CartController@removerApi",
                 // ========================================
                 // AUTENTICAÇÃO (post)
                 // ========================================

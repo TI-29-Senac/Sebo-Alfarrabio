@@ -24,8 +24,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content {
@@ -46,6 +51,7 @@
     transform: translateY(50px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -214,14 +220,14 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #c8b896 0%, #a89968 100%);
+  background: linear-gradient(135deg, #ff8a8a 0%, #f47b7b 100%);
   color: white;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #a89968 0%, #8b7355 100%);
+  background: linear-gradient(135deg, #f47b7b 0%, #e66a6a 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(168, 153, 104, 0.3);
+  box-shadow: 0 6px 20px rgba(244, 123, 123, 0.3);
 }
 
 .btn-comprar {
@@ -310,8 +316,28 @@
   border-color: #c8b896;
 }
 
-.cart-items li > div {
+.cart-items li>div {
   flex: 1;
+}
+
+.btn-remove-cart {
+  background: #fff0f0;
+  color: #e63946;
+  border: 1px solid #ffcccc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.btn-remove-cart:hover {
+  background: #e63946;
+  color: white;
+  border-color: #e63946;
+  transform: scale(1.05);
 }
 
 .cart-items strong {
@@ -619,7 +645,7 @@
   position: relative;
   height: 360px;
   overflow: hidden;
-  
+
 }
 
 .card-imagem img {
@@ -650,8 +676,15 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .card-info {
@@ -805,6 +838,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -812,8 +846,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -832,16 +871,16 @@
     flex-direction: column;
     padding: 20px 10px;
   }
-  
+
   .sidebar-filtros {
     width: 100%;
     position: static;
   }
-  
+
   .container-p {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
-  
+
   .card-imagem {
     height: 300px;
   }
@@ -889,7 +928,7 @@
   .container-p {
     grid-template-columns: 1fr;
   }
-  
+
   .card-imagem {
     height: 350px;
   }

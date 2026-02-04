@@ -2088,6 +2088,7 @@
 [04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "editora_gravadora" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1123
 [04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "duracao_minutos" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1152
 [04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "numero_edicao" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1158
+<<<<<<< HEAD
 [04-Feb-2026 20:02:59 Europe/Berlin] PHP Warning:  require_once(C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
 [04-Feb-2026 20:02:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php:9
 Stack trace:
@@ -2104,3 +2105,9 @@ Stack trace:
 #0 {main}
   thrown in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
 [04-Feb-2026 20:28:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+[04-Feb-2026 18:45:06 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 18:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 19:13:09 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 19:16:18 UTC] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> a50c729472ab6e384abfbb2145e1a90dbce029f7

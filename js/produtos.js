@@ -52,8 +52,8 @@ async function carregarProdutos() {
             todosOsProdutos = json.data;
             produtosFiltrados = [...todosOsProdutos];
 
-            extrairGenerosECategorias();
-            popularSelects();
+            // Busca filtros reais do banco em vez de extrair dos produtos
+            await carregarFiltrosDoBanco();
 
             // Verifica se há filtros na URL
             aplicarFiltrosUrl();
@@ -71,6 +71,32 @@ async function carregarProdutos() {
     } catch (err) {
         console.error('❌ Erro:', err);
         mostrarErro(err.message);
+    }
+}
+
+async function carregarFiltrosDoBanco() {
+    console.log('📂 Buscando categorias e gêneros do banco...');
+    try {
+        // Buscar Categorias
+        const respCat = await fetch('/backend/index.php/api/categorias');
+        const jsonCat = await respCat.json();
+        if (jsonCat.status === 'success') {
+            categoriasDisponiveis = jsonCat.data.map(c => c.nome_categoria);
+        }
+
+        // Buscar Gêneros
+        const respGen = await fetch('/backend/index.php/api/generos');
+        const jsonGen = await respGen.json();
+        if (jsonGen.status === 'success') {
+            generosDisponiveis = jsonGen.data.map(g => g.nome_generos);
+        }
+
+        popularSelects();
+    } catch (err) {
+        console.error('❌ Erro ao carregar filtros:', err);
+        // Fallback: extrai do que tem se o banco falhar
+        extrairGenerosECategorias();
+        popularSelects();
     }
 }
 
@@ -596,44 +622,77 @@ function fecharModal() {
     }
 }
 
-function adicionarAoCarrinho(produto) {
-    const itemExistente = carrinho.find(item => item.id_item === produto.id_item);
+async function adicionarAoCarrinho(produto) {
+    // 1. Verificar se o usuário está logado
+    if (!window.isAuthenticated) {
+        mostrarNotificacao('⚠️ Ops! Para reservar você precisa estar logado.', 'warning');
 
-    if (itemExistente) {
-        if (itemExistente.quantidade < (produto.estoque || 10)) {
-            itemExistente.quantidade++;
-        } else {
-            mostrarNotificacao('⚠️ Quantidade máxima atingida!', 'warning');
-            return;
-        }
-    } else {
-        carrinho.push({
-            id_item: produto.id_item,
-            titulo_item: produto.titulo,
-            preco_item: parseFloat(produto.preco || 0),
-            caminho_imagem: produto.caminho_imagem,
-            quantidade: 1,
-            estoque: produto.estoque || 10
-        });
+        setTimeout(() => {
+            const currentPath = window.location.pathname + window.location.search;
+            window.location.href = `/backend/login?redirect=${encodeURIComponent(currentPath)}`;
+        }, 1500);
+        return;
     }
 
-    salvarCarrinho();
-    atualizarContadorCarrinho();
-    mostrarNotificacao('✓ Item adicionado às reservas!', 'success');
+    try {
+        const response = await fetch('/backend/index.php/api/carrinho/adicionar', {
+            method: 'POST',
+            body: JSON.stringify({ id_item: produto.id_item, quantidade: 1 }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await response.json();
+        if (data.success) {
+            mostrarNotificacao('✓ Item adicionado às reservas!', 'success');
+            await sincronizarCarrinhoComServidor();
+        } else {
+            mostrarNotificacao(`❌ ${data.message || 'Erro ao adicionar item.'}`, 'error');
+        }
+    } catch (err) {
+        console.error('Erro ao adicionar item:', err);
+        mostrarNotificacao('❌ Erro de conexão com o servidor', 'error');
+    }
+}
+
+async function sincronizarCarrinhoComServidor() {
+    if (!window.isAuthenticated) return;
+    try {
+        const response = await fetch('/backend/index.php/api/carrinho');
+        const data = await response.json();
+        if (data.success) {
+            // No banco os campos podem ser um pouco diferentes, mapeamos para compatibilidade
+            carrinho = data.itens.map(item => ({
+                id_item: item.id_item,
+                titulo_item: item.titulo,
+                preco_item: item.preco,
+                caminho_imagem: item.imagem,
+                quantidade: item.quantidade
+            }));
+            atualizarContadorCarrinho();
+            if (document.getElementById('modal-carrinho')?.classList.contains('show')) {
+                renderizarCarrinho();
+            }
+        }
+    } catch (err) {
+        console.error('Erro ao sincronizar carrinho:', err);
+    }
 }
 
 function salvarCarrinho() {
     localStorage.setItem(localStorageKey, JSON.stringify(carrinho));
 }
 
-function carregarCarrinho() {
-    const salvo = localStorage.getItem(localStorageKey);
-    if (salvo) {
-        try {
-            carrinho = JSON.parse(salvo);
-            atualizarContadorCarrinho();
-        } catch (e) {
-            carrinho = [];
+async function carregarCarrinho() {
+    if (window.isAuthenticated) {
+        await sincronizarCarrinhoComServidor();
+    } else {
+        const salvo = localStorage.getItem(localStorageKey);
+        if (salvo) {
+            try {
+                carrinho = JSON.parse(salvo);
+                atualizarContadorCarrinho();
+            } catch (e) {
+                carrinho = [];
+            }
         }
     }
 }
@@ -643,12 +702,30 @@ function atualizarContadorCarrinho() {
     if (cartCountEl) cartCountEl.textContent = total;
 }
 
-function removerDoCarrinho(id_item) {
-    carrinho = carrinho.filter(item => item.id_item !== id_item);
-    salvarCarrinho();
-    atualizarContadorCarrinho();
-    renderizarCarrinho();
-    mostrarNotificacao('🗑️ Item removido das reservas', 'info');
+async function removerDoCarrinho(id_item) {
+    if (window.isAuthenticated) {
+        try {
+            const response = await fetch('/backend/index.php/api/carrinho/remover', {
+                method: 'POST',
+                body: JSON.stringify({ id_item }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await response.json();
+            if (data.success) {
+                mostrarNotificacao('🗑️ Item removido das reservas', 'info');
+                await sincronizarCarrinhoComServidor();
+            }
+        } catch (err) {
+            console.error('Erro ao remover item:', err);
+            mostrarNotificacao('❌ Erro ao remover item', 'error');
+        }
+    } else {
+        carrinho = carrinho.filter(item => item.id_item !== id_item);
+        salvarCarrinho();
+        atualizarContadorCarrinho();
+        renderizarCarrinho();
+        mostrarNotificacao('🗑️ Item removido das reservas', 'info');
+    }
 }
 
 function renderizarCarrinho() {
@@ -656,7 +733,7 @@ function renderizarCarrinho() {
 
     const carrinhoVazio = document.getElementById('carrinho-vazio');
 
-    if (carrinho.length === 0) {
+    if (!carrinho || carrinho.length === 0) {
         cartItemsEl.style.display = 'none';
         if (carrinhoVazio) carrinhoVazio.style.display = 'block';
         if (cartTotalEl) cartTotalEl.textContent = 'R$ 0,00';
@@ -670,14 +747,15 @@ function renderizarCarrinho() {
     let total = 0;
 
     carrinho.forEach(item => {
-        const preco = parseFloat(item.preco_item || 0);
+        // Usa preco_item ou preco, garantindo que seja um número válido
+        const preco = parseFloat(item.preco_item || item.preco || 0);
         const subtotal = preco * (item.quantidade || 1);
         total += subtotal;
 
         const li = document.createElement('li');
         li.innerHTML = `
             <div>
-                <strong>${item.titulo_item}</strong>
+                <strong>${item.titulo_item || item.titulo}</strong>
                 <small>Qtd: ${item.quantidade} x R$ ${preco.toFixed(2).replace('.', ',')} = R$ ${subtotal.toFixed(2).replace('.', ',')}</small>
             </div>
             <button class="btn-remove-cart" onclick="removerDoCarrinho(${item.id_item})">Remover</button>
@@ -687,6 +765,51 @@ function renderizarCarrinho() {
 
     if (cartTotalEl) {
         cartTotalEl.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+}
+
+async function finalizarReserva() {
+    if (!carrinho || carrinho.length === 0) {
+        mostrarNotificacao('⚠️ Seu carrinho está vazio!', 'warning');
+        return;
+    }
+
+    const btn = document.getElementById('btn-finalizar-pedido');
+    if (!btn) return;
+
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Confirmando...';
+
+    try {
+        const response = await fetch('/backend/index.php/api/carrinho/finalizar', {
+            method: 'POST',
+            body: JSON.stringify({ itens: carrinho }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            mostrarNotificacao('🎉 Reserva realizada com sucesso!', 'success');
+            carrinho = [];
+            atualizarContadorCarrinho();
+            renderizarCarrinho();
+
+            setTimeout(() => {
+                fecharModalCarrinho();
+                window.location.href = '/backend/admin/cliente';
+            }, 1500);
+        } else {
+            mostrarNotificacao(`❌ ${data.message || 'Erro ao processar reserva'}`, 'error');
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    } catch (err) {
+        console.error('Erro ao finalizar reserva:', err);
+        mostrarNotificacao('❌ Erro de conexão com o servidor', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
     }
 }
 
@@ -773,6 +896,9 @@ if (btnVerCarrinho) btnVerCarrinho.addEventListener('click', abrirModalCarrinho)
 const btnContinuar = document.getElementById('btn-continuar-comprando');
 if (btnContinuar) btnContinuar.addEventListener('click', fecharModalCarrinho);
 
+const btnFinalizar = document.getElementById('btn-finalizar-pedido');
+if (btnFinalizar) btnFinalizar.addEventListener('click', finalizarReserva);
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         fecharModal();
@@ -810,6 +936,14 @@ document.head.appendChild(style);
 // ========================================
 
 carregarCarrinho();
+
+// Escutar evento de autenticação para sincronizar o carrinho
+document.addEventListener('authChecked', (e) => {
+    if (e.detail.authenticated) {
+        carregarCarrinho();
+    }
+});
+
 carregarProdutos();
 configurarBuscaTempoReal();
 
