@@ -191,7 +191,8 @@ nav ul li a.active {
   transform: rotate(45deg);
 }
 
-.user-profile-header:hover .profile-dropdown-header {
+.user-profile-header:hover .profile-dropdown-header,
+.profile-dropdown-header.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
