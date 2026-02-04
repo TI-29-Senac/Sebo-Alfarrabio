@@ -2115,3 +2115,7 @@ Stack trace:
 [04-Feb-2026 20:55:25 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 21:02:04 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 21:08:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 21:37:24 Europe/Berlin] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
+[04-Feb-2026 21:39:29 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
+[04-Feb-2026 21:39:36 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
+[04-Feb-2026 21:40:02 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
