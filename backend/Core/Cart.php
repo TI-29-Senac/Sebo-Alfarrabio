@@ -169,4 +169,14 @@ class Cart
         }
         return $count;
     }
+    public static function getItemQuantity($id_item)
+    {
+        $itens = self::get();
+        foreach ($itens as $item) {
+            if ($item['id_item'] == $id_item) {
+                return (int) ($item['quantidade'] ?? 0);
+            }
+        }
+        return 0;
+    }
 }

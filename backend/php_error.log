@@ -2110,12 +2110,47 @@ Stack trace:
 [04-Feb-2026 18:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 19:13:09 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
 [04-Feb-2026 19:16:18 UTC] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
+[04-Feb-2026 19:54:25 UTC] Erro ao criar pedido: Item indisponível ou estoque insuficiente.
+[04-Feb-2026 19:54:29 UTC] Erro ao criar pedido: Item indisponível ou estoque insuficiente.
+[04-Feb-2026 19:58:46 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Undefined array key 0 in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 78
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Undefined array key 0 in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 78
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+=======
 >>>>>>> a50c729472ab6e384abfbb2145e1a90dbce029f7
 [04-Feb-2026 20:54:03 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 20:55:25 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 21:02:04 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 21:08:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [04-Feb-2026 21:37:24 Europe/Berlin] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
 [04-Feb-2026 21:39:29 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
 [04-Feb-2026 21:39:36 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
 [04-Feb-2026 21:40:02 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+=======
+>>>>>>> 60cb14c2190ac2d915e11ef1aba5b3b2f9c26b7c
+>>>>>>> 2b1934e72b0f0afbf68f39623be6e4fcae36ce1d

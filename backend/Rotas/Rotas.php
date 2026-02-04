@@ -187,6 +187,7 @@ class Rotas
             "POST" => [
                 "/api/carrinho/adicionar" => "CartController@adicionarApi",
                 "/api/carrinho/remover" => "CartController@removerApi",
+                "/api/carrinho/finalizar" => "CartController@finalizarAjax",
                 // ========================================
                 // AUTENTICAÇÃO (post)
                 // ========================================

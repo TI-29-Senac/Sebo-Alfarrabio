@@ -296,6 +296,11 @@
             background: #ffcdd2;
             color: #c62828;
         }
+
+        .status-reservado {
+            background: #ffecb3;
+            color: #ffa000;
+        }
     </style>
 </head>
 
@@ -379,6 +384,9 @@
                         </option>
                         <option value="Cancelado" <?= $pedidos['status'] == 'Cancelado' ? 'selected' : '' ?>>
                             ❌ Cancelado
+                        </option>
+                        <option value="Reservado" <?= $pedidos['status'] == 'Reservado' ? 'selected' : '' ?>>
+                            📌 Reservado
                         </option>
                     </select>
                     <span class="status-preview status-<?= strtolower($pedidos['status']) ?>" id="statusPreview">

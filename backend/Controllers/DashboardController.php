@@ -41,10 +41,15 @@ class DashboardController extends AdminController
 
             $stmtFaturamento = $this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $faturamentoMes = (float) $stmtFaturamento->fetchColumn();
+
+            // Contagem de pedidos pendentes para notificação
+            $stmtPendentes = $this->db->query("SELECT COUNT(*) FROM tbl_pedidos WHERE status = 'Pendente'");
+            $totalPendentes = (int) $stmtPendentes->fetchColumn();
         } catch (\Throwable $e) {
             // Se não houver tabela de vendas, definimos 0 para não quebrar a página
             $vendasMes = 0;
             $faturamentoMes = 0.0;
+            $totalPendentes = 0;
         }
 
         // Últimos itens cadastrados (5)
@@ -132,7 +137,8 @@ class DashboardController extends AdminController
             'vendas_chart_labels' => $vendas_chart_labels,
             'vendas_chart_data' => $vendas_chart_data,
             'pedidos_chart_labels' => $pedidos_chart_labels,
-            'pedidos_chart_data' => $pedidos_chart_data
+            'pedidos_chart_data' => $pedidos_chart_data,
+            'totalPendentes' => $totalPendentes
         ]);
     }
 
