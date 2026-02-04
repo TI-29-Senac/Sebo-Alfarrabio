@@ -151,6 +151,9 @@
                 
                 <div class="w3-container w3-center footer-box">
                     <p style="margin: 5px 0;">
+                        <a href="/index.html" style="color: #6e5a4a;"><i class="fa fa-home"></i> Continuar sem entrar</a>
+                    </p>
+                    <p style="margin: 5px 0;">
                         <a href="/backend/register">Não tem conta? Crie aqui.</a>
                     </p>
                     <p style="margin: 5px 0; font-size: 12px;">
@@ -160,5 +163,19 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    alert.style.transition = 'opacity 1s ease-out';
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.remove();
+                    }, 1000);
+                });
+            }, 4000); // Mensagem visível por 4 segundos
+        });
+    </script>
 </body>
 </html>

@@ -39,7 +39,7 @@ class AuthController
     public function logout(): void
     {
         $this->session->destroy();
-        Redirect::redirecionarComMensagem('/backend/login', 'success', 'Você saiu com segurança');
+        Redirect::redirecionarComMensagem('/backend/login', 'success', 'Você saiu da sua conta! Volte sempre');
     }
 
     public function authenticar(): void
@@ -59,10 +59,12 @@ class AuthController
 
             if ($usuario['tipo_usuario'] === 'Cliente') {
                 Redirect::redirecionarPara('/backend/admin/cliente');
-            } else {
+            }
+            else {
                 Redirect::redirecionarPara('/backend/admin/dashboard');
             }
-        } else {
+        }
+        else {
             Redirect::redirecionarComMensagem('/backend/login', 'error', 'Email ou senha incorretos');
         }
     }
@@ -91,10 +93,10 @@ class AuthController
         if ($novoUsuarioId) {
             $this->notificacaoEmail->boasVindas($email, $nome);
             Redirect::redirecionarComMensagem('/backend/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
-        } else {
+        }
+        else {
             Redirect::redirecionarComMensagem('/backend/register', 'error', 'Erro no servidor. Tente novamente.');
         }
     }
 
 }
-

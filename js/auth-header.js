@@ -66,7 +66,7 @@ function setupAuthenticatedUser(user) {
         ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/avaliacoes"><i class="fas fa-star"></i> Minhas Avaliações</a>` : ''}
         <a href="/backend/admin/cliente/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
         <hr>
-        <a href="/backend/logout.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
     `;
 
     // 4. Mostrar o dropdownContainer (caso estivesse oculto)
