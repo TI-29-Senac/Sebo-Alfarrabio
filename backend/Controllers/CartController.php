@@ -68,6 +68,56 @@ class CartController
     }
 
     /**
+     * API: Buscar itens do carrinho
+     * GET /api/carrinho
+     */
+    public function getCartApi()
+    {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'itens' => Cart::get(),
+            'total' => Cart::total(),
+            'count' => Cart::count()
+        ]);
+        exit;
+    }
+
+    /**
+     * API: Adicionar item ao carrinho
+     * POST /api/carrinho/adicionar
+     */
+    public function adicionarApi()
+    {
+        header('Content-Type: application/json');
+
+        $json = file_get_contents('php://input');
+        $dados = json_decode($json, true);
+        $id_item = $dados['id_item'] ?? null;
+        $quantidade = $dados['quantidade'] ?? 1;
+
+        if (!$id_item) {
+            echo json_encode(['success' => false, 'message' => 'Item não informado']);
+            exit;
+        }
+
+        if (!$this->session->has('usuario_id')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Autenticação necessária']);
+            exit;
+        }
+
+        Cart::add($id_item, (int) $quantidade);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Item adicionado!',
+            'count' => Cart::count()
+        ]);
+        exit;
+    }
+
+    /**
      * Atualizar quantidade de item
      * Rota: POST /carrinho/atualizar
      */
@@ -118,6 +168,39 @@ class CartController
             'info',
             '🗑️ Item removido das reservas'
         );
+    }
+
+    /**
+     * API: Remover item do carrinho
+     * POST /api/carrinho/remover
+     */
+    public function removerApi()
+    {
+        header('Content-Type: application/json');
+
+        $json = file_get_contents('php://input');
+        $dados = json_decode($json, true);
+        $id_item = $dados['id_item'] ?? null;
+
+        if (!$id_item) {
+            echo json_encode(['success' => false, 'message' => 'Item não informado']);
+            exit;
+        }
+
+        if (!$this->session->has('usuario_id')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Autenticação necessária']);
+            exit;
+        }
+
+        Cart::remove($id_item);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Item removido!',
+            'count' => Cart::count()
+        ]);
+        exit;
     }
 
     /**
@@ -215,8 +298,8 @@ class CartController
                 ];
             }
 
-            // Cria o pedido usando o model Pedidos
-            $idPedido = $this->pedidos->criarPedido($itensCarrinho);
+            // Cria o pedido usando o model Pedidos com status 'Reservado'
+            $idPedido = $this->pedidos->criarPedido($itensCarrinho, 'Reservado');
 
             if ($idPedido) {
                 // Limpa o carrinho

@@ -54,6 +54,9 @@ class AuthController
             $this->session->set('usuario_tipo', $usuario['tipo_usuario']);
             $this->session->set('usuario_email', $usuario['email_usuario']);
 
+            // Sincroniza o carrinho da sessão com o banco de dados
+            \Sebo\Alfarrabio\Core\Cart::sync($usuario['id_usuario']);
+
             if ($usuario['tipo_usuario'] === 'Cliente') {
                 Redirect::redirecionarPara('/backend/admin/cliente');
             } else {
@@ -83,8 +86,8 @@ class AuthController
         if (!empty($this->usuarioModel->buscarUsuariosPorEmail($email))) {
             Redirect::redirecionarComMensagem('/backend/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
         }
-    
-        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente', 'Ativo', 'null');
+
+        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente');
         if ($novoUsuarioId) {
             $this->notificacaoEmail->boasVindas($email, $nome);
             Redirect::redirecionarComMensagem('/backend/login', 'success', 'Cadastro realizado! Por favor, faça o login.');

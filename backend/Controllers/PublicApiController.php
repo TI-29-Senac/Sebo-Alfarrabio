@@ -11,12 +11,16 @@ class PublicApiController
     private $db;
     private $item;
     private $avaliacao;
+    private $categoriaModel;
+    private $generoModel;
 
     public function __construct()
     {
         $this->db = Database::getInstance();
-        $this->item = new Item($this->db);
-        $this->avaliacao = new Avaliacao($this->db);
+        $this->item = new \Sebo\Alfarrabio\Models\Item($this->db);
+        $this->avaliacao = new \Sebo\Alfarrabio\Models\Avaliacao($this->db);
+        $this->categoriaModel = new \Sebo\Alfarrabio\Models\Categoria($this->db);
+        $this->generoModel = new \Sebo\Alfarrabio\Models\Genero($this->db);
     }
 
     /**
@@ -66,6 +70,48 @@ class PublicApiController
                 'status' => 'error',
                 'message' => 'Erro ao buscar dados: ' . $e->getMessage()
             ]);
+        }
+    }
+
+    /**
+     * Endpoint público para buscar categorias
+     * GET /api/categorias
+     */
+    public function getCategorias()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        try {
+            $categorias = $this->categoriaModel->buscarCategorias();
+            echo json_encode([
+                'status' => 'success',
+                'data' => $categorias
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint público para buscar gêneros
+     * GET /api/generos
+     */
+    public function getGeneros()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        try {
+            $generos = $this->generoModel->buscarGeneros();
+            echo json_encode([
+                'status' => 'success',
+                'data' => $generos
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
 
