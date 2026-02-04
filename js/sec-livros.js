@@ -7,7 +7,7 @@
 // CONFIGURAÇÃO DA API
 // ========================================
 const API_CONFIG = {
-  baseUrl: '/backend/api',
+  baseUrl: '/backend/index.php/api',
   itemsLimit: 8 // Limite máximo de produtos
 };
 

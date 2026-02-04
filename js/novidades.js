@@ -1,12 +1,12 @@
 // novidades.js - Carrega os últimos livros cadastrados
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     carregarNovidades();
 });
 
 async function carregarNovidades() {
     const container = document.querySelector('.card-livros');
-    
+
     // Mostra loading
     container.innerHTML = `
         <div style="width: 100%; text-align: center; padding: 40px; color: #a87e4b;">
@@ -16,7 +16,7 @@ async function carregarNovidades() {
     `;
 
     try {
-        const response = await fetch('/api/item');
+        const response = await fetch('/backend/index.php/api/item');
         const data = await response.json();
 
         if (data.status === 'success' && data.data) {
@@ -47,12 +47,12 @@ async function carregarNovidades() {
 
 function criarCardLivro(livro) {
     // Extrai apenas o primeiro nome do autor se houver vários
-    const primeiroAutor = livro.autores 
-        ? livro.autores.split(',')[0].trim() 
+    const primeiroAutor = livro.autores
+        ? livro.autores.split(',')[0].trim()
         : 'Autor Desconhecido';
-    
+
     // Formata o título (limita a 50 caracteres)
-    const tituloFormatado = livro.titulo_item.length > 50 
+    const tituloFormatado = livro.titulo_item.length > 50
         ? livro.titulo_item.substring(0, 47) + '...'
         : livro.titulo_item;
 

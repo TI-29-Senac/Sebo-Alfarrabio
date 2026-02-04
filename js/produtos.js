@@ -40,7 +40,7 @@ async function carregarProdutos() {
     mostrarLoading();
 
     try {
-        const response = await fetch('/backend/api/item');
+        const response = await fetch('/backend/index.php/api/item');
         console.log('Status:', response.status);
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);

@@ -44,6 +44,10 @@ use Sebo\Alfarrabio\Controllers\Api\APIItemController;
 $router = new Router();
 // Define o base path dinamicamente
 $basePath = dirname($_SERVER['SCRIPT_NAME']);
+// Ajuste para quando o servidor não suporta rewrite (php -S) e acessamos via index.php
+if (strpos($_SERVER['REQUEST_URI'], $basePath . '/index.php') === 0) {
+    $basePath .= '/index.php';
+}
 $router->setBasePath($basePath);
 
 
