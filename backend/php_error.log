@@ -2042,8 +2042,20 @@
 =======
 [03-Feb-2026 13:45:17 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:19:23 Europe/Berlin] ✅ Avaliação #1 inserida (item #1, user #3)
+<<<<<<< HEAD
+[03-Feb-2026 15:29:33 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 15:32:31 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 15:49:12 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
 >>>>>>> f0cf88373582528cb6f1885d7a6e956ff611938b
+<<<<<<< HEAD
+>>>>>>> 392f99720e8e39bb7e5f0d8f05c871bd86eb6caf
+=======
 [03-Feb-2026 15:33:01 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:37:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:38:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [04-Feb-2026 12:27:16 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+>>>>>>> 83b7cffc13ff66afc92489be4a7f587b8786a13e
+>>>>>>> 813c13ed5f36ce4833c69cc94b1e368932e575a3
