@@ -2,7 +2,7 @@
    ESTILOS DO BANNER
    ======================================== */
 .banner-img {
-  height: 500px;
+  height: 80vh;
   width: 600px;
   display: flex;
   text-align: center;

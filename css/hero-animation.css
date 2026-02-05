@@ -6,7 +6,7 @@
   position: relative;
   width: 100%;
   min-height: 500px;
-  height: 500px;
+  height: 80vh;
   overflow: hidden;
   background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
   box-shadow: #6941004f 10px 4px 10px 4px;
