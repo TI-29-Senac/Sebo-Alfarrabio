@@ -1,73 +1,77 @@
 /* ========================================
-   CARROSSEL DE LIVROS MODERNO - JAVASCRIPT
-   O Alfarrábio - Seção Livros (Máximo 8 produtos)
+   CARROSSEL DE LIVROS CONTÍNUO (ROLLING)
+   O Alfarrábio - Seção Livros
    ======================================== */
 
-// ========================================
-// CONFIGURAÇÃO DA API
-// ========================================
 const API_CONFIG = {
   baseUrl: '/backend/index.php/api',
-  itemsLimit: 8 // Limite máximo de produtos
+  itemsLimit: 10 // Limite de 10 itens conforme solicitado
 };
 
-// Elementos DOM
-const carouselTrack = document.getElementById('carouselTrack');
-const prevBtn = document.querySelector('.nav-btn.prev');
-const nextBtn = document.querySelector('.nav-btn.next');
+/**
+ * Inicializa ao carregar a página
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 Inicializando carrossel contínuo...');
+  carregarProdutos();
+});
 
-// ========================================
-// CARREGAR PRODUTOS DO BANCO
-// ========================================
+/**
+ * Busca produtos do banco
+ */
 async function carregarProdutos() {
   try {
-    console.log('📦 Carregando produtos...');
-
     const response = await fetch(`${API_CONFIG.baseUrl}/item?por_pagina=${API_CONFIG.itemsLimit}`);
-
-    if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
 
     const json = await response.json();
 
     if (json.status === 'success' && json.data && json.data.length > 0) {
-      // Garante que mostra apenas 8 produtos
-      const produtos = json.data.slice(0, 8);
-      console.log('✅ Produtos carregados:', produtos.length);
-      renderizarCards(produtos);
-      inicializarNavegacao();
+      // Força limite de 10 itens no frontend
+      const itensLimitados = json.data.slice(0, 10);
+      renderizarCarrosselContinuo(itensLimitados);
     } else {
-      mostrarMensagemVazia();
+      document.getElementById('carouselTrack').innerHTML = '<div class="empty-message"><h3>Nenhum livro disponível</h3></div>';
     }
-
   } catch (error) {
     console.error('❌ Erro ao carregar produtos:', error);
-    mostrarErro();
   }
 }
 
-// ========================================
-// RENDERIZAR CARDS
-// ========================================
-function renderizarCards(produtos) {
-  carouselTrack.innerHTML = '';
+/**
+ * Renderiza os cards e duplica-os para criar o efeito de "esteira" infinita
+ */
+function renderizarCarrosselContinuo(produtos) {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
 
-  produtos.forEach((produto, index) => {
-    const card = criarCard(produto, index);
-    carouselTrack.appendChild(card);
-  });
+  track.innerHTML = '';
+
+  // Criamos o conjunto original de cards
+  const fragmentoOriginal = document.createDocumentFragment();
+  produtos.forEach(p => fragmentoOriginal.appendChild(criarCard(p)));
+
+  // Para o efeito de rolagem contínua sem saltos (CSS animation translate -50%), 
+  // precisamos de EXATAMENTE duas cópias idênticas lado a lado.
+  const copia1 = fragmentoOriginal.cloneNode(true);
+  const copia2 = fragmentoOriginal.cloneNode(true);
+
+  track.appendChild(copia1);
+  track.appendChild(copia2);
+
+  console.log(`✅ Carrossel renderizado com ${produtos.length * 2} cards (duplicado para loop).`);
 }
 
-function criarCard(produto, index) {
+/**
+ * Cria o elemento HTML do card (mantendo a padronização de tamanho)
+ */
+function criarCard(produto) {
   const preco = parseFloat(produto.preco || 0);
   const precoFormatado = preco.toFixed(2).replace('.', ',');
 
   const card = document.createElement('div');
   card.className = 'book-card-modern';
-  card.style.animation = `fadeInUp 0.6s ease ${index * 0.1}s both`;
 
-  // Badge opcional (se houver campo de destaque)
   const badge = produto.destaque ? '<div class="book-badge">Destaque</div>' : '';
 
   card.innerHTML = `
@@ -86,80 +90,9 @@ function criarCard(produto, index) {
       </div>
     </div>
   `;
-
   return card;
 }
 
-// ========================================
-// NAVEGAÇÃO DO CARROSSEL
-// ========================================
-function inicializarNavegacao() {
-  const scrollAmount = 310; // 280px (card) + 30px (gap)
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      carouselTrack.scrollBy({
-        left: -scrollAmount,
-        behavior: 'smooth'
-      });
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      carouselTrack.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    });
-  }
-
-  // Navegação por teclado
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' && prevBtn) {
-      prevBtn.click();
-    } else if (e.key === 'ArrowRight' && nextBtn) {
-      nextBtn.click();
-    }
-  });
-}
-
-// ========================================
-// MENSAGENS DE ESTADO
-// ========================================
-function mostrarMensagemVazia() {
-  carouselTrack.innerHTML = `
-    <div class="empty-message">
-      <div class="empty-message-icon">📚</div>
-      <h3>Nenhum livro disponível</h3>
-      <p>Em breve teremos novidades incríveis!</p>
-    </div>
-  `;
-}
-
-function mostrarErro() {
-  carouselTrack.innerHTML = `
-    <div class="empty-message">
-      <div class="empty-message-icon">⚠️</div>
-      <h3>Erro ao carregar livros</h3>
-      <p>Por favor, tente novamente mais tarde</p>
-    </div>
-  `;
-}
-
-// ========================================
-// FUNÇÃO PARA VER DETALHES
-// ========================================
 function verDetalhes(idItem) {
   window.location.href = `produtos.html?id=${idItem}`;
 }
-
-// ========================================
-// INICIALIZAÇÃO
-// ========================================
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando seção de livros...');
-  carregarProdutos();
-});
-
-console.log('✅ Script carregado - Máximo 8 produtos com scroll!');
