@@ -5,17 +5,20 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Cart;
 use Sebo\Alfarrabio\Core\Session;
 use Sebo\Alfarrabio\Core\Redirect;
+use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Models\Pedidos;
 use Sebo\Alfarrabio\Database\Database;
 
 class CartController
 {
     private $pedidos;
+    private $itemModel;
     private $session;
 
     public function __construct()
     {
         $this->pedidos = new Pedidos(Database::getInstance());
+        $this->itemModel = new Item(Database::getInstance());
         $this->session = new Session();
     }
 
@@ -68,6 +71,75 @@ class CartController
     }
 
     /**
+     * API: Buscar itens do carrinho
+     * GET /api/carrinho
+     */
+    public function getCartApi()
+    {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'itens' => Cart::get(),
+            'total' => Cart::total(),
+            'count' => Cart::count()
+        ]);
+        exit;
+    }
+
+    /**
+     * API: Adicionar item ao carrinho
+     * POST /api/carrinho/adicionar
+     */
+    public function adicionarApi()
+    {
+        header('Content-Type: application/json');
+
+        $json = file_get_contents('php://input');
+        $dados = json_decode($json, true);
+        $id_item = $dados['id_item'] ?? null;
+        $quantidade = $dados['quantidade'] ?? 1;
+
+        if (!$id_item) {
+            echo json_encode(['success' => false, 'message' => 'Item não informado']);
+            exit;
+        }
+
+        if (!$this->session->has('usuario_id')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Autenticação necessária']);
+            exit;
+        }
+
+        // Validação de Estoque
+        $item = $this->itemModel->buscarItemPorID($id_item);
+        if (!$item) {
+            echo json_encode(['success' => false, 'message' => 'Item não encontrado']);
+            exit;
+        }
+
+        $estoqueDisponivel = (int) $item['estoque'];
+        $quantidadeNoCarrinho = Cart::getItemQuantity($id_item);
+        $totalDesejado = $quantidadeNoCarrinho + $quantidade;
+
+        if ($totalDesejado > $estoqueDisponivel) {
+            echo json_encode([
+                'success' => false,
+                'message' => "Desculpe, temos apenas {$estoqueDisponivel} unid. em estoque deste item."
+            ]);
+            exit;
+        }
+
+        Cart::add($id_item, (int) $quantidade);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Item adicionado!',
+            'count' => Cart::count()
+        ]);
+        exit;
+    }
+
+    /**
      * Atualizar quantidade de item
      * Rota: POST /carrinho/atualizar
      */
@@ -79,6 +151,17 @@ class CartController
             $quantidade = (int) $_POST['quantidade'];
 
             if ($quantidade > 0) {
+                // Validação de estoque para atualização manual
+                $item = $this->itemModel->buscarItemPorID($_POST['id_item']);
+                if ($item && $quantidade > (int) $item['estoque']) {
+                    Redirect::redirecionarComMensagem(
+                        '/carrinho',
+                        'error',
+                        "Ops! Temos apenas {$item['estoque']} unid. em estoque deste item."
+                    );
+                    return;
+                }
+
                 Cart::update($_POST['id_item'], $quantidade);
                 Redirect::redirecionarComMensagem(
                     '/carrinho',
@@ -118,6 +201,39 @@ class CartController
             'info',
             '🗑️ Item removido das reservas'
         );
+    }
+
+    /**
+     * API: Remover item do carrinho
+     * POST /api/carrinho/remover
+     */
+    public function removerApi()
+    {
+        header('Content-Type: application/json');
+
+        $json = file_get_contents('php://input');
+        $dados = json_decode($json, true);
+        $id_item = $dados['id_item'] ?? null;
+
+        if (!$id_item) {
+            echo json_encode(['success' => false, 'message' => 'Item não informado']);
+            exit;
+        }
+
+        if (!$this->session->has('usuario_id')) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Autenticação necessária']);
+            exit;
+        }
+
+        Cart::remove($id_item);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Item removido!',
+            'count' => Cart::count()
+        ]);
+        exit;
     }
 
     /**
@@ -188,7 +304,7 @@ class CartController
      * Finalizar pedido via AJAX (JSON)
      * Usado pelo JavaScript da página de produtos
      */
-    private function finalizarAjax()
+    public function finalizarAjax()
     {
         header('Content-Type: application/json');
 
@@ -215,8 +331,8 @@ class CartController
                 ];
             }
 
-            // Cria o pedido usando o model Pedidos
-            $idPedido = $this->pedidos->criarPedido($itensCarrinho);
+            // Cria o pedido usando o model Pedidos com status 'Pendente'
+            $idPedido = $this->pedidos->criarPedido($itensCarrinho, 'Pendente');
 
             if ($idPedido) {
                 // Limpa o carrinho

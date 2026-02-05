@@ -23,40 +23,16 @@ class UsuarioController extends AdminController
         $this->gerenciarImagem = new FileManager('upload');
     }
 
-<<<<<<< HEAD
-    public function salvarUsuario() {
-    $erros = UsuarioValidador::ValidarEntradas($_POST);
-    if (!empty($erros)) {
-        // Se for erro de validação, volta para o registro
-        Redirect::redirecionarComMensagem("/backend/register", "error", implode("<br>", $erros));
-        return;
-    }
-
-    // Se o tipo_usuario não vier no POST (como no registro público), define como 'Cliente'
-    $tipo = $_POST["tipo_usuario"] ?? 'Cliente';
-
-    $id = $this->usuario->inseriUsuario(
-        $_POST["nome_usuario"],
-        $_POST["email_usuario"],
-        $_POST["senha_usuario"],
-        $tipo
-    );
-
-    if ($id !== false && $id > 0) {
-        // Cadastro com sucesso! Redireciona para o login
-        Redirect::redirecionarComMensagem("/backend/login", "success", "Conta criada com sucesso! Faça seu login.");
-    } else {
-        Redirect::redirecionarComMensagem("/backend/register", "error", "Erro ao processar cadastro no banco de dados.");
-    }
-}
-
-    public function index() {
-=======
+    /**
+     * Salva um novo usuário no sistema.
+     * Valida entradas antes de inserir.
+     */
     public function salvarUsuario()
     {
         $erros = UsuarioValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            Redirect::redirecionarComMensagem("/backend/usuario/criar", "error", implode("<br>", $erros));  // ← Rota full
+            Redirect::redirecionarComMensagem("/backend/usuario/criar", "error", implode("<br>", $erros));
+            return;
         }
 
         $id = $this->usuario->inseriUsuario(
@@ -74,15 +50,20 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Debug: Exibe dump de usuários.
+     */
     public function index()
     {
->>>>>>> 2ed8815457c624010868fa359c36d318634f1702
         $resultado = $this->usuario->buscarUsuarios();
         echo "<pre>";
         print_r($resultado);
         echo "</pre>";
     }
 
+    /**
+     * Renderiza a listagem completa de usuários com paginação e status.
+     */
     public function viewListarUsuarios($pagina = 1)
     {
         if (empty($pagina) || $pagina <= 0)
@@ -101,17 +82,20 @@ class UsuarioController extends AdminController
         ]);
     }
 
+    /**
+     * Renderiza o formulário de criação de usuário.
+     */
     public function viewCriarUsuarios()
     {
         View::render("usuario/create", []);
     }
 
-<<<<<<< HEAD
-    public function viewEditarUsuarios(int $id) {
-=======
+    /**
+     * Renderiza a edição de usuário.
+     * @param int $id
+     */
     public function viewEditarUsuarios(int $id)
     {
->>>>>>> 2ed8815457c624010868fa359c36d318634f1702
         $dados = $this->usuario->buscarUsuarioPorID($id);
         if (!$dados) {
             Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
@@ -119,12 +103,11 @@ class UsuarioController extends AdminController
         View::render("usuario/edit", ["usuario" => $dados]);
     }
 
-<<<<<<< HEAD
-    public function viewExcluirUsuarios($id) {
-=======
+    /**
+     * Renderiza a confirmação de exclusão (desativação).
+     */
     public function viewExcluirUsuarios($id)
     {
->>>>>>> 2ed8815457c624010868fa359c36d318634f1702
         $dados = $this->usuario->buscarUsuarioPorID($id);
         if (!$dados) {
             Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
@@ -132,16 +115,18 @@ class UsuarioController extends AdminController
         View::render("usuario/delete", ["usuario" => $dados]);  // Dados full
     }
 
-<<<<<<< HEAD
-    public function relatorioUsuario($id = null, $data1 = null, $data2 = null) {
-=======
+    /**
+     * Gera relatório de usuários.
+     */
     public function relatorioUsuario($id = null, $data1 = null, $data2 = null)
     {
->>>>>>> 2ed8815457c624010868fa359c36d318634f1702
         $usuarios = $id ? [$this->usuario->buscarUsuarioPorID($id)] : $this->usuario->buscarUsuarios();
         View::render("usuario/relatorio", ["usuarios" => $usuarios, "id" => $id, "data1" => $data1, "data2" => $data2]);
     }
 
+    /**
+     * Atualiza os dados do usuário.
+     */
     public function atualizarUsuario()
     {
         $id = (int) $_POST['id_usuario'];
@@ -165,6 +150,9 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Desativa (soft delete) um usuário.
+     */
     public function deletarUsuario()
     {
         $id = (int) $_POST['id_usuario'];
@@ -175,6 +163,9 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Reativa um usuário anteriormente desativado.
+     */
     public function ativarUsuario()
     {
         $id = (int) ($_POST['id_usuario'] ?? $_GET['id'] ?? 0);

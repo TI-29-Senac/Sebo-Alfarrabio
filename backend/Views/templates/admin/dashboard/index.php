@@ -224,6 +224,7 @@
 
     .modern-table tbody tr:hover {
         background: var(--bege-light);
+        cursor: pointer;
     }
 
     .modern-table tbody td {
@@ -345,6 +346,70 @@
         color: #856404;
     }
 
+    /* Notificação de Pedidos Pendentes */
+    .pending-notification {
+        background: linear-gradient(135deg, #ff8a8a 0%, #f47b7b 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 15px rgba(244, 123, 123, 0.3);
+        animation: pulseSubtle 2s infinite;
+    }
+
+    @keyframes pulseSubtle {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 4px 15px rgba(244, 123, 123, 0.3);
+        }
+
+        50% {
+            transform: scale(1.01);
+            box-shadow: 0 6px 20px rgba(244, 123, 123, 0.5);
+        }
+
+        100% {
+            transform: scale(1);
+            box-shadow: 0 4px 15px rgba(244, 123, 123, 0.3);
+        }
+    }
+
+    .pending-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .pending-icon {
+        font-size: 30px;
+        background: rgba(255, 255, 255, 0.2);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-view-pending {
+        background: white;
+        color: #f47b7b;
+        padding: 10px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-view-pending:hover {
+        background: #fdf2f2;
+        transform: translateX(5px);
+    }
+
     /* Responsividade */
     @media (max-width: 768px) {
 
@@ -392,6 +457,25 @@
         <h1><i class="fa fa-dashboard"></i> Dashboard - Sebo Alfarrábio</h1>
         <p>Bem-vindo, <?= htmlspecialchars($nomeUsuario ?? 'Administrador'); ?> | Visão geral do sistema</p>
     </div>
+
+    <!-- Notificação de Pedidos Pendentes -->
+    <?php if (isset($totalPendentes) && $totalPendentes > 0): ?>
+        <div class="pending-notification">
+            <div class="pending-content">
+                <div class="pending-icon">
+                    <i class="fa fa-bell"></i>
+                </div>
+                <div>
+                    <h3 style="margin:0; font-size:18px;">Novo Reservas Cadastradas!</h3>
+                    <p style="margin:5px 0 0 0; opacity:0.9;">Você tem <strong><?= $totalPendentes ?></strong> reserva(s)
+                        aguardando confirmação.</p>
+                </div>
+            </div>
+            <a href="/backend/pedidos/listar" class="btn-view-pending">
+                Ver Reservas <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    <?php endif; ?>
 
     <!-- Botões de Ação Rápida -->
     <div class="quick-actions">
@@ -504,7 +588,7 @@
             <tbody>
                 <?php if (!empty($ultimosItens)): ?>
                     <?php foreach ($ultimosItens as $item): ?>
-                        <tr>
+                        <tr onclick="window.location.href='/backend/item/editar/<?= $item['id_item']; ?>'">
                             <td style="text-align: center;">
                                 <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item'] ?? ''); ?>"
                                     alt="Capa" class="table-img">

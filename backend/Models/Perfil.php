@@ -12,12 +12,17 @@ class Perfil
     private $atualizado_em;
     private $excluido_em;
     private $db;
-    // contrutor inicializa a classe e ou atributos
+    /**
+     * Construtor da classe Perfil.
+     * @param PDO $db Conexão com o banco.
+     */
     public function __construct($db)
     {
         $this->db = $db;
     }
-    // metodo de buscar todos os usuarios read
+    /**
+     * Busca todos os perfis de usuário.
+     */
     function buscarPerfil()
     {
         $sql = "SELECT * FROM tbl_perfil_usuario";
@@ -27,6 +32,9 @@ class Perfil
     }
 
 
+    /**
+     * Contagem total de perfis.
+     */
     function totalDePerfil()
     {
         $sql = "SELECT count(*) as total FROM tbl_perfil_usuario";
@@ -35,6 +43,9 @@ class Perfil
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Contagem de perfis inativos.
+     */
     function totalDePerfilInativos()
     {
         $sql = "SELECT count(*) as total_inativos FROM tbl_perfil_usuario where excluido_em is NOT NULL";
@@ -43,6 +54,9 @@ class Perfil
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Contagem de perfis ativos.
+     */
     function totalDePerfilAtivos()
     {
         $sql = "SELECT count(*) as total_ativos FROM tbl_perfil_usuario where excluido_em is NULL";
@@ -52,7 +66,9 @@ class Perfil
     }
 
 
-    // metodo de buscar todos usuario por email read
+    /**
+     * Busca perfil por telefone.
+     */
     function buscarPerfilPorTelefone($telefone_usuario)
     {
         $sql = "SELECT * FROM tbl_perfil_usuario where telefone_usuario = :telefone";
@@ -71,6 +87,9 @@ class Perfil
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Busca perfil por ID do perfil.
+     */
     function buscarPerfilPorID($id_perfil_usuario)
     {
         $sql = "SELECT * FROM tbl_perfil_usuario where id_perfil_usuario = :id_perfil_usuario";
@@ -80,6 +99,9 @@ class Perfil
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Busca perfil pelo ID do usuário associado.
+     */
     function buscarPerfilPorIDUsuario($id_usuario)
     {
         $sql = "SELECT * FROM tbl_perfil_usuario where usuario_id = :id_usuario";
@@ -89,8 +111,9 @@ class Perfil
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // metodo de inserir usuario create
-    // metodo de inserir usuario create
+    /**
+     * Cria um novo perfil de usuário.
+     */
     function inserirPerfil($usuario_id, $telefone, $endereco, $foto)
     {
         $sql = "INSERT INTO tbl_perfil_usuario (usuario_id, telefone, endereco, 
@@ -109,8 +132,9 @@ class Perfil
         }
     }
 
-    // metodo de atualizar o usuario update
-    // metodo de atualizar o usuario update
+    /**
+     * Atualiza um perfil existente.
+     */
     function atualizarPerfil($id_perfil_usuario, $telefone, $endereco, $foto)
     {
         $dataatual = date('Y-m-d H:i:s');
@@ -131,6 +155,9 @@ class Perfil
         return $stmt->execute();
     }
     // metodo de inativar o usuario delete
+    /**
+     * Inativa (soft delete) um perfil.
+     */
     function excluirPerfil($id_perfil_usuario)
     {
         $dataatual = date('Y-m-d H:i:s');
@@ -147,6 +174,9 @@ class Perfil
         }
     }
     // metodo de ativar o usuario excluido
+    /**
+     * Reativa um perfil inativado.
+     */
     function ativarVendas($id_perfil_usuario)
     {
         $dataatual = NULL;

@@ -27,6 +27,10 @@ class GeneroController
     }
 
     // --- CRIAR GÊNERO ---
+
+    /**
+     * Salva um novo gênero no banco.
+     */
     public function salvarGenero()
     {
         $erros = GeneroValidador::ValidarEntradas($_POST);
@@ -45,12 +49,19 @@ class GeneroController
     }
 
     // --- LISTAR TODOS ---
+
+    /**
+     * Debug: Exibe lista de gêneros.
+     */
     public function index()
     {
         $resultado = $this->genero->buscarGeneros();
         var_dump($resultado);
     }
 
+    /**
+     * Renderiza a listagem de gêneros com estatísticas.
+     */
     public function viewListarGenero()
     {
         $dados = $this->genero->buscarGeneros();
@@ -67,12 +78,21 @@ class GeneroController
     }
 
     // --- PÁGINA DE CRIAÇÃO ---
+
+    /**
+     * Renderiza o formulário de criação.
+     */
     public function viewCriarGenero()
     {
         View::render("genero/create", []);
     }
 
     // --- EDITAR ---
+
+    /**
+     * Renderiza a edição de gênero.
+     * @param int $id_genero
+     */
     public function viewEditarGenero($id_genero)
     {
         $dados = $this->genero->buscarGeneroPorID($id_genero);
@@ -80,6 +100,11 @@ class GeneroController
     }
 
     // --- EXCLUIR (VIEW) ---
+
+    /**
+     * Renderiza confirmação de exclusão.
+     * @param int $id_genero
+     */
     public function viewExcluirGenero($id_genero)
     {
         View::render("genero/delete", ["id_genero" => $id_genero]);
@@ -96,6 +121,10 @@ class GeneroController
     }
 
     // --- ATUALIZAR GÊNERO ---
+
+    /**
+     * Atualiza um gênero existente no banco.
+     */
     public function atualizarGenero()
     {
         $id = $_POST["id_genero"];
@@ -109,6 +138,10 @@ class GeneroController
     }
 
     // --- DELETAR (SOFT DELETE) ---
+
+    /**
+     * Realiza a exclusão lógica do gênero.
+     */
     public function deletarGenero()
     {
         $id = $_POST["id_genero"];
@@ -121,6 +154,11 @@ class GeneroController
     }
 
     // --- REATIVAR ---
+
+    /**
+     * Reativa um gênero inativo.
+     * @param int $id_genero
+     */
     public function ativarGenero($id_genero)
     {
         if ($this->genero->ativarGenero($id_genero)) {

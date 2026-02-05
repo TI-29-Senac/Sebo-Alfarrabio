@@ -1,12 +1,19 @@
-// novidades.js - Carrega os últimos livros cadastrados
+/**
+ * novidades.js
+ * Gerencia o carregamento e exibição dos últimos livros na página inicial.
+ */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     carregarNovidades();
 });
 
+/**
+ * Busca e exibe as novidades (últimos livros) na página inicial.
+ * Faz uma requisição à API e renderiza os cards.
+ */
 async function carregarNovidades() {
     const container = document.querySelector('.card-livros');
-    
+
     // Mostra loading
     container.innerHTML = `
         <div style="width: 100%; text-align: center; padding: 40px; color: #a87e4b;">
@@ -16,7 +23,7 @@ async function carregarNovidades() {
     `;
 
     try {
-        const response = await fetch('/api/item');
+        const response = await fetch('/backend/index.php/api/item');
         const data = await response.json();
 
         if (data.status === 'success' && data.data) {
@@ -45,14 +52,19 @@ async function carregarNovidades() {
     }
 }
 
+/**
+ * Cria o HTML do card de um livro.
+ * @param {Object} livro - Objeto com dados do livro.
+ * @returns {string} HTML do card.
+ */
 function criarCardLivro(livro) {
     // Extrai apenas o primeiro nome do autor se houver vários
-    const primeiroAutor = livro.autores 
-        ? livro.autores.split(',')[0].trim() 
+    const primeiroAutor = livro.autores
+        ? livro.autores.split(',')[0].trim()
         : 'Autor Desconhecido';
-    
+
     // Formata o título (limita a 50 caracteres)
-    const tituloFormatado = livro.titulo_item.length > 50 
+    const tituloFormatado = livro.titulo_item.length > 50
         ? livro.titulo_item.substring(0, 47) + '...'
         : livro.titulo_item;
 
@@ -77,6 +89,10 @@ function criarCardLivro(livro) {
     `;
 }
 
+/**
+ * Exibe mensagem de erro no container.
+ * @param {HTMLElement} container - Elemento onde o erro será exibido.
+ */
 function mostrarErro(container) {
     container.innerHTML = `
         <div style="width: 100%; text-align: center; padding: 40px; color: #a87e4b;">

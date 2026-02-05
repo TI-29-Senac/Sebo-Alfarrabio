@@ -3,6 +3,10 @@
 // ========================================
 
 class BooksLettersAnimation {
+    /**
+     * Inicializa a animação de letras flutuantes.
+     * @param {string} canvasId - ID do elemento canvas.
+     */
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
@@ -29,6 +33,9 @@ class BooksLettersAnimation {
         window.addEventListener('resize', () => this.init());
     }
 
+    /**
+     * Configura o canvas e cria as letras iniciais.
+     */
     init() {
         this.canvas.width = this.canvas.offsetWidth;
         this.canvas.height = this.canvas.offsetHeight;
@@ -40,6 +47,10 @@ class BooksLettersAnimation {
         }
     }
 
+    /**
+     * Cria um objeto de letra com propriedades aleatórias.
+     * @returns {Object} Objeto contendo propriedades da letra (x, y, char, etc).
+     */
     createLetter() {
         const char = this.allChars[Math.floor(Math.random() * this.allChars.length)];
 
@@ -57,6 +68,10 @@ class BooksLettersAnimation {
         };
     }
 
+    /**
+     * Retorna uma cor aleatória da paleta definida.
+     * @returns {string} Código de cor Hex.
+     */
     getRandomColor() {
         // Cores do banner hero
         const colors = [
@@ -69,6 +84,10 @@ class BooksLettersAnimation {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
+    /**
+     * Atualiza a posição e rotação de uma letra.
+     * @param {Object} letter - Objeto da letra a atualizar.
+     */
     updateLetter(letter) {
         // Movimento
         letter.x += letter.speedX;
@@ -88,6 +107,10 @@ class BooksLettersAnimation {
         }
     }
 
+    /**
+     * Desenha uma letra no canvas.
+     * @param {Object} letter - Objeto da letra a desenhar.
+     */
     drawLetter(letter) {
         this.ctx.save();
 
@@ -114,6 +137,9 @@ class BooksLettersAnimation {
         this.ctx.restore();
     }
 
+    /**
+     * Loop de animação.
+     */
     animate() {
         // Limpar canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -133,6 +159,10 @@ class BooksLettersAnimation {
 // ANIMAÇÃO DE ONDA PARA O TÍTULO
 // ========================================
 
+/**
+ * Inicializa a animação de onda para o título da seção de livros.
+ * Divide o texto em spans para animação individual de caracteres.
+ */
 function initBooksHeaderWave() {
     const booksHeader = document.querySelector('.books-header h2');
     if (!booksHeader) return;

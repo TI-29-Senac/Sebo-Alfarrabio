@@ -1,4 +1,7 @@
-.container{
+/* ========================================
+   ESTILOS DA SEÇÃO NOVIDADES
+   ======================================== */
+.container {
   padding: 3px 5px 75px 0px;
 }
 
@@ -15,11 +18,11 @@
   display: flex;
   text-align: center;
   height: auto;
-  
+
 }
 
 
-.novidade{
+.novidade {
   color: #a87e4b;
   align-items: center;
   justify-content: center;
@@ -46,14 +49,15 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2.8rem;
- 
+
 }
 
 .card-livro figure {
-  position: relative; /* Necessário para posicionar o figcaption */
+  position: relative;
+  /* Necessário para posicionar o figcaption */
 }
 
-.card-livro  {
+.card-livro {
   display: flex;
   position: relative;
   height: 300px;
@@ -68,9 +72,10 @@
   box-shadow: 0 4px 8px #3a1f019f;
   text-align: center;
   flex-direction: row;
-  
-  
+
+
 }
+
 .card-livro img {
   display: flex;
   position: relative;
@@ -87,23 +92,23 @@
 }
 
 
-.card-livro:hover{
+.card-livro:hover {
   background-color: #694100;
 
 }
 
-.name{
+.name {
   padding: 8px;
   gap: 0.5rem;
   color: #694100;
   font-family: 'Merriweather', serif;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   text-decoration: none;
   font-weight: bold;
   position: relative;
 }
 
-small{
+small {
   color: #a87e4b;
   text-decoration: none;
   list-style: none;
@@ -132,11 +137,12 @@ small{
   transition: transform 0.4s ease-in-out;
   backdrop-filter: blur(5px);
 }
-.card-livro:hover .figcaption-livro{
+
+.card-livro:hover .figcaption-livro {
   transform: translateY(1%);
 }
 
-.saiba-mais{
+.saiba-mais {
   position: absolute;
   top: 50%;
   left: 19%;
@@ -148,7 +154,7 @@ small{
   opacity: 0;
 }
 
-.card-livro .saiba-mais:hover{
+.card-livro .saiba-mais:hover {
   position: absolute;
   top: 50%;
   left: 19%;

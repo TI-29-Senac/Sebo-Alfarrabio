@@ -2042,10 +2042,121 @@
 =======
 [03-Feb-2026 13:45:17 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:19:23 Europe/Berlin] ✅ Avaliação #1 inserida (item #1, user #3)
+<<<<<<< HEAD
+[03-Feb-2026 15:29:33 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 15:32:31 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[03-Feb-2026 15:49:12 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
 >>>>>>> f0cf88373582528cb6f1885d7a6e956ff611938b
+<<<<<<< HEAD
+>>>>>>> 392f99720e8e39bb7e5f0d8f05c871bd86eb6caf
+=======
 [03-Feb-2026 15:33:01 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:37:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [03-Feb-2026 15:38:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [04-Feb-2026 12:27:16 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [04-Feb-2026 14:46:35 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 14:50:21 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+<<<<<<< HEAD
+[04-Feb-2026 14:40:31 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+=======
+>>>>>>> 83b7cffc13ff66afc92489be4a7f587b8786a13e
+>>>>>>> 813c13ed5f36ce4833c69cc94b1e368932e575a3
+>>>>>>> 9016eea4e32200533c9ca024d2aa86c48d06077e
+[04-Feb-2026 17:16:30 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 899
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1024
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1026
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1027
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1028
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "editora_gravadora" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1123
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "duracao_minutos" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1152
+[04-Feb-2026 17:28:15 UTC] PHP Warning:  Undefined array key "numero_edicao" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1158
+[04-Feb-2026 17:29:00 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 17:30:12 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 17:30:16 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 17:30:16 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 17:30:24 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 17:30:24 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 18:08:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Session.php on line 7
+[04-Feb-2026 18:08:53 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Core\Flash.php on line 15
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "id_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 899
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1024
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1026
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1027
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "tipo_item" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1028
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "editora_gravadora" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1123
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "duracao_minutos" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1152
+[04-Feb-2026 18:10:38 UTC] PHP Warning:  Undefined array key "numero_edicao" in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\item\edit.php on line 1158
+<<<<<<< HEAD
+[04-Feb-2026 20:02:59 Europe/Berlin] PHP Warning:  require_once(C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:02:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php:9
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:03:17 Europe/Berlin] PHP Warning:  require_once(C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:03:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php:9
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:03:23 Europe/Berlin] PHP Warning:  require_once(C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:03:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php:9
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Kezia\Documents\Sebo-Alfarrabio-1\backend\index.php on line 9
+[04-Feb-2026 20:28:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+[04-Feb-2026 18:45:06 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 18:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 19:13:09 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 19:16:18 UTC] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
+[04-Feb-2026 19:54:25 UTC] Erro ao criar pedido: Item indisponível ou estoque insuficiente.
+[04-Feb-2026 19:54:29 UTC] Erro ao criar pedido: Item indisponível ou estoque insuficiente.
+[04-Feb-2026 19:58:46 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Undefined array key 0 in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 78
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[04-Feb-2026 19:58:59 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Undefined array key 0 in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 78
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[04-Feb-2026 19:59:13 UTC] PHP Warning:  Trying to access array offset on null in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+=======
+>>>>>>> a50c729472ab6e384abfbb2145e1a90dbce029f7
+[04-Feb-2026 20:54:03 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 20:55:25 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 21:02:04 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 21:08:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
+[04-Feb-2026 21:37:24 Europe/Berlin] Usuário não encontrado ou duplicado: seboalfarrabioteste@gmail.com
+[04-Feb-2026 21:39:29 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
+[04-Feb-2026 21:39:36 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
+[04-Feb-2026 21:40:02 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+=======
+>>>>>>> 60cb14c2190ac2d915e11ef1aba5b3b2f9c26b7c
+>>>>>>> 2b1934e72b0f0afbf68f39623be6e4fcae36ce1d
+[05-Feb-2026 00:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> 8289c00f438f86bd7e9cad3f6bde81cb07827508

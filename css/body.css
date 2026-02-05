@@ -1,5 +1,13 @@
-*{
+/* ========================================
+   RESET GLOBAL E ESTILOS DO BODY
+   ======================================== */
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body {
+    padding-top: 100px;
+    /* Espaço para o header fixo */
 }

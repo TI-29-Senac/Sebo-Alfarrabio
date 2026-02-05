@@ -10,6 +10,13 @@ class FileManager
         $this->diretorioBase = rtrim($diretorioBase, '/');
     }
 
+    /**
+     * Salva um arquivo de upload.
+     * @param array $file Array do arquivo ($_FILES)
+     * @param string $subDiretorio Subdiretório para salvar
+     * @return string Caminho relativo do arquivo salvo
+     * @throws \Exception
+     */
     public function salvarArquivo(array $file, string $subDiretorio, array $tiposPermitidos = ['image/jpeg', 'image/png', 'application/pdf'], int $tamanhoMaximo = 2097152)
     {
         $this->validarArquivo($file, $tiposPermitidos, $tamanhoMaximo);
@@ -56,6 +63,9 @@ class FileManager
         return uniqid('', true) . '.' . strtolower($extension);
     }
 
+    /**
+     * Remove um arquivo do disco.
+     */
     public function delete(?string $caminhoRelativo)
     {
         if (empty($caminhoRelativo)) {

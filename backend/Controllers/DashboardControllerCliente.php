@@ -21,7 +21,7 @@ class DashboardControllerCliente extends AuthenticatedController
     private $perfil;
     private $fileManager;
     private $avaliacaoModel;
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -35,6 +35,9 @@ class DashboardControllerCliente extends AuthenticatedController
         $this->avaliacaoModel = new Avaliacao($this->db);
     }
 
+    /**
+     * Exibe o painel do cliente com seus pedidos e estatísticas.
+     */
     public function index()
     {
         $session = new \Sebo\Alfarrabio\Core\Session();
@@ -83,16 +86,16 @@ class DashboardControllerCliente extends AuthenticatedController
         }
 
         // ====== CONTADORES DINÂMICOS ======
-        
+
         // Total de pedidos do usuário
         $total_pedidos = count($pedidos);
-        
+
         // Total de avaliações do usuário
         $total_avaliacoes = $this->avaliacaoModel->totalDeAvaliacaoPorUsuario($usuarioId);
-        
+
         // Lista de IDs de itens já avaliados (para controlar botão de avaliar)
         $itensAvaliados = $this->avaliacaoModel->buscarItensAvaliadosPorUsuario($usuarioId);
-        
+
         // Total de favoritos do usuário (verifica se a tabela existe)
         $total_favoritos = 0;
         try {
@@ -118,6 +121,9 @@ class DashboardControllerCliente extends AuthenticatedController
         ]);
     }
 
+    /**
+     * Processa o upload e atualização da foto de perfil do cliente.
+     */
     public function atualizarFotoPerfil()
     {
         $session = new \Sebo\Alfarrabio\Core\Session();

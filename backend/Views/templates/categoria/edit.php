@@ -24,7 +24,7 @@
                 <i class="fa fa-save"></i> Salvar Alterações
             </button>
 
-            <a href="/categoria/listar" class="w3-button w3-light-grey w3-round-large">
+            <a href="/backend/categoria/listar" class="w3-button w3-light-grey w3-round-large">
                 <i class="fa fa-arrow-left"></i> Cancelar
             </a>
         </div>

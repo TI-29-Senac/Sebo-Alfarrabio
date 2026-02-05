@@ -8,7 +8,7 @@
 
 // Configuração da API
 const API_CONFIG = {
-    url: '/api/avaliacoes', // Rota que vai para PublicApiController->getAvaliacoes()
+    url: '/backend/index.php/api/avaliacoes', // Rota que vai para PublicApiController->getAvaliacoes()
     limite: 10,
     cache: true,
     cacheTempo: 300000 // 5 minutos
@@ -25,7 +25,7 @@ let estadoSlider = {
 /**
  * Inicializa ao carregar a página
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🎯 Inicializando sistema de avaliações...');
     carregarAvaliacoes();
     configurarNavegacao();
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 async function carregarAvaliacoes() {
     const track = document.getElementById('depoimentoTrack');
-    
+
     if (!track) {
         console.warn('⚠️ Container de avaliações não encontrado');
         return;
@@ -54,7 +54,7 @@ async function carregarAvaliacoes() {
 
         // Busca do servidor
         console.log('🔄 Buscando avaliações do servidor...');
-        
+
         const response = await fetch(`${API_CONFIG.url}?limite=${API_CONFIG.limite}`, {
             method: 'GET',
             headers: {
@@ -62,22 +62,22 @@ async function carregarAvaliacoes() {
                 'Accept': 'application/json'
             }
         });
-        
+
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
         }
 
         const data = await response.json();
-        
+
         if (!data.success) {
             throw new Error(data.error || 'Erro ao carregar avaliações');
         }
 
         console.log(`✅ ${data.total} avaliações carregadas`);
         console.log(`📊 Média de notas: ${data.media_notas}`);
-        
+
         estadoSlider.avaliacoes = data.avaliacoes || [];
-        
+
         // Salva no cache
         if (API_CONFIG.cache && estadoSlider.avaliacoes.length > 0) {
             salvarCache(estadoSlider.avaliacoes);
@@ -96,7 +96,7 @@ async function carregarAvaliacoes() {
  */
 function renderizarAvaliacoes() {
     const track = document.getElementById('depoimentoTrack');
-    
+
     if (!estadoSlider.avaliacoes || estadoSlider.avaliacoes.length === 0) {
         track.innerHTML = `
             <div class="depoimento-vazio">
@@ -125,7 +125,7 @@ function renderizarAvaliacoes() {
 
     // Cria indicadores
     criarIndicadores();
-    
+
     console.log('✅ Avaliações renderizadas com sucesso');
 }
 
@@ -136,16 +136,16 @@ function criarCardAvaliacao(avaliacao, index) {
     const card = document.createElement('div');
     card.className = 'depoimento-card';
     card.setAttribute('data-index', index);
-    
+
     // Gera as estrelas baseado na nota
     const estrelas = gerarEstrelas(avaliacao.nota);
-    
+
     // Foto do usuário ou iniciais
-    const fotoUsuario = avaliacao.usuario.foto && avaliacao.usuario.foto !== '' 
+    const fotoUsuario = avaliacao.usuario.foto && avaliacao.usuario.foto !== ''
         ? `<img src="${avaliacao.usuario.foto}" alt="${escapeHtml(avaliacao.usuario.nome)}" class="depoimento-foto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
            <div class="depoimento-foto-placeholder" style="display:none;">${avaliacao.usuario.iniciais || 'U'}</div>`
         : `<div class="depoimento-foto-placeholder">${avaliacao.usuario.iniciais || 'U'}</div>`;
-    
+
     // Monta o HTML do card
     card.innerHTML = `
         <div class="depoimento-header">
@@ -178,7 +178,7 @@ function criarCardAvaliacao(avaliacao, index) {
             ` : ''}
         </div>
     `;
-    
+
     return card;
 }
 
@@ -189,7 +189,7 @@ function gerarEstrelas(nota) {
     let html = '';
     const notaInt = parseInt(nota);
     const temMeia = (nota - notaInt) >= 0.5;
-    
+
     for (let i = 1; i <= 5; i++) {
         if (i <= notaInt) {
             html += '<i class="fas fa-star"></i>';
@@ -232,7 +232,7 @@ function configurarNavegacao() {
     if (track) {
         track.addEventListener('mouseenter', pararAutoplay);
         track.addEventListener('mouseleave', iniciarAutoplay);
-        
+
         // Suporte para touch em mobile
         track.addEventListener('touchstart', pararAutoplay);
         track.addEventListener('touchend', iniciarAutoplay);
@@ -248,7 +248,7 @@ function navegarSlider(direcao) {
     pararAutoplay();
 
     const total = estadoSlider.avaliacoes.length;
-    
+
     if (direcao === 'next') {
         estadoSlider.indiceAtual = (estadoSlider.indiceAtual + 1) % total;
     } else {
@@ -265,14 +265,14 @@ function navegarSlider(direcao) {
 function atualizarSlider() {
     const track = document.getElementById('depoimentoTrack');
     const cards = track.querySelectorAll('.depoimento-card');
-    
+
     cards.forEach((card, index) => {
         card.classList.remove('active', 'prev', 'next');
-        
+
         const total = estadoSlider.avaliacoes.length;
         const prevIndex = (estadoSlider.indiceAtual - 1 + total) % total;
         const nextIndex = (estadoSlider.indiceAtual + 1) % total;
-        
+
         if (index === estadoSlider.indiceAtual) {
             card.classList.add('active');
         } else if (index === prevIndex) {
@@ -299,14 +299,14 @@ function criarIndicadores() {
         indicador.className = 'depoimento-indicador';
         indicador.setAttribute('aria-label', `Ir para avaliação ${index + 1}`);
         indicador.setAttribute('data-index', index);
-        
+
         indicador.addEventListener('click', () => {
             pararAutoplay();
             estadoSlider.indiceAtual = index;
             atualizarSlider();
             iniciarAutoplay();
         });
-        
+
         container.appendChild(indicador);
     });
 
@@ -328,7 +328,7 @@ function atualizarIndicadoresAtivos() {
  */
 function iniciarAutoplay() {
     pararAutoplay();
-    
+
     if (estadoSlider.avaliacoes.length > 1) {
         estadoSlider.autoplayInterval = setInterval(() => {
             navegarSlider('next');

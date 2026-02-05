@@ -1,5 +1,12 @@
+/**
+ * Script principal de interações da página.
+ * Gerencia animações de cards, observadores de interseção e busca.
+ */
 document.addEventListener('DOMContentLoaded', function () {
 
+    // ========================================
+    // ANIMAÇÃO DE FLIP DOS CARDS DE SERVIÇOS
+    // ========================================
     const servicosCards = document.querySelectorAll('.servicos .card');
 
     servicosCards.forEach(card => {
@@ -13,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    // ========================================
+    // ANIMAÇÃO DE ENTRADA (FADE-IN) DOS ITENS DE PROCESSO
+    // ========================================
     const itensAnimados = document.querySelectorAll('.processos__item');
 
     if (itensAnimados.length > 0) {

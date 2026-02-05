@@ -22,20 +22,26 @@ class Item
     private function getSelectFields($prefix = 'i')
     {
         return "
+            {$prefix}.id_item,
             {$prefix}.id_item AS id,
             {$prefix}.titulo_item,
             {$prefix}.titulo_item AS titulo,
+            {$prefix}.tipo_item,
             {$prefix}.tipo_item AS tipo,
+            {$prefix}.preco_item,
             {$prefix}.preco_item AS preco,
-            {$prefix}.foto_item AS imagem,
             {$prefix}.foto_item,
+            {$prefix}.foto_item AS imagem,
             {$prefix}.id_genero,
             {$prefix}.id_categoria,
             {$prefix}.descricao,
             {$prefix}.ano_publicacao,
+            {$prefix}.editora_gravadora,
             {$prefix}.editora_gravadora AS editora,
             {$prefix}.estoque,
             {$prefix}.isbn,
+            {$prefix}.duracao_minutos,
+            {$prefix}.numero_edicao,
             {$prefix}.criado_em,
             {$prefix}.atualizado_em,
             {$prefix}.excluido_em
@@ -46,22 +52,9 @@ class Item
 
     function inserirItem(array $dadosItem, array $autores_ids)
     {
-        // Mapeia chaves do formulário (local) para colunas do banco (remoto)
-        $map = [
-            'titulo' => 'titulo_item',
-            'preco' => 'preco_item',
-            'imagem' => 'foto_item',
-            'genero_id' => 'id_genero',
-            'categoria_id' => 'id_categoria',
-            'editora' => 'editora_gravadora',
-            'tipo' => 'tipo_item',
-            // Outros campos diretos: descricao, ano_publicacao, isbn, estoque
-        ];
-
         $dadosRemotos = [];
         foreach ($dadosItem as $key => $val) {
-            $col = $map[$key] ?? $key; // Se não tiver no mapa, usa a chave original
-            $dadosRemotos[$col] = $val;
+            $dadosRemotos[$key] = $val;
         }
 
         // Garante campos obrigatórios ou defaults
@@ -109,20 +102,9 @@ class Item
 
     function atualizarItem(int $id_item, array $dadosItem, array $autores_ids)
     {
-        $map = [
-            'titulo' => 'titulo_item',
-            'preco' => 'preco_item',
-            'imagem' => 'foto_item',
-            'genero_id' => 'id_genero',
-            'categoria_id' => 'id_categoria',
-            'editora' => 'editora_gravadora',
-            'tipo' => 'tipo_item'
-        ];
-
         $dadosRemotos = ['atualizado_em' => date('Y-m-d H:i:s')];
         foreach ($dadosItem as $key => $val) {
-            $col = $map[$key] ?? $key;
-            $dadosRemotos[$col] = $val;
+            $dadosRemotos[$key] = $val;
         }
 
         $setParts = [];
@@ -244,18 +226,7 @@ class Item
 
         $dataQuery = "
             SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                i.preco_item,
-                i.foto_item,
-                i.estoque,
-                i.isbn,
-                i.editora_gravadora,
-                i.ano_publicacao,
-                i.criado_em,
-                i.atualizado_em,
-                i.excluido_em,
+                $select,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a2.nome_autor SEPARATOR ', ') 
@@ -319,18 +290,7 @@ class Item
 
         $dataQuery = "
             SELECT 
-                i.id_item,
-                i.titulo_item,
-                i.tipo_item,
-                i.preco_item,
-                i.foto_item,
-                i.estoque,
-                i.isbn,
-                i.editora_gravadora,
-                i.ano_publicacao,
-                i.criado_em,
-                i.atualizado_em,
-                i.excluido_em,
+                $select,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 

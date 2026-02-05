@@ -28,8 +28,7 @@
                                 <i class="fa fa-edit"></i> Editar
                             </a>
 
-                            <form action="/backend/genero/deletar/<?= $cat['id_generos']; ?>" method="POST"
-                                style="display: inline;">
+                            <form action="/backend/genero/excluir" method="POST" style="display: inline;">
                                 <input type="hidden" name="id_genero" value="<?= $cat['id_generos']; ?>">
                                 <button type="submit" class="w3-button w3-small w3-red w3-round"
                                     onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">

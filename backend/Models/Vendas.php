@@ -22,6 +22,9 @@ class Vendas
 
     // ===== MÉTODOS DE LEITURA (READ) =====
 
+    /**
+     * Busca todas as vendas ativas.
+     */
     function buscarVendas()
     {
         $sql = "SELECT * FROM tbl_vendas WHERE excluido_em IS NULL ORDER BY data_venda ASC";
@@ -30,6 +33,9 @@ class Vendas
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Total de vendas cadastradas.
+     */
     function totalDeVendas()
     {
         $sql = "SELECT count(*) as total FROM tbl_vendas";
@@ -38,6 +44,9 @@ class Vendas
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Total de vendas canceladas (excluídas).
+     */
     function totalDeVendasInativos()
     {
         $sql = "SELECT count(*) as total_inativos FROM tbl_vendas WHERE excluido_em IS NOT NULL";
@@ -46,6 +55,9 @@ class Vendas
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Total de vendas ativas.
+     */
     function totalDeVendasAtivos()
     {
         $sql = "SELECT count(*) as total_ativos FROM tbl_vendas WHERE excluido_em IS NULL";
@@ -54,6 +66,9 @@ class Vendas
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Busca vendas por data.
+     */
     function buscarVendasPorData($data_venda)
     {
         $sql = "SELECT * FROM tbl_vendas WHERE data_venda = :data AND excluido_em IS NULL";
@@ -63,6 +78,9 @@ class Vendas
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Busca venda por ID.
+     */
     function buscarVendasPorID($id_venda)
     {
         $sql = "SELECT * FROM tbl_vendas WHERE id_vendas = :id_vendas";
@@ -77,6 +95,9 @@ class Vendas
         return $resultado;
     }
 
+    /**
+     * Busca vendas de um usuário.
+     */
     function buscarVendasPorIDUsuario($id_usuario)
     {
         $sql = "SELECT * FROM tbl_vendas WHERE id_usuario = :id_usuario AND excluido_em IS NULL";
@@ -88,6 +109,9 @@ class Vendas
 
     // ===== MÉTODOS DE ESCRITA (CREATE) =====
 
+    /**
+     * Insere uma nova venda.
+     */
     function inserirVenda($id_usuario, $data_venda, $valor_total, $forma_pagamento)
     {
         $sql = "INSERT INTO tbl_vendas (id_usuario, data_venda, valor_total, forma_pagamento, criado_em, atualizado_em) 
@@ -110,6 +134,9 @@ class Vendas
 
     // ===== MÉTODOS DE ATUALIZAÇÃO (UPDATE) =====
 
+    /**
+     * Atualiza uma venda existente.
+     */
     function atualizarVenda($id_venda, $data_venda, $valor_total, $forma_pagamento)
     {
         $dataatual = date('Y-m-d H:i:s');
@@ -132,6 +159,9 @@ class Vendas
 
     // ===== MÉTODOS DE EXCLUSÃO (SOFT DELETE) =====
 
+    /**
+     * Exclui (soft delete) uma venda.
+     */
     function excluirVenda($id_venda)
     {
         $dataatual = date('Y-m-d H:i:s');
@@ -146,6 +176,9 @@ class Vendas
         return $stmt->execute();
     }
 
+    /**
+     * Reativa uma venda excluída.
+     */
     function ativarVenda($id_venda)
     {
         $sql = "UPDATE tbl_vendas SET

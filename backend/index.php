@@ -1,6 +1,9 @@
 <?php
 namespace Sebo\Alfarrabio;
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ini_set('error_log', __DIR__ . '/php_error.log');
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -44,6 +47,10 @@ use Sebo\Alfarrabio\Controllers\Api\APIItemController;
 $router = new Router();
 // Define o base path dinamicamente
 $basePath = dirname($_SERVER['SCRIPT_NAME']);
+// Ajuste para quando o servidor não suporta rewrite (php -S) e acessamos via index.php
+if (strpos($_SERVER['REQUEST_URI'], $basePath . '/index.php') === 0) {
+    $basePath .= '/index.php';
+}
 $router->setBasePath($basePath);
 
 

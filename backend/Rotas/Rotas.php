@@ -83,6 +83,8 @@ class Rotas
 
                 "/api/item" => "PublicApiController@getItem",
                 "/api/buscaitem" => "PublicApiController@getItem",
+                "/api/categorias" => "PublicApiController@getCategorias",
+                "/api/generos" => "PublicApiController@getGeneros",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
                 "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
@@ -175,6 +177,7 @@ class Rotas
                 "/carrinho" => "CartController@index",
                 "/carrinho/adicionar/{id}" => "CartController@adicionar",
                 "/carrinho/remover/{id}" => "CartController@remover",
+                "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
                 '/api/avaliacoes' => 'PublicApiController@getAvaliacoes',
@@ -182,6 +185,9 @@ class Rotas
 
 
             "POST" => [
+                "/api/carrinho/adicionar" => "CartController@adicionarApi",
+                "/api/carrinho/remover" => "CartController@removerApi",
+                "/api/carrinho/finalizar" => "CartController@finalizarAjax",
                 // ========================================
                 // AUTENTICAÇÃO (post)
                 // ========================================
@@ -195,7 +201,7 @@ class Rotas
 
                 "/usuario/salvar" => "UsuarioController@salvarUsuario",
                 "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
-                "/usuario/deletar" => "UsuarioController@deletarUsuario",
+                "/usuario/excluir" => "UsuarioController@deletarUsuario",
 
 
                 // ========================================
@@ -262,22 +268,22 @@ class Rotas
                 // AUTORES (post)
                 // ========================================
                 "/autor/salvar" => "AutorController@salvarAutor",
-                "/autor/atualizar/{id}" => "AutorController@atualizarAutor",
-                "/autor/excluir/{id}" => "AutorController@deletarAutor",
+                "/autor/atualizar" => "AutorController@atualizarAutor",
+                "/autor/excluir" => "AutorController@deletarAutor",
 
                 // ========================================
                 // CATEGORIA (post)
                 // ========================================
                 "/categoria/salvar" => "CategoriaController@salvarCategoria",
                 "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
-                "/categoria/excluir/{id}" => "CategoriaController@deletarCategoria",
+                "/categoria/excluir" => "CategoriaController@deletarCategoria",
 
                 // ========================================
                 // GENERO (post)
                 // ========================================
                 "/genero/salvar" => "GeneroController@salvarGenero",
-                "/genero/atualizar/{id}" => "GeneroController@atualizarGenero",
-                "/genero/deletar/{id}" => "GeneroController@deletarGenero",
+                "/genero/atualizar" => "GeneroController@atualizarGenero",
+                "/genero/excluir" => "GeneroController@deletarGenero",
 
 
                 // ========================================

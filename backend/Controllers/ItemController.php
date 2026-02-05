@@ -132,6 +132,7 @@ class ItemController extends AdminController
 
     /**
      * Processa o formulário de salvar novo item.
+     * Realiza upload de foto se fornecida.
      */
     public function salvarItem()
     {
@@ -187,6 +188,7 @@ class ItemController extends AdminController
 
     /**
      * Processa o formulário de atualização de item.
+     * Gerencia substituição de foto.
      */
     public function atualizarItem()
     {
@@ -270,7 +272,7 @@ class ItemController extends AdminController
     }
 
     /**
-     * Processa a exclusão (soft delete)
+     * Processa a exclusão (soft delete) do item.
      */
     public function deletarItem()
     {

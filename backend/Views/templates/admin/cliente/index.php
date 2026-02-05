@@ -865,7 +865,7 @@
                     <span class="hero-stat-val">
                         <?= $total_pedidos ?? 0 ?>
                     </span>
-                    <span class="hero-stat-label">Pedidos</span>
+                    <span class="hero-stat-label">Reservas</span>
                 </div>
                 <div class="hero-stat-item">
                     <span class="hero-stat-val">
@@ -886,23 +886,23 @@
     <!-- SEÇÃO DE PEDIDOS REDESENHADA -->
     <section class="orders-container">
         <div class="orders-title-row">
-            <h2>Seus pedidos</h2>
+            <h2>Suas reservas</h2>
             <div class="orders-search-bar">
-                <input type="text" placeholder="Pesquisar todos os pedidos">
-                <button class="btn-search-orders">Buscar pedidos</button>
+                <input type="text" placeholder="Pesquisar todos as reservas">
+                <button class="btn-search-orders">Buscar reservas</button>
             </div>
         </div>
 
         <div class="tabs-navigation">
-            <div class="tab-btn active">Pedidos</div>
+            <div class="tab-btn active">Reservas</div>
             <div class="tab-btn">Compre Novamente</div>
             <div class="tab-btn">Ainda não enviado</div>
         </div>
 
         <div class="orders-meta-info">
             <strong>
-                <?= count($pedidos ?? []) ?> pedidos
-            </strong> feitos em
+                <?= count($pedidos ?? []) ?> reservas
+            </strong> feitas em
             <select class="year-filter">
                 <option>2025</option>
                 <option>2024</option>
@@ -916,7 +916,9 @@
                     <div class="order-header">
                         <div class="header-group-row">
                             <div class="header-cell">
-                                <label>PEDIDO REALIZADO</label>
+                                <label>
+                                    RESERVA REALIZADA
+                                </label>
                                 <span>
                                     <?= date('d \d\e F \d\e Y', strtotime($pedido['data_pedido'])) ?>
                                 </span>
@@ -935,11 +937,11 @@
                             </div>
                         </div>
                         <div class="order-number-link">
-                            <label>PEDIDO Nº
+                            <label>RESERVA Nº
                                 <?= $pedido['id_pedidos'] ?? $pedido['id'] ?? '---' ?>
                             </label>
                             <div class="order-links-row">
-                                <a href="#">Exibir detalhes do pedido</a>
+                                <a href="#">Exibir detalhes da reserva</a>
                                 <a href="#">Fatura</a>
                             </div>
                         </div>

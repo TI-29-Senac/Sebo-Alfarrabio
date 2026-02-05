@@ -10,7 +10,9 @@ class Pedidos
         $this->db = $db;
     }
 
-    // LISTAR TODOS (Read)
+    /**
+     * Busca todos os pedidos.
+     */
     function buscarPedidos()
     {
         $sql = "SELECT * FROM tbl_pedidos ORDER BY data_pedido DESC";
@@ -35,8 +37,13 @@ class Pedidos
         return $pedidos;
     }
 
-    // CRIAR PEDIDO (Create)
-    public function criarPedido(array $itensCarrinho)
+    /**
+     * Cria um novo pedido a partir dos itens do carrinho.
+     * @param array $itensCarrinho
+     * @param string $status
+     * @return int|bool ID do pedido ou false.
+     */
+    public function criarPedido(array $itensCarrinho, $status = 'Pendente')
     {
         $this->db->beginTransaction();
         try {
@@ -44,9 +51,11 @@ class Pedidos
 
             // Validar estoque antes de criar o pedido
             foreach ($itensCarrinho as $item) {
-                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id = :id";
+                // O banco usa id_item, não id
+                $id_item = $item['id_item'] ?? $item['id'];
+                $sqlEstoque = "SELECT estoque FROM tbl_itens WHERE id_item = :id";
                 $stmtEstoque = $this->db->prepare($sqlEstoque);
-                $stmtEstoque->bindParam(':id', $item['id'], PDO::PARAM_INT);
+                $stmtEstoque->bindParam(':id', $id_item, PDO::PARAM_INT);
                 $stmtEstoque->execute();
                 $itemBanco = $stmtEstoque->fetch(PDO::FETCH_ASSOC);
 
@@ -65,10 +74,11 @@ class Pedidos
             $usuarioId = $_SESSION['usuario_id'];
 
             // Schema: id, usuario_id, total, data_pedido, status
-            $sqlPedido = "INSERT INTO tbl_pedidos (usuario_id, total, data_pedido, status) VALUES (:usuario_id, :total, NOW(), 'Pendente')";
+            $sqlPedido = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) VALUES (:usuario_id, :total, NOW(), :status)";
             $stmtPedido = $this->db->prepare($sqlPedido);
             $stmtPedido->bindParam(':usuario_id', $usuarioId, PDO::PARAM_INT);
             $stmtPedido->bindParam(':total', $valorTotalCalculado);
+            $stmtPedido->bindParam(':status', $status);
             $stmtPedido->execute();
 
             $idPedido = $this->db->lastInsertId();
@@ -80,8 +90,10 @@ class Pedidos
             $stmtItem = $this->db->prepare($sqlItem);
 
             foreach ($itensCarrinho as $item) {
+                // Suporta id_item (padrão) ou id (legado)
+                $id_item = $item['id_item'] ?? $item['id'];
                 $stmtItem->bindParam(':pedido_id', $idPedido, PDO::PARAM_INT);
-                $stmtItem->bindParam(':item_id', $item['id'], PDO::PARAM_INT);
+                $stmtItem->bindParam(':item_id', $id_item, PDO::PARAM_INT);
                 $stmtItem->bindParam(':quantidade', $item['quantidade'], PDO::PARAM_INT);
                 $stmtItem->execute();
             }
@@ -96,6 +108,10 @@ class Pedidos
         }
     }
 
+    /**
+     * Busca pedidos filtrando por data.
+     * @param string $data_pedido
+     */
     function buscarPedidosPorData($data_pedido)
     {
         $sql = "SELECT * FROM tbl_pedidos where DATE(data_pedido) = :data";
@@ -105,6 +121,10 @@ class Pedidos
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Busca pedido por ID.
+     * @param int $id
+     */
     function buscarPedidosPorID($id)
     {
         $sql = "SELECT * FROM tbl_pedidos where id_pedidos = :id";
@@ -114,7 +134,10 @@ class Pedidos
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // O erro estava aqui: coluna id_usuario não existe, é usuario_id
+    /**
+     * Busca pedidos de um usuário específico.
+     * @param int $usuario_id
+     */
     function buscarPedidosPorIDUsuario($usuario_id)
     {
         // Corrigido para id_usuario e adicionado busca de itens
@@ -147,6 +170,9 @@ class Pedidos
         return $pedidos;
     }
 
+    /**
+     * Insere um pedido manual (admin).
+     */
     function inserirPedidos($usuario_id, $total, $data_pedido, $status)
     {
         $sql = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) 
@@ -164,19 +190,24 @@ class Pedidos
         }
     }
 
-    function atualizarPedidos($id, $data_pedido, $status)
+    /**
+     * Atualiza dados de um pedido.
+     */
+    function atualizarPedidos($id, $data_pedido, $status, $total)
     {
         // Se a tabela tiver data_atualizacao com ON UPDATE CURRENT_TIMESTAMP, não precisa atualizar manual
         // Mas vamos manter compatível
         $sql = "UPDATE tbl_pedidos SET 
             data_pedido = :data,
-            status = :status
-            WHERE id = :id";
+            status = :status,
+            valor_total = :total
+            WHERE id_pedidos = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':data', $data_pedido, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':total', $total);
 
         return $stmt->execute();
     }
@@ -186,9 +217,13 @@ class Pedidos
     // NÃO TEM excluido_em no dump!
     // Então Excluir deve ser DELETE mesmo ou precisamos adicionar a coluna.
     // Vou mudar para DELETE real para evitar erro 'Column not found: excluido_em'
+    /**
+     * Exclui um pedido permanentemente.
+     * @param int $id
+     */
     function excluirPedidos($id)
     {
-        $sql = "DELETE FROM tbl_pedidos WHERE id = :id";
+        $sql = "DELETE FROM tbl_pedidos WHERE id_pedidos = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();

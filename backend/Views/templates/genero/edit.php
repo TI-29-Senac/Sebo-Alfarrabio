@@ -1,8 +1,7 @@
 <div class="w3-container">
     <h3>Editando Gênero: <?= htmlspecialchars($genero['nome_generos']); ?></h3>
 
-    <form action="/backend/genero/atualizar/<?= $genero['id_generos']; ?>" method="POST" enctype="multipart/form-data"
-        class="w3-container w3-card-4">
+    <form action="/backend/genero/atualizar" method="POST" enctype="multipart/form-data" class="w3-container w3-card-4">
 
         <input type="hidden" name="id_genero" value="<?= $genero['id_generos']; ?>">
 

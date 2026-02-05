@@ -23,6 +23,10 @@ class CategoriaController
         $this->categoria = new Categoria($this->db);
     }
 
+    /**
+     * Salva uma nova categoria no banco.
+     * Valida entradas antes de inserir.
+     */
     public function salvarCategoria()
     {
         $erros = CategoriaValidador::ValidarEntradas($_POST);
@@ -43,12 +47,18 @@ class CategoriaController
         }
     }
 
+    /**
+     * Debug: exibe dump das categorias.
+     */
     public function index()
     {
         $resultado = $this->categoria->buscarCategorias();
         var_dump($resultado);
     }
 
+    /**
+     * Renderiza a listagem de categorias com estatísticas.
+     */
     public function viewListarCategoria()
     {
         $dados = $this->categoria->buscarCategorias();
@@ -64,17 +74,28 @@ class CategoriaController
         ]);
     }
 
+    /**
+     * Renderiza o formulário de criação de categoria.
+     */
     public function viewCriarCategoria()
     {
         View::render("categoria/create", []);
     }
 
+    /**
+     * Renderiza o formulário de edição de categoria.
+     * @param int $id_categoria
+     */
     public function viewEditarCategoria($id_categoria)
     {
         $dados = $this->categoria->buscarCategoriaPorID($id_categoria);
         View::render("categoria/edit", ["categoria" => $dados]);
     }
 
+    /**
+     * Renderiza confirmação de exclusão de categoria.
+     * @param int $id_categoria
+     */
     public function viewExcluirCategoria($id_categoria)
     {
         View::render("categoria/delete", ["id_categoria" => $id_categoria]);
@@ -89,6 +110,9 @@ class CategoriaController
         ]);
     }
 
+    /**
+     * Atualiza os dados de uma categoria no banco.
+     */
     public function atualizarCategoria()
     {
         $id = $_POST["id_categoria"];
@@ -101,6 +125,9 @@ class CategoriaController
         }
     }
 
+    /**
+     * Realiza a exclusão lógica (soft delete) da categoria.
+     */
     public function deletarCategoria()
     {
         $id = $_POST["id_categoria"];

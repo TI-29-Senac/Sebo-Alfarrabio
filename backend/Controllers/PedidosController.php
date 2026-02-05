@@ -21,6 +21,10 @@ class PedidosController
         $this->gerenciarImagem = new FileManager('upload');
     }
 
+    /**
+     * Salva um novo pedido no banco de dados.
+     * Recebe dados via POST.
+     */
     public function salvarPedidos()
     {
         $erros = PedidosValidador::ValidarEntradas($_POST);
@@ -50,11 +54,18 @@ class PedidosController
     }
 
     // index
+
+    /**
+     * Debug: exibe dump de pedidos.
+     */
     public function index()
     {
         $resultado = $this->pedidos->buscarPedidos();
         var_dump($resultado);
     }
+    /**
+     * Renderiza a listagem de pedidos.
+     */
     public function viewListarPedidos()
     {
         $dados = $this->pedidos->buscarPedidos();
@@ -67,11 +78,18 @@ class PedidosController
         );
     }
 
+    /**
+     * Renderiza o formulário de criação de pedidos (Admin).
+     */
     public function viewCriarPedidos()
     {
         View::render("pedidos/create", []);
     }
 
+    /**
+     * Renderiza a edição de um pedido.
+     * @param int $id_pedido
+     */
     public function viewEditarPedidos($id_pedido)
     {
         $resultados = $this->pedidos->buscarPedidosPorID($id_pedido);
@@ -82,6 +100,9 @@ class PedidosController
 
 
 
+    /**
+     * Gera relatório de pedido (placeholder).
+     */
     public function relatorioPedidos($id_pedido, $data1, $data2)
     {
         View::render(
@@ -92,13 +113,17 @@ class PedidosController
 
 
 
+    /**
+     * Atualiza os dados de um pedido existente.
+     */
     public function atualizarPedidos()
     {
         if (
             !$this->pedidos->atualizarPedidos(
                 $_POST['id_pedido'],
                 $_POST['data_pedido'],
-                $_POST['status_pedido']
+                $_POST['status_pedido'],
+                $_POST['valor_total']
             )
         ) {
             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao atualizar pedido.");
@@ -107,7 +132,9 @@ class PedidosController
         Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Pedido atualizado com sucesso!");
     }
 
-    // Mostra a tela de confirmação de exclusão
+    /**
+     * Mostra a tela de confirmação de exclusão
+     */
     public function viewExcluirPedidos($id_pedido)
     {
         $resultado = $this->pedidos->buscarPedidosPorID($id_pedido);
@@ -128,5 +155,23 @@ class PedidosController
         View::render("pedidos/delete", [
             "pedido" => $pedido   // ← agora é um array simples com os dados
         ]);
+    }
+
+    /**
+     * Realiza a exclusão (soft delete) do pedido.
+     */
+    public function deletarPedidos()
+    {
+        $id = $_POST['id_pedido'] ?? null;
+        if (!$id) {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "ID do pedido não informado.");
+            return;
+        }
+
+        if ($this->pedidos->excluirPedidos($id)) {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Pedido excluído com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao excluir o pedido.");
+        }
     }
 }
