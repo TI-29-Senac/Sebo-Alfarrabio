@@ -29,14 +29,6 @@ header {
    CONTAINER LOGO + TÍTULO
    ======================================== */
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  position: absolute;
-  left: 2rem;
-}
-
 /* ========================================
    LOGO CONTAINER (logo + nome lado a lado)
    ======================================== */
@@ -46,7 +38,8 @@ header {
   align-items: center;
   gap: 0.8rem;
   margin-right: 2rem;
-  margin-left: -10rem;
+  margin-left: -5rem;
+  /* Ajustado de -10rem para -5rem para mover para a direita */
 }
 
 /* ========================================
@@ -54,11 +47,7 @@ header {
    ======================================== */
 
 .logo {
-<<<<<<< HEAD
   height: 80px;
-=======
-  height: 60px;
->>>>>>> a0363436a9099428314f95161f973aa6a8aa895c
   border-radius: 50%;
   object-fit: cover;
   transition: transform 0.3s ease;
@@ -79,13 +68,8 @@ header {
   color: rgb(189, 144, 86);
   font-size: 1.4em;
   font-weight: 700;
-<<<<<<< HEAD
   margin: 0;
   white-space: nowrap;
-=======
-  white-space: nowrap;
-  margin: 0;
->>>>>>> a0363436a9099428314f95161f973aa6a8aa895c
 }
 
 /* ========================================
@@ -99,10 +83,7 @@ nav ul {
   margin: 0;
   padding: 0;
   align-items: center;
-<<<<<<< HEAD
   justify-content: center;
-=======
->>>>>>> a0363436a9099428314f95161f973aa6a8aa895c
 }
 
 nav ul li {

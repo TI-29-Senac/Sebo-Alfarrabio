@@ -102,95 +102,229 @@ svg {
         font-size: 1.3rem;
     }
 
-    /* --- HEADER --- */
-    /* --- HEADER --- */
+    /* ========================================
+       HEADER MOBILE - DESIGN MODERNO LIMPO
+       ======================================== */
+
     header {
+        display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         height: auto;
-        padding: 10px 15px;
+        padding: 12px 16px;
         justify-content: space-between;
+        background: linear-gradient(180deg, #fcf6e9 0%, #faf4e6 100%);
+        border-radius: 0;
+        box-shadow: 0 2px 10px rgba(139, 115, 85, 0.1);
+        margin-bottom: 0;
+        gap: 0;
     }
 
-    /* 1. Logo e Título (Wrappers) */
-    header>div:first-child {
+    /* Container da Logo - Simples e limpo */
+    .logo-container {
         display: flex;
         align-items: center;
+        gap: 10px;
         order: 1;
-        /* Primeiro à esquerda */
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        flex: 1;
     }
 
+    .logo-container:active {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Logo circular */
     .logo {
         position: static;
-        margin: 0 10px 0 0;
-        height: 50px;
-        width: 50px;
+        margin: 0;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: none;
+        box-shadow: 0 2px 6px rgba(139, 115, 85, 0.15);
+        transition: all 0.2s ease;
+    }
+
+    .logo:hover {
         transform: none;
     }
 
+    /* Título compacto */
     .alfa {
         position: static;
         margin: 0;
         text-align: left;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: rgb(139, 94, 60);
     }
 
-    /* 2. Ícones de Usuário e Carrinho (Reordenando para direita) */
-    .user-profile-header {
-        order: 2;
-        margin: 0 10px 0 auto;
-        /* Empurra tudo para a direita */
+    /* ========================================
+       AÇÕES DO HEADER - Lado direito
+       ======================================== */
+
+    /* Container para agrupar ações à direita */
+    .header-right-actions {
         display: flex;
-        gap: 15px;
+        align-items: center;
+        gap: 12px;
     }
 
+    /* Esconde o perfil no mobile - fica no menu */
+    .user-profile-header {
+        display: none;
+        order: 5;
+    }
+
+    .profile-btn-header {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 1.1rem;
+        background: transparent;
+        color: rgb(139, 94, 60);
+        border: 2px solid rgba(189, 144, 86, 0.3);
+        box-shadow: none;
+    }
+
+    .profile-btn-header:active {
+        transform: scale(0.95);
+        background: rgba(189, 144, 86, 0.1);
+    }
+
+    /* Dropdown do perfil - Slide de baixo */
+    .profile-dropdown-header {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        min-width: 100%;
+        border-radius: 20px 20px 0 0;
+        transform: translateY(100%);
+        max-height: 60vh;
+        overflow-y: auto;
+        box-shadow: 0 -4px 20px rgba(101, 67, 33, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .profile-dropdown-header::before {
+        display: none;
+    }
+
+    .user-profile-header:hover .profile-dropdown-header,
+    .profile-dropdown-header.active {
+        transform: translateY(0);
+    }
+
+    .profile-dropdown-header a {
+        padding: 16px 20px;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(189, 144, 86, 0.1);
+    }
+
+    .profile-dropdown-header a i {
+        width: 22px;
+        font-size: 1.1rem;
+        margin-right: 14px;
+    }
+
+    /* Carrinho - Compacto */
     .btn-carrinho {
         order: 3;
-        margin: 0 15px 0 0;
+        margin: 0 0 0 auto;
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
+        box-shadow: 0 2px 8px rgba(189, 144, 86, 0.25);
+        border: none;
     }
 
-    /* 3. Botão Menu Hamburguer */
+    .btn-carrinho svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-carrinho:active {
+        transform: scale(0.95);
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+        border: 2px solid #fcf6e9;
+        animation: none;
+    }
+
+    /* ========================================
+       MENU HAMBURGUER
+       ======================================== */
+
     .menu-toggle {
-        order: 4;
-        display: block;
-        position: static;
-        background: none;
-        border: none;
-        font-size: 1.8rem;
-        color: #8b5e3c;
+        order: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 2px solid rgba(189, 144, 86, 0.2);
+        border-radius: 12px;
+        font-size: 1.4rem;
+        color: rgb(139, 94, 60);
         cursor: pointer;
         z-index: 1100;
-        transition: transform 0.3s ease;
-        margin-left: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.1);
+    }
+
+    .menu-toggle:active {
+        transform: scale(0.92);
+        background: rgba(189, 144, 86, 0.15);
     }
 
     .menu-toggle.active {
         transform: rotate(90deg);
+        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
+        color: white;
+        border-color: transparent;
     }
 
-    /* 4. Navegação (Quebra para próxima linha) */
+    /* ========================================
+       NAVEGAÇÃO MOBILE - Cards com animação
+       ======================================== */
+
     header nav {
         order: 5;
         flex-basis: 100%;
-        /* Ocupa toda a largura */
         display: none;
-        /* Escondido por padrão */
-        background-color: #faf4e6;
-        border-top: 1px solid rgba(139, 94, 60, 0.2);
-        padding: 10px 0;
-        margin-top: 10px;
-        animation: fadeIn 0.3s ease;
+        background: transparent;
+        border-top: none;
+        padding: 16px 0 8px;
+        margin-top: 12px;
     }
 
     header nav.active {
         display: block;
+        animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    @keyframes fadeIn {
+    @keyframes slideDown {
         from {
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-16px);
         }
 
         to {
@@ -201,87 +335,298 @@ svg {
 
     header nav ul {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         padding: 0;
-        align-items: center;
+        align-items: stretch;
     }
 
     header nav ul li {
-        width: 90%;
-        margin: 0 auto;
+        width: 100%;
+        margin: 0;
+        animation: fadeInUp 0.4s ease forwards;
+        opacity: 0;
     }
 
+    header nav ul li:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    header nav ul li:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    header nav ul li:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    header nav ul li:nth-child(4) {
+        animation-delay: 0.2s;
+    }
+
+    header nav ul li:nth-child(5) {
+        animation-delay: 0.25s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Links de navegação - Estilo card moderno */
     header nav ul li a {
-        display: block;
-        padding: 12px;
-        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 20px;
+        background: rgba(255, 255, 255, 0.9);
         text-align: center;
-        border: 1px solid #e0d5c1;
+        border: none;
+        border-radius: 16px;
         width: 100%;
         box-sizing: border-box;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: rgb(139, 94, 60);
+        box-shadow: 0 2px 12px rgba(139, 115, 85, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    header nav ul li a:hover,
+    header nav ul li a:active {
+        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
+        color: white;
+        transform: scale(0.98);
+        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.3);
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    header nav ul li a.active {
+        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
+        color: white;
+        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.35);
     }
 
     header nav ul li a::after {
         display: none;
     }
 
-    /* --- MENU SECUNDÁRIO --- */
+    /* ========================================
+       MENU SECUNDÁRIO MOBILE - Estilo App
+       ======================================== */
+
     .menu-secundario {
         height: auto;
-        padding: 15px 0;
+        padding: 16px 12px;
+        background: linear-gradient(180deg, #fcf6e9 0%, #f8f1e4 100%);
+        border-radius: 0;
+        margin: 0;
+        box-shadow: 0 2px 12px rgba(139, 115, 85, 0.08);
     }
 
     .menu-secundario nav {
         flex-direction: column;
-        gap: 15px;
+        gap: 16px;
+        align-items: center;
     }
 
+    /* Lista de categorias no estilo de ícones */
     .menu-secundario ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 0 4px;
+        margin: 0;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
 
+    .menu-secundario ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-secundario ul li {
+        flex: 0 0 auto;
+        min-width: 70px;
+    }
+
+    .menu-secundario ul li a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 8px;
+        background: white;
+        border-radius: 16px;
+        font-size: 0.75rem;
+        color: rgb(139, 94, 60);
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .menu-secundario ul li a:hover,
+    .menu-secundario ul li a:active {
+        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
+        color: white;
+        transform: scale(0.96);
+        box-shadow: 0 4px 12px rgba(189, 144, 86, 0.3);
+    }
+
+    .menu-secundario ul li a i {
+        font-size: 1.4rem;
+        padding: 10px;
+        background: rgba(189, 144, 86, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .menu-secundario ul li a:hover i,
+    .menu-secundario ul li a:active i {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+
+    /* Botão de cadastro - Estilo Pill */
     .btn-cadastro {
-        margin-top: 10px;
+        margin-top: 8px;
+        padding: 14px 32px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
+        color: white;
+        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.35);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        display: inline-block;
     }
 
-    /* --- HERO SECTION --- */
+    .btn-cadastro:active {
+        transform: scale(0.96);
+        box-shadow: 0 2px 8px rgba(189, 144, 86, 0.4);
+    }
+
+    /* ========================================
+       HERO SECTION MOBILE
+       ======================================== */
+
     .banner.hero-section {
         height: auto;
-        min-height: 450px;
-        padding: 60px 20px;
+        min-height: 380px;
+        padding: 40px 16px;
         flex-direction: column;
         justify-content: center;
+        border-radius: 0 0 32px 32px;
+        margin-bottom: 8px;
     }
 
     .hero-text {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         position: static;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         text-align: center;
+        line-height: 1.4;
     }
 
     .hero-search {
         width: 100%;
+        max-width: 100%;
         position: static;
-        padding: 15px;
+        padding: 16px 20px;
         font-size: 1rem;
-        margin: 20px auto 0;
+        margin: 16px auto 0;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border: 2px solid rgba(189, 144, 86, 0.2);
+        transition: all 0.3s ease;
     }
 
-    /* --- CATEGORIAS --- */
+    .hero-search:focus {
+        border-color: rgb(189, 144, 86);
+        box-shadow: 0 4px 24px rgba(189, 144, 86, 0.25);
+        outline: none;
+    }
+
+    /* ========================================
+       CATEGORIAS MOBILE - Grid de Ícones
+       ======================================== */
+
+    .categorias {
+        padding: 24px 12px;
+        background: #fcf6e9;
+    }
+
+    .cat {
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+        text-align: center;
+        color: rgb(139, 94, 60);
+    }
+
     .generos {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 0 10px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        padding: 0;
+    }
+
+    .svg {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 4px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .svg:active {
+        transform: scale(0.95);
+        box-shadow: 0 4px 12px rgba(189, 144, 86, 0.2);
+    }
+
+    .svg a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        gap: 6px;
     }
 
     .svg img {
-        width: 50px;
-        height: 50px;
+        width: 36px;
+        height: 36px;
+        padding: 8px;
+        background: rgba(189, 144, 86, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .svg:active img {
+        background: rgba(189, 144, 86, 0.2);
+    }
+
+    .svg h4 {
+        font-size: 0.65rem;
+        color: rgb(139, 94, 60);
+        text-align: center;
+        margin: 0;
+        line-height: 1.2;
     }
 
     /* --- PRODUTOS (Grid de 1 Coluna) --- */
