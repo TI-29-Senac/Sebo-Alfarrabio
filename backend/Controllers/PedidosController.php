@@ -98,7 +98,8 @@ class PedidosController
             !$this->pedidos->atualizarPedidos(
                 $_POST['id_pedido'],
                 $_POST['data_pedido'],
-                $_POST['status_pedido']
+                $_POST['status_pedido'],
+                $_POST['valor_total']
             )
         ) {
             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao atualizar pedido.");
@@ -128,5 +129,20 @@ class PedidosController
         View::render("pedidos/delete", [
             "pedido" => $pedido   // ← agora é um array simples com os dados
         ]);
+    }
+
+    public function deletarPedidos()
+    {
+        $id = $_POST['id_pedido'] ?? null;
+        if (!$id) {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "ID do pedido não informado.");
+            return;
+        }
+
+        if ($this->pedidos->excluirPedidos($id)) {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Pedido excluído com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao excluir o pedido.");
+        }
     }
 }

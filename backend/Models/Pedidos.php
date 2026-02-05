@@ -83,8 +83,10 @@ class Pedidos
             $stmtItem = $this->db->prepare($sqlItem);
 
             foreach ($itensCarrinho as $item) {
+                // Suporta id_item (padrão) ou id (legado)
+                $id_item = $item['id_item'] ?? $item['id'];
                 $stmtItem->bindParam(':pedido_id', $idPedido, PDO::PARAM_INT);
-                $stmtItem->bindParam(':item_id', $item['id'], PDO::PARAM_INT);
+                $stmtItem->bindParam(':item_id', $id_item, PDO::PARAM_INT);
                 $stmtItem->bindParam(':quantidade', $item['quantidade'], PDO::PARAM_INT);
                 $stmtItem->execute();
             }
@@ -167,19 +169,21 @@ class Pedidos
         }
     }
 
-    function atualizarPedidos($id, $data_pedido, $status)
+    function atualizarPedidos($id, $data_pedido, $status, $total)
     {
         // Se a tabela tiver data_atualizacao com ON UPDATE CURRENT_TIMESTAMP, não precisa atualizar manual
         // Mas vamos manter compatível
         $sql = "UPDATE tbl_pedidos SET 
             data_pedido = :data,
-            status = :status
-            WHERE id = :id";
+            status = :status,
+            valor_total = :total
+            WHERE id_pedidos = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':data', $data_pedido, PDO::PARAM_STR);
         $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        $stmt->bindParam(':total', $total);
 
         return $stmt->execute();
     }
@@ -191,7 +195,7 @@ class Pedidos
     // Vou mudar para DELETE real para evitar erro 'Column not found: excluido_em'
     function excluirPedidos($id)
     {
-        $sql = "DELETE FROM tbl_pedidos WHERE id = :id";
+        $sql = "DELETE FROM tbl_pedidos WHERE id_pedidos = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();

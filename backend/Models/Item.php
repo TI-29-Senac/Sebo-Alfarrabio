@@ -52,22 +52,9 @@ class Item
 
     function inserirItem(array $dadosItem, array $autores_ids)
     {
-        // Mapeia chaves do formulário (local) para colunas do banco (remoto)
-        $map = [
-            'titulo' => 'titulo_item',
-            'preco' => 'preco_item',
-            'imagem' => 'foto_item',
-            'genero_id' => 'id_genero',
-            'categoria_id' => 'id_categoria',
-            'editora' => 'editora_gravadora',
-            'tipo' => 'tipo_item',
-            // Outros campos diretos: descricao, ano_publicacao, isbn, estoque
-        ];
-
         $dadosRemotos = [];
         foreach ($dadosItem as $key => $val) {
-            $col = $map[$key] ?? $key; // Se não tiver no mapa, usa a chave original
-            $dadosRemotos[$col] = $val;
+            $dadosRemotos[$key] = $val;
         }
 
         // Garante campos obrigatórios ou defaults
@@ -115,20 +102,9 @@ class Item
 
     function atualizarItem(int $id_item, array $dadosItem, array $autores_ids)
     {
-        $map = [
-            'titulo' => 'titulo_item',
-            'preco' => 'preco_item',
-            'imagem' => 'foto_item',
-            'genero_id' => 'id_genero',
-            'categoria_id' => 'id_categoria',
-            'editora' => 'editora_gravadora',
-            'tipo' => 'tipo_item'
-        ];
-
         $dadosRemotos = ['atualizado_em' => date('Y-m-d H:i:s')];
         foreach ($dadosItem as $key => $val) {
-            $col = $map[$key] ?? $key;
-            $dadosRemotos[$col] = $val;
+            $dadosRemotos[$key] = $val;
         }
 
         $setParts = [];

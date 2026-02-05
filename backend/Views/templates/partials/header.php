@@ -47,27 +47,34 @@ use Sebo\Alfarrabio\Core\Session;
         .sidebar-sebo {
             background: linear-gradient(180deg, #ffffff 0%, #faf8f3 100%) !important;
             box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05);
+            height: 100vh;
+            overflow-y: auto;
+            padding-bottom: 60px;
         }
 
         .sidebar-sebo .user-profile {
             background: linear-gradient(135deg, var(--bege-light), var(--bege-primary));
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             margin: 15px;
+            margin-top: 50px;
         }
 
         .sidebar-sebo .user-avatar {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 3px solid white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
         }
 
         .sidebar-sebo .user-name {
             font-weight: 600;
             color: var(--marrom-escuro);
-            font-size: 16px;
+            font-size: 14px;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
         .sidebar-sebo .user-role {
@@ -121,6 +128,12 @@ use Sebo\Alfarrabio\Core\Session;
             border-radius: 6px;
             margin: 2px;
             transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            padding: 0 !important;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
         }
 
         .user-action-btn:hover {
