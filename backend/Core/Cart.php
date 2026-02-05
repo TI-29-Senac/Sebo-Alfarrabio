@@ -9,6 +9,11 @@ class Cart
         return $_SESSION['usuario_id'] ?? null;
     }
 
+    /**
+     * Adiciona um item ao carrinho.
+     * @param int $id_item
+     * @param int $quantidade
+     */
     public static function add($id_item, $quantidade = 1)
     {
         $usuario_id = self::getUsuarioId();
@@ -58,6 +63,10 @@ class Cart
         }
     }
 
+    /**
+     * Retorna os itens do carrinho.
+     * @return array
+     */
     public static function get()
     {
         $usuario_id = self::getUsuarioId();
@@ -85,6 +94,9 @@ class Cart
         return $_SESSION['carrinho'] ?? [];
     }
 
+    /**
+     * Atualiza a quantidade de um item.
+     */
     public static function update($id_item, $quantidade)
     {
         $usuario_id = self::getUsuarioId();
@@ -109,6 +121,9 @@ class Cart
         }
     }
 
+    /**
+     * Remove um item do carrinho.
+     */
     public static function remove($id_item)
     {
         $usuario_id = self::getUsuarioId();
@@ -123,6 +138,9 @@ class Cart
         }
     }
 
+    /**
+     * Limpa o carrinho.
+     */
     public static function clear()
     {
         $usuario_id = self::getUsuarioId();
@@ -152,6 +170,9 @@ class Cart
         }
     }
 
+    /**
+     * Calcula o total do valor do carrinho.
+     */
     public static function total()
     {
         $total = 0;
@@ -161,6 +182,9 @@ class Cart
         return $total;
     }
 
+    /**
+     * Conta a quantidade total de itens.
+     */
     public static function count()
     {
         $count = 0;
@@ -169,6 +193,9 @@ class Cart
         }
         return $count;
     }
+    /**
+     * Retorna a quantidade de um item específico.
+     */
     public static function getItemQuantity($id_item)
     {
         $itens = self::get();

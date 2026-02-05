@@ -6,7 +6,7 @@
   position: relative;
   width: 100%;
   min-height: 500px;
-  height: 500px;
+  height: 80vh;
   overflow: hidden;
   background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
   box-shadow: #6941004f 10px 4px 10px 4px;
@@ -80,7 +80,7 @@
 }
 
 .book-emoji {
-  font-size: 120px;
+  font-size: 180px;
   filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.6));
   animation: float 4s ease-in-out infinite;
 }
@@ -216,66 +216,7 @@
   }
 }
 
-/* ========================================== */
-/* RESPONSIVIDADE */
-/* ========================================== */
 
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: 400px;
-    height: 400px;
-  }
-
-  .book-emoji {
-    font-size: 80px;
-  }
-
-  .hero-text {
-    font-size: 1.8rem;
-  }
-
-  .hero-text span {
-    font-size: 1.6rem;
-  }
-
-  .hero-search {
-    font-size: 1rem;
-    padding: 15px 30px;
-    max-width: 90%;
-  }
-
-  .flying-letter {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-section {
-    min-height: 350px;
-    height: 350px;
-  }
-
-  .book-emoji {
-    font-size: 60px;
-  }
-
-  .hero-text {
-    font-size: 1.4rem;
-  }
-
-  .hero-text span {
-    font-size: 1.3rem;
-  }
-
-  .hero-search {
-    font-size: 0.9rem;
-    padding: 12px 25px;
-  }
-
-  .flying-letter {
-    font-size: 16px;
-  }
-}
 
 /* ========================================== */
 /* ANIMAÇÃO DE ONDA (PÓS-ENTRADA) */

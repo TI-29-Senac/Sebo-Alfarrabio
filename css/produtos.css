@@ -596,220 +596,131 @@
 .container-p {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   align-content: start;
+  padding: 0 20px;
 }
 
 /* ========================================
-   CARDS DE PRODUTOS ESTILIZADOS
+   CARDS MINIMALISTAS - ESTILO LIMPO
    ======================================== */
 
 .card-livro {
-  background: linear-gradient(to bottom, #c8b896, #c8b896);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(139, 115, 85, 0.12);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border-radius: 12px;
+  overflow: visible;
+  transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 65%;
-  border: 2px solid #e8dcc4;
+  cursor: pointer;
   position: relative;
-}
-
-.card-livro::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #c8b896, #a89968, #c8b896);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.card-livro:hover::before {
-  opacity: 1;
 }
 
 .card-livro:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(139, 115, 85, 0.25);
-  border-color: #c8b896;
+  transform: translateY(-5px);
 }
 
+/* Imagem do livro - foco principal */
 .card-imagem {
   position: relative;
-  height: 360px;
+  aspect-ratio: 2/3;
+  border-radius: 12px;
   overflow: hidden;
+  background: linear-gradient(145deg, #f0ebe3, #e5ddd0);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+}
 
+.card-livro:hover .card-imagem {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .card-imagem img {
-  width: 90%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s ease;
 }
 
 .card-livro:hover .card-imagem img {
-  transform: scale(1.12) rotate(1deg);
+  transform: scale(1.03);
 }
 
+/* Badge de esgotado */
 .badge-status {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: linear-gradient(135deg, #e63946, #c1121f);
+  top: 10px;
+  right: 10px;
+  background: #e63946;
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.card-info {
-  padding: 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.card-tipo {
-  display: inline-block;
-  background: linear-gradient(135deg, #c8b896, #a89968);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  align-self: flex-start;
-  box-shadow: 0 2px 8px rgba(168, 153, 104, 0.3);
-}
-
-.card-titulo {
-  font-size: 19px;
-  font-weight: 700;
-  color: #6b5638;
-  line-height: 1.4;
-  margin: 8px 0;
-  min-height: 52px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-autor {
-  font-size: 14px;
-  color: #8b7355;
-  font-style: italic;
-  margin: 4px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-editora {
-  font-size: 12px;
-  color: #999;
-  margin: 4px 0;
-}
-
-.card-metadata {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 8px 0;
-}
-
-.card-metadata span {
-  font-size: 11px;
-  color: #8b7355;
-  background: rgba(200, 184, 150, 0.15);
   padding: 4px 10px;
   border-radius: 12px;
-  font-weight: 600;
-  border: 1px solid rgba(200, 184, 150, 0.3);
-}
-
-.card-spacer {
-  flex: 1;
-  min-height: 10px;
-}
-
-.card-preco {
-  font-size: 28px;
-  font-weight: bold;
-  color: #6b5638;
-  text-align: center;
-  padding: 16px;
-  background: linear-gradient(135deg, #f5f1e8, #ebe3d5);
-  border-radius: 10px;
-  margin: 12px 0;
-  border-left: 4px solid #c8b896;
-  box-shadow: 0 2px 8px rgba(168, 153, 104, 0.15);
-  font-family: 'Merriweather', serif;
-}
-
-.card-estoque {
-  text-align: center;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 13px;
+  font-size: 9px;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 8px 0;
+  z-index: 10;
 }
 
-.card-estoque.disponivel {
-  background: linear-gradient(135deg, #d4edda, #c3e6cb);
-  color: #155724;
-  border: 2px solid #b1dfbb;
+/* Informações simples abaixo da imagem */
+.card-info {
+  padding: 12px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
 }
 
-.card-estoque.indisponivel {
-  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-  color: #721c24;
-  border: 2px solid #f1b0b7;
-}
-
+/* Esconder elementos desnecessários - apenas imagem */
+.card-info,
+.card-tipo,
+.card-titulo,
+.card-autor,
+.card-preco,
+.card-editora,
+.card-metadata,
+.card-spacer,
+.card-estoque,
 .card-btn {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 10px;
+  display: none !important;
+}
+
+/* Título - limpo e legível */
+.card-titulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d2d2d;
+  line-height: 1.3;
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Autor - sutil */
+.card-autor {
+  font-size: 12px;
+  color: #888;
+  font-style: normal;
+  margin: 0 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Preço - discreto mas visível */
+.card-preco {
   font-size: 15px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  color: #4a7c59;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  font-family: inherit;
 }
 
 .card-btn.disponivel {
@@ -855,84 +766,7 @@
   }
 }
 
-/* ========================================
-   RESPONSIVO
-   ======================================== */
 
-@media (max-width: 1024px) {
-  .container-p {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .main-layout {
-    flex-direction: column;
-    padding: 20px 10px;
-  }
-
-  .sidebar-filtros {
-    width: 100%;
-    position: static;
-  }
-
-  .container-p {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  }
-
-  .card-imagem {
-    height: 300px;
-  }
-
-  .modal-body {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    padding: 25px;
-  }
-
-  .modal-imagem img {
-    max-height: 350px;
-  }
-
-  .modal-info h2 {
-    font-size: 22px;
-  }
-
-  .modal-preco {
-    font-size: 26px;
-  }
-
-  .modal-acoes {
-    flex-direction: column;
-  }
-
-  .modal-carrinho .modal-body,
-  .modal-header,
-  .modal-footer {
-    padding: 20px;
-  }
-
-  .cart-items li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .btn-remove-cart {
-    align-self: flex-end;
-  }
-}
-
-@media (max-width: 480px) {
-  .container-p {
-    grid-template-columns: 1fr;
-  }
-
-  .card-imagem {
-    height: 350px;
-  }
-}
 
 /* ========================================
    PAGINAÇÃO

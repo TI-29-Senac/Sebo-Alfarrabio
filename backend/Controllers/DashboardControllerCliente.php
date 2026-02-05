@@ -35,6 +35,9 @@ class DashboardControllerCliente extends AuthenticatedController
         $this->avaliacaoModel = new Avaliacao($this->db);
     }
 
+    /**
+     * Exibe o painel do cliente com seus pedidos e estatísticas.
+     */
     public function index()
     {
         $session = new \Sebo\Alfarrabio\Core\Session();
@@ -119,6 +122,9 @@ class DashboardControllerCliente extends AuthenticatedController
         ]);
     }
 
+    /**
+     * Processa o upload e atualização da foto de perfil do cliente.
+     */
     public function atualizarFotoPerfil()
     {
         $session = new \Sebo\Alfarrabio\Core\Session();

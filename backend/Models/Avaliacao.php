@@ -3,40 +3,63 @@ namespace Sebo\Alfarrabio\Models;
 use PDO;
 use PDOException;
 
-class Avaliacao {
-    private $db;  
+class Avaliacao
+{
+    private $db;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
-   
-    function buscarAvaliacao() {
+
+    /**
+     * Busca todas as avaliações ativas.
+     */
+    function buscarAvaliacao()
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE excluido_em IS NULL ORDER BY id_avaliacao DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function totalDeAvaliacao() {  
+    /**
+     * Conta o total de avaliações no sistema.
+     */
+    function totalDeAvaliacao()
+    {
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchColumn();  
+        return $stmt->fetchColumn();
     }
 
-    function totalDeAvaliacaoInativos() {
+    /**
+     * Conta avaliações inativas (excluídas).
+     */
+    function totalDeAvaliacaoInativos()
+    {
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NOT NULL";
         $stmt = $this->db->query($sql);
         return $stmt->fetchColumn();
     }
 
-    function totalDeAvaliacaoAtivos() {
+    /**
+     * Conta avaliações ativas.
+     */
+    function totalDeAvaliacaoAtivos()
+    {
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NULL";
         $stmt = $this->db->query($sql);
         return $stmt->fetchColumn();
     }
 
-    function buscarAvaliacaoPorID($id_avaliacao) {
+    /**
+     * Busca avaliação por ID.
+     * @param int $id_avaliacao
+     */
+    function buscarAvaliacaoPorID($id_avaliacao)
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE id_avaliacao = :id AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
@@ -44,8 +67,12 @@ class Avaliacao {
         return $stmt->fetch(PDO::FETCH_ASSOC);  // Single row
     }
 
-    // Outros filtros (ex: por nota, etc.) – adicione WHERE excluido_em IS NULL se usar
-    function buscarAvaliacaoPorNota($nota_avaliacao) {
+    /**
+     * Busca avaliações por nota.
+     * @param int $nota_avaliacao
+     */
+    function buscarAvaliacaoPorNota($nota_avaliacao)
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE nota_avaliacao = :nota AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':nota', $nota_avaliacao);
@@ -53,7 +80,8 @@ class Avaliacao {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarAvaliacaoPorComentario($comentario_avaliacao) {
+    function buscarAvaliacaoPorComentario($comentario_avaliacao)
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE comentario_avaliacao LIKE :comentario AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':comentario', "%$comentario_avaliacao%");
@@ -61,7 +89,8 @@ class Avaliacao {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarAvaliacaoPorData($data_avaliacao) {
+    function buscarAvaliacaoPorData($data_avaliacao)
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE data_avaliacao = :data AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':data', $data_avaliacao);
@@ -69,7 +98,12 @@ class Avaliacao {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function buscarAvaliacaoPorStatus($status_avaliacao) {
+    /**
+     * Busca por status.
+     * @param string $status_avaliacao
+     */
+    function buscarAvaliacaoPorStatus($status_avaliacao)
+    {
         $sql = "SELECT * FROM tbl_avaliacao WHERE status_avaliacao = :status AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':status', $status_avaliacao);
@@ -78,7 +112,12 @@ class Avaliacao {
     }
 
     // ===== CREATE =====
-    function inserirAvaliacao($id_item, $id_usuario, $nota_avaliacao, $comentario_avaliacao = null, $data_avaliacao = null, $status_avaliacao = 'ativo') {
+
+    /**
+     * Insere nova avaliação.
+     */
+    function inserirAvaliacao($id_item, $id_usuario, $nota_avaliacao, $comentario_avaliacao = null, $data_avaliacao = null, $status_avaliacao = 'ativo')
+    {
         // Validação básica (alinhada com DB: nota 1-5, FKs required)
         if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
             error_log("ERRO: Nota inválida: {$nota_avaliacao} (deve ser 1-5)");
@@ -115,7 +154,12 @@ class Avaliacao {
     }
 
     // ===== UPDATE =====
-    public function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao) {
+
+    /**
+     * Atualiza avaliação existente.
+     */
+    public function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao)
+    {
         // Validação nota
         if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
             error_log("ERRO: Nota inválida na update: {$nota_avaliacao}");
@@ -150,7 +194,11 @@ class Avaliacao {
         }
     }
 
-    public function deletarAvaliacao($id_avaliacao) {
+    /**
+     * Realiza soft delete da avaliação.
+     */
+    public function deletarAvaliacao($id_avaliacao)
+    {
         $sql = "UPDATE tbl_avaliacao SET excluido_em = NOW(), status_avaliacao = 'inativo' WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
@@ -162,8 +210,11 @@ class Avaliacao {
         }
     }
 
-    // ATIVAR: Reverte soft-delete
-    public function ativarAvaliacao($id_avaliacao) {
+    /**
+     * Reativa avaliação excluída.
+     */
+    public function ativarAvaliacao($id_avaliacao)
+    {
         $sql = "UPDATE tbl_avaliacao SET excluido_em = NULL, status_avaliacao = 'ativo', atualizado_em = NOW() WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
@@ -179,7 +230,8 @@ class Avaliacao {
      * Busca todas as avaliações feitas por um usuário específico
      * Retorna dados da avaliação junto com informações do item avaliado
      */
-    function buscarAvaliacoesPorIDUsuario($id_usuario) {
+    function buscarAvaliacoesPorIDUsuario($id_usuario)
+    {
         $sql = "SELECT 
                     a.id_avaliacao,
                     a.id_item,
@@ -195,7 +247,7 @@ class Avaliacao {
                 LEFT JOIN tbl_itens i ON a.id_item = i.id_item
                 WHERE a.id_usuario = :id_usuario AND a.excluido_em IS NULL
                 ORDER BY a.data_avaliacao DESC";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
@@ -205,7 +257,8 @@ class Avaliacao {
     /**
      * Conta total de avaliações feitas por um usuário
      */
-    function totalDeAvaliacaoPorUsuario($id_usuario) {
+    function totalDeAvaliacaoPorUsuario($id_usuario)
+    {
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE id_usuario = :id_usuario AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
@@ -217,7 +270,8 @@ class Avaliacao {
      * Verifica se um item já foi avaliado por um usuário específico
      * @return bool true se já existe avaliação ativa
      */
-    function verificarSeItemJaAvaliado($id_usuario, $id_item) {
+    function verificarSeItemJaAvaliado($id_usuario, $id_item)
+    {
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao 
                 WHERE id_usuario = :id_usuario 
                 AND id_item = :id_item 
@@ -233,7 +287,8 @@ class Avaliacao {
      * Retorna array com IDs de todos os itens já avaliados por um usuário
      * Útil para verificar múltiplos itens de uma vez
      */
-    function buscarItensAvaliadosPorUsuario($id_usuario) {
+    function buscarItensAvaliadosPorUsuario($id_usuario)
+    {
         $sql = "SELECT id_item FROM tbl_avaliacao 
                 WHERE id_usuario = :id_usuario 
                 AND excluido_em IS NULL";

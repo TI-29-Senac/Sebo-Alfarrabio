@@ -1,109 +1,117 @@
-.depoimentos{
-    background-color:#f8f1e7;
-    width: 100%;
-    height: 550px;
-    display: flex;
-    flex-direction: column;
-    display: flex;
+/* ========================================
+   ESTILOS DA SEÇÃO DE DEPOIMENTOS
+   ======================================== */
+.depoimentos {
+  background-color: #f8f1e7;
+  width: 100%;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
 }
 
-.container-footer{
-    display: flex;
+.container-footer {
+  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.depoimento-titulo{
-    padding: 30px 0px 0px 0px;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #a87e4b;
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Merriweather', serif;
+.depoimento-titulo {
+  padding: 30px 0px 0px 0px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #a87e4b;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Merriweather', serif;
 }
 
-.depoimento-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.depoimento-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.depoimento-card{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5deb3;
-    border: 2px solid #a7690594;
-    border-radius: 10px;
-    padding: 20px;
-    width: 400px;
-    margin: 50px 20px;
-    box-shadow: 15px 10px 30px 0px #f5c577;
+.depoimento-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5deb3;
+  border: 2px solid #a7690594;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  margin: 50px 20px;
+  box-shadow: 15px 10px 30px 0px #f5c577;
 }
 
-.foto-perfil{
-    width: 120px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 3px solid #694100;
+.foto-perfil {
+  width: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 3px solid #694100;
 }
 
-.depoimento-texto{
-    font-family: 'Merriweather', serif;
-    color: #694100;
-    text-align: center;
+.depoimento-texto {
+  font-family: 'Merriweather', serif;
+  color: #694100;
+  text-align: center;
 }
-.citacao{
-    padding: 10px;
+
+.citacao {
+  padding: 10px;
 }
 
 .depoimento-slider {
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .depoimento-track {
-    display: flex;
-    gap: 20px;
-    animation: deslizar 20s linear infinite;
+  overflow: hidden;
+  width: 100%;
+}
+
+.depoimento-track {
+  display: flex;
+  gap: 20px;
+  animation: deslizar 20s linear infinite;
+}
+
+.depoimento-slider:hover .depoimento-track {
+  animation-play-state: paused;
+}
+
+.depoimento-card {
+  min-width: 410px;
+  flex-shrink: 0;
+  background: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.foto-perfil {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+@keyframes deslizar {
+  0% {
+    transform: translateX(0);
   }
 
-  .depoimento-slider:hover .depoimento-track {
-    animation-play-state: paused;
+  100% {
+    transform: translateX(-100%);
   }
-  
-  .depoimento-card {
-    min-width: 410px;
-    flex-shrink: 0;
-    background: #fff;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    font-size: 1.1rem;
-  }
-  
-  .foto-perfil {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  @keyframes deslizar {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+}
 
-  .depoimento-track {
-    display: flex;
-    gap: 20px;
-    animation: deslizar 15s linear infinite; /* mais rápido */
-  }
-
-  
+.depoimento-track {
+  display: flex;
+  gap: 20px;
+  animation: deslizar 15s linear infinite;
+  /* mais rápido */
+}

@@ -17,7 +17,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 30%, rgba(200, 184, 150, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(168, 126, 78, 0.03) 0%, transparent 50%);
   pointer-events: none;
@@ -62,42 +62,42 @@
   margin: 25px auto;
 }
 
-/* Carrossel moderno */
-.carousel-modern {
+/* Carrossel moderno - apenas para sec-livros */
+.books-section .carousel-modern {
   position: relative;
-  margin: 0 60px;
+  margin: 0;
   max-width: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
-/* Track do carrossel */
-.carousel-track {
+/* Track do carrossel - SOMENTE sec-livros */
+.books-section .carousel-track {
   display: flex;
   gap: 30px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 30px 10px 50px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(200, 184, 150, 0.5) rgba(200, 184, 150, 0.1);
+  padding: 30px 0 50px;
+  animation: rolling-books 60s linear infinite;
+  width: max-content;
+  will-change: transform;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.carousel-track::-webkit-scrollbar {
-  height: 10px;
+.books-section .carousel-track:hover {
+  animation-play-state: paused;
 }
 
-.carousel-track::-webkit-scrollbar-track {
-  background: rgba(200, 184, 150, 0.1);
-  border-radius: 10px;
+.books-section .carousel-track::-webkit-scrollbar {
+  display: none;
 }
 
-.carousel-track::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #c8b896, #a89968);
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-}
+@keyframes rolling-books {
+  0% {
+    transform: translateX(0);
+  }
 
-.carousel-track::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #d4c5a9, #c8b896);
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Card moderno */
@@ -110,7 +110,10 @@
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  height: fit-content;
+  height: 580px;
+  /* Altura fixa para padronização */
+  display: flex;
+  flex-direction: column;
 }
 
 .book-card-modern:hover {
@@ -167,6 +170,9 @@
 .book-info {
   padding: 25px;
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .book-title {
@@ -178,6 +184,7 @@
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   min-height: 52px;
@@ -188,7 +195,13 @@
   color: #8b7355;
   font-style: italic;
   margin-bottom: 15px;
-  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 20px;
+  /* Garante espaço mesmo sem autor */
 }
 
 /* Preço em destaque */
@@ -198,6 +211,8 @@
   justify-content: space-between;
   padding-top: 15px;
   border-top: 2px solid rgba(200, 184, 150, 0.2);
+  margin-top: auto;
+  /* Empurra para o final do card */
 }
 
 .book-price {
@@ -255,12 +270,10 @@
   box-shadow: 0 10px 30px rgba(200, 184, 150, 0.5);
 }
 
-.nav-btn.prev {
-  left: -30px;
-}
-
+.nav-btn.prev,
 .nav-btn.next {
-  right: -30px;
+  display: none !important;
+  /* Removidos para o efeito de rolagem contínua */
 }
 
 /* Indicadores de página - OCULTOS */
@@ -272,20 +285,23 @@
 .loading-card {
   flex: 0 0 280px;
   height: 550px;
-  background: linear-gradient(
-    90deg,
-    rgba(249, 247, 244, 0.5) 0%,
-    rgba(232, 220, 196, 0.5) 50%,
-    rgba(249, 247, 244, 0.5) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(249, 247, 244, 0.5) 0%,
+      rgba(232, 220, 196, 0.5) 50%,
+      rgba(249, 247, 244, 0.5) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: 24px;
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes fadeInDown {
@@ -293,6 +309,7 @@
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -304,6 +321,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -330,108 +348,3 @@
   font-family: 'Merriweather', serif;
 }
 
-/* ========================================
-   RESPONSIVO
-   ======================================== */
-
-@media (max-width: 1024px) {
-  .books-header h2 {
-    font-size: 40px;
-  }
-
-  .book-card-modern {
-    flex: 0 0 240px;
-  }
-
-  .book-image-wrapper {
-    height: 350px;
-  }
-
-  .nav-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .nav-btn.prev {
-    left: -25px;
-  }
-
-  .nav-btn.next {
-    right: -25px;
-  }
-
-  .carousel-modern {
-    margin: 0 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .books-section {
-    padding: 60px 0;
-  }
-
-  .books-container {
-    padding: 0 20px;
-  }
-
-  .books-header h2 {
-    font-size: 32px;
-  }
-
-  .books-header p {
-    font-size: 18px;
-  }
-
-  .carousel-modern {
-    margin: 0 20px;
-  }
-
-  .book-card-modern {
-    flex: 0 0 220px;
-  }
-
-  .book-image-wrapper {
-    height: 320px;
-  }
-
-  .nav-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 18px;
-  }
-
-  .nav-btn.prev {
-    left: -22px;
-  }
-
-  .nav-btn.next {
-    right: -22px;
-  }
-}
-
-@media (max-width: 480px) {
-  .books-header h2 {
-    font-size: 28px;
-  }
-
-  .carousel-modern {
-    margin: 0 10px;
-  }
-
-  .book-card-modern {
-    flex: 0 0 200px;
-  }
-
-  .book-title {
-    font-size: 18px;
-  }
-
-  .book-price {
-    font-size: 24px;
-  }
-
-  .nav-btn {
-    display: none;
-  }
-}

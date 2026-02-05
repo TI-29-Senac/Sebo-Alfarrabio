@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [30-Jan-2026 01:47:47 UTC] PHP Deprecated:  Sebo\Alfarrabio\Models\Item::paginacao(): Implicitly marking parameter $tipo as nullable is deprecated, the explicit nullable type must be used instead in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 346
 [30-Jan-2026 01:47:47 UTC] PHP Deprecated:  Sebo\Alfarrabio\Models\Item::totalDeItens(): Implicitly marking parameter $tipo as nullable is deprecated, the explicit nullable type must be used instead in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 405
 [30-Jan-2026 01:47:47 UTC] PHP Deprecated:  Sebo\Alfarrabio\Models\Item::totalDeItensInativos(): Implicitly marking parameter $tipo as nullable is deprecated, the explicit nullable type must be used instead in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\Models\Item.php on line 418
@@ -2057,6 +2058,10 @@
 <<<<<<< HEAD
 [04-Feb-2026 12:27:16 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 <<<<<<< HEAD
+[04-Feb-2026 14:46:35 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 14:50:21 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+<<<<<<< HEAD
 [04-Feb-2026 14:40:31 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 =======
 =======
@@ -2154,6 +2159,69 @@ Stack trace:
 =======
 >>>>>>> 60cb14c2190ac2d915e11ef1aba5b3b2f9c26b7c
 >>>>>>> 2b1934e72b0f0afbf68f39623be6e4fcae36ce1d
+<<<<<<< HEAD
 [04-Feb-2026 21:46:44 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 21:54:37 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [04-Feb-2026 22:22:46 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+[05-Feb-2026 00:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> 8289c00f438f86bd7e9cad3f6bde81cb07827508
+[05-Feb-2026 12:43:46 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[05-Feb-2026 12:46:21 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 96
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[05-Feb-2026 13:03:22 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 96
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[05-Feb-2026 13:03:35 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 96
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[05-Feb-2026 13:03:58 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+[05-Feb-2026 14:44:32 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Undefined array key 0 in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Controllers\PedidosController.php on line 96
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 317
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 324
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 342
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 351
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 364
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 376
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 379
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 382
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 385
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 388
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 392
+[05-Feb-2026 14:46:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\Views\templates\pedidos\edit.php on line 393
+=======
+[05-Feb-2026 14:03:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> d201517fd95b1d3452dd2d2935202b4015c5ac7c
+>>>>>>> 874b8e2e132947a5858746e473b5429a385b4432

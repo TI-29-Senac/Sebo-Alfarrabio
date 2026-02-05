@@ -23,6 +23,11 @@ class AutorController extends AdminController
     }
 
     // --- CRIAR (CREATE) ---
+
+    /**
+     * Salva um novo autor no banco de dados.
+     * Recebe dados via POST.
+     */
     public function salvarAutor()
     {
         $erros = AutorValidador::validarEntradas($_POST);
@@ -42,12 +47,19 @@ class AutorController extends AdminController
     }
 
     // --- LER (READ) ---
+
+    /**
+     * Exibe a lista de autores (debug/dump).
+     */
     public function index()
     {
         $resultado = $this->autor->buscarAutores();
         var_dump($resultado);
     }
 
+    /**
+     * Renderiza a view de listagem de autores com paginação/estatísticas.
+     */
     public function viewListarAutor()
     {
         $dados = $this->autor->buscarAutores();
@@ -63,11 +75,18 @@ class AutorController extends AdminController
         ]);
     }
 
+    /**
+     * Renderiza o formulário de criação de autor.
+     */
     public function viewCriarAutor()
     {
         View::render("autor/create", []);
     }
 
+    /**
+     * Renderiza o formulário de edição de um autor específico.
+     * @param int $id_autor ID do autor a ser editado.
+     */
     public function viewEditarAutor($id_autor)
     {
         $dados = $this->autor->buscarAutorPorID($id_autor);
@@ -79,11 +98,18 @@ class AutorController extends AdminController
         View::render("autor/edit", ["autor" => $dados]);
     }
 
+    /**
+     * Renderiza a confirmação de exclusão de um autor.
+     * @param int $id_autor ID do autor a ser excluído.
+     */
     public function viewExcluirAutor($id_autor)
     {
         View::render("autor/delete", ["id_autor" => $id_autor]);
     }
 
+    /**
+     * Gera relatório do autor (placeholder).
+     */
     public function relatorioAutor($id_autor, $data1, $data2)
     {
         View::render("autor/relatorio", [
@@ -94,6 +120,11 @@ class AutorController extends AdminController
     }
 
     // --- 🔍 BUSCAR POR NOME (AJAX / AUTOCOMPLETE) ---
+
+    /**
+     * Busca autores por nome via AJAX para autocomplete.
+     * Retorna JSON.
+     */
     public function buscarAutoresPorNome()
     {
         $termo = $_GET['q'] ?? ''; // Exemplo: /autor/buscar?q=Machado
@@ -111,6 +142,10 @@ class AutorController extends AdminController
     }
 
     // --- ATUALIZAR (UPDATE) ---
+
+    /**
+     * Atualiza os dados de um autor no banco.
+     */
     public function atualizarAutor()
     {
         $id = $_POST['id_autor'] ?? null;
@@ -134,6 +169,10 @@ class AutorController extends AdminController
     }
 
     // --- EXCLUIR (SOFT DELETE) ---
+
+    /**
+     * Realiza a exclusão lógica (soft delete) de um autor.
+     */
     public function deletarAutor()
     {
         $id = $_POST['id_autor'] ?? null;

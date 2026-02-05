@@ -1,0 +1,222 @@
+=== MIGRAÇÃO: ADICIONAR DESCRIÇÕES E AUTORES ===
+Data/Hora: 05/02/2026 14:35:05
+
+Total de livros encontrados: 48
+
+----------------------------------------
+Processando: [1] Hold Me Closer: The Tiny Cooper Story Capa comum
+  ✓ Descrição adicionada
+  → Novo autor criado: 'David Levithan' (ID: 58)
+  ✓ Autor associado ao livro
+----------------------------------------
+Processando: [2] Livro de Ouro da Liderança Capa comum
+  ✓ Descrição adicionada
+  → Novo autor criado: 'Autor Desconhecido' (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [3] O Pequeno Príncipe e o Astronomo Capa dura
+  ✓ Descrição adicionada
+  → Autor 'Antoine de Saint-Exupéry' já existe (ID: 21)
+  ✓ Autor associado ao livro
+----------------------------------------
+Processando: [4] Malorie: Sequência de caixa de pássaros: 2 Capa comum 
+  ✓ Descrição adicionada
+  → Novo autor criado: 'Josh Malerman' (ID: 60)
+  ✓ Autor associado ao livro
+----------------------------------------
+Processando: [5] Nós somos inevitáveis: Algumas histórias de amor estão destinadas a acontecer  Capa comum
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [6] As Garotas Spring Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [7] Fuck love: Louco Amor Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [9] Reparação Capa comum
+  ✓ Descrição adicionada
+  → Novo autor criado: 'Ian McEwan' (ID: 61)
+  ✓ Autor associado ao livro
+----------------------------------------
+Processando: [10] Coração de tinta: 1 Capa comum 
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [11] Cartas para uma falsa dama Capa comum 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [12] Os cinco porquinhos Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [13] Morte na Mesopotâmia Seguido de o Caso dos dez Negrinhos Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [14] Morte no Nilo Capa dura 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [15] O assassinato de Roger Ackroyd Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [16] Assassinato no campo de golfe Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [17] Assassinato no Expresso do Oriente Capa comum 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [18] Agatha Christie - Mistérios dos Anos 50 Capa comum 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [19] Os 13 Problemas Livro de bolso
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [20] Romeu e Julieta Capa comum
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [21] Anatomia Humana Sistêmica e Segmentar
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [22] Cadernos de Literatura Brasileira. Lygia Fagundes Telles - Número 5 Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [23] Oprah. Uma Biografia Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [24] Extraordinário Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [25] Dictionnaire amoureux de l'humour juif Livro de bolso
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [26] Uma Noite Com Audrey Hepburn Capa comum 
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [27] Uma Noite Com Grace Kelly Capa comum 
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [28] Uma Noite com Marilyn Monroe Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [29] Uma dama fora dos padrões (Os Rokesbys – Livro 1): A origem dos Bridgertons Capa comum 
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [30] Uma noiva rebelde (Os Rokesbys – Livro 4): A origem dos Bridgertons Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [31] Contos russos: Tomo I: 8 Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [32] Assassinatos na Academia Brasileira de Letras Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [34] Belezas perigosas - volume 1 Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [35] HARRY POTTER E A PEDRA FILOSOFAL (CAPA DURA) – Edição Comemorativa dos 20 anos da Coleção Harry Potter: 1 Capa dura 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [36] Biblia Sagrada - Nova Versao Internacional Capa Dura
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [37] A queda de Lorde Drayson: Série Tanglewood: Volume 1 Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [38] Brooklyn
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [39] Joana D'Arc Capa comum
+  → Já possui descrição
+  → Já possui autor(es)
+----------------------------------------
+Processando: [40] GPS Das Vendas Capa comum
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [41] Crime E Castigo Colecao Folha Grandes Livros No Cinema Capa Dura
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [42] A Bolsa Amarela Capa comum 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [43] Grandes Nomes da Literatura o Curioso Caso de Benjamin Button  Capa dura 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [44] Jane Eyre (Wordsworth Classics) 
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [45] True (A Verdade) - Volume 2. Coleção Elixir Capa comum 
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [46] 360 dias de sucesso Capa comum 
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [47] Blue Bloods. O Baile de Máscaras Capa comum
+  ✓ Descrição adicionada
+  → Já possui autor(es)
+----------------------------------------
+Processando: [48] O Retrato de Dorian Gray Capa Dura
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [49] O Caibalion Capa comum
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+----------------------------------------
+Processando: [50] Os jogos dos deuses (Edição especial): 1 Capa dura
+  ✓ Descrição adicionada
+  → Autor 'Autor Desconhecido' já existe (ID: 59)
+  ✓ Associado a 'Autor Desconhecido'
+
+=== MIGRAÇÃO CONCLUÍDA ===
+Livros processados: 48
+Descrições adicionadas: 39
+Autores criados: 4
+Associações criadas: 16
+Erros: 0
+
+Log salvo em: C:\Users\nathaly.cssilva3\Music\Sebo-Alfarrabio\backend\scripts/migracao_descricoes_autores_2026-02-05_14-35-05.log

@@ -26,6 +26,9 @@ class VendasController
 
     // ===== LISTAR VENDAS =====
 
+    /**
+     * Renderiza a listagem de vendas com paginação.
+     */
     public function viewListarVendas($pagina = 1)
     {
         if (empty($pagina) || $pagina <= 0) {
@@ -53,6 +56,9 @@ class VendasController
         View::render("vendas/create", []);
     }
 
+    /**
+     * Salva uma nova venda no banco.
+     */
     public function salvarVendas()
     {
         $erros = VendasValidador::ValidarEntradas($_POST);
@@ -113,6 +119,9 @@ class VendasController
         View::render("vendas/edit", ["vendas" => $dados]);
     }
 
+    /**
+     * Atualiza os dados de uma venda.
+     */
     public function atualizarVendas()
     {
         // Log detalhado para debug
@@ -169,6 +178,9 @@ class VendasController
 
     // ===== EXCLUIR VENDA =====
 
+    /**
+     * Renderiza a confirmação de exclusão da venda.
+     */
     public function viewExcluirVendas($id_venda)
     {
         error_log("=== EXIBINDO CONFIRMAÇÃO DE EXCLUSÃO ===");
@@ -184,6 +196,9 @@ class VendasController
         View::render("vendas/delete", ["vendas" => $dados]);
     }
 
+    /**
+     * Exclui (soft delete) uma venda.
+     */
     public function deletarVendas()
     {
         error_log("=== DELETANDO VENDA ===");
@@ -215,6 +230,9 @@ class VendasController
 
     // ===== REATIVAR VENDA =====
 
+    /**
+     * Reativa uma venda excluída.
+     */
     public function ativarVenda()
     {
         error_log("=== REATIVANDO VENDA ===");
@@ -231,6 +249,9 @@ class VendasController
 
     // ===== RELATÓRIO =====
 
+    /**
+     * Gera relatório de vendas por período.
+     */
     public function relatorioVendas($id_venda = null, $data1 = null, $data2 = null)
     {
         $vendas = [];

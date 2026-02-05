@@ -1,5 +1,12 @@
+/**
+ * Script principal de interações da página.
+ * Gerencia animações de cards, observadores de interseção e busca.
+ */
 document.addEventListener('DOMContentLoaded', function () {
 
+    // ========================================
+    // ANIMAÇÃO DE FLIP DOS CARDS DE SERVIÇOS
+    // ========================================
     const servicosCards = document.querySelectorAll('.servicos .card');
 
     servicosCards.forEach(card => {
@@ -13,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    // ========================================
+    // ANIMAÇÃO DE ENTRADA (FADE-IN) DOS ITENS DE PROCESSO
+    // ========================================
     const itensAnimados = document.querySelectorAll('.processos__item');
 
     if (itensAnimados.length > 0) {
@@ -44,6 +54,31 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (termo) {
                     // Redireciona para a página de produtos com o termo de busca
                     window.location.href = `produtos.html?busca=${encodeURIComponent(termo)}`;
+                }
+            }
+        });
+    }
+
+    // ========================================
+    // MENU HAMBURGUER MOBILE
+    // ========================================
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('header nav');
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+
+            // Troca ícone
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (nav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
                 }
             }
         });

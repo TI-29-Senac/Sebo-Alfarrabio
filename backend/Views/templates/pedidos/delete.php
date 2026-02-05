@@ -123,10 +123,10 @@
 
 <div class="vendas-container">
     <div class="delete-card">
-        <h1><i class="fa fa-exclamation-triangle"></i> Confirmar Desativação do Pedido</h1>
+        <h1><i class="fa fa-exclamation-triangle"></i> Confirmar Exclusão do Pedido</h1>
 
         <p>
-            Tem certeza que deseja <strong>desativar</strong> o pedido
+            Tem certeza que deseja <strong>excluir</strong> o pedido
             <strong>#<?= htmlspecialchars($pedido['id_pedidos'] ?? '') ?></strong>?<br><br>
 
             <strong>Data do Pedido:</strong>
@@ -141,15 +141,15 @@
             </span>
         </p>
 
-        <form action="/backend/pedidos/excluir" method="POST"
-            onsubmit="return confirm('Desativar permanentemente este pedido? (Soft delete - pode reativar depois.)');">
+        <form action="/backend/pedidos/deletar" method="POST"
+            onsubmit="return confirm('Excluir permanentemente este pedido? Esta ação não pode ser desfeita.');">
             <input type="hidden" name="id_pedido" value="<?= htmlspecialchars($pedido['id_pedidos'] ?? '') ?>">
 
             <div class="btn-container">
                 <button type="submit" class="btn-danger">
-                    <i class="fa fa-trash"></i> Sim, Desativar Pedido
+                    <i class="fa fa-trash"></i> Sim, Excluir Pedido
                 </button>
-                <a href="/pedidos/listar" class="btn-secondary">
+                <a href="/backend/pedidos/listar" class="btn-secondary">
                     <i class="fa fa-times"></i> Cancelar
                 </a>
             </div>
