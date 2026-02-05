@@ -90,9 +90,10 @@ class Pedidos
             }
 
             $this->db->commit();
-            return (int) $idPedido;
+            return (int)$idPedido;
 
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             $this->db->rollBack();
             error_log("Erro ao criar pedido: " . $e->getMessage());
             return false;
@@ -162,7 +163,8 @@ class Pedidos
 
         if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        } else {
+        }
+        else {
             return false;
         }
     }

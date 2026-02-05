@@ -21,7 +21,7 @@ class DashboardControllerCliente extends AuthenticatedController
     private $perfil;
     private $fileManager;
     private $avaliacaoModel;
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -83,16 +83,16 @@ class DashboardControllerCliente extends AuthenticatedController
         }
 
         // ====== CONTADORES DINÂMICOS ======
-        
+
         // Total de pedidos do usuário
         $total_pedidos = count($pedidos);
-        
+
         // Total de avaliações do usuário
         $total_avaliacoes = $this->avaliacaoModel->totalDeAvaliacaoPorUsuario($usuarioId);
-        
+
         // Lista de IDs de itens já avaliados (para controlar botão de avaliar)
         $itensAvaliados = $this->avaliacaoModel->buscarItensAvaliadosPorUsuario($usuarioId);
-        
+
         // Total de favoritos do usuário (verifica se a tabela existe)
         $total_favoritos = 0;
         try {
@@ -100,8 +100,9 @@ class DashboardControllerCliente extends AuthenticatedController
             $stmtFavoritos = $this->db->prepare($sqlFavoritos);
             $stmtFavoritos->bindValue(':id', $usuarioId);
             $stmtFavoritos->execute();
-            $total_favoritos = (int) $stmtFavoritos->fetchColumn();
-        } catch (\PDOException $e) {
+            $total_favoritos = (int)$stmtFavoritos->fetchColumn();
+        }
+        catch (\PDOException $e) {
             // Tabela não existe ou erro, mantém 0
             $total_favoritos = 0;
         }
@@ -135,7 +136,8 @@ class DashboardControllerCliente extends AuthenticatedController
         try {
             $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
             $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
             return;
         }
@@ -157,7 +159,8 @@ class DashboardControllerCliente extends AuthenticatedController
                 $perfilExistente['endereco'],
                 $caminhoFoto
             );
-        } else {
+        }
+        else {
             // Cria novo perfil
             $this->perfil->inserirPerfil(
                 $usuarioId,
@@ -206,8 +209,6 @@ class DashboardControllerCliente extends AuthenticatedController
             'avaliacoes' => $avaliacoes,
             'total_avaliacoes' => $total_avaliacoes,
             'usuarioNome' => $usuario['nome_usuario'],
-            'usuarioEmail' => $usuario['email_usuario']
         ]);
     }
 }
-
