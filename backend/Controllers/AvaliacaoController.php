@@ -26,11 +26,17 @@ class AvaliacaoController
 
 
 
+    /**
+     * Redireciona para a listagem de avaliações.
+     */
     public function index()
     {
         $this->viewListarAvaliacao();  // Redirecione pra listar
     }
 
+    /**
+     * Renderiza a view de listagem de todas as avaliações com estatísticas.
+     */
     public function viewListarAvaliacao()
     {
         $dados = $this->avaliacao->buscarAvaliacao();
@@ -42,12 +48,18 @@ class AvaliacaoController
         ]);
     }
 
+    /**
+     * Renderiza o formulário de criação de avaliação (Admin).
+     */
     public function viewCriarAvaliacao()
     {
         $itens = $this->item->buscarItemAtivos();  // ← Popule dropdown
         View::render("avaliacao/create", ["itens" => $itens]);
     }
 
+    /**
+     * Salva uma nova avaliação no banco (Admin).
+     */
     public function salvarAvaliacao()
     {
         // Validação básica (expanda com AvaliacaoValidador depois)
@@ -82,6 +94,10 @@ class AvaliacaoController
         }
     }
 
+    /**
+     * Renderiza o formulário de edição de avaliação.
+     * @param int $id_avaliacao ID da avaliação.
+     */
     public function viewEditarAvaliacao($id_avaliacao)
     {
         $dados = $this->avaliacao->buscarAvaliacaoPorID($id_avaliacao);
@@ -99,6 +115,9 @@ class AvaliacaoController
         ]);
     }
 
+    /**
+     * Atualiza uma avaliação existente.
+     */
     public function atualizarAvaliacao()
     {
         $id_avaliacao = (int) $_POST['id_avaliacao'];
@@ -123,6 +142,10 @@ class AvaliacaoController
     }
 
 
+    /**
+     * Renderiza confirmação de exclusão de avaliação.
+     * @param int $id_avaliacao
+     */
     public function viewExcluirAvaliacao($id_avaliacao)
     {  // Removi int – PHP infere
         $avaliacao = $this->avaliacao->buscarAvaliacaoPorID($id_avaliacao);  // Agora single
@@ -133,6 +156,9 @@ class AvaliacaoController
         View::render("avaliacao/delete", ["avaliacao" => $avaliacao]);  // ← Sem / extra
     }
 
+    /**
+     * Realiza a exclusão (soft delete) da avaliação.
+     */
     public function deletarAvaliacao()
     {
         $id_avaliacao = (int) $_POST['id_avaliacao'];

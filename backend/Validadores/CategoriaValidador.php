@@ -3,6 +3,11 @@ namespace Sebo\Alfarrabio\Validadores;
 
 class CategoriaValidador
 {
+    /**
+     * Valida dados de entrada para Categoria.
+     * @param array $dados
+     * @return array
+     */
     public static function ValidarEntradas($dados)
     {
         $erros = [];

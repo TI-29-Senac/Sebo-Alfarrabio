@@ -23,6 +23,10 @@ class UsuarioController extends AdminController
         $this->gerenciarImagem = new FileManager('upload');
     }
 
+    /**
+     * Salva um novo usuário no sistema.
+     * Valida entradas antes de inserir.
+     */
     public function salvarUsuario()
     {
         $erros = UsuarioValidador::ValidarEntradas($_POST);
@@ -46,6 +50,9 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Debug: Exibe dump de usuários.
+     */
     public function index()
     {
         $resultado = $this->usuario->buscarUsuarios();
@@ -54,6 +61,9 @@ class UsuarioController extends AdminController
         echo "</pre>";
     }
 
+    /**
+     * Renderiza a listagem completa de usuários com paginação e status.
+     */
     public function viewListarUsuarios($pagina = 1)
     {
         if (empty($pagina) || $pagina <= 0)
@@ -72,11 +82,18 @@ class UsuarioController extends AdminController
         ]);
     }
 
+    /**
+     * Renderiza o formulário de criação de usuário.
+     */
     public function viewCriarUsuarios()
     {
         View::render("usuario/create", []);
     }
 
+    /**
+     * Renderiza a edição de usuário.
+     * @param int $id
+     */
     public function viewEditarUsuarios(int $id)
     {
         $dados = $this->usuario->buscarUsuarioPorID($id);
@@ -86,6 +103,9 @@ class UsuarioController extends AdminController
         View::render("usuario/edit", ["usuario" => $dados]);
     }
 
+    /**
+     * Renderiza a confirmação de exclusão (desativação).
+     */
     public function viewExcluirUsuarios($id)
     {
         $dados = $this->usuario->buscarUsuarioPorID($id);
@@ -95,12 +115,18 @@ class UsuarioController extends AdminController
         View::render("usuario/delete", ["usuario" => $dados]);  // Dados full
     }
 
+    /**
+     * Gera relatório de usuários.
+     */
     public function relatorioUsuario($id = null, $data1 = null, $data2 = null)
     {
         $usuarios = $id ? [$this->usuario->buscarUsuarioPorID($id)] : $this->usuario->buscarUsuarios();
         View::render("usuario/relatorio", ["usuarios" => $usuarios, "id" => $id, "data1" => $data1, "data2" => $data2]);
     }
 
+    /**
+     * Atualiza os dados do usuário.
+     */
     public function atualizarUsuario()
     {
         $id = (int) $_POST['id_usuario'];
@@ -124,6 +150,9 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Desativa (soft delete) um usuário.
+     */
     public function deletarUsuario()
     {
         $id = (int) $_POST['id_usuario'];
@@ -134,6 +163,9 @@ class UsuarioController extends AdminController
         }
     }
 
+    /**
+     * Reativa um usuário anteriormente desativado.
+     */
     public function ativarUsuario()
     {
         $id = (int) ($_POST['id_usuario'] ?? $_GET['id'] ?? 0);

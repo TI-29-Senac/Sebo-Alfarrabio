@@ -1,6 +1,12 @@
 <?php
 namespace Sebo\Alfarrabio\Core;
-class View{
+class View
+{
+    /**
+     * Renderiza uma view.
+     * @param string $nomeView Nome da view (ex: 'home/index')
+     * @param array $dados Dados a serem passados para a view.
+     */
     public static function render(string $nomeView, array $dados = [])
     {
         // Proteção contra LFI: Sanitiza o nome da view removendo tentativas de traversal
@@ -24,5 +30,5 @@ class View{
 
         require_once __DIR__ . "/../Views/templates/partials/footer.php";
     }
-    
+
 }

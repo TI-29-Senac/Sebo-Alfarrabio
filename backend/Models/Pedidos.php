@@ -10,7 +10,9 @@ class Pedidos
         $this->db = $db;
     }
 
-    // LISTAR TODOS (Read)
+    /**
+     * Busca todos os pedidos.
+     */
     function buscarPedidos()
     {
         $sql = "SELECT * FROM tbl_pedidos ORDER BY data_pedido DESC";
@@ -35,7 +37,12 @@ class Pedidos
         return $pedidos;
     }
 
-    // CRIAR PEDIDO (Create)
+    /**
+     * Cria um novo pedido a partir dos itens do carrinho.
+     * @param array $itensCarrinho
+     * @param string $status
+     * @return int|bool ID do pedido ou false.
+     */
     public function criarPedido(array $itensCarrinho, $status = 'Pendente')
     {
         $this->db->beginTransaction();
@@ -101,6 +108,10 @@ class Pedidos
         }
     }
 
+    /**
+     * Busca pedidos filtrando por data.
+     * @param string $data_pedido
+     */
     function buscarPedidosPorData($data_pedido)
     {
         $sql = "SELECT * FROM tbl_pedidos where DATE(data_pedido) = :data";
@@ -110,6 +121,10 @@ class Pedidos
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Busca pedido por ID.
+     * @param int $id
+     */
     function buscarPedidosPorID($id)
     {
         $sql = "SELECT * FROM tbl_pedidos where id_pedidos = :id";
@@ -119,7 +134,10 @@ class Pedidos
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // O erro estava aqui: coluna id_usuario não existe, é usuario_id
+    /**
+     * Busca pedidos de um usuário específico.
+     * @param int $usuario_id
+     */
     function buscarPedidosPorIDUsuario($usuario_id)
     {
         // Corrigido para id_usuario e adicionado busca de itens
@@ -152,6 +170,9 @@ class Pedidos
         return $pedidos;
     }
 
+    /**
+     * Insere um pedido manual (admin).
+     */
     function inserirPedidos($usuario_id, $total, $data_pedido, $status)
     {
         $sql = "INSERT INTO tbl_pedidos (id_usuario, valor_total, data_pedido, status) 
@@ -169,6 +190,9 @@ class Pedidos
         }
     }
 
+    /**
+     * Atualiza dados de um pedido.
+     */
     function atualizarPedidos($id, $data_pedido, $status, $total)
     {
         // Se a tabela tiver data_atualizacao com ON UPDATE CURRENT_TIMESTAMP, não precisa atualizar manual
@@ -193,6 +217,10 @@ class Pedidos
     // NÃO TEM excluido_em no dump!
     // Então Excluir deve ser DELETE mesmo ou precisamos adicionar a coluna.
     // Vou mudar para DELETE real para evitar erro 'Column not found: excluido_em'
+    /**
+     * Exclui um pedido permanentemente.
+     * @param int $id
+     */
     function excluirPedidos($id)
     {
         $sql = "DELETE FROM tbl_pedidos WHERE id_pedidos = :id";

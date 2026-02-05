@@ -25,23 +25,35 @@ class AuthController
         $this->notificacaoEmail = new NotificacaoEmail();
     }
 
-
+    /**
+     * Renderiza a página de login.
+     */
     public function login(): void
     {
         View::render('auth/login');
     }
 
+    /**
+     * Renderiza a página de cadastro (registro).
+     */
     public function register(): void
     {
         View::render('auth/register');
     }
 
+    /**
+     * Realiza o logout do usuário e redireciona para login.
+     */
     public function logout(): void
     {
         $this->session->destroy();
         Redirect::redirecionarComMensagem('/backend/login', 'success', 'Você saiu da sua conta! Volte sempre');
     }
 
+    /**
+     * Processa a autenticação do usuário (login).
+     * Verifica credenciais e cria a sessão.
+     */
     public function authenticar(): void
     {
         $email = $_POST['email_usuario'] ?? null;
@@ -69,6 +81,10 @@ class AuthController
         }
     }
 
+    /**
+     * Processa o cadastro de um novo usuário.
+     * Valida senhas e unicidade de email.
+     */
     public function cadastrarUsuario(): void
     {
         // $erros = UsuarioValidador::ValidarEntradas($_POST);

@@ -4,7 +4,9 @@ namespace Sebo\Alfarrabio\Core;
 class Env
 {
     /**
-     * Carrega variáveis do arquivo .env para o ambiente
+     * Carrega variáveis do arquivo .env para o ambiente.
+     * @param string $diretorio Diretório contendo o arquivo .env
+     * @return bool Sucesso ou falha
      */
     public static function carregar(string $diretorio)
     {

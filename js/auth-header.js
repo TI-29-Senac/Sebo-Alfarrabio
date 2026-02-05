@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
+/**
+ * Configura a interface para um usuário autenticado.
+ * Atualiza avatar, dropdown e links de navegação.
+ * @param {Object} user - Objeto com dados do usuário (name, avatar, role).
+ */
 function setupAuthenticatedUser(user) {
     console.log('Usuário logado:', user.name);
 
@@ -82,6 +87,10 @@ function setupAuthenticatedUser(user) {
     setupDropdownBehavior(profileBtn, profileDropdown);
 }
 
+/**
+ * Configura a interface para um visitante (não autenticado).
+ * Mostra botão de login e remove elementos de usuário logado.
+ */
 function setupGuestUser() {
     console.log('Visitante (não logado)');
     const profileContainer = document.querySelector('.user-profile-header');
@@ -113,6 +122,12 @@ function setupGuestUser() {
     }
 }
 
+/**
+ * Configura o comportamento do dropdown de perfil.
+ * Gerencia cliques no botão e fechamento ao clicar fora.
+ * @param {HTMLElement} btn - Botão que aciona o dropdown.
+ * @param {HTMLElement} dropdown - Elemento do dropdown.
+ */
 function setupDropdownBehavior(btn, dropdown) {
     btn.onclick = function (e) {
         e.stopPropagation();

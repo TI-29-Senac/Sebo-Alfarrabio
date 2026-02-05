@@ -23,6 +23,10 @@ class DashboardController extends AdminController
         $this->categoriaModel = new Categoria($this->db);
         $this->itemModel = new Item($this->db);
     }
+    /**
+     * Exibe o painel principal do administrador.
+     * Coleta estatísticas de itens, categorias e vendas/pedidos.
+     */
     public function index()
     {
 
@@ -143,6 +147,9 @@ class DashboardController extends AdminController
     }
 
 
+    /**
+     * Renderiza a área do cliente (provavelmente deprecated aqui pois existe DashboardControllerCliente).
+     */
     public function areCliente()
     {
         View::render('admin/cliente/index', [

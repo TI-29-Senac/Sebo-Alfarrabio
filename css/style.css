@@ -1,3 +1,7 @@
+/* ========================================
+   ESTILO PRINCIPAL - IMPORTAÇÕES
+   Centraliza todos os arquivos CSS do projeto.
+   ======================================== */
 @import url("header.css");
 @import url("banner.css");
 @import url("menu-secundario.css");

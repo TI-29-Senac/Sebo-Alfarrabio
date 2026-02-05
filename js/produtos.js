@@ -35,6 +35,11 @@ const itensPorPagina = 12; // Quantos produtos mostrar por página
 // CARREGAR DADOS DO BANCO
 // ========================================
 
+/**
+ * Carrega a lista de produtos do backend (API).
+ * Gerencia o estado de loading e erros.
+ * Inicializa contadores e renderização.
+ */
 async function carregarProdutos() {
     console.log('📦 Buscando produtos do banco...');
     mostrarLoading();
@@ -74,6 +79,10 @@ async function carregarProdutos() {
     }
 }
 
+/**
+ * Carrega as opções de filtro (Categorias e Gêneros) do banco de dados.
+ * Popula os selects de filtro na interface.
+ */
 async function carregarFiltrosDoBanco() {
     console.log('📂 Buscando categorias e gêneros do banco...');
     try {
@@ -146,6 +155,10 @@ function popularSelects() {
 // SISTEMA DE FILTROS
 // ========================================
 
+/**
+ * Aplica os filtros selecionados (busca, gênero, categoria) sobre a lista de produtos.
+ * Atualiza `produtosFiltrados` e re-renderiza a lista.
+ */
 function aplicarFiltros() {
     console.log('🔍 Aplicando filtros...');
 
@@ -357,6 +370,10 @@ function gerarRangePaginas(atual, total) {
 // RENDERIZAR PRODUTOS COM PAGINAÇÃO
 // ========================================
 
+/**
+ * Renderiza os cards de produtos na tela usando paginação.
+ * @param {Array} produtos - Lista de produtos a serem exibidos.
+ */
 function renderizarProdutos(produtos) {
     console.log('🎨 Renderizando produtos com paginação...');
 
@@ -622,6 +639,11 @@ function fecharModal() {
     }
 }
 
+/**
+ * Adiciona um produto ao carrinho (reservas).
+ * Verifica autenticação do usuário antes de adicionar.
+ * @param {Object} produto - Objeto do produto a adicionar.
+ */
 async function adicionarAoCarrinho(produto) {
     // 1. Verificar se o usuário está logado
     if (!window.isAuthenticated) {

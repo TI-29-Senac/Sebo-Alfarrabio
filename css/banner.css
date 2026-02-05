@@ -1,4 +1,7 @@
-.banner-img{
+/* ========================================
+   ESTILOS DO BANNER
+   ======================================== */
+.banner-img {
   height: 500px;
   width: 600px;
   display: flex;
@@ -10,7 +13,7 @@
 }
 
 
-.pesquisa{
+.pesquisa {
   background-color: #aa6d0b63;
   display: flex;
   position: relative;
@@ -30,9 +33,9 @@
   font-size: 1rem;
   text-decoration: none;
   border: 1px solid rgba(95, 31, 2, 0.288);
-  
+
   font-family: 'Merriweather', serif;
-  
+
 }
 
 .text {
@@ -49,10 +52,11 @@
   align-items: center;
   left: 0;
   right: 0;
-   text-shadow: -6px 0px 5px #69410063;
+  text-shadow: -6px 0px 5px #69410063;
   margin: auto;
 }
-.container{
+
+.container {
   position: relative;
   flex-wrap: wrap;
   box-shadow: #6941004f 10px 4px 10px 4px;
@@ -66,20 +70,17 @@
 
 
 nav {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 hr {
-    display: none !important;
+  display: none !important;
 }
 
-.fig{
+.fig {
   margin-bottom: 0;
   padding-bottom: 0;
   height: 0;
 }
-
-
-

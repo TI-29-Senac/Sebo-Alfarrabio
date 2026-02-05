@@ -1,3 +1,8 @@
+/**
+ * Renderiza o carrinho de compras na interface.
+ * Atualiza a lista de itens, o contador e o total.
+ * Salva o estado atual no LocalStorage.
+ */
 function renderizarCarrinho() {
     cartItemsEl.innerHTML = '';
     let total = 0;
@@ -23,8 +28,13 @@ function renderizarCarrinho() {
     salvarCarrinhoLocalStorage();
 }
 
-
-
+/**
+ * Adiciona um item ao carrinho.
+ * Se o item já existir, incrementa a quantidade.
+ * @param {number} id_item - ID do item.
+ * @param {string} titulo_item - Título do item.
+ * @param {number|string} preco_item - Preço do item.
+ */
 function adicionarAoCarrinho(id_item, titulo_item, preco_item) {
     const itemExistente = carrinho.find(item => item.id_item === id_item);
     if (itemExistente) {
@@ -35,6 +45,11 @@ function adicionarAoCarrinho(id_item, titulo_item, preco_item) {
     renderizarCarrinho();
 }
 
+/**
+ * Remove um item do carrinho.
+ * Se houver mais de uma unidade, decrementa. Caso contrário, remove o item.
+ * @param {number} id - ID do item a ser removido.
+ */
 function removerDoCarrinho(id) {
     const itemIndex = carrinho.findIndex(item => item.id_item === id);
     if (itemIndex > -1) {

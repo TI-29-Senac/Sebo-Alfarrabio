@@ -3,6 +3,9 @@ namespace Sebo\Alfarrabio\Validadores;
 
 class ItemValidador
 {
+    /**
+     * Valida dados de entrada para Item (Livro/CD/DVD).
+     */
     public static function ValidarEntradas($dados)
     {
         $erros = [];

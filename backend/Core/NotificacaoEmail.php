@@ -2,26 +2,40 @@
 namespace Sebo\Alfarrabio\Core;
 use Sebo\Alfarrabio\Core\EmailService;
 
-class NotificacaoEmail{
+class NotificacaoEmail
+{
     private $emailService;
     private $urlBase;
-    
-    public function __construct(){
+
+    public function __construct()
+    {
         $this->emailService = new EmailService();
         // Define a URL base do projeto
         $this->urlBase = "http://localhost:4000";
         // Para produção, você pode usar:
         // $this->urlBase = "https://www.sebo-alfarrabio.com.br";
     }
-    
-    public function esqueciASenha(string $email, string $token): void {
+
+    /**
+     * Envia email de redefinição de senha.
+     * @param string $email
+     * @param string $token
+     */
+    public function esqueciASenha(string $email, string $token): void
+    {
         $assunto = "Redefinição de Senha";
         $mensagem = "Clique no link para redefinir sua senha: ";
         $mensagem .= $this->urlBase . "/backend/redefinir-senha?token=" . urlencode($token);
         $this->emailService->send($email, $assunto, $mensagem);
     }
-    
-    public function boasVindas(string $email, string $nome): void {
+
+    /**
+     * Envia email de boas-vindas.
+     * @param string $email
+     * @param string $nome
+     */
+    public function boasVindas(string $email, string $nome): void
+    {
         $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
 
         $mensagem = '
