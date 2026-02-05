@@ -131,7 +131,30 @@ class Pedidos
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $pedido = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($pedido) {
+            $sqlItens = "SELECT i.titulo_item, i.foto_item, pi.quantidade, pi.item_id 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':id', $id);
+            $stmtItens->execute();
+            $itens = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+
+            // Corrige caminho da imagem
+            foreach ($itens as &$item) {
+                // Se o método for estático em Item, chame-o.
+                // Como não tenho certeza do namespace importado aqui dentro do método, usarei FQN.
+                if (class_exists('\Sebo\Alfarrabio\Models\Item')) {
+                    $item['foto_item'] = \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($item['foto_item']);
+                }
+            }
+            $pedido['itens'] = $itens;
+        }
+
+        return $pedido;
     }
 
     /**
@@ -191,12 +214,22 @@ class Pedidos
     }
 
     /**
+     * Atualiza somente o status do pedido.
+     */
+    function atualizarStatus($id, $status)
+    {
+        $sql = "UPDATE tbl_pedidos SET status = :status WHERE id_pedidos = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    /**
      * Atualiza dados de um pedido.
      */
     function atualizarPedidos($id, $data_pedido, $status, $total)
     {
-        // Se a tabela tiver data_atualizacao com ON UPDATE CURRENT_TIMESTAMP, não precisa atualizar manual
-        // Mas vamos manter compatível
         $sql = "UPDATE tbl_pedidos SET 
             data_pedido = :data,
             status = :status,
