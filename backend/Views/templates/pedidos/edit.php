@@ -345,11 +345,11 @@
                 <div class="form-group">
                     <label>
                         <i class="fa-solid fa-brazilian-real-sign"></i>
-                        Valor Total<span class="required">*</span>
+                        Valor Total <small>(Somente Leitura)</small>
                     </label>
                     <div class="input-wrapper">
-                        <input type="number" step="0.01" name="valor_total" value="<?= $pedidos['total'] ?>"
-                            placeholder="0,00" required>
+                        <input type="number" step="0.01" name="valor_total" value="<?= $pedidos['valor_total'] ?>"
+                            placeholder="0,00" readonly style="background-color: #e9ecef; cursor: not-allowed;">
                         <i class="fa-solid fa-money-bill-wave input-icon"></i>
                     </div>
                 </div>
@@ -358,10 +358,11 @@
                 <div class="form-group">
                     <label>
                         <i class="fa-solid fa-calendar-days"></i>
-                        Data do Pedido<span class="required">*</span>
+                        Data do Pedido <small>(Somente Leitura)</small>
                     </label>
                     <div class="input-wrapper">
-                        <input type="date" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" required>
+                        <input type="date" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" readonly
+                            style="background-color: #e9ecef; cursor: not-allowed;">
                         <i class="fa-solid fa-calendar-check input-icon"></i>
                     </div>
                 </div>
@@ -373,25 +374,61 @@
                         Status do Pedido<span class="required">*</span>
                     </label>
                     <select name="status_pedido" required id="statusSelect">
+                        <option value="Reservado" <?= $pedidos['status'] == 'Reservado' ? 'selected' : '' ?>>
+                            📌 Reservado
+                        </option>
                         <option value="Pendente" <?= $pedidos['status'] == 'Pendente' ? 'selected' : '' ?>>
                             📋 Pendente
                         </option>
-                        <option value="Pago" <?= $pedidos['status'] == 'Pago' ? 'selected' : '' ?>>
-                            ✅ Pago
-                        </option>
-                        <option value="Enviado" <?= $pedidos['status'] == 'Enviado' ? 'selected' : '' ?>>
-                            📦 Enviado
-                        </option>
                         <option value="Cancelado" <?= $pedidos['status'] == 'Cancelado' ? 'selected' : '' ?>>
                             ❌ Cancelado
-                        </option>
-                        <option value="Reservado" <?= $pedidos['status'] == 'Reservado' ? 'selected' : '' ?>>
-                            📌 Reservado
                         </option>
                     </select>
                     <span class="status-preview status-<?= strtolower($pedidos['status']) ?>" id="statusPreview">
                         Status atual: <?= $pedidos['status'] ?>
                     </span>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #f0e8d8; margin: 30px 0;">
+
+                <!-- Lista de Itens -->
+                <div class="form-group">
+                    <label>
+                        <i class="fa-solid fa-list"></i>
+                        Itens do Pedido
+                    </label>
+                    
+                    <?php if (!empty($pedidos['itens'])): ?>
+                    <div style="background: #fafaf8; border: 2px solid #e8dcc8; border-radius: 8px; padding: 15px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #e8dcc8;">
+                                    <th style="text-align: left; padding-bottom: 10px; color: #5a4a3a;">Item</th>
+                                    <th style="padding-bottom: 10px; color: #5a4a3a; text-align: center;">Qtd</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pedidos['itens'] as $item): ?>
+                                <tr>
+                                    <td style="padding: 10px 0; display: flex; align-items: center; gap: 15px;">
+                                        <img src="<?= $item['foto_item'] ?>" 
+                                             style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;"
+                                             alt="Capa">
+                                        <span style="font-weight: 600; color: #5a4a3a;"><?= htmlspecialchars($item['titulo_item']) ?></span>
+                                    </td>
+                                    <td style="text-align: center; color: #8a7a6a; font-weight: bold;">
+                                        <?= $item['quantidade'] ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php else: ?>
+                        <div style="padding: 15px; background: #fff5f5; border: 1px solid #f5c6cb; border-radius: 8px; color: #721c24;">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Nenhum item encontrado neste pedido.
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Form Actions -->

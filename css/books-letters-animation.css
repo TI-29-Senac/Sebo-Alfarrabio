@@ -156,9 +156,4 @@
     }
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .books-section {
-        padding: 3rem 1rem;
-    }
-}
+

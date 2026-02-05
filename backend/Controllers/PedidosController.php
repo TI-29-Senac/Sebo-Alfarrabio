@@ -92,8 +92,12 @@ class PedidosController
      */
     public function viewEditarPedidos($id_pedido)
     {
-        $resultados = $this->pedidos->buscarPedidosPorID($id_pedido);
-        $pedido = count($resultados) > 0 ? $resultados[0] : null;
+        $pedido = $this->pedidos->buscarPedidosPorID($id_pedido);
+        
+        if (!$pedido) {
+             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Pedido não encontrado.");
+             return;
+        }
 
         View::render("pedidos/edit", ["pedidos" => $pedido]);
     }
@@ -118,18 +122,17 @@ class PedidosController
      */
     public function atualizarPedidos()
     {
+        // Agora atualizamos apenas o status, ignorando data e valor que são readonly
         if (
-            !$this->pedidos->atualizarPedidos(
+            !$this->pedidos->atualizarStatus(
                 $_POST['id_pedido'],
-                $_POST['data_pedido'],
-                $_POST['status_pedido'],
-                $_POST['valor_total']
+                $_POST['status_pedido']
             )
         ) {
-            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao atualizar pedido.");
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Erro ao atualizar status do pedido.");
             return;
         }
-        Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Pedido atualizado com sucesso!");
+        Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Status do pedido atualizado com sucesso!");
     }
 
     /**
@@ -137,15 +140,12 @@ class PedidosController
      */
     public function viewExcluirPedidos($id_pedido)
     {
-        $resultado = $this->pedidos->buscarPedidosPorID($id_pedido);
+        $pedido = $this->pedidos->buscarPedidosPorID($id_pedido);
 
-        if (empty($resultado)) {
+        if (empty($pedido)) {
             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Pedido não encontrado.");
             return;
         }
-
-        // PEGA O PRIMEIRO (E ÚNICO) REGISTRO DA LISTA
-        $pedido = $resultado[0];
 
         if (!empty($pedido['excluido_em'])) {
             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "info", "Este pedido já está desativado.");
