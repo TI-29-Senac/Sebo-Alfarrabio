@@ -895,7 +895,7 @@
 
         <div class="tabs-navigation">
             <div class="tab-btn active">Reservas</div>
-            <div class="tab-btn">Compre Novamente</div>
+            <div class="tab-btn">Reservas Canceladas</div>
             <div class="tab-btn">Ainda não enviado</div>
         </div>
 
@@ -941,8 +941,7 @@
                                 <?= $pedido['id_pedidos'] ?? $pedido['id'] ?? '---' ?>
                             </label>
                             <div class="order-links-row">
-                                <a href="#">Exibir detalhes da reserva</a>
-                                <a href="#">Fatura</a>
+                                <a href="/backend/admin/cliente/reservas">Exibir detalhes da reserva</a>
                             </div>
                         </div>
                     </div>
@@ -991,7 +990,7 @@
                             <?php endif; ?>
                             <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
                             <div class="order-action-buttons">
-                                <button class="btn-action gold">Comprar novamente</button>
+                                <button class="btn-action gold">Reservar novamente</button>
                                 <button class="btn-action">Ver detalhes</button>
                             </div>
                         </div>
@@ -1489,5 +1488,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // ========================================
+    // FILTRO DE ABAS (Reservas / Canceladas)
+    // ========================================
+    const tabs = document.querySelectorAll('.tab-btn');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active de todas
+            tabs.forEach(t => t.classList.remove('active'));
+            // Adiciona na atual
+            this.classList.add('active');
+            
+            const tabText = this.textContent.trim();
+            const orderCards = document.querySelectorAll('.order-card');
+            let visibleCount = 0;
+            
+            orderCards.forEach(card => {
+                const statusText = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
+                
+                if (tabText === 'Reservas Canceladas') {
+                    // Mostra APENAS cancelados
+                    if (statusText.includes('cancelado')) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                } else if (tabText === 'Reservas') {
+                    // Mostra TODOS (ou filtro padrão)
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                    // Outras abas (Ex: Ainda não enviado) - comportamento atual: mostrar tudo ou filtrar futuramente
+                    // Mantendo comportamento padrão (tudo visível por enquanto)
+                    card.style.display = 'block';
+                    visibleCount++;
+                }
+            });
+            
+            // Verifica se precisa mostrar mensagem de vazio
+            let noResultsMsg = document.getElementById('no-results-message');
+            // Se já existe, ocultamos/exibimos
+            if (noResultsMsg) {
+                noResultsMsg.style.display = visibleCount > 0 ? 'none' : 'block';
+            }
+        });
+    });
 });
 </script>

@@ -219,6 +219,59 @@ class DashboardControllerCliente extends AuthenticatedController
     }
 
     /**
+     * Exibe a página de reservas do cliente (apenas não canceladas)
+     */
+    public function reservas()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca pedidos
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+
+        // Filtra apenas NÃO cancelados e enriquece com dados do item
+        $pedidosAtivos = [];
+        foreach ($pedidos as $pedido) {
+            $statusRaw = strtolower($pedido['status'] ?? '');
+            if (strpos($statusRaw, 'cancel') !== false) {
+                continue; // Pula cancelados
+            }
+
+            $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
+            
+            // Busca itens com detalhes (descrição, preço)
+            $sqlItens = "SELECT i.id_item, i.titulo_item, i.foto_item, i.descricao, i.preco_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':id', $idPedido);
+            $stmtItens->execute();
+            $pedido['itens'] = $stmtItens->fetchAll(\PDO::FETCH_ASSOC);
+
+            $pedidosAtivos[] = $pedido;
+        }
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/reservas', [
+            'usuario' => $dadosView,
+            'pedidos' => $pedidosAtivos,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario'],
+        ]);
+    }
+
+    /**
      * Cancela uma reserva do cliente
      */
     public function cancelarReserva()
