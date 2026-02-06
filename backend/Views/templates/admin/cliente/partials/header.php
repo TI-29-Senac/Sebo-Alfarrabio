@@ -87,6 +87,12 @@ use Sebo\Alfarrabio\Core\Session;
             opacity: 0.6;
         }
 
+        .sidebar-sebo .user-email {
+            font-size: 12px;
+            color: var(--marrom);
+            opacity: 0.8;
+        }
+
         .sidebar-sebo .menu-item {
             border-left: 3px solid transparent;
             transition: all 0.3s ease;

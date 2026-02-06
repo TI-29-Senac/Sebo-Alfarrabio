@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Teste de URLs AJAX</title>
+</head>
+
+<body>
+    <h1>Teste de Conexão das URLs</h1>
+    <button onclick="testarAvaliacao()">Testar URL Avaliação</button>
+    <button onclick="testarCancelamento()">Testar URL Cancelamento</button>
+    <div id="resultados"></div>
+
+    <script>
+        const resultados = document.getElementById('resultados');
+
+        async function testarAvaliacao() {
+            resultados.innerHTML = '<p>Testando avaliação...</p>';
+            try {
+                // Testa a URL que já existe na rota
+                const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
+                    method: 'POST',
+                    body: new FormData()
+                });
+                const text = await response.text();
+                resultados.innerHTML += `<p>Avaliação - Status: ${response.status}</p>`;
+                resultados.innerHTML += `<pre>${text.substring(0, 200)}</pre>`;
+            } catch (error) {
+                resultados.innerHTML += `<p style="color:red">Erro avaliação: ${error.message}</p>`;
+            }
+        }
+
+        async function testarCancelamento() {
+            resultados.innerHTML = '<p>Testando cancelamento...</p>';
+
+            // Testa diferentes variações de URL
+            const urls = [
+                '/backend/api/cancelar-reserva.php',
+                'backend/api/cancelar-reserva.php',
+                '../../api/cancelar-reserva.php',
+                '/api/cancelar-reserva.php',
+                'api/cancelar-reserva.php'
+            ];
+
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: new FormData()
+                    });
+                    const text = await response.text();
+                    resultados.innerHTML += `<p style="color:green">✓ ${url} - Status: ${response.status}</p>`;
+                } catch (error) {
+                    resultados.innerHTML += `<p style="color:red">✗ ${url} - Erro: ${error.message}</p>`;
+                }
+            }
+        }
+
+        // Informações de debug
+        resultados.innerHTML = `
+            <p><strong>Localização atual:</strong> ${window.location.href}</p>
+            <p><strong>Pathname:</strong> ${window.location.pathname}</p>
+            <p><strong>Base URL:</strong> ${window.location.origin}</p>
+        `;
+    </script>
+</body>
+
+</html>

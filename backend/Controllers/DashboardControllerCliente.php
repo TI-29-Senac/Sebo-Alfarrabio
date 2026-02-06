@@ -217,4 +217,62 @@ class DashboardControllerCliente extends AuthenticatedController
             'usuarioNome' => $usuario['nome_usuario'],
         ]);
     }
+
+    /**
+     * Cancela uma reserva do cliente
+     */
+    public function cancelarReserva()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/login", "error", "Usuário não autenticado.");
+            return;
+        }
+
+        // Valida ID do pedido
+        $idPedido = $_POST['id_pedido'] ?? null;
+        if (!$idPedido || !is_numeric($idPedido)) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "ID do pedido inválido.");
+            return;
+        }
+
+        // Busca o pedido
+        $pedido = $this->pedidosModel->buscarPedidosPorID($idPedido);
+
+        if (!$pedido) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Pedido não encontrado.");
+            return;
+        }
+
+        // Verifica se o pedido pertence ao usuário
+        if ($pedido['id_usuario'] != $usuarioId) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Você não tem permissão para cancelar este pedido.");
+            return;
+        }
+
+        // Verifica se o pedido já está cancelado
+        $statusAtual = strtolower($pedido['status']);
+        if (strpos($statusAtual, 'cancel') !== false) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "info", "Este pedido já está cancelado.");
+            return;
+        }
+
+        // Verifica se o pedido já foi entregue
+        if (strpos($statusAtual, 'entreg') !== false) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Não é possível cancelar um pedido já entregue.");
+            return;
+        }
+
+        // Atualiza o status para "Cancelado"
+        $resultado = $this->pedidosModel->atualizarStatus($idPedido, 'Cancelado');
+
+        if ($resultado) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "success", "Reserva cancelada com sucesso!");
+        } else {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao cancelar a reserva.");
+        }
+    }
 }
+

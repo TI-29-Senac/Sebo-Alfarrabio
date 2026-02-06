@@ -1009,7 +1009,23 @@
                                     <i class="fa fa-check"></i> Já avaliado
                                 </button>
                             <?php endif; ?>
-                            <button class="btn-side">Rastrear pacote</button>
+                            <?php 
+                            // Verifica se o pedido já está cancelado ou entregue
+                            $podeCancelar = !(strpos($statusRaw, 'cancel') !== false || strpos($statusRaw, 'entreg') !== false);
+                            $idPedido = $pedido['id_pedidos'] ?? $pedido['id'] ?? null;
+                            ?>
+                            <?php if ($podeCancelar && $idPedido): ?>
+                                <button class="btn-side btn-cancelar-reserva" 
+                                        data-pedido-id="<?= $idPedido ?>"
+                                        onclick="abrirModalCancelamento(<?= $idPedido ?>)">
+                                    <i class="fa fa-times-circle"></i> Cancelar Reserva
+                                </button>
+                            <?php else: ?>
+                                <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                    <i class="fa fa-ban"></i> 
+                                    <?= strpos($statusRaw, 'cancel') !== false ? 'Já Cancelado' : 'Não Cancelável' ?>
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1080,6 +1096,47 @@
             <i class="fa fa-check-circle"></i>
             <h3>Avaliação enviada!</h3>
             <p>Obrigado por compartilhar sua opinião.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     MODAL DE CANCELAMENTO DE RESERVA
+     ======================================== -->
+<div class="modal-overlay" id="modalCancelamento">
+    <div class="modal-content" style="position: relative; max-width: 480px;">
+        <button class="modal-close" onclick="fecharModalCancelamento()">&times;</button>
+        
+        <div id="formCancelamento">
+            <div style="text-align: center; padding: 20px 10px;">
+                <div style="width: 80px; height: 80px; background: #FFF3CD; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <i class="fa fa-exclamation-triangle" style="font-size: 40px; color: #856404;"></i>
+                </div>
+                
+                <h3 style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin: 0 0 15px;">
+                    Cancelar esta reserva?
+                </h3>
+                
+                <p style="font-size: 15px; color: var(--color-text-secondary); margin: 0 0 25px; line-height: 1.5;">
+                    Você tem certeza de que deseja cancelar esta reserva? Esta ação não pode ser desfeita.
+                </p>
+                
+                <div class="modal-buttons" style="justify-content: center;">
+                    <button class="btn-modal secondary" onclick="fecharModalCancelamento()">
+                        Voltar
+                    </button>
+                    <button class="btn-modal primary" id="btnConfirmarCancelamento" onclick="confirmarCancelamento()" style="background: #D9534F;">
+                        Sim, cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mensagem de Sucesso -->
+        <div id="successCancelamento" class="success-message" style="display: none;">
+            <i class="fa fa-check-circle"></i>
+            <h3>Reserva cancelada!</h3>
+            <p>Sua reserva foi cancelada com sucesso.</p>
         </div>
     </div>
 </div>
@@ -1223,7 +1280,7 @@ async function enviarAvaliacao() {
         formData.append('nota', currentRating);
         formData.append('comentario', comentario);
         
-        const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
+        const response = await fetch('/backend/index.php/api/cliente/avaliacao/salvar', {
             method: 'POST',
             body: formData
         });
@@ -1268,4 +1325,107 @@ async function enviarAvaliacao() {
         btnEnviar.innerHTML = 'Enviar avaliação';
     }
 }
+
+// ========================================
+// JAVASCRIPT DO MODAL DE CANCELAMENTO
+// ========================================
+
+let currentPedidoId = null;
+
+// Abre o modal de cancelamento
+function abrirModalCancelamento(pedidoId) {
+    currentPedidoId = pedidoId;
+    
+    // Reset estado
+    document.getElementById('formCancelamento').style.display = 'block';
+    document.getElementById('successCancelamento').style.display = 'none';
+    document.getElementById('btnConfirmarCancelamento').disabled = false;
+    
+    // Abre modal
+    document.getElementById('modalCancelamento').classList.add('active');
+}
+
+// Fecha o modal de cancelamento
+function fecharModalCancelamento() {
+    document.getElementById('modalCancelamento').classList.remove('active');
+    currentPedidoId = null;
+}
+
+// Confirma o cancelamento via AJAX
+async function confirmarCancelamento() {
+    if (!currentPedidoId) {
+        alert('Erro: ID do pedido não encontrado.');
+        return;
+    }
+    
+    const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
+    
+    // Desabilita botão e mostra loading
+    btnConfirmar.disabled = true;
+    btnConfirmar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Cancelando...';
+    
+    try {
+        const formData = new FormData();
+        formData.append('id_pedido', currentPedidoId);
+        
+        const response = await fetch('/backend/api/cancelar-reserva.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Mostra mensagem de sucesso
+            document.getElementById('formCancelamento').style.display = 'none';
+            document.getElementById('successCancelamento').style.display = 'block';
+            
+            // Atualiza a UI - encontra o card do pedido e atualiza o status
+            const btnCancelar = document.querySelector(`[data-pedido-id="${currentPedidoId}"]`);
+            if (btnCancelar) {
+                const orderCard = btnCancelar.closest('.order-card');
+                if (orderCard) {
+                    // Atualiza o badge de status
+                    const statusBadge = orderCard.querySelector('.status-text');
+                    if (statusBadge) {
+                        statusBadge.textContent = 'Cancelado';
+                        statusBadge.className = 'status-text status-cancelado';
+                    }
+                    
+                    // Substitui o botão de cancelar por um botão desabilitado
+                    btnCancelar.outerHTML = `
+                        <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;">
+                            <i class="fa fa-ban"></i> Já Cancelado
+                        </button>
+                    `;
+                }
+            }
+            
+            // Fecha modal após 2 segundos
+            setTimeout(() => {
+                fecharModalCancelamento();
+            }, 2000);
+            
+        } else {
+            alert(data.message || 'Erro ao cancelar a reserva.');
+            btnConfirmar.disabled = false;
+            btnConfirmar.innerHTML = 'Sim, cancelar';
+        }
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro de conexão. Tente novamente.');
+        btnConfirmar.disabled = false;
+        btnConfirmar.innerHTML = 'Sim, cancelar';
+    }
+}
+
+// Fechar modal clicando fora
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('modalCancelamento')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            fecharModalCancelamento();
+        }
+    });
+});
 </script>
