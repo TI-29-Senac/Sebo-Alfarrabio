@@ -1427,5 +1427,67 @@ document.addEventListener('DOMContentLoaded', function() {
             fecharModalCancelamento();
         }
     });
+
+    // ========================================
+    // BUSCA DE RESERVAS
+    // ========================================
+    const searchInput = document.querySelector('.orders-search-bar input');
+    const searchButton = document.querySelector('.orders-search-bar button');
+    
+    if (searchInput && searchButton) {
+        // Função de busca
+        function buscarReservas() {
+            const termo = searchInput.value.toLowerCase().trim();
+            const orderCards = document.querySelectorAll('.order-card');
+            let encontrou = false;
+            
+            orderCards.forEach(card => {
+                // Conteúdo para buscar: ID, Título do item, Status
+                const idPedido = card.querySelector('.order-header-left span')?.textContent.toLowerCase() || '';
+                const tituloItem = card.querySelector('.item-title')?.textContent.toLowerCase() || '';
+                const status = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
+                
+                if (termo === '' || 
+                    idPedido.includes(termo) || 
+                    tituloItem.includes(termo) || 
+                    status.includes(termo)) {
+                        
+                    card.style.display = 'block';
+                    encontrou = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Gerencia mensagem de "nenhum resultado"
+            let noResultsMsg = document.getElementById('no-results-message');
+            if (!noResultsMsg) {
+                noResultsMsg = document.createElement('div');
+                noResultsMsg.id = 'no-results-message';
+                noResultsMsg.className = 'avaliacoes-empty'; // Reusa estilo existente
+                noResultsMsg.style.padding = '40px';
+                noResultsMsg.innerHTML = `
+                    <i class="fa fa-search" style="font-size: 40px; color: #E0D8CC;"></i>
+                    <h3 style="margin-top: 15px;">Nenhuma reserva encontrada</h3>
+                    <p>Tente buscar por outro termo.</p>
+                `;
+                const container = document.querySelector('.orders-container');
+                container.appendChild(noResultsMsg);
+            }
+            
+            noResultsMsg.style.display = encontrou ? 'none' : 'block';
+        }
+
+        // Eventos
+        searchButton.addEventListener('click', buscarReservas);
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                buscarReservas();
+            } else {
+                // Opcional: Busca em tempo real ao digitar
+                buscarReservas();
+            }
+        });
+    }
 });
 </script>
