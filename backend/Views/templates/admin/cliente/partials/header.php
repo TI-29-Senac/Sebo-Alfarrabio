@@ -269,7 +269,7 @@ use Sebo\Alfarrabio\Core\Session;
                 <a href="/backend/admin/cliente/avaliacoes" class="menu-item w3-bar-item w3-button w3-padding">
                     <i class="fa fa-comment"></i> Avaliações
                 </a>
-                <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding">
+                <a href="/backend/admin/cliente/notificacoes" class="menu-item w3-bar-item w3-button w3-padding">
                     <i class="fa fa-bell"></i> Notificações
                 </a>
 

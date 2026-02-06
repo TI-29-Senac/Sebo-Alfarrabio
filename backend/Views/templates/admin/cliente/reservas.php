@@ -412,8 +412,8 @@
                         <?php endif; ?>
 
                         <div class="order-action-buttons">
-                            <button class="btn-action gold">Comprar Novamente</button>
-                            <button class="btn-action">Rastrear Entrega</button>
+                            <button class="btn-action gold">Reservar Novamente</button>
+                            <button class="btn-action">Cancelar Reserva</button>
                         </div>
                     </div>
                 </div>

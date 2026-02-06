@@ -272,6 +272,88 @@ class DashboardControllerCliente extends AuthenticatedController
     }
 
     /**
+     * Exibe a página de notificações (última reserva + novos livros)
+     */
+    public function notificacoes()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // 1. Busca APENAS a última reserva
+        $sql = "SELECT p.*, 
+                       i.titulo_item, 
+                       i.foto_item, 
+                       i.preco_item, 
+                       i.descricao,
+                       pi.quantidade,
+                       u.nome_usuario,
+                       u.email_usuario
+                FROM tbl_pedidos p
+                JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id
+                JOIN tbl_itens i ON pi.item_id = i.id_item
+                JOIN tbl_usuario u ON p.id_usuario = u.id_usuario
+                WHERE p.id_usuario = :id
+                ORDER BY p.data_pedido DESC
+                LIMIT 1";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $usuarioId);
+        $stmt->execute();
+        $ultimaReserva = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // Ajuste de imagem da reserva
+        if ($ultimaReserva && !empty($ultimaReserva['foto_item'])) {
+            if (strpos($ultimaReserva['foto_item'], '/uploads') === 0 && strpos($ultimaReserva['foto_item'], '/backend') === false) {
+                $ultimaReserva['foto_item'] = '/backend' . $ultimaReserva['foto_item'];
+            }
+        }
+
+        // 2. Busca os últimos 4 livros cadastrados
+        $sqlNovos = "SELECT 
+                        i.id_item, 
+                        i.titulo_item, 
+                        i.foto_item, 
+                        i.criado_em,
+                        (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
+                         FROM tbl_item_autores ia 
+                         JOIN tbl_autores a ON ia.autor_id = a.id_autor 
+                         WHERE ia.item_id = i.id_item) AS autor
+                     FROM tbl_itens i 
+                     WHERE i.excluido_em IS NULL 
+                     ORDER BY i.criado_em DESC 
+                     LIMIT 4";
+        $stmtNovos = $this->db->prepare($sqlNovos);
+        $stmtNovos->execute();
+        $novosLivros = $stmtNovos->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Ajuste de imagem dos livros
+        foreach ($novosLivros as &$livro) {
+             if (!empty($livro['foto_item']) && strpos($livro['foto_item'], '/uploads') === 0 && strpos($livro['foto_item'], '/backend') === false) {
+                $livro['foto_item'] = '/backend' . $livro['foto_item'];
+            }
+        }
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/notificacoes', [
+            'usuario' => $dadosView,
+            'ultimaReserva' => $ultimaReserva,
+            'novosLivros' => $novosLivros,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario'],
+        ]);
+    }
+
+    /**
      * Cancela uma reserva do cliente
      */
     public function cancelarReserva()

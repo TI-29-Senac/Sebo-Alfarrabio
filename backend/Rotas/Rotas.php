@@ -31,6 +31,7 @@ class Rotas
                 '/admin/cliente' => "DashboardControllerCliente@index",
                 '/admin/cliente/avaliacoes' => "DashboardControllerCliente@avaliacoes",
                 '/admin/cliente/reservas' => "DashboardControllerCliente@reservas",
+                '/admin/cliente/notificacoes' => "DashboardControllerCliente@notificacoes",
 
                 // ========================================
                 // ÁREA ADMINISTRATIVA
