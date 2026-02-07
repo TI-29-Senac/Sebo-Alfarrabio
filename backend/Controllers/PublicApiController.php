@@ -138,6 +138,11 @@ class PublicApiController
             $nota_minima = isset($_GET['nota_minima']) ? (int) $_GET['nota_minima'] : null;
 
             // Query com JOIN para pegar dados relacionados
+            // Primeiro, verificar se há avaliações na tabela
+            $countStmt = $this->db->query("SELECT COUNT(*) as total FROM tbl_avaliacao WHERE excluido_em IS NULL");
+            $countResult = $countStmt->fetch(\PDO::FETCH_ASSOC);
+            $totalNoBanco = (int) ($countResult['total'] ?? 0);
+
             $sql = "SELECT 
                         a.id_avaliacao,
                         a.nota_avaliacao,
@@ -150,7 +155,7 @@ class PublicApiController
                         u.id_usuario,
                         u.nome_usuario,
                         u.email_usuario,
-                        u.foto_usuario,
+                        pu.foto_perfil_usuario AS foto_usuario,
                         
                         -- Dados do item
                         i.id_item,
@@ -166,10 +171,13 @@ class PublicApiController
                         
                     FROM tbl_avaliacao a
                     
-                    INNER JOIN tbl_usuario u 
+                    LEFT JOIN tbl_usuario u 
                         ON a.id_usuario = u.id_usuario
                     
-                    INNER JOIN tbl_itens i 
+                    LEFT JOIN tbl_perfil_usuario pu 
+                        ON u.id_usuario = pu.usuario_id
+                    
+                    LEFT JOIN tbl_itens i 
                         ON a.id_item = i.id_item
                     
                     LEFT JOIN tbl_categorias c 
@@ -181,10 +189,7 @@ class PublicApiController
                     LEFT JOIN tbl_autores aut 
                         ON aut.id_autor = (SELECT ia.autor_id FROM tbl_item_autores ia WHERE ia.item_id = i.id_item LIMIT 1) 
                     
-                    WHERE a.status_avaliacao = 'ativo' 
-                    AND a.excluido_em IS NULL
-                    AND a.comentario_avaliacao IS NOT NULL
-                    AND a.comentario_avaliacao != ''";
+                    WHERE a.excluido_em IS NULL";
 
             // Filtro por nota mínima
             if ($nota_minima !== null) {
@@ -268,6 +273,7 @@ class PublicApiController
             echo json_encode([
                 'success' => true,
                 'total' => $total,
+                'total_no_banco' => $totalNoBanco,
                 'media_notas' => $media_notas,
                 'distribuicao' => $distribuicao,
                 'avaliacoes' => $avaliacoes_formatadas,
@@ -430,5 +436,102 @@ class PublicApiController
     private function corrigirCaminhoImagem($foto_item)
     {
         return \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($foto_item);
+    }
+
+    /**
+     * Debug endpoint para verificar avaliações no banco
+     * GET /api/debug-avaliacoes
+     */
+    public function debugAvaliacoes()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        try {
+            $debug = [];
+
+            // 1. Verificar estrutura da tabela tbl_avaliacao
+            $debug['1_estrutura_tabela'] = [];
+            $estrutura = $this->db->query("DESCRIBE tbl_avaliacao")->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($estrutura as $col) {
+                $debug['1_estrutura_tabela'][] = $col['Field'] . ' (' . $col['Type'] . ')';
+            }
+
+            // 2. Contagem total de avaliações
+            $countAll = $this->db->query("SELECT COUNT(*) as total FROM tbl_avaliacao")->fetch(\PDO::FETCH_ASSOC);
+            $debug['2_total_avaliacoes'] = $countAll['total'];
+
+            // 3. Contagem de avaliações não excluídas
+            $countActive = $this->db->query("SELECT COUNT(*) as total FROM tbl_avaliacao WHERE excluido_em IS NULL")->fetch(\PDO::FETCH_ASSOC);
+            $debug['3_avaliacoes_nao_excluidas'] = $countActive['total'];
+
+            // 4. Primeiras 5 avaliações (dados brutos)
+            $avaliacoes = $this->db->query("SELECT * FROM tbl_avaliacao LIMIT 5")->fetchAll(\PDO::FETCH_ASSOC);
+            $debug['4_primeiras_5_avaliacoes'] = $avaliacoes;
+
+            // 5. Verificar se os id_usuario existem na tbl_usuario
+            if (!empty($avaliacoes)) {
+                $ids_usuarios = array_filter(array_column($avaliacoes, 'id_usuario'));
+                if (!empty($ids_usuarios)) {
+                    $ids_str = implode(',', array_map('intval', $ids_usuarios));
+                    $usuarios = $this->db->query("SELECT id_usuario, nome_usuario FROM tbl_usuario WHERE id_usuario IN ($ids_str)")->fetchAll(\PDO::FETCH_ASSOC);
+                    $debug['5_usuarios_encontrados'] = $usuarios;
+                } else {
+                    $debug['5_usuarios_encontrados'] = "Nenhum id_usuario nas avaliações";
+                }
+            }
+
+            // 6. Verificar se os id_item existem na tbl_itens
+            if (!empty($avaliacoes)) {
+                $ids_itens = array_filter(array_column($avaliacoes, 'id_item'));
+                if (!empty($ids_itens)) {
+                    $ids_str = implode(',', array_map('intval', $ids_itens));
+                    $itens = $this->db->query("SELECT id_item, titulo_item FROM tbl_itens WHERE id_item IN ($ids_str)")->fetchAll(\PDO::FETCH_ASSOC);
+                    $debug['6_itens_encontrados'] = $itens;
+                } else {
+                    $debug['6_itens_encontrados'] = "Nenhum id_item nas avaliações";
+                }
+            }
+
+            // 7. Testar a query completa
+            $query_completa = "SELECT 
+                a.id_avaliacao,
+                a.nota_avaliacao,
+                a.comentario_avaliacao,
+                u.nome_usuario,
+                i.titulo_item
+            FROM tbl_avaliacao a
+            LEFT JOIN tbl_usuario u ON a.id_usuario = u.id_usuario
+            LEFT JOIN tbl_itens i ON a.id_item = i.id_item
+            WHERE a.excluido_em IS NULL
+            LIMIT 5";
+
+            $resultado_query = $this->db->query($query_completa)->fetchAll(\PDO::FETCH_ASSOC);
+            $debug['7_resultado_query_completa'] = $resultado_query;
+
+            // 8. Totais
+            $debug['8_total_usuarios'] = $this->db->query("SELECT COUNT(*) FROM tbl_usuario")->fetchColumn();
+            $debug['9_total_itens'] = $this->db->query("SELECT COUNT(*) FROM tbl_itens")->fetchColumn();
+
+            echo json_encode([
+                'success' => true,
+                'debug' => $debug,
+                'timestamp' => date('Y-m-d H:i:s')
+            ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        } catch (\PDOException $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Erro PDO: ' . $e->getMessage(),
+                'code' => $e->getCode()
+            ], JSON_UNESCAPED_UNICODE);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Erro: ' . $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+        }
     }
 }
