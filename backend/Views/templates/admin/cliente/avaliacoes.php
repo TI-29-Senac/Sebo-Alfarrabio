@@ -313,8 +313,15 @@
             <?php foreach ($avaliacoes as $avaliacao): ?>
                 <div class="avaliacao-card">
                     <!-- Imagem do Item -->
-                    <?php if (!empty($avaliacao['foto_item'])): ?>
-                        <img src="<?= htmlspecialchars($avaliacao['foto_item']) ?>" 
+                    <?php 
+                    $fotoItem = $avaliacao['foto_item'];
+                    // Ajuste de caminho para imagens se necessário (servidor embutido)
+                    if (!empty($fotoItem) && strpos($fotoItem, '/uploads') === 0 && strpos($fotoItem, '/backend') === false) {
+                        $fotoItem = '/backend' . $fotoItem;
+                    }
+                    ?>
+                    <?php if (!empty($fotoItem)): ?>
+                        <img src="<?= htmlspecialchars($fotoItem) ?>" 
                              alt="<?= htmlspecialchars($avaliacao['titulo_item'] ?? 'Item') ?>" 
                              class="avaliacao-item-image">
                     <?php else: ?>
