@@ -2272,8 +2272,14 @@ Stack trace:
 =======
 >>>>>>> 7b961a13939e4eb480f644b7e8a6a1d2b394ec02
 >>>>>>> 53e8a4471e22b498e61b44bca765d5a287d2d3df
+<<<<<<< HEAD
+[09-Feb-2026 15:10:58 Europe/Berlin] ✅ Avaliação #4 inserida (item #30, user #3)
+[09-Feb-2026 15:20:30 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[09-Feb-2026 15:21:52 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
 >>>>>>> 8a8f48d7e2e91ce262d36aec838896c1ddee28f1
 [09-Feb-2026 15:15:46 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [09-Feb-2026 15:17:15 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [09-Feb-2026 15:18:38 Europe/Berlin] ✅ Avaliação #5 inserida (item #39, user #3)
 [09-Feb-2026 15:28:19 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
@@ -2284,3 +2290,8 @@ Stack trace:
 [09-Feb-2026 15:38:30 Europe/Berlin] Usuário não encontrado ou duplicado: naty@naty.com
 [09-Feb-2026 15:38:37 Europe/Berlin] Usuário não encontrado ou duplicado: naty@naty.com
 [09-Feb-2026 15:38:43 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+>>>>>>> 817cf4f5b02361c3b8923b73d9089cf3d6c4b374
+[09-Feb-2026 15:27:51 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[09-Feb-2026 15:38:45 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> af909f12b7452e53d134f7e9e4fbcf54e456e7f4
