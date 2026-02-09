@@ -29,12 +29,17 @@ header {
    CONTAINER LOGO + TÍTULO
    ======================================== */
 
+/* ========================================
+   LOGO CONTAINER (logo + nome lado a lado)
+   ======================================== */
+
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  position: absolute;
-  left: 2rem;
+  gap: 0.8rem;
+  margin-right: 2rem;
+  margin-left: -5rem;
+  /* Ajustado de -10rem para -5rem para mover para a direita */
 }
 
 /* ========================================
@@ -42,7 +47,7 @@ header {
    ======================================== */
 
 .logo {
-  height: 60px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   transition: transform 0.3s ease;
@@ -61,10 +66,10 @@ header {
 .alfa {
   font-family: 'Merriweather', serif;
   color: rgb(189, 144, 86);
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 700;
-  white-space: nowrap;
   margin: 0;
+  white-space: nowrap;
 }
 
 /* ========================================
@@ -78,6 +83,7 @@ nav ul {
   margin: 0;
   padding: 0;
   align-items: center;
+  justify-content: center;
 }
 
 nav ul li {

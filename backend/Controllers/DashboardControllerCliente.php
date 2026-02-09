@@ -103,8 +103,9 @@ class DashboardControllerCliente extends AuthenticatedController
             $stmtFavoritos = $this->db->prepare($sqlFavoritos);
             $stmtFavoritos->bindValue(':id', $usuarioId);
             $stmtFavoritos->execute();
-            $total_favoritos = (int) $stmtFavoritos->fetchColumn();
-        } catch (\PDOException $e) {
+            $total_favoritos = (int)$stmtFavoritos->fetchColumn();
+        }
+        catch (\PDOException $e) {
             // Tabela não existe ou erro, mantém 0
             $total_favoritos = 0;
         }
@@ -141,7 +142,8 @@ class DashboardControllerCliente extends AuthenticatedController
         try {
             $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
             $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
             return;
         }
@@ -163,7 +165,8 @@ class DashboardControllerCliente extends AuthenticatedController
                 $perfilExistente['endereco'],
                 $caminhoFoto
             );
-        } else {
+        }
+        else {
             // Cria novo perfil
             $this->perfil->inserirPerfil(
                 $usuarioId,
@@ -212,8 +215,246 @@ class DashboardControllerCliente extends AuthenticatedController
             'avaliacoes' => $avaliacoes,
             'total_avaliacoes' => $total_avaliacoes,
             'usuarioNome' => $usuario['nome_usuario'],
-            'usuarioEmail' => $usuario['email_usuario']
         ]);
+    }
+
+<<<<<<< HEAD
+    public function cancelarPedido()
+    {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'Método inválido.']);
+            return;
+        }
+
+        if (!Session::get('usuario_id')) {
+            echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
+            return;
+        }
+
+        $idPedido = $_POST['id_pedido'] ?? null;
+
+        if (!$idPedido) {
+            echo json_encode(['success' => false, 'message' => 'ID do pedido não informado.']);
+            return;
+        }
+
+        $db = Database::getInstance();
+        $pedidoModel = new Pedidos($db);
+
+        // Verifica se o pedido pertence ao usuário
+        $pedido = $pedidoModel->buscarPedidosPorID($idPedido);
+        if (!$pedido || $pedido['usuario_id'] != Session::get('usuario_id')) {
+            echo json_encode(['success' => false, 'message' => 'Pedido não encontrado ou não pertence a você.']);
+            return;
+        }
+
+        // Verifica se já não está cancelado
+        $statusAtual = strtolower($pedido['status']);
+        if (strpos($statusAtual, 'cancel') !== false) {
+            echo json_encode(['success' => false, 'message' => 'Este pedido já está cancelado.']);
+            return;
+        }
+
+        // Atualiza status
+        if ($pedidoModel->atualizarStatus($idPedido, 'Cancelado')) {
+            echo json_encode(['success' => true, 'message' => 'Reserva cancelada com sucesso.']);
+        }
+        else {
+            echo json_encode(['success' => false, 'message' => 'Erro ao cancelar reserva. Tente novamente.']);
+=======
+    /**
+     * Exibe a página de reservas do cliente (apenas não canceladas)
+     */
+    public function reservas()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca pedidos
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+
+        // Filtra apenas NÃO cancelados e enriquece com dados do item
+        $pedidosAtivos = [];
+        foreach ($pedidos as $pedido) {
+            $statusRaw = strtolower($pedido['status'] ?? '');
+            if (strpos($statusRaw, 'cancel') !== false) {
+                continue; // Pula cancelados
+            }
+
+            $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
+            
+            // Busca itens com detalhes (descrição, preço)
+            $sqlItens = "SELECT i.id_item, i.titulo_item, i.foto_item, i.descricao, i.preco_item, pi.quantidade 
+                         FROM tbl_pedido_itens pi 
+                         JOIN tbl_itens i ON pi.item_id = i.id_item 
+                         WHERE pi.pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindValue(':id', $idPedido);
+            $stmtItens->execute();
+            $pedido['itens'] = $stmtItens->fetchAll(\PDO::FETCH_ASSOC);
+
+            $pedidosAtivos[] = $pedido;
+        }
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/reservas', [
+            'usuario' => $dadosView,
+            'pedidos' => $pedidosAtivos,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario'],
+        ]);
+    }
+
+    /**
+     * Exibe a página de notificações (última reserva + novos livros)
+     */
+    public function notificacoes()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // 1. Busca APENAS a última reserva
+        $sql = "SELECT p.*, 
+                       i.titulo_item, 
+                       i.foto_item, 
+                       i.preco_item, 
+                       i.descricao,
+                       pi.quantidade,
+                       u.nome_usuario,
+                       u.email_usuario
+                FROM tbl_pedidos p
+                JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id
+                JOIN tbl_itens i ON pi.item_id = i.id_item
+                JOIN tbl_usuario u ON p.id_usuario = u.id_usuario
+                WHERE p.id_usuario = :id
+                ORDER BY p.data_pedido DESC
+                LIMIT 1";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $usuarioId);
+        $stmt->execute();
+        $ultimaReserva = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // Ajuste de imagem da reserva
+        if ($ultimaReserva && !empty($ultimaReserva['foto_item'])) {
+            if (strpos($ultimaReserva['foto_item'], '/uploads') === 0 && strpos($ultimaReserva['foto_item'], '/backend') === false) {
+                $ultimaReserva['foto_item'] = '/backend' . $ultimaReserva['foto_item'];
+            }
+        }
+
+        // 2. Busca os últimos 4 livros cadastrados
+        $sqlNovos = "SELECT 
+                        i.id_item, 
+                        i.titulo_item, 
+                        i.foto_item, 
+                        i.criado_em,
+                        (SELECT GROUP_CONCAT(a.nome_autor SEPARATOR ', ') 
+                         FROM tbl_item_autores ia 
+                         JOIN tbl_autores a ON ia.autor_id = a.id_autor 
+                         WHERE ia.item_id = i.id_item) AS autor
+                     FROM tbl_itens i 
+                     WHERE i.excluido_em IS NULL 
+                     ORDER BY i.criado_em DESC 
+                     LIMIT 4";
+        $stmtNovos = $this->db->prepare($sqlNovos);
+        $stmtNovos->execute();
+        $novosLivros = $stmtNovos->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Ajuste de imagem dos livros
+        foreach ($novosLivros as &$livro) {
+             if (!empty($livro['foto_item']) && strpos($livro['foto_item'], '/uploads') === 0 && strpos($livro['foto_item'], '/backend') === false) {
+                $livro['foto_item'] = '/backend' . $livro['foto_item'];
+            }
+        }
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/notificacoes', [
+            'usuario' => $dadosView,
+            'ultimaReserva' => $ultimaReserva,
+            'novosLivros' => $novosLivros,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario'],
+        ]);
+    }
+
+    /**
+     * Cancela uma reserva do cliente
+     */
+    public function cancelarReserva()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/login", "error", "Usuário não autenticado.");
+            return;
+        }
+
+        // Valida ID do pedido
+        $idPedido = $_POST['id_pedido'] ?? null;
+        if (!$idPedido || !is_numeric($idPedido)) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "ID do pedido inválido.");
+            return;
+        }
+
+        // Busca o pedido
+        $pedido = $this->pedidosModel->buscarPedidosPorID($idPedido);
+
+        if (!$pedido) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Pedido não encontrado.");
+            return;
+        }
+
+        // Verifica se o pedido pertence ao usuário
+        if ($pedido['id_usuario'] != $usuarioId) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Você não tem permissão para cancelar este pedido.");
+            return;
+        }
+
+        // Verifica se o pedido já está cancelado
+        $statusAtual = strtolower($pedido['status']);
+        if (strpos($statusAtual, 'cancel') !== false) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "info", "Este pedido já está cancelado.");
+            return;
+        }
+
+        // Verifica se o pedido já foi entregue
+        if (strpos($statusAtual, 'entreg') !== false) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Não é possível cancelar um pedido já entregue.");
+            return;
+        }
+
+        // Atualiza o status para "Cancelado"
+        $resultado = $this->pedidosModel->atualizarStatus($idPedido, 'Cancelado');
+
+        if ($resultado) {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "success", "Reserva cancelada com sucesso!");
+        } else {
+            \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao cancelar a reserva.");
+>>>>>>> 7521938f1d89d060478154920affadc8d18b9721
+        }
     }
 }
 

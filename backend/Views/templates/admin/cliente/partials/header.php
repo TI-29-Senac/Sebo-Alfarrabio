@@ -87,6 +87,12 @@ use Sebo\Alfarrabio\Core\Session;
             opacity: 0.6;
         }
 
+        .sidebar-sebo .user-email {
+            font-size: 12px;
+            color: var(--marrom);
+            opacity: 0.8;
+        }
+
         .sidebar-sebo .menu-item {
             border-left: 3px solid transparent;
             transition: all 0.3s ease;
@@ -249,10 +255,14 @@ use Sebo\Alfarrabio\Core\Session;
                 <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
                     <i class="fa fa-user"></i> Seu Perfil
                 </a>
-                <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding active">
+                <a href="/backend/admin/cliente/reservas" class="menu-item w3-bar-item w3-button w3-padding active">
                     <i class="fa fa-check"></i> Suas Reservas
                 </a>
+<<<<<<< HEAD
                 <a href="/backend/admin/favoritos" class="menu-item w3-bar-item w3-button w3-padding active">
+=======
+                <a href="/backend/admin/cliente/favoritos" class="menu-item w3-bar-item w3-button w3-padding active">
+>>>>>>> 7b961a13939e4eb480f644b7e8a6a1d2b394ec02
                     <i class="fa fa-heart"></i> Favoritos
                 </a>
 
@@ -263,7 +273,7 @@ use Sebo\Alfarrabio\Core\Session;
                 <a href="/backend/admin/cliente/avaliacoes" class="menu-item w3-bar-item w3-button w3-padding">
                     <i class="fa fa-comment"></i> Avaliações
                 </a>
-                <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding">
+                <a href="/backend/admin/cliente/notificacoes" class="menu-item w3-bar-item w3-button w3-padding">
                     <i class="fa fa-bell"></i> Notificações
                 </a>
 

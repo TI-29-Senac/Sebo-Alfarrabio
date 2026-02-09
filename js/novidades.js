@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function carregarNovidades() {
     const container = document.querySelector('.card-livros');
+    if (!container) return;
 
     // Mostra loading
     container.innerHTML = `

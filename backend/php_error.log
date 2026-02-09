@@ -2159,6 +2159,11 @@ Stack trace:
 =======
 >>>>>>> 60cb14c2190ac2d915e11ef1aba5b3b2f9c26b7c
 >>>>>>> 2b1934e72b0f0afbf68f39623be6e4fcae36ce1d
+<<<<<<< HEAD
+[04-Feb-2026 21:46:44 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 21:54:37 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[04-Feb-2026 22:22:46 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
 [05-Feb-2026 00:47:05 UTC] Login bem-sucedido: carla.menezes@email.com
 >>>>>>> 8289c00f438f86bd7e9cad3f6bde81cb07827508
 [05-Feb-2026 12:43:46 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
@@ -2219,5 +2224,31 @@ Stack trace:
 =======
 [05-Feb-2026 14:03:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 >>>>>>> d201517fd95b1d3452dd2d2935202b4015c5ac7c
+<<<<<<< HEAD
 [09-Feb-2026 13:05:50 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [09-Feb-2026 13:38:59 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+>>>>>>> 874b8e2e132947a5858746e473b5429a385b4432
+<<<<<<< HEAD
+[05-Feb-2026 23:56:39 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 00:08:50 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[07-Feb-2026 18:49:58 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+=======
+[06-Feb-2026 12:41:03 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 12:54:46 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[06-Feb-2026 12:55:06 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 12:57:51 Europe/Berlin] Senha incorreta para: seboAlfarrabio@gmail.com
+[06-Feb-2026 12:57:59 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[06-Feb-2026 13:08:56 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 13:35:15 Europe/Berlin] ✅ Avaliação #2 inserida (item #27, user #3)
+[06-Feb-2026 13:40:03 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[06-Feb-2026 13:40:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 15:11:34 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 15:13:13 Europe/Berlin] PHP Warning:  Undefined variable $podeCancelar in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Views\templates\admin\cliente\reservas.php on line 416
+[06-Feb-2026 15:13:16 Europe/Berlin] PHP Warning:  Undefined variable $podeCancelar in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Views\templates\admin\cliente\reservas.php on line 416
+[06-Feb-2026 15:13:56 Europe/Berlin] PHP Warning:  Undefined variable $podeCancelar in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Views\templates\admin\cliente\reservas.php on line 419
+[06-Feb-2026 15:48:42 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[06-Feb-2026 15:49:20 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[07-Feb-2026 01:54:28 UTC] Login bem-sucedido: carla.menezes@email.com
+>>>>>>> 7521938f1d89d060478154920affadc8d18b9721
+>>>>>>> 7b961a13939e4eb480f644b7e8a6a1d2b394ec02
