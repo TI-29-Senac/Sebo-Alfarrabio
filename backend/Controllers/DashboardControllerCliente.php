@@ -264,5 +264,91 @@ class DashboardControllerCliente extends AuthenticatedController
             echo json_encode(['success' => false, 'message' => 'Erro ao cancelar reserva. Tente novamente.']);
         }
     }
-}
 
+    /**
+     * Exibe a página de reservas do cliente.
+     */
+    public function reservas()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+
+        // Busca perfil
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+
+        // Mescla dados
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca pedidos
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/reservas', [
+            'usuario' => $dadosView,
+            'pedidos' => $pedidos,
+            'usuarioNome' => $usuario['nome_usuario'],
+            'usuarioEmail' => $usuario['email_usuario']
+        ]);
+    }
+
+    /**
+     * Exibe a página de notificações do cliente.
+     */
+    public function notificacoes()
+    {
+        $session = new \Sebo\Alfarrabio\Core\Session();
+        $usuarioId = $session->get('usuario_id');
+
+        if (!$usuarioId) {
+            header('Location: /login');
+            exit;
+        }
+
+        // Busca dados do usuário
+        $usuario = $this->usuario->buscarUsuarioPorID($usuarioId);
+
+        // Busca perfil
+        $perfilData = $this->perfil->buscarPerfilPorIDUsuario($usuarioId);
+        $perfil = $perfilData ? $perfilData[0] : null;
+
+        // Mescla dados
+        $dadosView = array_merge($usuario, $perfil ?? []);
+
+        // Busca última reserva
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+        $ultimaReserva = !empty($pedidos) ? $pedidos[0] : null;
+
+        if ($ultimaReserva) {
+            // Garante que tenha detalhes do item se não vier no buscarPedidosPorIDUsuario
+            if (empty($ultimaReserva['itens'])) {
+            // Busca manual se necessário (mas o model já deve trazer)
+            }
+            else {
+                // Pega dados do primeiro item para exibir na notificação
+                $item = $ultimaReserva['itens'][0];
+                $ultimaReserva['titulo_item'] = $item['titulo_item'];
+                $ultimaReserva['foto_item'] = $item['foto_item'];
+            }
+        }
+
+        // Busca novos livros (últimos 4 itens cadastrados)
+        // Usa paginação para pegar os últimos
+        $novosLivrosData = $this->itemModel->paginacao(1, 4);
+        $novosLivros = $novosLivrosData['data'];
+
+        \Sebo\Alfarrabio\Core\View::render('admin/cliente/notificacoes', [
+            'usuario' => $dadosView,
+            'ultimaReserva' => $ultimaReserva,
+            'novosLivros' => $novosLivros,
+            'usuarioNome' => $usuario['nome_usuario']
+        ]);
+    }
+}
