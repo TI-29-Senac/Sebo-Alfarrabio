@@ -258,11 +258,7 @@ use Sebo\Alfarrabio\Core\Session;
                 <a href="/backend/admin/cliente/reservas" class="menu-item w3-bar-item w3-button w3-padding active">
                     <i class="fa fa-check"></i> Suas Reservas
                 </a>
-<<<<<<< HEAD
                 <a href="/backend/admin/favoritos" class="menu-item w3-bar-item w3-button w3-padding active">
-=======
-                <a href="/backend/admin/cliente/favoritos" class="menu-item w3-bar-item w3-button w3-padding active">
->>>>>>> 7b961a13939e4eb480f644b7e8a6a1d2b394ec02
                     <i class="fa fa-heart"></i> Favoritos
                 </a>
 
