@@ -20,6 +20,7 @@ class ItemController extends AdminController
     public $autor;
     public $categoria;
     public $genero;
+    private $fileManager;
 
     public function __construct()
     {
@@ -30,6 +31,7 @@ class ItemController extends AdminController
         $this->autor = new Autor($this->db);
         $this->categoria = new Categoria($this->db);
         $this->genero = new Genero($this->db);
+        $this->fileManager = new FileManager('uploads');
     }
 
     /**
@@ -141,20 +143,14 @@ class ItemController extends AdminController
             Redirect::redirecionarComMensagem("/backend/item/criar", "error", implode("<br>", $erros));
         }
 
-        // === UPLOAD DA FOTO (automático) ===
         $fotoPath = null;
-        if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === 0) {
-            $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
-            $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
-            if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
-                $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
-                $pasta = 'uploads';
-                if (!is_dir($pasta))
-                    mkdir($pasta, 0777, true);
-                $caminho = $pasta . $nome;
-                if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
-                    $fotoPath = '/' . $caminho;
-                }
+        if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === UPLOAD_ERR_OK) {
+            try {
+                // Sobe para uploads/itens
+                $caminhoRelativo = $this->fileManager->salvarArquivo($_FILES['foto_item'], 'itens', ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']);
+                $fotoPath = '/uploads/' . $caminhoRelativo;
+            } catch (\Exception $e) {
+                error_log("Erro no upload: " . $e->getMessage());
             }
         }
 
@@ -180,8 +176,9 @@ class ItemController extends AdminController
         if ($this->item->inserirItem($dadosItem, $autores_ids)) {
             Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item cadastrado com sucesso!");
         } else {
-            if ($fotoPath && file_exists(ltrim($fotoPath, '/')))
-                unlink(ltrim($fotoPath, '/'));
+            if ($fotoPath) {
+                $this->fileManager->delete(str_replace('/uploads/', '', $fotoPath));
+            }
             Redirect::redirecionarComMensagem("/backend/item/criar", "error", "Erro ao salvar item.");
         }
     }
@@ -194,7 +191,6 @@ class ItemController extends AdminController
     {
         $erros = ItemValidador::ValidarEntradas($_POST);
         if (!empty($erros)) {
-            // Redireciona para editar com o ID se disponível, ou lista
             $id = $_POST['id_item'] ?? '';
             $url = $id ? "/backend/item/editar/{$id}" : "/backend/item/listar";
             Redirect::redirecionarComMensagem($url, "error", implode("<br>", $erros));
@@ -206,41 +202,24 @@ class ItemController extends AdminController
             return;
         }
 
-        // =======================================
-        //   TRATAMENTO DO UPLOAD DA FOTO
-        // =======================================
         $fotoPath = $_POST['foto_item_atual'] ?? null;
 
         if (!empty($_FILES['foto_item']) && $_FILES['foto_item']['error'] === UPLOAD_ERR_OK) {
-            $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
-            $ext = strtolower(pathinfo($_FILES['foto_item']['name'], PATHINFO_EXTENSION));
+            try {
+                $caminhoRelativo = $this->fileManager->salvarArquivo($_FILES['foto_item'], 'itens', ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']);
+                $fotoNova = '/uploads/' . $caminhoRelativo;
 
-            if (in_array($ext, $extensoes) && $_FILES['foto_item']['size'] <= 5000000) {
-                $nome = 'item_' . time() . '_' . uniqid() . '.' . $ext;
-                $pasta = 'uploads/itens/';
-                if (!is_dir($pasta)) {
-                    mkdir($pasta, 0777, true);
+                if (!empty($_POST['foto_item_atual'])) {
+                    $caminhoRelativoAntigo = str_replace('/uploads/', '', $_POST['foto_item_atual']);
+                    $this->fileManager->delete($caminhoRelativoAntigo);
                 }
-                $caminho = $pasta . $nome;
-
-                if (move_uploaded_file($_FILES['foto_item']['tmp_name'], $caminho)) {
-                    $fotoPath = '/' . $caminho;
-
-                    // Apagar foto antiga se existir de forma segura (apenas dentro da pasta itens)
-                    if (!empty($_POST['foto_item_atual'])) {
-                        $arquivoAntigo = basename($_POST['foto_item_atual']);
-                        $caminhoAntigo = 'uploads/itens/' . $arquivoAntigo;
-                        if (file_exists($caminhoAntigo)) {
-                            @unlink($caminhoAntigo);
-                        }
-                    }
-                }
+                
+                $fotoPath = $fotoNova;
+            } catch (\Exception $e) {
+                error_log("Erro no upload de atualização: " . $e->getMessage());
             }
         }
 
-        // =======================================
-        //          DADOS DO ITEM
-        // =======================================
         $dadosItem = [
             'titulo_item' => $_POST["titulo_item"] ?? '',
             'tipo_item' => $_POST["tipo_item"] ?? '',
@@ -263,9 +242,8 @@ class ItemController extends AdminController
         if ($this->item->atualizarItem($id_item, $dadosItem, $autores_ids)) {
             Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item atualizado com sucesso!");
         } else {
-            // Se deu erro e subiu foto nova
-            if ($fotoPath && $fotoPath !== ($_POST['foto_item_atual'] ?? null) && file_exists(ltrim($fotoPath, '/'))) {
-                @unlink(ltrim($fotoPath, '/'));
+            if ($fotoPath && $fotoPath !== ($_POST['foto_item_atual'] ?? null)) {
+                $this->fileManager->delete(str_replace('/uploads/', '', $fotoPath));
             }
             Redirect::redirecionarComMensagem("/backend/item/editar/$id_item", "error", "Erro ao atualizar item.");
         }

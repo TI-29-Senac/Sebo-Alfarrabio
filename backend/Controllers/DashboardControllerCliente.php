@@ -103,8 +103,9 @@ class DashboardControllerCliente extends AuthenticatedController
             $stmtFavoritos = $this->db->prepare($sqlFavoritos);
             $stmtFavoritos->bindValue(':id', $usuarioId);
             $stmtFavoritos->execute();
-            $total_favoritos = (int) $stmtFavoritos->fetchColumn();
-        } catch (\PDOException $e) {
+            $total_favoritos = (int)$stmtFavoritos->fetchColumn();
+        }
+        catch (\PDOException $e) {
             // Tabela não existe ou erro, mantém 0
             $total_favoritos = 0;
         }
@@ -141,7 +142,8 @@ class DashboardControllerCliente extends AuthenticatedController
         try {
             $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
             $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
             return;
         }
@@ -163,7 +165,8 @@ class DashboardControllerCliente extends AuthenticatedController
                 $perfilExistente['endereco'],
                 $caminhoFoto
             );
-        } else {
+        }
+        else {
             // Cria novo perfil
             $this->perfil->inserirPerfil(
                 $usuarioId,
@@ -212,8 +215,54 @@ class DashboardControllerCliente extends AuthenticatedController
             'avaliacoes' => $avaliacoes,
             'total_avaliacoes' => $total_avaliacoes,
             'usuarioNome' => $usuario['nome_usuario'],
-            'usuarioEmail' => $usuario['email_usuario']
         ]);
+    }
+
+    public function cancelarPedido()
+    {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'Método inválido.']);
+            return;
+        }
+
+        if (!Session::get('usuario_id')) {
+            echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
+            return;
+        }
+
+        $idPedido = $_POST['id_pedido'] ?? null;
+
+        if (!$idPedido) {
+            echo json_encode(['success' => false, 'message' => 'ID do pedido não informado.']);
+            return;
+        }
+
+        $db = Database::getInstance();
+        $pedidoModel = new Pedidos($db);
+
+        // Verifica se o pedido pertence ao usuário
+        $pedido = $pedidoModel->buscarPedidosPorID($idPedido);
+        if (!$pedido || $pedido['usuario_id'] != Session::get('usuario_id')) {
+            echo json_encode(['success' => false, 'message' => 'Pedido não encontrado ou não pertence a você.']);
+            return;
+        }
+
+        // Verifica se já não está cancelado
+        $statusAtual = strtolower($pedido['status']);
+        if (strpos($statusAtual, 'cancel') !== false) {
+            echo json_encode(['success' => false, 'message' => 'Este pedido já está cancelado.']);
+            return;
+        }
+
+        // Atualiza status
+        if ($pedidoModel->atualizarStatus($idPedido, 'Cancelado')) {
+            echo json_encode(['success' => true, 'message' => 'Reserva cancelada com sucesso.']);
+        }
+        else {
+            echo json_encode(['success' => false, 'message' => 'Erro ao cancelar reserva. Tente novamente.']);
+        }
     }
 }
 

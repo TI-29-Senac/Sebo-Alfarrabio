@@ -244,8 +244,21 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+
+        .status-badge.pendente {
+            background: #fff4cc;
+            color: #996600;
+        }
+
+        .status-badge.reservado {
             background: #c8e6c9;
             color: #2e7d32;
+        }
+
+        .status-badge.cancelado {
+            background: #ffcccc;
+            color: #cc0000;
         }
 
         .new-order-btn {
@@ -379,7 +392,7 @@
                             </td>
                             <td>R$ <?= number_format($p['valor_total'], 2, ',', '.') ?></td>
                             <td><?= date('d/m/Y', strtotime($p['data_pedido'])) ?></td>
-                            <td><span class="status-badge"><?= $p['status'] ?></span></td>
+                            <td><span class="status-badge <?= strtolower($p['status']) ?>"><?= $p['status'] ?></span></td>
                             <td class="action-links">
                                 <a href="/backend/pedidos/editar/<?= $p['id_pedidos'] ?>">
                                     <i class="fa-solid fa-pen-to-square"></i> Editar

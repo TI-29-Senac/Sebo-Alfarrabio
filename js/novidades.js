@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function carregarNovidades() {
     const container = document.querySelector('.card-livros');
+    if (!container) return;
 
     // Mostra loading
     container.innerHTML = `
@@ -23,7 +24,7 @@ async function carregarNovidades() {
     `;
 
     try {
-        const response = await fetch('/backend/index.php/api/item');
+        const response = await fetch('/backend/api/item');
         const data = await response.json();
 
         if (data.status === 'success' && data.data) {

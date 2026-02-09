@@ -30,6 +30,8 @@ class Rotas
                 // ========================================
                 '/admin/cliente' => "DashboardControllerCliente@index",
                 '/admin/cliente/avaliacoes' => "DashboardControllerCliente@avaliacoes",
+                '/admin/cliente/reservas' => "DashboardControllerCliente@reservas",
+                '/admin/cliente/notificacoes' => "DashboardControllerCliente@notificacoes",
 
                 // ========================================
                 // ÁREA ADMINISTRATIVA
@@ -87,7 +89,7 @@ class Rotas
                 "/api/generos" => "PublicApiController@getGeneros",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
-                "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "PublicApiController@getAvaliacoes",
 
 
                 // ========================================
@@ -180,7 +182,8 @@ class Rotas
                 "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
-                '/api/avaliacoes' => 'PublicApiController@getAvaliacoes',
+                '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
+                '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
             ],
 
 
@@ -231,6 +234,7 @@ class Rotas
                 // ========================================
 
                 "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
+                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarReserva",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",
                 "/perfil/deletar" => "PerfilController@deletarPerfil",
