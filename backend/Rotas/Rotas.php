@@ -89,7 +89,7 @@ class Rotas
                 "/api/generos" => "PublicApiController@getGeneros",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
-                "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "PublicApiController@getAvaliacoes",
 
 
                 // ========================================

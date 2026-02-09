@@ -80,3 +80,34 @@ if (!function_exists('dd')) {
         die();
     }
 }
+if (!function_exists('calcularTempoDecorrido')) {
+    /**
+     * Calcula o tempo decorrido de uma data até agora
+     */
+    function calcularTempoDecorrido($data)
+    {
+        if (!$data) return 'Data não informada';
+        
+        $timestamp = is_numeric($data) ? $data : strtotime($data);
+        if (!$timestamp) return $data;
+
+        $agora = time();
+        $diferenca = $agora - $timestamp;
+
+        if ($diferenca < 60) return "agora mesmo";
+        
+        $minutos = round($diferenca / 60);
+        if ($minutos < 60) return "há $minutos " . ($minutos == 1 ? "minuto" : "minutos");
+        
+        $horas = round($diferenca / 3600);
+        if ($horas < 24) return "há $horas " . ($horas == 1 ? "hora" : "horas");
+        
+        $dias = round($diferenca / 86400);
+        if ($dias < 30) return "há $dias " . ($dias == 1 ? "dia" : "dias");
+        
+        $meses = round($diferenca / 2592000);
+        if ($meses < 12) return "há $meses " . ($meses == 1 ? "mês" : "meses");
+        
+        return date('d/m/Y', $timestamp);
+    }
+}
