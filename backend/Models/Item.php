@@ -347,6 +347,7 @@ class Item
 
     public static function corrigirCaminhoImagem($foto_item)
     {
+        // Helper para normalizar o caminho da imagem para exibição
         if (empty($foto_item))
             return '/img/sem-imagem.png';
 
@@ -400,27 +401,98 @@ class Item
 
     // --- MÉTODOS AUXILIARES ---
 
-    function pesquisarItensSimples(string $termo)
+    /**
+     * Busca todos os itens com informações completas (JOINs)
+     */
+    public function buscarTodosItensCompletos()
     {
-        $termo = "%{$termo}%";
-        $sql = "SELECT id_item, titulo_item, foto_item, preco_item 
-                FROM tbl_itens 
-                WHERE excluido_em IS NULL 
-                AND titulo_item LIKE :termo 
-                LIMIT 10";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':termo', $termo);
-        $stmt->execute();
-        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "
+            SELECT 
+                i.id_item,
+                i.titulo_item AS titulo,
+                i.tipo_item AS tipo,
+                i.descricao,
+                i.preco_item AS preco,
+                i.foto_item,
+                i.estoque,
+                i.isbn,
+                i.editora_gravadora AS editora,
+                i.ano_publicacao,
+                i.duracao_minutos,
+                i.numero_edicao,
+                g.nome_generos AS nome_genero,
+                c.nome_categoria,
+                GROUP_CONCAT(DISTINCT a.nome_autor ORDER BY a.nome_autor SEPARATOR ', ') AS autores,
+                i.foto_item AS caminho_imagem
+            FROM tbl_itens i
+            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
+            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
+            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
+            WHERE i.excluido_em IS NULL
+            GROUP BY i.id_item
+            ORDER BY i.criado_em DESC
+        ";
 
-        // Alias para o frontend
-        foreach ($dados as &$d) {
-            $d['imagem'] = self::corrigirCaminhoImagem($d['foto_item']);
-            $d['titulo'] = $d['titulo_item'];
-            $d['id'] = $d['id_item'];
-            $d['preco'] = $d['preco_item'];
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as &$item) {
+            $item['preco_item'] = floatval($item['preco_item'] ?? 0);
+            $item['estoque'] = intval($item['estoque'] ?? 0);
+            $item['ano_publicacao'] = $item['ano_publicacao'] ? intval($item['ano_publicacao']) : null;
+            $item['caminho_imagem'] = self::corrigirCaminhoImagem($item['foto_item']);
         }
-        return $dados;
+
+        return $result;
+    }
+
+    /**
+     * Busca um item específico com todas as informações
+     */
+    public function buscarItemCompleto(int $id)
+    {
+        $sql = "
+            SELECT 
+                i.id_item,
+                i.titulo_item AS titulo,
+                i.tipo_item AS tipo,
+                i.descricao,
+                i.preco_item AS preco,
+                i.foto_item,
+                i.estoque,
+                i.isbn,
+                i.editora_gravadora AS editora,
+                i.ano_publicacao,
+                i.duracao_minutos,
+                i.numero_edicao,
+                g.nome_generos AS nome_genero,
+                c.nome_categoria,
+                GROUP_CONCAT(DISTINCT a.nome_autor ORDER BY a.nome_autor SEPARATOR ', ') AS autores,
+                i.foto_item AS caminho_imagem
+            FROM tbl_itens i
+            LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
+            LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
+            LEFT JOIN tbl_item_autores ia ON i.id_item = ia.item_id
+            LEFT JOIN tbl_autores a ON ia.autor_id = a.id_autor
+            WHERE i.id_item = :id AND i.excluido_em IS NULL
+            GROUP BY i.id_item
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $item = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($item) {
+            $item['preco_item'] = floatval($item['preco_item'] ?? 0);
+            $item['estoque'] = intval($item['estoque'] ?? 0);
+            $item['ano_publicacao'] = $item['ano_publicacao'] ? intval($item['ano_publicacao']) : null;
+            $item['caminho_imagem'] = self::corrigirCaminhoImagem($item['foto_item']);
+        }
+
+        return $item;
     }
 }
 

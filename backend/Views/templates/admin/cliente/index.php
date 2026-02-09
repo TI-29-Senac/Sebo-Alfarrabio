@@ -1279,7 +1279,7 @@ async function enviarAvaliacao() {
         formData.append('nota', currentRating);
         formData.append('comentario', comentario);
         
-        const response = await fetch('/backend/index.php/api/cliente/avaliacao/salvar', {
+        const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
             method: 'POST',
             body: formData
         });

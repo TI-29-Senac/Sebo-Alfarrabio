@@ -10,10 +10,7 @@
             <label>Email</label>
             <input class="w3-input w3-border" type="email" name="email_usuario" value="<?php echo htmlspecialchars($usuario['email_usuario']); ?>" required>
         </div>
-        <div class="w3-section">
-            <label>Senha</label>
-            <input class="w3-input w3-border" type="password" name="senha_usuario" minlength="6">
-        </div>
+
         <div class="w3-section">
             <label>Tipo</label>
             <select class="w3-select w3-border" name="tipo_usuario" required>
