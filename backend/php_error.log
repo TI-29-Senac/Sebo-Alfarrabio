@@ -2240,3 +2240,6 @@ Stack trace:
 [06-Feb-2026 15:13:56 Europe/Berlin] PHP Warning:  Undefined variable $podeCancelar in C:\Users\kezia.sesanto\Documents\Sebo-Alfarrabio\backend\Views\templates\admin\cliente\reservas.php on line 419
 [06-Feb-2026 15:48:42 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [06-Feb-2026 15:49:20 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 15:52:57 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[06-Feb-2026 15:55:29 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[06-Feb-2026 15:59:26 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
