@@ -2325,3 +2325,6 @@ Stack trace:
 [10-Feb-2026 14:46:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [10-Feb-2026 14:52:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [10-Feb-2026 14:55:44 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 15:30:27 Europe/Berlin] ✅ Avaliação #3 atualizada
+[10-Feb-2026 15:50:50 Europe/Berlin] [ATUALIZAR] id=3, nota=3, comentario=Uma história mara, user=3
+[10-Feb-2026 15:50:50 Europe/Berlin] ✅ Avaliação #3 atualizada (rows: 1)

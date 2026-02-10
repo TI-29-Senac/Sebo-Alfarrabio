@@ -182,11 +182,12 @@ class Avaliacao
         $stmt->bindParam(':status', $status_avaliacao);
 
         try {
-            if ($stmt->execute() && $stmt->rowCount() > 0) {
-                error_log("✅ Avaliação #{$id_avaliacao} atualizada");
+            $result = $stmt->execute();
+            if ($result) {
+                error_log("✅ Avaliação #{$id_avaliacao} atualizada (rows: " . $stmt->rowCount() . ")");
                 return true;
             }
-            error_log("⚠️ Nenhuma linha afetada na update (não existe ou inativa?)");
+            error_log("⚠️ Execute retornou false na update");
             return false;
         } catch (PDOException $e) {
             error_log("❌ ERRO PDO UPDATE: " . $e->getMessage());
