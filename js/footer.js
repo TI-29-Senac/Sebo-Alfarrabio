@@ -16,7 +16,7 @@
 
     // Configuração da API
     const API_CONFIG = {
-        url: '/backend/api_avaliacoes_direct.php', // Endpoint direto para evitar problemas de rota
+        url: '/backend/vitrine/avaliacoes', // Endpoint correto via Controller
         limite: 10,
         cache: true,
         cacheTempo: 300000 // 5 minutos
