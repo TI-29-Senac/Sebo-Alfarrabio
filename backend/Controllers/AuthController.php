@@ -115,4 +115,45 @@ class AuthController
         }
     }
 
+    /**
+     * Verifica o status da sessão (API).
+     * Retorna JSON com dados do usuário ou authenticated: false.
+     */
+    public function checkSession(): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        $usuarioId = $this->session->get('usuario_id');
+
+        if ($usuarioId) {
+            $nome = $this->session->get('usuario_nome');
+            $tipo = $this->session->get('usuario_tipo');
+            $email = $this->session->get('usuario_email');
+
+            // Busca foto do perfil
+            $db = Database::getInstance();
+            $perfilModel = new \Sebo\Alfarrabio\Models\Perfil($db);
+            $perfilData = $perfilModel->buscarPerfilPorIDUsuario($usuarioId);
+            $foto = '/img/avatar_placeholder.png';
+            
+            if ($perfilData && !empty($perfilData[0]['foto_perfil_usuario'])) {
+                $foto = $perfilData[0]['foto_perfil_usuario'];
+            }
+
+            echo json_encode([
+                'authenticated' => true,
+                'user' => [
+                    'id' => $usuarioId,
+                    'name' => $nome,
+                    'email' => $email,
+                    'role' => $tipo,
+                    'avatar' => $foto
+                ]
+            ]);
+        } else {
+            echo json_encode([
+                'authenticated' => false
+            ]);
+        }
+    }
 }

@@ -2308,3 +2308,20 @@ Stack trace:
 [10-Feb-2026 13:11:35 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
 [10-Feb-2026 13:11:35 Europe/Berlin] Nome: Carla Menezes, Email: carla.menezes@email.com, Tipo: Cliente, Senha: NÃO
 [10-Feb-2026 13:11:35 Europe/Berlin] ✅ Linhas afetadas: 1
+[10-Feb-2026 13:55:11 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 13:56:25 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[10-Feb-2026 13:56:25 Europe/Berlin] Nome: Carla Menezes Silva, Email: carla.menezes@email.com, Tipo: Cliente, Senha: NÃO
+[10-Feb-2026 13:56:25 Europe/Berlin] ✅ Linhas afetadas: 1
+[10-Feb-2026 13:57:22 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[10-Feb-2026 13:57:22 Europe/Berlin] Nome: Carla Menezes Silva, Email: carla.menezes@email.com, Tipo: Cliente, Senha: SIM
+[10-Feb-2026 13:57:22 Europe/Berlin] ✅ Linhas afetadas: 1
+[10-Feb-2026 13:57:33 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 13:57:48 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[10-Feb-2026 13:57:49 Europe/Berlin] Nome: Carla Menezes Silva, Email: carla.menezes@email.com, Tipo: Cliente, Senha: SIM
+[10-Feb-2026 13:57:49 Europe/Berlin] ✅ Linhas afetadas: 1
+[10-Feb-2026 13:58:02 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 13:58:34 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[10-Feb-2026 14:43:16 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 14:46:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 14:52:07 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 14:55:44 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com

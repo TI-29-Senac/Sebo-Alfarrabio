@@ -23,6 +23,7 @@ class Rotas
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
+                '/api/auth/session' => 'AuthController@checkSession',
 
 
                 // ========================================

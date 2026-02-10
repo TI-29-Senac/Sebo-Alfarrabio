@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.currentUser = null;
 
     try {
-        const response = await fetch('/backend/api/check_session.php');
+        const response = await fetch('/backend/api/auth/session');
         const data = await response.json();
 
         if (data.authenticated) {
