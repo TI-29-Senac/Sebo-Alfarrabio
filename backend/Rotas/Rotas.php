@@ -32,6 +32,7 @@ class Rotas
                 '/admin/cliente/avaliacoes' => "DashboardControllerCliente@avaliacoes",
                 '/admin/cliente/reservas' => "DashboardControllerCliente@reservas",
                 '/admin/cliente/notificacoes' => "DashboardControllerCliente@notificacoes",
+                '/admin/cliente/configuracoes' => "DashboardControllerCliente@configuracoes",
 
                 // ========================================
                 // ÁREA ADMINISTRATIVA
@@ -235,6 +236,7 @@ class Rotas
 
                 "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
                 "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarReserva",
+                "/admin/cliente/configuracoes/salvar" => "DashboardControllerCliente@atualizarConfiguracoes",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",
                 "/perfil/deletar" => "PerfilController@deletarPerfil",

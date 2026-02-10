@@ -114,16 +114,18 @@ class Perfil
     /**
      * Cria um novo perfil de usuário.
      */
-    function inserirPerfil($usuario_id, $telefone, $endereco, $foto)
+    function inserirPerfil($usuario_id, $telefone, $endereco, $foto, $nascimento = null, $genero = null, $idioma = 'Português')
     {
-        $sql = "INSERT INTO tbl_perfil_usuario (usuario_id, telefone, endereco, 
-        foto_perfil_usuario) 
-                VALUES (:uid, :telefone, :endereco, :foto)";
+        $sql = "INSERT INTO tbl_perfil_usuario (usuario_id, telefone, endereco, foto_perfil_usuario, data_nascimento_usuario, genero_usuario, idioma_usuario) 
+                VALUES (:uid, :telefone, :endereco, :foto, :nascimento, :genero, :idioma)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':uid', $usuario_id);
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':endereco', $endereco);
         $stmt->bindParam(':foto', $foto);
+        $stmt->bindParam(':nascimento', $nascimento);
+        $stmt->bindParam(':genero', $genero);
+        $stmt->bindParam(':idioma', $idioma);
 
         if ($stmt->execute()) {
             return $this->db->lastInsertId();
@@ -135,13 +137,16 @@ class Perfil
     /**
      * Atualiza um perfil existente.
      */
-    function atualizarPerfil($id_perfil_usuario, $telefone, $endereco, $foto)
+    function atualizarPerfil($id_perfil_usuario, $telefone, $endereco, $foto, $nascimento = null, $genero = null, $idioma = 'Português')
     {
         $dataatual = date('Y-m-d H:i:s');
         $sql = "UPDATE tbl_perfil_usuario SET 
         telefone = :telefone,
         endereco = :endereco, 
         foto_perfil_usuario = :foto,
+        data_nascimento_usuario = :nascimento,
+        genero_usuario = :genero,
+        idioma_usuario = :idioma,
         atualizado_em = :atual
         WHERE id_perfil_usuario = :id_perfil_usuario";
 
@@ -150,6 +155,9 @@ class Perfil
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':endereco', $endereco);
         $stmt->bindParam(':foto', $foto);
+        $stmt->bindParam(':nascimento', $nascimento);
+        $stmt->bindParam(':genero', $genero);
+        $stmt->bindParam(':idioma', $idioma);
         $stmt->bindParam(':atual', $dataatual);
 
         return $stmt->execute();

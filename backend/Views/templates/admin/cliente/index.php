@@ -896,7 +896,7 @@
         <div class="tabs-navigation">
             <div class="tab-btn active">Reservas</div>
             <div class="tab-btn">Reservas Canceladas</div>
-            <div class="tab-btn">Ainda não enviado</div>
+            <div class="tab-btn">Reservas Pendentes</div>
         </div>
 
         <div class="orders-meta-info">
@@ -990,8 +990,8 @@
                             <?php endif; ?>
                             <p class="item-vendor">Vendido por: Sebo Alfarrábio</p>
                             <div class="order-action-buttons">
-                                <button class="btn-action gold">Reservar novamente</button>
-                                <button class="btn-action">Ver detalhes</button>
+                                <a href="/produtos.html"><button class="btn-action gold">Reservar novamente</button></a>
+                                <a href="/backend/admin/cliente/reservas"><button class="btn-action">Ver detalhes</button></a>
                             </div>
                         </div>
                         <div class="order-side-actions">
@@ -1520,9 +1520,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Mostra TODOS (ou filtro padrão)
                         card.style.display = 'block';
                         visibleCount++;
+                } else if (tabText === 'Reservas Pendentes') {
+                    // Mostra APENAS pendentes
+                    if (statusText.includes('pendente')) {
+                        card.style.display = 'block';
+                        visibleCount++;
                     } else {
-                    // Outras abas (Ex: Ainda não enviado) - comportamento atual: mostrar tudo ou filtrar futuramente
-                    // Mantendo comportamento padrão (tudo visível por enquanto)
+                        card.style.display = 'none';
+                    }
+                } else {
+                    // Outras abas - comportamento padrão (tudo visível)
                     card.style.display = 'block';
                     visibleCount++;
                 }

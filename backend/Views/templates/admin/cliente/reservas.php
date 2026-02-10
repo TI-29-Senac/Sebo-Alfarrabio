@@ -412,7 +412,7 @@
                         <?php endif; ?>
 
                         <div class="order-action-buttons">
-                            <button class="btn-action gold">Reservar Novamente</button>
+                            <a href="/produtos.html"><button class="btn-action gold">Reservar Novamente</button></a>
                             <button class="btn-action">Cancelar Reserva</button>
                         </div>
                     </div>
@@ -424,6 +424,7 @@
             <i class="fa fa-shopping-bag"></i>
             <h3>Você ainda não tem reservas ativas.</h3>
             <p>Explore nosso acervo e encontre sua próxima leitura!</p>
+            <a href="/produtos.html"><button class="btn-action gold">Reservar Novamente</button></a>
         </div>
     <?php endif; ?>
 

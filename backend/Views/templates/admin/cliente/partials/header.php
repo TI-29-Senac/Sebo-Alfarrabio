@@ -277,7 +277,7 @@ use Sebo\Alfarrabio\Core\Session;
                 <div class="menu-section-title">
                     <i class="fa fa-cog"></i> Configurações do Sistema
                 </div>
-                <a href="/backend/admin/cliente" class="menu-item w3-bar-item w3-button w3-padding">
+                <a href="/backend/admin/cliente/configuracoes" class="menu-item w3-bar-item w3-button w3-padding">
                     <i class="fa fa-cog"></i> Configurações
                 </a>
 

@@ -2301,3 +2301,10 @@ Stack trace:
 [09-Feb-2026 15:38:45 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 >>>>>>> af909f12b7452e53d134f7e9e4fbcf54e456e7f4
 >>>>>>> 0fc7ecb53c7f86bb925c1d926a7f28c387b337c1
+[10-Feb-2026 12:35:19 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[10-Feb-2026 13:04:25 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[10-Feb-2026 13:04:25 Europe/Berlin] Nome: Carla Menezes Silva, Email: carla.menezes@email.com, Tipo: Cliente, Senha: NÃO
+[10-Feb-2026 13:04:25 Europe/Berlin] ✅ Linhas afetadas: 1
+[10-Feb-2026 13:11:35 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[10-Feb-2026 13:11:35 Europe/Berlin] Nome: Carla Menezes, Email: carla.menezes@email.com, Tipo: Cliente, Senha: NÃO
+[10-Feb-2026 13:11:35 Europe/Berlin] ✅ Linhas afetadas: 1
