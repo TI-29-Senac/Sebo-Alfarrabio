@@ -82,4 +82,7 @@ return [
     '/carrinho/remover' => [CartController::class , 'remover'],
     '/carrinho/finalizar' => [CartController::class , 'finalizar'],
     '/carrinho/obrigado' => [CartController::class , 'obrigado'],
+
+    // ======= CLIENTE =======
+    '/cliente/pedido/cancelar' => [DashboardControllerCliente::class , 'cancelarPedido'],
 ];

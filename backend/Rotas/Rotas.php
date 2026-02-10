@@ -89,7 +89,7 @@ class Rotas
                 "/api/generos" => "PublicApiController@getGeneros",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
-                "/api/buscarpedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "PublicApiController@getAvaliacoes",
 
 
                 // ========================================
@@ -182,7 +182,8 @@ class Rotas
                 "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
-                '/api/avaliacoes' => 'PublicApiController@getAvaliacoes',
+                '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
+                '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
             ],
 
 

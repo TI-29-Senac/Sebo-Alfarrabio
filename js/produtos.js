@@ -45,7 +45,7 @@ async function carregarProdutos() {
     mostrarLoading();
 
     try {
-        const response = await fetch('/backend/index.php/api/item');
+        const response = await fetch('/backend/api/item');
         console.log('Status:', response.status);
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -87,14 +87,14 @@ async function carregarFiltrosDoBanco() {
     console.log('📂 Buscando categorias e gêneros do banco...');
     try {
         // Buscar Categorias
-        const respCat = await fetch('/backend/index.php/api/categorias');
+        const respCat = await fetch('/backend/api/categorias');
         const jsonCat = await respCat.json();
         if (jsonCat.status === 'success') {
             categoriasDisponiveis = jsonCat.data.map(c => c.nome_categoria);
         }
 
         // Buscar Gêneros
-        const respGen = await fetch('/backend/index.php/api/generos');
+        const respGen = await fetch('/backend/api/generos');
         const jsonGen = await respGen.json();
         if (jsonGen.status === 'success') {
             generosDisponiveis = jsonGen.data.map(g => g.nome_generos);
@@ -657,7 +657,7 @@ async function adicionarAoCarrinho(produto) {
     }
 
     try {
-        const response = await fetch('/backend/index.php/api/carrinho/adicionar', {
+        const response = await fetch('/backend/api/carrinho/adicionar', {
             method: 'POST',
             body: JSON.stringify({ id_item: produto.id_item, quantidade: 1 }),
             headers: { 'Content-Type': 'application/json' }
@@ -678,7 +678,7 @@ async function adicionarAoCarrinho(produto) {
 async function sincronizarCarrinhoComServidor() {
     if (!window.isAuthenticated) return;
     try {
-        const response = await fetch('/backend/index.php/api/carrinho');
+        const response = await fetch('/backend/api/carrinho');
         const data = await response.json();
         if (data.success) {
             // No banco os campos podem ser um pouco diferentes, mapeamos para compatibilidade
@@ -727,7 +727,7 @@ function atualizarContadorCarrinho() {
 async function removerDoCarrinho(id_item) {
     if (window.isAuthenticated) {
         try {
-            const response = await fetch('/backend/index.php/api/carrinho/remover', {
+            const response = await fetch('/backend/api/carrinho/remover', {
                 method: 'POST',
                 body: JSON.stringify({ id_item }),
                 headers: { 'Content-Type': 'application/json' }
@@ -804,7 +804,7 @@ async function finalizarReserva() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Confirmando...';
 
     try {
-        const response = await fetch('/backend/index.php/api/carrinho/finalizar', {
+        const response = await fetch('/backend/api/carrinho/finalizar', {
             method: 'POST',
             body: JSON.stringify({ itens: carrinho }),
             headers: { 'Content-Type': 'application/json' }

@@ -297,4 +297,84 @@ class Avaliacao
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);  // Retorna array simples [id1, id2, ...]
     }
+
+    /**
+     * Busca avaliações com dados relacionados (JOINs) e estatísticas
+     */
+    public function getAvaliacoesCompletas($limite = 10, $nota_minima = null)
+    {
+        $sql = "SELECT 
+                    a.id_avaliacao,
+                    a.nota_avaliacao,
+                    a.comentario_avaliacao,
+                    a.data_avaliacao,
+                    a.status_avaliacao,
+                    a.criado_em,
+                    
+                    -- Dados do usuário
+                    u.id_usuario,
+                    u.nome_usuario,
+                    u.email_usuario,
+                    pu.foto_perfil_usuario AS foto_usuario,
+                    
+                    -- Dados do item
+                    i.id_item,
+                    i.titulo_item,
+                    i.descricao AS descricao_item,
+                    i.preco_item,
+                    i.foto_item AS imagem_item,
+                    
+                    -- Dados opcionais
+                    c.nome_categoria,
+                    g.nome_generos AS nome_genero,
+                    aut.nome_autor
+                    
+                FROM tbl_avaliacao a
+                
+                LEFT JOIN tbl_usuario u ON a.id_usuario = u.id_usuario
+                LEFT JOIN tbl_perfil_usuario pu ON u.id_usuario = pu.usuario_id
+                LEFT JOIN tbl_itens i ON a.id_item = i.id_item
+                LEFT JOIN tbl_categorias c ON i.id_categoria = c.id_categoria
+                LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
+                LEFT JOIN tbl_autores aut ON aut.id_autor = (SELECT ia.autor_id FROM tbl_item_autores ia WHERE ia.item_id = i.id_item LIMIT 1) 
+                
+                WHERE a.excluido_em IS NULL";
+
+        if ($nota_minima !== null) {
+            $sql .= " AND a.nota_avaliacao >= :nota_minima";
+        }
+
+        $sql .= " ORDER BY a.data_avaliacao DESC, a.criado_em DESC LIMIT :limite";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limite', (int) $limite, PDO::PARAM_INT);
+        if ($nota_minima !== null) {
+            $stmt->bindValue(':nota_minima', (int) $nota_minima, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Calcula estatísticas
+        $total = count($avaliacoes);
+        $soma_notas = 0;
+        $distribuicao = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+
+        foreach ($avaliacoes as $av) {
+            $soma_notas += (int) $av['nota_avaliacao'];
+            $nota = (int) $av['nota_avaliacao'];
+            if (isset($distribuicao[$nota])) {
+                $distribuicao[$nota]++;
+            }
+        }
+
+        $media_notas = $total > 0 ? round($soma_notas / $total, 2) : 0;
+
+        return [
+            'avaliacoes' => $avaliacoes,
+            'media_notas' => $media_notas,
+            'distribuicao' => $distribuicao,
+            'total' => $total
+        ];
+    }
 }
