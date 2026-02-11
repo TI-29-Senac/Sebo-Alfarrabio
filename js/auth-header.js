@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.currentUser = null;
 
     try {
-        const response = await fetch('/backend/api/auth/session');
+        const response = await fetch('/backend/index.php/api/auth/session');
         const data = await response.json();
 
         if (data.authenticated) {
@@ -62,8 +62,8 @@ function setupAuthenticatedUser(user) {
 
     // 2. Definir link do Painel baseado na Role
     const painelLink = user.role === 'Cliente'
-        ? '/backend/admin/cliente'
-        : '/backend/admin/dashboard';
+        ? '/backend/index.php/admin/cliente'
+        : '/backend/index.php/admin/dashboard';
 
     // 3. Atualizar Dropdown com o Nome em destaque (onde ficaria o rótulo de tipo/cliente)
     profileDropdown.innerHTML = `
@@ -72,11 +72,11 @@ function setupAuthenticatedUser(user) {
             <strong style="display:block; color:#694100; font-size: 1.1rem; font-family: 'Merriweather', serif;">${user.name}</strong>
         </div>
         <a href="${painelLink}"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
-        ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>` : ''}
-        ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/avaliacoes"><i class="fas fa-star"></i> Minhas Avaliações</a>` : ''}
-        <a href="/backend/admin/cliente/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        ${user.role === 'Cliente' ? `<a href="/backend/index.php/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>` : ''}
+        ${user.role === 'Cliente' ? `<a href="/backend/index.php/admin/cliente/avaliacoes"><i class="fas fa-star"></i> Minhas Avaliações</a>` : ''}
+        <a href="/backend/index.php/admin/cliente/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
         <hr>
-        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        <a href="/backend/index.php/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
     `;
 
     // 4. Mostrar o dropdownContainer (caso estivesse oculto)
@@ -118,7 +118,7 @@ function setupGuestUser() {
     // Ao clicar em Entrar, vai pro login direto (sem dropdown) ou abre dropdown simplificado
     // Solução: Botão leva direto pro login
     profileBtn.onclick = function () {
-        window.location.href = '/backend/login';
+        window.location.href = '/backend/index.php/login';
     };
 
     // Remove dropdown antigo para evitar confusão

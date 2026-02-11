@@ -4,7 +4,7 @@
    ======================================== */
 
 const API_CONFIG = {
-  baseUrl: '/backend/api',
+  baseUrl: '/backend/index.php/api',
   itemsLimit: 10 // Limite de 10 itens conforme solicitado
 };
 
