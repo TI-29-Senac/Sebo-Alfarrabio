@@ -58,6 +58,24 @@ try {
     $router->run();
 } catch (\Throwable $e) {
     http_response_code(500);
+    
+    // Verifica se é uma requisição API ou espera JSON
+    $isApi = (strpos($_SERVER['REQUEST_URI'] ?? '', '/api/') !== false);
+    $acceptsJson = (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false);
+    $isJsonRequest = (strpos($_SERVER['CONTENT_TYPE'] ?? '', 'application/json') !== false);
+
+    if ($isApi || $acceptsJson || $isJsonRequest) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'status' => 'error',
+            'message' => 'Erro interno no servidor: ' . $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+        exit;
+    }
+
     echo "<div style='background: #fee; border: 2px solid red; padding: 20px; font-family: monospace;'>";
     echo "<h1>❌ Erro Fatal no Sistema</h1>";
     echo "<p><strong>Mensagem:</strong> " . $e->getMessage() . "</p>";
