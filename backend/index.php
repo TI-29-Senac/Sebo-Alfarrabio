@@ -1,6 +1,19 @@
 <?php
 namespace Sebo\Alfarrabio;
 ini_set('display_errors', 0);
+
+// Configuração de Sessão Persistente (1 dia)
+$lifetime = 86400; // 24 horas
+ini_set('session.gc_maxlifetime', $lifetime);
+session_set_cookie_params([
+    'lifetime' => $lifetime,
+    'path' => '/',
+    'domain' => '', // Atualize se tiver domínio específico
+    'secure' => false, // Mude para true em produção (HTTPS)
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

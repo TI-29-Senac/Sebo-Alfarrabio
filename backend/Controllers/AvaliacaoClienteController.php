@@ -113,4 +113,118 @@ class AvaliacaoClienteController
             ]);
         }
     }
+
+    public function atualizarAvaliacao()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            $usuarioId = $this->session->get('usuario_id');
+            if (!$usuarioId) {
+                http_response_code(401);
+                echo json_encode(['success' => false, 'message' => 'Login necessário']);
+                return;
+            }
+
+            // Usa $_POST diretamente (filter_input pode falhar com FormData)
+            $id = isset($_POST['id_avaliacao']) ? intval($_POST['id_avaliacao']) : 0;
+            $nota = isset($_POST['nota']) ? intval($_POST['nota']) : 0;
+            $comentario = isset($_POST['comentario']) ? trim($_POST['comentario']) : '';
+
+            error_log("[ATUALIZAR] id=$id, nota=$nota, comentario=$comentario, user=$usuarioId");
+
+            if (!$id || $nota < 1 || $nota > 5) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'message' => 'Dados inválidos. Nota deve ser de 1 a 5.']);
+                return;
+            }
+
+            if (strlen($comentario) > 500) {
+                $comentario = substr($comentario, 0, 500);
+            }
+
+            $av = $this->avaliacaoModel->buscarAvaliacaoPorID($id);
+            if (!$av) {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Avaliação não encontrada']);
+                return;
+            }
+
+            if ($av['id_usuario'] != $usuarioId) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Permissão negada']);
+                return;
+            }
+
+            $resultado = $this->avaliacaoModel->atualizarAvaliacao(
+                $id,
+                $nota,
+                $comentario ?: null,
+                $av['data_avaliacao'],
+                $av['status_avaliacao']
+            );
+
+            if ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'Avaliação atualizada com sucesso!']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['success' => false, 'message' => 'Erro ao atualizar avaliação no banco.']);
+            }
+
+        } catch (\Exception $e) {
+            error_log("Erro atualizarAvaliacao: " . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Erro interno do servidor.']);
+        }
+    }
+
+    public function deletarAvaliacao()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            $usuarioId = $this->session->get('usuario_id');
+            if (!$usuarioId) {
+                http_response_code(401);
+                echo json_encode(['success' => false, 'message' => 'Login necessário']);
+                return;
+            }
+
+            // Usa $_POST diretamente (filter_input pode falhar com FormData)
+            $id = isset($_POST['id_avaliacao']) ? intval($_POST['id_avaliacao']) : 0;
+
+            error_log("[DELETAR] id=$id, user=$usuarioId");
+
+            if (!$id) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'message' => 'ID da avaliação inválido.']);
+                return;
+            }
+
+            $av = $this->avaliacaoModel->buscarAvaliacaoPorID($id);
+            if (!$av) {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Avaliação não encontrada']);
+                return;
+            }
+
+            if ($av['id_usuario'] != $usuarioId) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Permissão negada']);
+                return;
+            }
+
+            if ($this->avaliacaoModel->deletarAvaliacao($id)) {
+                echo json_encode(['success' => true, 'message' => 'Avaliação excluída com sucesso.']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['success' => false, 'message' => 'Erro ao excluir avaliação no banco.']);
+            }
+
+        } catch (\Exception $e) {
+            error_log("Erro deletarAvaliacao: " . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Erro interno do servidor.']);
+        }
+    }
 }

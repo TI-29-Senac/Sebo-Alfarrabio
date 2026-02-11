@@ -21,6 +21,7 @@ class PublicApiController
         $this->avaliacao = new \Sebo\Alfarrabio\Models\Avaliacao($this->db);
         $this->categoriaModel = new \Sebo\Alfarrabio\Models\Categoria($this->db);
         $this->generoModel = new \Sebo\Alfarrabio\Models\Genero($this->db);
+        $this->autorModel = new \Sebo\Alfarrabio\Models\Autor($this->db);
     }
 
     /**
@@ -227,4 +228,26 @@ class PublicApiController
             ], JSON_UNESCAPED_UNICODE);
         }
     }
+
+    /**
+     * Endpoint público para buscar autores
+     * GET /api/autores
+     */
+    public function getAutores()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        try {
+            $autores = $this->autorModel->buscarAutores();
+            echo json_encode([
+                'status' => 'success',
+                'data' => $autores
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
 }

@@ -85,4 +85,6 @@ return [
 
     // ======= CLIENTE =======
     '/cliente/pedido/cancelar' => [DashboardControllerCliente::class , 'cancelarPedido'],
+    '/cliente/configuracoes' => [DashboardControllerCliente::class, 'configuracoes'],
+    '/cliente/configuracoes/salvar' => [DashboardControllerCliente::class, 'atualizarConfiguracoes'],
 ];

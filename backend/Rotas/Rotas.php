@@ -23,6 +23,7 @@ class Rotas
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
+                '/api/auth/session' => 'AuthController@checkSession',
 
 
                 // ========================================
@@ -32,6 +33,7 @@ class Rotas
                 '/admin/cliente/avaliacoes' => "DashboardControllerCliente@avaliacoes",
                 '/admin/cliente/reservas' => "DashboardControllerCliente@reservas",
                 '/admin/cliente/notificacoes' => "DashboardControllerCliente@notificacoes",
+                '/admin/cliente/configuracoes' => "DashboardControllerCliente@configuracoes",
 
                 // ========================================
                 // ÁREA ADMINISTRATIVA
@@ -234,7 +236,8 @@ class Rotas
                 // ========================================
 
                 "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
-                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarReserva",
+                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarPedido",
+                "/admin/cliente/configuracoes/salvar" => "DashboardControllerCliente@atualizarConfiguracoes",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",
                 "/perfil/deletar" => "PerfilController@deletarPerfil",
@@ -252,6 +255,8 @@ class Rotas
 
                 // API Cliente - Avaliações (AJAX)
                 "/api/cliente/avaliacao/salvar" => "AvaliacaoClienteController@salvarAvaliacao",
+                "/api/cliente/avaliacao/atualizar" => "AvaliacaoClienteController@atualizarAvaliacao",
+                "/api/cliente/avaliacao/deletar" => "AvaliacaoClienteController@deletarAvaliacao",
 
                 // ========================================
                 // ITENS (Livros do acervo)

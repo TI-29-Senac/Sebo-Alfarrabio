@@ -47,7 +47,7 @@
     .order-card {
         background: white;
         border-radius: 20px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
         margin-bottom: 30px;
         overflow: hidden;
         border: 1px solid #F0F0F0;
@@ -130,7 +130,7 @@
         height: 130px;
         object-fit: cover;
         border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .order-item-placeholder {
@@ -156,10 +156,21 @@
         display: inline-block;
     }
 
-    .status-pendente { color: #F5A623; }
-    .status-entregue { color: #28A745; }
-    .status-cancelado { color: #DC3545; }
-    .status-enviado { color: #007BFF; }
+    .status-pendente {
+        color: #F5A623;
+    }
+
+    .status-entregue {
+        color: #28A745;
+    }
+
+    .status-cancelado {
+        color: #DC3545;
+    }
+
+    .status-enviado {
+        color: #007BFF;
+    }
 
     .item-title {
         font-size: 18px;
@@ -169,18 +180,18 @@
     }
 
     .item-description {
-         font-size: 13px; 
-         color: #666; 
-         margin: 5px 0; 
-         display: -webkit-box; 
-         -webkit-line-clamp: 2; 
-         -webkit-box-orient: vertical; 
-         overflow: hidden;
+        font-size: 13px;
+        color: #666;
+        margin: 5px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .item-price {
-        font-weight: 700; 
-        color: var(--color-vintage-brown); 
+        font-weight: 700;
+        color: var(--color-vintage-brown);
         margin: 10px 0;
         font-size: 16px;
     }
@@ -229,13 +240,13 @@
         background: #6B5235;
         box-shadow: 0 4px 10px rgba(139, 115, 85, 0.2);
     }
-    
+
     .empty-state {
         text-align: center;
         padding: 60px;
         color: var(--color-text-secondary);
     }
-    
+
     .empty-state i {
         font-size: 48px;
         margin-bottom: 20px;
@@ -268,13 +279,20 @@
         border-radius: 20px;
         padding: 30px;
         position: relative;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         animation: modalSlide 0.3s ease;
     }
 
     @keyframes modalSlide {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 
     .modal-close {
@@ -351,34 +369,32 @@
                     <div class="order-number-link">
                         <label>RESERVA Nº <?= $pedido['id_pedidos'] ?? $pedido['id'] ?></label>
                         <div class="order-links-row">
-                            <?php 
-                                $primeiroItem = !empty($pedido['itens']) ? $pedido['itens'][0] : null; 
-                                $descricao = $primeiroItem['descricao'] ?? 'Sem descrição disponível.';
-                                $titulo = $primeiroItem['titulo_item'] ?? 'Item do Pedido';
+                            <?php
+                            $primeiroItem = !empty($pedido['itens']) ? $pedido['itens'][0] : null;
+                            $descricao = $primeiroItem['descricao'] ?? 'Sem descrição disponível.';
+                            $titulo = $primeiroItem['titulo_item'] ?? 'Item do Pedido';
                             ?>
-                            <a href="#" class="btn-detalhes" 
-                               data-id="<?= $pedido['id_pedidos'] ?? $pedido['id'] ?>"
-                               data-data="<?= date('d/m/Y', strtotime($pedido['data_pedido'])) ?>"
-                               data-total="R$ <?= number_format($pedido['valor_total'], 2, ',', '.') ?>"
-                               data-status="<?= htmlspecialchars($pedido['status']) ?>"
-                               data-titulo="<?= htmlspecialchars($titulo) ?>"
-                               data-desc="<?= htmlspecialchars($descricao) ?>">
-                               Detalhes
+                            <a href="#" class="btn-detalhes" data-id="<?= $pedido['id_pedidos'] ?? $pedido['id'] ?>"
+                                data-data="<?= date('d/m/Y', strtotime($pedido['data_pedido'])) ?>"
+                                data-total="R$ <?= number_format($pedido['valor_total'], 2, ',', '.') ?>"
+                                data-status="<?= htmlspecialchars($pedido['status']) ?>"
+                                data-titulo="<?= htmlspecialchars($titulo) ?>" data-desc="<?= htmlspecialchars($descricao) ?>">
+                                Detalhes
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="order-body">
-                    <?php 
-                        $fotoItem = $primeiroItem['foto_item'] ?? null;
-                        
-                        // Ajuste path
-                         if (!empty($fotoItem) && strpos($fotoItem, '/uploads') === 0 && strpos($fotoItem, '/backend') === false) {
-                            $fotoItem = '/backend' . $fotoItem;
-                        }
+                    <?php
+                    $fotoItem = $primeiroItem['foto_item'] ?? null;
+
+                    // Ajuste path
+                    if (!empty($fotoItem) && strpos($fotoItem, '/uploads') === 0 && strpos($fotoItem, '/backend') === false) {
+                        $fotoItem = '/backend' . $fotoItem;
+                    }
                     ?>
-                    
+
                     <?php if (!empty($fotoItem)): ?>
                         <img src="<?= htmlspecialchars($fotoItem) ?>" class="order-item-image" alt="Item">
                     <?php else: ?>
@@ -386,23 +402,26 @@
                     <?php endif; ?>
 
                     <div class="order-item-details">
-                        <?php 
-                            $statusRaw = strtolower($pedido['status'] ?? 'pendente');
-                            $statusClass = 'status-pendente';
-                            if (strpos($statusRaw, 'entreg') !== false) $statusClass = 'status-entregue';
-                            elseif (strpos($statusRaw, 'cancel') !== false) $statusClass = 'status-cancelado';
-                            elseif (strpos($statusRaw, 'envi') !== false) $statusClass = 'status-enviado';
+                        <?php
+                        $statusRaw = strtolower($pedido['status'] ?? 'pendente');
+                        $statusClass = 'status-pendente';
+                        if (strpos($statusRaw, 'entreg') !== false)
+                            $statusClass = 'status-entregue';
+                        elseif (strpos($statusRaw, 'cancel') !== false)
+                            $statusClass = 'status-cancelado';
+                        elseif (strpos($statusRaw, 'envi') !== false)
+                            $statusClass = 'status-enviado';
                         ?>
                         <span class="status-text <?= $statusClass ?>">
                             <?= htmlspecialchars($pedido['status']) ?>
                         </span>
 
                         <h3 class="item-title"><?= htmlspecialchars($primeiroItem['titulo_item'] ?? 'Item do Pedido') ?></h3>
-                        
+
                         <?php if (!empty($primeiroItem['descricao'])): ?>
                             <p class="item-description"><?= htmlspecialchars($primeiroItem['descricao']) ?></p>
                         <?php endif; ?>
-                        
+
                         <?php if (!empty($primeiroItem['preco_item'])): ?>
                             <p class="item-price">R$ <?= number_format($primeiroItem['preco_item'], 2, ',', '.') ?></p>
                         <?php endif; ?>
@@ -412,7 +431,7 @@
                         <?php endif; ?>
 
                         <div class="order-action-buttons">
-                            <button class="btn-action gold">Reservar Novamente</button>
+                            <a href="/produtos.html"><button class="btn-action gold">Reservar Novamente</button></a>
                             <button class="btn-action">Cancelar Reserva</button>
                         </div>
                     </div>
@@ -424,6 +443,7 @@
             <i class="fa fa-shopping-bag"></i>
             <h3>Você ainda não tem reservas ativas.</h3>
             <p>Explore nosso acervo e encontre sua próxima leitura!</p>
+            <a href="/produtos.html"><button class="btn-action gold">Reservar Novamente</button></a>
         </div>
     <?php endif; ?>
 
@@ -451,9 +471,10 @@
                     <span id="modalTotal" style="font-weight:600; color:#8B7355"></span>
                 </div>
             </div>
-            
+
             <h3 style="font-size:16px; margin:0 0 10px 0; color:#333">Item: <span id="modalItemTitle"></span></h3>
-            <div style="background:#FFF; border:1px solid #EEE; padding:15px; border-radius:10px; max-height:200px; overflow-y:auto;">
+            <div
+                style="background:#FFF; border:1px solid #EEE; padding:15px; border-radius:10px; max-height:200px; overflow-y:auto;">
                 <p id="modalDesc" style="margin:0; font-size:14px; white-space: pre-wrap;"></p>
             </div>
         </div>
@@ -461,46 +482,77 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('modalDetalhes');
-    const closeBtn = document.querySelector('.modal-close');
-    const btnsDetalhes = document.querySelectorAll('.btn-detalhes');
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('modalDetalhes');
+        const closeBtn = document.querySelector('.modal-close');
+        const btnsDetalhes = document.querySelectorAll('.btn-detalhes');
 
-    // Abrir Modal
-    btnsDetalhes.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Popula dados
-            document.getElementById('modalTitle').textContent = 'Reserva Nº ' + this.dataset.id;
-            document.getElementById('modalData').textContent = this.dataset.data;
-            document.getElementById('modalStatus').textContent = this.dataset.status;
-            document.getElementById('modalTotal').textContent = this.dataset.total;
-            document.getElementById('modalItemTitle').textContent = this.dataset.titulo;
-            document.getElementById('modalDesc').textContent = this.dataset.desc;
+        // Abrir Modal
+        btnsDetalhes.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
 
-            modal.classList.add('active');
+                // Popula dados
+                document.getElementById('modalTitle').textContent = 'Reserva Nº ' + this.dataset.id;
+                document.getElementById('modalData').textContent = this.dataset.data;
+                document.getElementById('modalStatus').textContent = this.dataset.status;
+                document.getElementById('modalTotal').textContent = this.dataset.total;
+                document.getElementById('modalItemTitle').textContent = this.dataset.titulo;
+                document.getElementById('modalDesc').textContent = this.dataset.desc;
+
+                modal.classList.add('active');
+            });
+        });
+
+        // Fechar Modal
+        function fecharModal() {
+            modal.classList.remove('active');
+        }
+
+        closeBtn.addEventListener('click', fecharModal);
+
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                fecharModal();
+            }
+        });
+
+        // Fechar com ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                fecharModal();
+            }
+        });
+        // Cancelar Reserva
+        const btnsCancelar = document.querySelectorAll('.btn-action:not(.gold):not(.modal-close)');
+        btnsCancelar.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const card = this.closest('.order-card');
+                const id = card.querySelector('.btn-detalhes').dataset.id;
+
+                if (confirm('Tem certeza que deseja cancelar esta reserva?')) {
+                    const formData = new FormData();
+                    formData.append('id_pedido', id);
+
+                    fetch('/backend/api/cancelar-reserva.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                window.location.reload();
+                            } else {
+                                alert('Erro: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            alert('Erro ao processar cancelamento.');
+                        });
+                }
+            });
         });
     });
-
-    // Fechar Modal
-    function fecharModal() {
-        modal.classList.remove('active');
-    }
-
-    closeBtn.addEventListener('click', fecharModal);
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            fecharModal();
-        }
-    });
-
-    // Fechar com ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            fecharModal();
-        }
-    });
-});
 </script>
