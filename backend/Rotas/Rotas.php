@@ -86,6 +86,7 @@ class Rotas
                 // ========================================
 
                 "/api/item" => "PublicApiController@getItem",
+                "/api/item/imagem-base64" => "PublicApiController@getImageBase64",
                 "/api/buscaitem" => "PublicApiController@getItem",
                 "/api/categorias" => "PublicApiController@getCategorias",
                 "/api/generos" => "PublicApiController@getGeneros",

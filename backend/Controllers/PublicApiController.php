@@ -45,15 +45,25 @@ class PublicApiController
                     echo json_encode(['status' => 'error', 'message' => 'Item não encontrado']);
                     return;
                 }
+                
+                // Formata com base64
+                $item = $this->formatItemWithBase64($item);
+                
                 echo json_encode(['status' => 'success', 'data' => $item]);
 
             } else {
                 // Buscar todos os itens ativos
                 $itens = $this->item->buscarTodosItensCompletos();
+                
+                // Formata cada item com base64
+                $itensFormatados = array_map(function($item) {
+                    return $this->formatItemWithBase64($item);
+                }, $itens);
+
                 echo json_encode([
                     'status' => 'success',
-                    'data' => $itens,
-                    'total' => count($itens)
+                    'data' => $itensFormatados,
+                    'total' => count($itensFormatados)
                 ]);
             }
 
@@ -61,6 +71,47 @@ class PublicApiController
             http_response_code(500);
             echo json_encode(['status' => 'error', 'message' => 'Erro ao buscar dados: ' . $e->getMessage()]);
         }
+    }
+
+    /**
+     * Auxiliar para formatar item com imagem em base64 e caminhos absolutos
+     */
+    private function formatItemWithBase64($item)
+    {
+        if (empty($item)) return $item;
+
+        // Tenta processar a imagem se existir
+        if (!empty($item['foto_item'])) {
+            $caminhoRelativo = $item['foto_item'];
+            $baseDir = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+            
+            $caminhoLimpo = ltrim($caminhoRelativo, '/');
+            if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
+                $caminhoLimpo = substr($caminhoLimpo, strlen('backend/uploads/'));
+            } elseif (strpos($caminhoLimpo, 'uploads/') === 0) {
+                $caminhoLimpo = substr($caminhoLimpo, strlen('uploads/'));
+            }
+
+            $caminhoFinal = $baseDir . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $caminhoLimpo);
+
+            if (file_exists($caminhoFinal)) {
+                $imageData = file_get_contents($caminhoFinal);
+                $mimeType = mime_content_type($caminhoFinal);
+                $base64 = base64_encode($imageData);
+                
+                // Adiciona a propriedade base64 (usando a mesma lógica do método standalone)
+                $item['imagem_base64'] = 'data:' . $mimeType . ';base64,' . $base64;
+                
+                // Se o usuário quiser substituir foto_item ou adicionar caminho_imagem específico, fazemos aqui
+                $item['caminho_imagem'] = '/backend/uploads/' . $caminhoLimpo;
+            } else {
+                $item['imagem_base64'] = null;
+            }
+        } else {
+            $item['imagem_base64'] = null;
+        }
+
+        return $item;
     }
 
     /**
@@ -247,6 +298,71 @@ class PublicApiController
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint público para buscar imagem em base64
+     * GET /api/item/imagem-base64?id=123
+     */
+    public function getImageBase64()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        try {
+            $id = $_GET['id'] ?? null;
+
+            if (!$id) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'ID não fornecido']);
+                return;
+            }
+
+            $item = $this->item->buscarItemCompleto((int) $id);
+            if (!$item || empty($item['foto_item'])) {
+                http_response_code(404);
+                echo json_encode(['status' => 'error', 'message' => 'Item ou imagem não encontrada']);
+                return;
+            }
+
+            $caminhoRelativo = $item['foto_item'];
+            $baseDir = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+            
+            $caminhoLimpo = ltrim($caminhoRelativo, '/');
+            if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
+                $caminhoLimpo = substr($caminhoLimpo, strlen('backend/uploads/'));
+            } elseif (strpos($caminhoLimpo, 'uploads/') === 0) {
+                $caminhoLimpo = substr($caminhoLimpo, strlen('uploads/'));
+            }
+
+            $caminhoFinal = $baseDir . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $caminhoLimpo);
+
+            if (!file_exists($caminhoFinal)) {
+                http_response_code(404);
+                echo json_encode([
+                    'status' => 'error', 
+                    'message' => 'Arquivo de imagem não encontrado no servidor',
+                    'debug_path' => $caminhoFinal
+                ]);
+                return;
+            }
+
+            $imageData = file_get_contents($caminhoFinal);
+            $base64 = base64_encode($imageData);
+            $mimeType = mime_content_type($caminhoFinal);
+
+            echo json_encode([
+                'status' => 'success',
+                'id' => (int)$id,
+                'mime_type' => $mimeType,
+                'filename' => basename($caminhoFinal),
+                'base64' => 'data:' . $mimeType . ';base64,' . $base64
+            ], JSON_UNESCAPED_UNICODE);
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => 'Erro ao processar imagem: ' . $e->getMessage()]);
         }
     }
 
