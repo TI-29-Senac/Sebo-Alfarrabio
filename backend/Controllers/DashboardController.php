@@ -46,8 +46,8 @@ class DashboardController extends AdminController
             $stmtFaturamento = $this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
             $faturamentoMes = (float) $stmtFaturamento->fetchColumn();
 
-            // Contagem de pedidos pendentes para notificação
-            $stmtPendentes = $this->db->query("SELECT COUNT(*) FROM tbl_pedidos WHERE status = 'Pendente'");
+            // Contagem de pedidos pendentes para notificação (Apenas com itens)
+            $stmtPendentes = $this->db->query("SELECT COUNT(DISTINCT p.id_pedidos) FROM tbl_pedidos p INNER JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id WHERE p.status = 'Pendente'");
             $totalPendentes = (int) $stmtPendentes->fetchColumn();
         } catch (\Throwable $e) {
             // Se não houver tabela de vendas, definimos 0 para não quebrar a página
@@ -83,10 +83,10 @@ class DashboardController extends AdminController
                 $vendasMap[sprintf('%04d-%02d', $row['yr'], $row['m'])] = (int) $row['total'];
             }
 
-            // consulta agrupada para pedidos dos últimos N meses
-            $sqlPedidos = "SELECT YEAR(data_pedido) as yr, MONTH(data_pedido) as m, COUNT(*) as total
-                           FROM tbl_pedidos
-                           WHERE data_pedido >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
+            $sqlPedidos = "SELECT YEAR(p.data_pedido) as yr, MONTH(p.data_pedido) as m, COUNT(DISTINCT p.id_pedidos) as total
+                           FROM tbl_pedidos p
+                           INNER JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id
+                           WHERE p.data_pedido >= DATE_SUB(CURRENT_DATE(), INTERVAL " . ($period - 1) . " MONTH)
                            GROUP BY yr, m";
             $stmt2 = $this->db->query($sqlPedidos);
             $pedidosMap = [];

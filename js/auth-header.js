@@ -47,27 +47,32 @@ function setupAuthenticatedUser(user) {
 
     if (!profileContainer || !profileBtn) return;
 
-    // 1. Atualizar Avatar
+    // 1. Atualizar apenas o Avatar no botão
     if (user.avatar && user.avatar !== '/img/avatar_placeholder.png') {
-        profileBtn.innerHTML = `<img src="${user.avatar}" alt="${user.name}" class="header-avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #8B7355;">`;
+        profileBtn.innerHTML = `<img src="${user.avatar}" alt="${user.name}" class="header-avatar">`;
     } else {
-        // Avatar padrão mas estilizado indicando logado
-        profileBtn.innerHTML = `<i class="fas fa-user-circle" style="color: #8B7355; font-size: 32px;"></i>`;
+        profileBtn.innerHTML = `<i class="fas fa-user-circle"></i>`;
     }
+
+    // Resetar estilos do botão para ser circular
+    profileBtn.style.width = '50px';
+    profileBtn.style.height = '50px';
+    profileBtn.style.padding = '0';
+    profileBtn.style.borderRadius = '50%';
 
     // 2. Definir link do Painel baseado na Role
     const painelLink = user.role === 'Cliente'
         ? '/backend/admin/cliente'
         : '/backend/admin/dashboard';
 
-    // 3. Atualizar Dropdown
+    // 3. Atualizar Dropdown com o Nome em destaque (onde ficaria o rótulo de tipo/cliente)
     profileDropdown.innerHTML = `
-        <div style="padding: 10px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 5px;">
-            <strong style="display:block; color:#fff;">${user.name}</strong>
-            <small style="color:#ccc;">${user.role}</small>
+        <div style="padding: 15px 20px; border-bottom: 1px solid rgba(189, 144, 86, 0.1); background: rgba(252, 246, 233, 0.3);">
+            <span style="display:block; color:#999; font-size: 0.8rem; margin-bottom: 4px;">Logado como:</span>
+            <strong style="display:block; color:#694100; font-size: 1.1rem; font-family: 'Merriweather', serif;">${user.name}</strong>
         </div>
         <a href="${painelLink}"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
-        ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/pedidos"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a>` : ''}
+        ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>` : ''}
         ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/avaliacoes"><i class="fas fa-star"></i> Minhas Avaliações</a>` : ''}
         <a href="/backend/admin/cliente/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
         <hr>

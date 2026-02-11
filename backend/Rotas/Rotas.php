@@ -236,7 +236,7 @@ class Rotas
                 // ========================================
 
                 "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
-                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarReserva",
+                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarPedido",
                 "/admin/cliente/configuracoes/salvar" => "DashboardControllerCliente@atualizarConfiguracoes",
                 "/perfil/salvar" => "PerfilController@salvarPerfil",
                 "/perfil/atualizar" => "PerfilController@atualizarPerfil",

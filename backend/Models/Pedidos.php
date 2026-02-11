@@ -15,7 +15,7 @@ class Pedidos
      */
     function buscarPedidos()
     {
-        $sql = "SELECT * FROM tbl_pedidos ORDER BY data_pedido DESC";
+        $sql = "SELECT DISTINCT p.* FROM tbl_pedidos p INNER JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id ORDER BY p.data_pedido DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -89,20 +89,30 @@ class Pedidos
                         VALUES (:pedido_id, :item_id, :quantidade)";
             $stmtItem = $this->db->prepare($sqlItem);
 
+            // SQL para atualizar estoque
+            $sqlUpdateEstoque = "UPDATE tbl_itens SET estoque = estoque - :qtd WHERE id_item = :item_id";
+            $stmtUpdateEstoque = $this->db->prepare($sqlUpdateEstoque);
+
             foreach ($itensCarrinho as $item) {
                 // Suporta id_item (padrão) ou id (legado)
                 $id_item = $item['id_item'] ?? $item['id'];
+
+                // 1. Insere item do pedido
                 $stmtItem->bindParam(':pedido_id', $idPedido, PDO::PARAM_INT);
                 $stmtItem->bindParam(':item_id', $id_item, PDO::PARAM_INT);
                 $stmtItem->bindParam(':quantidade', $item['quantidade'], PDO::PARAM_INT);
                 $stmtItem->execute();
+
+                // 2. Decrementa estoque
+                $stmtUpdateEstoque->bindParam(':qtd', $item['quantidade'], PDO::PARAM_INT);
+                $stmtUpdateEstoque->bindParam(':item_id', $id_item, PDO::PARAM_INT);
+                $stmtUpdateEstoque->execute();
             }
 
             $this->db->commit();
-            return (int)$idPedido;
+            return (int) $idPedido;
 
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->db->rollBack();
             error_log("Erro ao criar pedido: " . $e->getMessage());
             return false;
@@ -161,11 +171,20 @@ class Pedidos
     /**
      * Busca pedidos de um usuário específico.
      * @param int $usuario_id
+     * @param bool $excluirCancelados
      */
-    function buscarPedidosPorIDUsuario($usuario_id)
+    function buscarPedidosPorIDUsuario($usuario_id, $excluirCancelados = false)
     {
-        // Corrigido para id_usuario e adicionado busca de itens
-        $sql = "SELECT * FROM tbl_pedidos where id_usuario = :usuario_id ORDER BY data_pedido DESC";
+        $sql = "SELECT DISTINCT p.* FROM tbl_pedidos p 
+                INNER JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id 
+                WHERE p.id_usuario = :usuario_id";
+
+        if ($excluirCancelados) {
+            $sql .= " AND p.status NOT LIKE '%Cancelado%'";
+        }
+
+        $sql .= " ORDER BY p.data_pedido DESC";
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':usuario_id', $usuario_id);
         $stmt->execute();
@@ -209,8 +228,7 @@ class Pedidos
 
         if ($stmt->execute()) {
             return $this->db->lastInsertId();
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -220,11 +238,54 @@ class Pedidos
      */
     function atualizarStatus($id, $status)
     {
-        $sql = "UPDATE tbl_pedidos SET status = :status WHERE id_pedidos = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-        return $stmt->execute();
+        try {
+            $this->db->beginTransaction();
+
+            // Se o novo status for cancelado, precisamos devolver ao estoque
+            if (stripos($status, 'Cancelado') !== false) {
+                // 1. Busca status atual para evitar devolução duplicada
+                $sqlCheck = "SELECT status FROM tbl_pedidos WHERE id_pedidos = :id";
+                $stmtCheck = $this->db->prepare($sqlCheck);
+                $stmtCheck->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmtCheck->execute();
+                $pedidoAtual = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+                if ($pedidoAtual && stripos($pedidoAtual['status'], 'Cancelado') === false) {
+                    // 2. Busca itens do pedido para saber quanto devolver
+                    $sqlItens = "SELECT item_id, quantidade FROM tbl_pedido_itens WHERE pedido_id = :id";
+                    $stmtItens = $this->db->prepare($sqlItens);
+                    $stmtItens->bindParam(':id', $id, PDO::PARAM_INT);
+                    $stmtItens->execute();
+                    $itens = $stmtItens->fetchAll(PDO::FETCH_ASSOC);
+
+                    // 3. Devolve ao estoque
+                    $sqlUpdateEstoque = "UPDATE tbl_itens SET estoque = estoque + :qtd WHERE id_item = :item_id";
+                    $stmtUpdateEstoque = $this->db->prepare($sqlUpdateEstoque);
+
+                    foreach ($itens as $item) {
+                        $stmtUpdateEstoque->bindParam(':qtd', $item['quantidade'], PDO::PARAM_INT);
+                        $stmtUpdateEstoque->bindParam(':item_id', $item['item_id'], PDO::PARAM_INT);
+                        $stmtUpdateEstoque->execute();
+                    }
+                }
+            }
+
+            // 4. Atualiza o status
+            $sql = "UPDATE tbl_pedidos SET status = :status WHERE id_pedidos = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (\Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            error_log("Erro ao atualizar status e estoque: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**
@@ -256,12 +317,62 @@ class Pedidos
      * Exclui um pedido permanentemente.
      * @param int $id
      */
+    /**
+     * Exclui um pedido permanentemente.
+     * @param int $id
+     */
     function excluirPedidos($id)
     {
-        $sql = "DELETE FROM tbl_pedidos WHERE id_pedidos = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        try {
+            $this->db->beginTransaction();
+
+            // 1. Busca status e itens para devolver ao estoque, se necessário
+            $sqlCheck = "SELECT status FROM tbl_pedidos WHERE id_pedidos = :id";
+            $stmtCheck = $this->db->prepare($sqlCheck);
+            $stmtCheck->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmtCheck->execute();
+            $pedido = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+            if ($pedido && stripos($pedido['status'], 'Cancelado') === false) {
+                // Busca itens
+                $sqlItensList = "SELECT item_id, quantidade FROM tbl_pedido_itens WHERE pedido_id = :id";
+                $stmtItensList = $this->db->prepare($sqlItensList);
+                $stmtItensList->bindParam(':id', $id, PDO::PARAM_INT);
+                $stmtItensList->execute();
+                $itens = $stmtItensList->fetchAll(PDO::FETCH_ASSOC);
+
+                // Devolve ao estoque
+                $sqlUpdateEst = "UPDATE tbl_itens SET estoque = estoque + :qtd WHERE id_item = :item_id";
+                $stmtUpdateEst = $this->db->prepare($sqlUpdateEst);
+
+                foreach ($itens as $item) {
+                    $stmtUpdateEst->bindParam(':qtd', $item['quantidade'], PDO::PARAM_INT);
+                    $stmtUpdateEst->bindParam(':item_id', $item['item_id'], PDO::PARAM_INT);
+                    $stmtUpdateEst->execute();
+                }
+            }
+
+            // 2. Deleta os itens do pedido (Cascateamento manual)
+            $sqlItens = "DELETE FROM tbl_pedido_itens WHERE pedido_id = :id";
+            $stmtItens = $this->db->prepare($sqlItens);
+            $stmtItens->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmtItens->execute();
+
+            // 3. Deleta o pedido
+            $sqlPedido = "DELETE FROM tbl_pedidos WHERE id_pedidos = :id";
+            $stmtPedido = $this->db->prepare($sqlPedido);
+            $stmtPedido->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmtPedido->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (\Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            error_log("Erro ao excluir pedido: " . $e->getMessage());
+            return false;
+        }
     }
 
     // Sem coluna excluido_em, não dá pra reativar. Método removido ou deixado vazio.

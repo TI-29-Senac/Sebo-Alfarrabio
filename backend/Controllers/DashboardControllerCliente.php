@@ -62,8 +62,8 @@ class DashboardControllerCliente extends AuthenticatedController
         // Mescla dados para a view
         $dadosView = array_merge($usuario, $perfil ?? []);
 
-        // Busca pedidos do usuário
-        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+        // Busca pedidos do usuário (excluindo cancelados para o perfil)
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true);
 
         // Verifica se pedidos tem itens (caso o model buscarPedidosPorIDUsuario não traga itens por padrão)
         foreach ($pedidos as &$pedido) {
@@ -103,9 +103,8 @@ class DashboardControllerCliente extends AuthenticatedController
             $stmtFavoritos = $this->db->prepare($sqlFavoritos);
             $stmtFavoritos->bindValue(':id', $usuarioId);
             $stmtFavoritos->execute();
-            $total_favoritos = (int)$stmtFavoritos->fetchColumn();
-        }
-        catch (\PDOException $e) {
+            $total_favoritos = (int) $stmtFavoritos->fetchColumn();
+        } catch (\PDOException $e) {
             // Tabela não existe ou erro, mantém 0
             $total_favoritos = 0;
         }
@@ -142,8 +141,7 @@ class DashboardControllerCliente extends AuthenticatedController
         try {
             $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
             $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
             return;
         }
@@ -165,8 +163,7 @@ class DashboardControllerCliente extends AuthenticatedController
                 $perfilExistente['endereco'],
                 $caminhoFoto
             );
-        }
-        else {
+        } else {
             // Cria novo perfil
             $this->perfil->inserirPerfil(
                 $usuarioId,
@@ -227,7 +224,7 @@ class DashboardControllerCliente extends AuthenticatedController
             return;
         }
 
-        if (!Session::get('usuario_id')) {
+        if (!$this->session->get('usuario_id')) {
             echo json_encode(['success' => false, 'message' => 'Usuário não autenticado.']);
             return;
         }
@@ -244,7 +241,7 @@ class DashboardControllerCliente extends AuthenticatedController
 
         // Verifica se o pedido pertence ao usuário
         $pedido = $pedidoModel->buscarPedidosPorID($idPedido);
-        if (!$pedido || $pedido['usuario_id'] != Session::get('usuario_id')) {
+        if (!$pedido || $pedido['usuario_id'] != $this->session->get('usuario_id')) {
             echo json_encode(['success' => false, 'message' => 'Pedido não encontrado ou não pertence a você.']);
             return;
         }
@@ -259,8 +256,7 @@ class DashboardControllerCliente extends AuthenticatedController
         // Atualiza status
         if ($pedidoModel->atualizarStatus($idPedido, 'Cancelado')) {
             echo json_encode(['success' => true, 'message' => 'Reserva cancelada com sucesso.']);
-        }
-        else {
+        } else {
             echo json_encode(['success' => false, 'message' => 'Erro ao cancelar reserva. Tente novamente.']);
         }
     }
@@ -288,8 +284,8 @@ class DashboardControllerCliente extends AuthenticatedController
         // Mescla dados
         $dadosView = array_merge($usuario, $perfil ?? []);
 
-        // Busca pedidos
-        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+        // Busca pedidos (excluindo cancelados)
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true);
 
         \Sebo\Alfarrabio\Core\View::render('admin/cliente/reservas', [
             'usuario' => $dadosView,
@@ -322,16 +318,15 @@ class DashboardControllerCliente extends AuthenticatedController
         // Mescla dados
         $dadosView = array_merge($usuario, $perfil ?? []);
 
-        // Busca última reserva
-        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId);
+        // Busca última reserva ativa
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true);
         $ultimaReserva = !empty($pedidos) ? $pedidos[0] : null;
 
         if ($ultimaReserva) {
             // Garante que tenha detalhes do item se não vier no buscarPedidosPorIDUsuario
             if (empty($ultimaReserva['itens'])) {
-            // Busca manual se necessário (mas o model já deve trazer)
-            }
-            else {
+                // Busca manual se necessário (mas o model já deve trazer)
+            } else {
                 // Pega dados do primeiro item para exibir na notificação
                 $item = $ultimaReserva['itens'][0];
                 $ultimaReserva['titulo_item'] = $item['titulo_item'];
@@ -404,11 +399,11 @@ class DashboardControllerCliente extends AuthenticatedController
         $email = $_POST['email_usuario'] ?? '';
         $telefone = $_POST['telefone_usuario'] ?? '';
         // Endereço removido do formulário
-        
+
         $dataNascimento = $_POST['data_nascimento_usuario'] ?? null;
         $genero = $_POST['genero_usuario'] ?? null;
         $idioma = $_POST['idioma_usuario'] ?? 'Português';
-        
+
         $novaSenha = $_POST['nova_senha'] ?? '';
         $confirmaSenha = $_POST['confirma_senha'] ?? '';
 
@@ -423,8 +418,8 @@ class DashboardControllerCliente extends AuthenticatedController
         if (!empty($novaSenha)) {
             // Validação de Força da Senha (Backend)
             if (strlen($novaSenha) < 6) {
-                 \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente/configuracoes", "error", "A senha deve ter pelo menos 6 caracteres.");
-                 return;
+                \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente/configuracoes", "error", "A senha deve ter pelo menos 6 caracteres.");
+                return;
             }
 
             if ($novaSenha !== $confirmaSenha) {
@@ -476,7 +471,7 @@ class DashboardControllerCliente extends AuthenticatedController
 
         $sucessoPerfil = false;
         if ($perfilExistente) {
-             $sucessoPerfil = $this->perfil->atualizarPerfil(
+            $sucessoPerfil = $this->perfil->atualizarPerfil(
                 $perfilExistente['id_perfil_usuario'],
                 $telefone,
                 $perfilExistente['endereco'], // Mantém endereço existente
@@ -500,7 +495,7 @@ class DashboardControllerCliente extends AuthenticatedController
         if ($sucessoPerfil) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente/configuracoes", "success", "Configurações atualizadas com sucesso!");
         } else {
-             // Aviso: Usuário atualizado, mas perfil falhou?
+            // Aviso: Usuário atualizado, mas perfil falhou?
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente/configuracoes", "warning", "Dados de acesso atualizados, mas houve erro ao salvar perfil.");
         }
     }

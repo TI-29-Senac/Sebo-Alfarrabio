@@ -2328,3 +2328,10 @@ Stack trace:
 [10-Feb-2026 15:30:27 Europe/Berlin] ✅ Avaliação #3 atualizada
 [10-Feb-2026 15:50:50 Europe/Berlin] [ATUALIZAR] id=3, nota=3, comentario=Uma história mara, user=3
 [10-Feb-2026 15:50:50 Europe/Berlin] ✅ Avaliação #3 atualizada (rows: 1)
+[11-Feb-2026 01:11:33 UTC] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 01:12:15 UTC] Login bem-sucedido: bvalquiria988@gmail.com
+[11-Feb-2026 01:42:20 UTC] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 01:48:23 UTC] Senha incorreta para: bvalquiria988@gmail.com
+[11-Feb-2026 01:48:29 UTC] Login bem-sucedido: bvalquiria988@gmail.com
+[11-Feb-2026 02:01:24 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[11-Feb-2026 02:06:55 UTC] Login bem-sucedido: bvalquiria988@gmail.com
