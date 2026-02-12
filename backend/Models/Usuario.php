@@ -64,7 +64,7 @@ class Usuario
      */
     function buscarUsuariosPorEMail($email)
     {
-        $sql = "SELECT * FROM tbl_usuario WHERE email_usuario = :email AND excluido_em IS NULL";
+        $sql = "SELECT * FROM tbl_usuario WHERE email_usuario = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();

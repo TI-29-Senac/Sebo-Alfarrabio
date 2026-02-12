@@ -36,9 +36,10 @@ class NotificacaoEmail
      */
     public function boasVindas(string $email, string $nome): void
     {
-        $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
+        try {
+            $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
 
-        $mensagem = '
+            $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -165,6 +166,10 @@ class NotificacaoEmail
 </body>
 </html>
 ';
+            $this->emailService->send($email, $assunto, $mensagem);
+        } catch (\Throwable $e) {
+            error_log("ERRO (NotificacaoEmail::boasVindas): " . $e->getMessage());
+        }
     }
     
     /**
