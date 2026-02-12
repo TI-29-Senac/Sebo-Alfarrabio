@@ -83,32 +83,47 @@ class AuthController
      * Processa o cadastro de um novo usuário.
      * Valida senhas e unicidade de email.
      */
-    public function cadastrarUsuario(): void
+    public function cadastrarUsuario()
     {
-        // $erros = UsuarioValidador::ValidarEntradas($_POST);
-        // if (!empty($erros)) {
-        //     Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
-        // }
+        try {
+            // $erros = UsuarioValidador::ValidarEntradas($_POST);
+            // if (!empty($erros)) {
+            //     Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
+            // }
 
-        $nome = $_POST['nome_usuario'] ?? null;
-        $email = $_POST['email_usuario'] ?? null;
-        $senha = $_POST['senha_usuario'] ?? null;
-        $senha_confirm = $_POST['senha_confirm'] ?? null;
+            $nome = $_POST['nome_usuario'] ?? null;
+            $email = $_POST['email_usuario'] ?? null;
+            $senha = $_POST['senha_usuario'] ?? null;
+            $senha_confirm = $_POST['senha_confirm'] ?? null;
 
-        if ($senha != $senha_confirm) {
-            Redirect::redirecionarComMensagem('/backend/register', 'erros', 'As senhas não conferem.');
-        }
+            if ($senha != $senha_confirm) {
+                return Redirect::redirecionarComMensagem('/backend/register', 'erros', 'As senhas não conferem.');
+            }
 
-        if (!empty($this->usuarioModel->buscarUsuariosPorEmail($email))) {
-            Redirect::redirecionarComMensagem('/backend/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
-        }
+            if (!empty($this->usuarioModel->buscarUsuariosPorEMail($email))) {
+                return Redirect::redirecionarComMensagem('/backend/register', 'erros', 'Erro ao cadastrar, problema no seu e-mail.');
+            }
 
-        $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente');
-        if ($novoUsuarioId) {
-            $this->notificacaoEmail->boasVindas($email, $nome);
-            Redirect::redirecionarComMensagem('/backend/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
-        } else {
-            Redirect::redirecionarComMensagem('/backend/register', 'error', 'Erro no servidor. Tente novamente.');
+            $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente');
+            
+            if ($novoUsuarioId) {
+                try {
+                    $this->notificacaoEmail->boasVindas($email, $nome);
+                } catch (\Throwable $eEmail) {
+                    error_log("AVISO: Falha ao enviar email de boas-vindas para $email: " . $eEmail->getMessage());
+                    // Não impede o cadastro, apenas loga o erro
+                }
+                
+                Redirect::redirecionarComMensagem('/backend/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
+            } else {
+                error_log("ERRO AO INSERIR USUÁRIO: inseriUsuario retornou false para $email");
+                Redirect::redirecionarComMensagem('/backend/register', 'error', 'Erro no servidor ao criar conta. Tente novamente.');
+            }
+
+        } catch (\Throwable $e) {
+            error_log("EXCEÇÃO CRÍTICA EM cadastrarUsuario: " . $e->getMessage());
+            error_log($e->getTraceAsString());
+            Redirect::redirecionarComMensagem('/backend/register', 'error', 'Erro interno no servidor. Detalhes foram logados.');
         }
     }
 

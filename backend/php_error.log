@@ -2337,4 +2337,55 @@ Stack trace:
 [11-Feb-2026 02:06:55 UTC] Login bem-sucedido: bvalquiria988@gmail.com
 [11-Feb-2026 12:40:47 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [11-Feb-2026 12:40:53 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
 [11-Feb-2026 15:48:45 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+=======
+[11-Feb-2026 12:44:53 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 12:44:59 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 12:45:27 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 12:58:30 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[11-Feb-2026 12:59:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 15:15:49 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[11-Feb-2026 15:16:10 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[11-Feb-2026 15:42:51 Europe/Berlin] Senha incorreta para: bvalquiria988@gmail.com
+[11-Feb-2026 15:43:05 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+[11-Feb-2026 15:49:06 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[11-Feb-2026 15:49:35 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+[12-Feb-2026 12:45:23 Europe/Berlin] Senha incorreta para: carla.menezes@email.com
+[12-Feb-2026 12:45:32 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[12-Feb-2026 12:49:19 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[12-Feb-2026 12:50:27 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[12-Feb-2026 12:53:59 Europe/Berlin] Login bem-sucedido: bvalquiria817@gmail.com
+[12-Feb-2026 12:54:17 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+[12-Feb-2026 12:56:58 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[12-Feb-2026 12:57:32 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+[12-Feb-2026 12:58:34 Europe/Berlin] ✅ Avaliação #6 inserida (item #41, user #1)
+[12-Feb-2026 12:59:08 Europe/Berlin] [ATUALIZAR] id=6, nota=5, comentario=amo esse livro, esperei muito tempo para ler elezsxvcxdvc, user=1
+[12-Feb-2026 12:59:08 Europe/Berlin] ✅ Avaliação #6 atualizada (rows: 1)
+[12-Feb-2026 12:59:40 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[12-Feb-2026 13:13:01 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[12-Feb-2026 13:13:17 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[12-Feb-2026 13:13:46 Europe/Berlin] === DESATIVANDO USUÁRIO #24 ===
+[12-Feb-2026 13:13:46 Europe/Berlin] ✅ Usuário desativado. Linhas: 1
+[12-Feb-2026 13:16:27 Europe/Berlin] === INSERINDO USUÁRIO ===
+[12-Feb-2026 13:16:27 Europe/Berlin] Nome: keziaoficialk@gmail.com, Email: keziaoficialk@gmail.com, Tipo: Cliente
+[12-Feb-2026 13:16:27 Europe/Berlin] ❌ ERRO PDO ao inserir: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'keziaoficialk@gmail.com' for key 'tbl_usuario.email'
+[12-Feb-2026 13:16:27 Europe/Berlin] SQL State: 23000
+[12-Feb-2026 13:25:15 Europe/Berlin] === INSERINDO USUÁRIO ===
+[12-Feb-2026 13:25:15 Europe/Berlin] Nome: Teste Registro, Email: teste.registro.verificacao@email.com, Tipo: Cliente
+[12-Feb-2026 13:25:15 Europe/Berlin] ✅ Usuário criado com ID: 49
+[12-Feb-2026 13:26:21 Europe/Berlin] === INSERINDO USUÁRIO ===
+[12-Feb-2026 13:26:21 Europe/Berlin] Nome: Teste Registro, Email: teste.registro.verificacao2@email.com, Tipo: Cliente
+[12-Feb-2026 13:26:21 Europe/Berlin] ✅ Usuário criado com ID: 50
+[12-Feb-2026 13:51:00 Europe/Berlin] === INSERINDO USUÁRIO ===
+[12-Feb-2026 13:51:00 Europe/Berlin] Nome: FinalTest, Email: final_test_01@example.com, Tipo: Cliente
+[12-Feb-2026 13:51:00 Europe/Berlin] ✅ Usuário criado com ID: 52
+[12-Feb-2026 13:58:58 Europe/Berlin] Senha incorreta para: nathalycssilva@gmail.com
+[12-Feb-2026 13:59:21 Europe/Berlin] === INSERINDO USUÁRIO ===
+[12-Feb-2026 13:59:21 Europe/Berlin] Nome: keziaoficialk@gmail.com, Email: keziaoficialk@gmail.com, Tipo: Cliente
+[12-Feb-2026 13:59:21 Europe/Berlin] ✅ Usuário criado com ID: 54
+[12-Feb-2026 13:59:37 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+[12-Feb-2026 14:00:03 Europe/Berlin] === ATUALIZANDO USUÁRIO #54 ===
+[12-Feb-2026 14:00:03 Europe/Berlin] Nome: Kezia Silva, Email: keziaoficialk@gmail.com, Tipo: Cliente, Senha: NÃO
+[12-Feb-2026 14:00:03 Europe/Berlin] ✅ Linhas afetadas: 1
+>>>>>>> abbc4b4d4610e89f39e7f6c8b0a1b797429afd85

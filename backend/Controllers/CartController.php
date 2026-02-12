@@ -278,6 +278,7 @@ class CartController
 
             if ($idPedido) {
                 Cart::clear();
+
                 Redirect::redirecionarComMensagem(
                     "/carrinho/obrigado/$idPedido",
                     "success",
