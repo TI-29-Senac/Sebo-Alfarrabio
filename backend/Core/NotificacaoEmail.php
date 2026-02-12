@@ -34,12 +34,14 @@ class NotificacaoEmail
      * @param string $email
      * @param string $nome
      */
+
+
+        ///////////// EMAIL DE BOAS-VINDAS ////////////
     public function boasVindas(string $email, string $nome): void
     {
-        try {
-            $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
+        $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
 
-            $mensagem = '
+        $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -166,11 +168,16 @@ class NotificacaoEmail
 </body>
 </html>
 ';
-            $this->emailService->send($email, $assunto, $mensagem);
-        } catch (\Throwable $e) {
-            error_log("ERRO (NotificacaoEmail::boasVindas): " . $e->getMessage());
-        }
     }
+    ////////////////////////////////////////////////
+
+
+
+
+
+
+
+///////////////////// EMAIL DE RESERVA RECEBIDA /////////////////////
     
     /**
      * Envia email de confirmação de reserva.
@@ -199,29 +206,33 @@ class NotificacaoEmail
     <style>
         body { margin: 0; padding: 0; font-family: "Georgia", serif; background-color: #f5f1e8; }
         .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 2px solid #8b4513; }
-        .header { background: #8b4513; padding: 20px; text-align: center; color: #f5deb3; }
+        .header { background: #f57c00; padding: 20px; text-align: center; color: #ffffff; }
         .content { padding: 30px; color: #3e2723; }
-        .pedido-info { background: #fff8dc; padding: 15px; border-left: 4px solid #8b4513; margin: 20px 0; }
+        .pedido-info { background: #fff3e0; padding: 15px; border-left: 4px solid #f57c00; margin: 20px 0; }
         .footer { background: #f5f1e8; padding: 15px; text-align: center; font-size: 12px; color: #6b4423; }
+        .btn { display: inline-block; padding: 10px 20px; background: #8b4513; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Reserva Confirmada!</h1>
+            <h1>Reserva Recebida!</h1>
         </div>
         <div class="content">
             <p>Olá, <strong>' . htmlspecialchars($nome) . '</strong>!</p>
-            <p>Sua reserva foi realizada com sucesso. Abaixo estão os detalhes:</p>
+            <p>Sua solicitação de reserva foi recebida com sucesso e está <strong>aguardando confirmação</strong> de nossa equipe.</p>
+            <p>Em breve analisaremos seu pedido e você receberá uma notificação quando a reserva for confirmada.</p>
             
             <div class="pedido-info">
                 <p><strong>Número do Pedido:</strong> #' . $idPedido . '</p>
+                <p><strong>Status:</strong> <span style="color: #f57c00; font-weight: bold;">Pendente</span></p>
                 <p><strong>Valor Total:</strong> R$ ' . $total . '</p>
-                <p><strong>Itens Reservados:</strong></p>
+                <p><strong>Itens:</strong></p>
                 <ul>' . $itensHtml . '</ul>
             </div>
             
-            <p>Você pode acompanhar o status da sua reserva em "Minhas Reservas" no painel do cliente.</p>
+            <p><strong>Próximos passos:</strong></p>
+            <p>Nossa equipe irá verificar a disponibilidade dos itens e confirmar sua reserva. Você receberá um e-mail assim que o status for atualizado.</p>
             
             <p style="margin-top: 30px;">
                 Atenciosamente,<br>
@@ -237,6 +248,13 @@ class NotificacaoEmail
 ';
         $this->emailService->send($email, $assunto, $mensagem);
     }
+    /////////////////////////////////////////////////////////////
+
+
+
+
+
+    
     /**
      * Envia email de confirmação de reserva APROVADA pelo funcionário.
      * @param array $usuario Dados do usuário (nome, email).
@@ -284,7 +302,7 @@ class NotificacaoEmail
             <p>Olá, <strong>' . htmlspecialchars($nome) . '</strong>!</p>
             <p>Boas notícias! Sua reserva foi analisada e <strong>aprovada</strong> por nossa equipe.</p>
             <p>Seus livros já estão separados e aguardando por você.</p>
-            
+            6
             <div class="pedido-info">
                 <p><strong>Número do Pedido:</strong> #' . $idPedido . '</p>
                 <p><strong>Status:</strong> <span style="color: #2e7d32; font-weight: bold;">Reservado</span></p>

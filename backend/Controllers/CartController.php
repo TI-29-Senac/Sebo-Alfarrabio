@@ -5,8 +5,10 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Cart;
 use Sebo\Alfarrabio\Core\Session;
 use Sebo\Alfarrabio\Core\Redirect;
+use Sebo\Alfarrabio\Core\NotificacaoEmail;
 use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Models\Pedidos;
+use Sebo\Alfarrabio\Models\Usuario;
 use Sebo\Alfarrabio\Database\Database;
 
 class CartController
@@ -279,6 +281,30 @@ class CartController
             if ($idPedido) {
                 Cart::clear();
 
+                // Envia email de confirmação de reserva
+                try {
+                    $usuarioModel = new Usuario(Database::getInstance());
+                    $usuarioData = $usuarioModel->buscarUsuarioPorID($this->session->get('usuario_id'));
+                    if ($usuarioData) {
+                        $pedidoData = [
+                            'id' => $idPedido,
+                            'valor_total' => Cart::total() ?: array_sum(array_map(fn($i) => $i['preco'] * $i['quantidade'], $itensCarrinho)),
+                            'status' => 'Pendente',
+                            'itens' => array_map(function($i) {
+                                $item = (new Item(Database::getInstance()))->buscarItemPorID($i['id']);
+                                return [
+                                    'titulo' => $item['titulo'] ?? 'Item',
+                                    'quantidade' => $i['quantidade']
+                                ];
+                            }, $itensCarrinho)
+                        ];
+                        $notificacao = new NotificacaoEmail();
+                        $notificacao->enviarConfirmacaoReserva($usuarioData, $pedidoData);
+                    }
+                } catch (\Throwable $eEmail) {
+                    error_log("AVISO: Falha ao enviar email de reserva #{$idPedido}: " . $eEmail->getMessage());
+                }
+
                 Redirect::redirecionarComMensagem(
                     "/carrinho/obrigado/$idPedido",
                     "success",
@@ -338,6 +364,30 @@ class CartController
             if ($idPedido) {
                 // Limpa o carrinho
                 Cart::clear();
+
+                // Envia email de confirmação de reserva
+                try {
+                    $usuarioModel = new Usuario(Database::getInstance());
+                    $usuarioData = $usuarioModel->buscarUsuarioPorID($this->session->get('usuario_id'));
+                    if ($usuarioData) {
+                        $pedidoData = [
+                            'id' => $idPedido,
+                            'valor_total' => array_sum(array_map(fn($i) => ($i['preco_item'] ?? $i['preco'] ?? 0) * $i['quantidade'], $dados['itens'])),
+                            'status' => 'Pendente',
+                            'itens' => array_map(function($i) {
+                                $item = (new Item(Database::getInstance()))->buscarItemPorID($i['id_item']);
+                                return [
+                                    'titulo' => $item['titulo'] ?? 'Item',
+                                    'quantidade' => $i['quantidade']
+                                ];
+                            }, $dados['itens'])
+                        ];
+                        $notificacao = new NotificacaoEmail();
+                        $notificacao->enviarConfirmacaoReserva($usuarioData, $pedidoData);
+                    }
+                } catch (\Throwable $eEmail) {
+                    error_log("AVISO: Falha ao enviar email de reserva #{$idPedido}: " . $eEmail->getMessage());
+                }
 
                 echo json_encode([
                     'success' => true,
