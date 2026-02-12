@@ -2337,6 +2337,9 @@ Stack trace:
 [11-Feb-2026 02:06:55 UTC] Login bem-sucedido: bvalquiria988@gmail.com
 [11-Feb-2026 12:40:47 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [11-Feb-2026 12:40:53 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+<<<<<<< HEAD
+[11-Feb-2026 15:48:45 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+=======
 [11-Feb-2026 12:44:53 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [11-Feb-2026 12:44:59 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [11-Feb-2026 12:45:27 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
@@ -2385,6 +2388,7 @@ Stack trace:
 [12-Feb-2026 14:00:03 Europe/Berlin] === ATUALIZANDO USUÁRIO #54 ===
 [12-Feb-2026 14:00:03 Europe/Berlin] Nome: Kezia Silva, Email: keziaoficialk@gmail.com, Tipo: Cliente, Senha: NÃO
 [12-Feb-2026 14:00:03 Europe/Berlin] ✅ Linhas afetadas: 1
+<<<<<<< HEAD
 [12-Feb-2026 14:06:28 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [12-Feb-2026 14:53:53 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
 [12-Feb-2026 14:54:25 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
@@ -2399,3 +2403,6 @@ Stack trace:
 [12-Feb-2026 15:30:09 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
 [12-Feb-2026 15:42:29 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [12-Feb-2026 15:47:01 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+=======
+>>>>>>> abbc4b4d4610e89f39e7f6c8b0a1b797429afd85
+>>>>>>> f88b9e10ce5d45060e023788cf491b67fd631b6a
