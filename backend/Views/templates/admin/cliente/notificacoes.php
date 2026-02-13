@@ -311,8 +311,7 @@
                         
                         <div style="display:flex; justify-content:space-between; align-items:flex-end">
                             <span class="book-date">Cadastrado em <?= date('d/m/Y', strtotime($livro['criado_em'])) ?></span>
-                            <!-- Link genérico para catalogo ou detalhes se houver rota -->
-                            <a href="#" class="btn-small">Ver</a>
+                            <a href="/produtos.html?id=<?= $livro['id_item'] ?>" class="btn-small">Ver</a>
                         </div>
                     </div>
                 </div>
