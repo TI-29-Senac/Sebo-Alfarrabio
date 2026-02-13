@@ -995,13 +995,17 @@
                             </div>
                         </div>
                         <div class="order-side-actions">
-                            <?php if ($idItem && !$jaAvaliado): ?>
+                            <?php if ($idItem && !$jaAvaliado && $statusRaw === 'reservado'): ?>
                                 <button class="btn-side btn-avaliar" 
                                         data-item-id="<?= $idItem ?>"
                                         data-item-titulo="<?= htmlspecialchars($tituloItem) ?>"
                                         data-item-foto="<?= htmlspecialchars($fotoItem ?? '') ?>"
                                         onclick="abrirModalAvaliacao(this)">
                                     <i class="fa fa-star"></i> Avaliar o produto
+                                </button>
+                            <?php elseif ($idItem && !$jaAvaliado): ?>
+                                <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;" title="Você só pode avaliar itens com status 'Reservado'">
+                                    <i class="fa fa-lock"></i> Aguardando reserva
                                 </button>
                             <?php elseif ($jaAvaliado): ?>
                                 <button class="btn-side btn-avaliado" disabled>
@@ -1073,6 +1077,17 @@
             </div>
             <div class="rating-text" id="ratingText"></div>
             
+            <div class="rating-label" style="margin-top: 20px;">Fotos ou vídeos (opcional) - Máx 5</div>
+            <div class="file-upload-container">
+                <label for="fotoAvaliacao" class="file-upload-label">
+                    <i class="fa fa-camera"></i> Adicionar mídia
+                </label>
+                <input type="file" id="fotoAvaliacao" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(this)">
+                <div id="previewContainer" style="margin-top: 10px; display: none; gap: 10px; flex-wrap: wrap;">
+                    <!-- Thumbnails will be injected here -->
+                </div>
+            </div>
+
             <div class="rating-label" style="margin-top: 20px;">Comentário (opcional)</div>
             <textarea 
                 class="modal-textarea" 
@@ -1148,6 +1163,7 @@
 let currentItemId = null;
 let currentRating = 0;
 let currentBtnElement = null;
+let selectedFiles = [];
 
 const ratingTexts = {
     1: 'Péssimo',
@@ -1180,6 +1196,12 @@ function abrirModalAvaliacao(btnElement) {
     document.getElementById('comentarioAvaliacao').value = '';
     document.getElementById('charCount').textContent = '0';
     document.getElementById('ratingText').textContent = '';
+    
+    // Reset Imagens
+    selectedFiles = [];
+    document.getElementById('fotoAvaliacao').value = ''; 
+    renderPreview();
+    
     document.getElementById('btnEnviarAvaliacao').disabled = true;
     resetStars();
     
@@ -1196,6 +1218,61 @@ function fecharModalAvaliacao() {
     document.getElementById('modalAvaliacao').classList.remove('active');
     currentItemId = null;
     currentRating = 0;
+}
+
+// Configura seleção de arquivos
+function handleFileSelect(input) {
+    const files = Array.from(input.files);
+    
+    if (selectedFiles.length + files.length > 5) {
+        alert("Você pode selecionar no máximo 5 imagens.");
+        return;
+    }
+
+    files.forEach(file => {
+        if (file.type.match('image.*')) {
+            selectedFiles.push(file);
+        }
+    });
+
+    renderPreview();
+    input.value = ''; 
+}
+
+function renderPreview() {
+    const container = document.getElementById('previewContainer');
+    container.innerHTML = ''; 
+    
+    if (selectedFiles.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'flex'; 
+    
+    selectedFiles.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.style.position = 'relative';
+            div.style.width = '100px';
+            div.style.height = '100px';
+            
+            div.innerHTML = `
+                <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
+                <button onclick="removerImagem(${index})" style="position: absolute; top: -5px; right: -5px; background: white; border-radius: 50%; border: 1px solid red; color: red; cursor: pointer; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+                    <i class="fa fa-times"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+    });
+}
+
+function removerImagem(index) {
+    selectedFiles.splice(index, 1);
+    renderPreview();
 }
 
 // Reset estrelas
@@ -1278,6 +1355,10 @@ async function enviarAvaliacao() {
         formData.append('id_item', currentItemId);
         formData.append('nota', currentRating);
         formData.append('comentario', comentario);
+
+        selectedFiles.forEach((file, index) => {
+            formData.append('fotos_avaliacao[]', file);
+        });
         
         const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
             method: 'POST',

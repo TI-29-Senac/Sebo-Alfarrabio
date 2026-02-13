@@ -456,6 +456,7 @@
                     <thead>
                         <tr>
                             <th>Nota</th>
+                            <th>Fotos</th>
                             <th>Comentário</th>
                             <th>Data</th>
                             <th>Status</th>
@@ -482,6 +483,32 @@
                                             (<?= $nota ?>)
                                         </span>
                                     </div>
+                                </td>
+
+                                <!-- FOTOS -->
+                                <td>
+                                    <?php 
+                                    $fotos = [];
+                                    if (!empty($av['fotos_urls'])) {
+                                        $fotos = explode(',', $av['fotos_urls']);
+                                    } elseif (!empty($av['foto_principal'])) {
+                                        $fotos[] = $av['foto_principal'];
+                                    }
+                                    ?>
+                                    
+                                    <?php if (!empty($fotos)): ?>
+                                        <div style="display: flex; gap: 5px; flex-wrap: wrap; max-width: 150px;">
+                                            <?php foreach ($fotos as $foto): ?>
+                                                <a href="<?= htmlspecialchars($foto) ?>" target="_blank" title="Ver imagem">
+                                                    <img src="<?= htmlspecialchars($foto) ?>" 
+                                                         alt="Foto" 
+                                                         style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                                </a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <span style="color: #ccc; font-size: 0.8rem;">Sem fotos</span>
+                                    <?php endif; ?>
                                 </td>
 
                                 <!-- COMENTÁRIO -->
