@@ -239,15 +239,18 @@ class Avaliacao
     /**
      * Realiza soft delete da avaliação.
      */
+    /**
+     * Inativa a avaliação.
+     */
     public function deletarAvaliacao($id_avaliacao)
     {
-        $sql = "UPDATE tbl_avaliacao SET excluido_em = NOW(), status_avaliacao = 'inativo' WHERE id_avaliacao = :id";
+        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = 'inativo', atualizado_em = NOW() WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         try {
             return $stmt->execute() && $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            error_log("ERRO DELETE: " . $e->getMessage());
+            error_log("ERRO INATIVAR: " . $e->getMessage());
             return false;
         }
     }

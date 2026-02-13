@@ -2456,3 +2456,6 @@ Stack trace:
 [13-Feb-2026 15:04:50 Europe/Berlin] ERRO PDO INSERT: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'foto_avaliacao' in 'field list'
 [13-Feb-2026 15:06:49 Europe/Berlin] ERRO PDO INSERT: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'foto_avaliacao' at row 1
 [13-Feb-2026 15:10:32 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[13-Feb-2026 15:12:39 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+[13-Feb-2026 15:15:36 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[13-Feb-2026 15:18:53 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
