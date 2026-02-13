@@ -17,8 +17,14 @@
 
   <!-- HEADER -->
   <header>
-    <img src="img/logo2.png" alt="Logo" class="logo">
-    <h3 class="alfa">O Alfarrábio</h3>
+    <div class="logo-container">
+      <img src="img/logo2.png" alt="Logo" class="logo">
+      <h3 class="alfa">O Alfarrábio</h3>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <nav>
       <ul>
@@ -35,8 +41,8 @@
         <i class="fas fa-user-circle"></i>
       </button>
       <div class="profile-dropdown-header">
-        <a href="/backend/admin/cliente"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
-        <a href="/backend/pedidos"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>
         <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
         <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
         <hr>
@@ -222,6 +228,7 @@
   </footer>
 
   <script src="js/auth-header.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/produtos.js"></script>
 </body>
 

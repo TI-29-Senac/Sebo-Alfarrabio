@@ -56,7 +56,7 @@
 
 .localizacao {
     width: 100%;
-    height: 550px;
+    height: 400px;
     background-color: #f8f1e7;
 }
 
@@ -72,9 +72,13 @@
 
 .container-mapa {
     display: flex;
-    max-width: 90%;
+    max-width: 95%;
     margin: 0 auto;
     border: 4px solid #a7690594;
+}
+
+.container-mapa iframe {
+    height: 250px;
 }
 
 .lojas {
