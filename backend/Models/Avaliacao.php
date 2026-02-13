@@ -256,6 +256,18 @@ class Avaliacao
     }
 
     /**
+     * Busca fotos de uma avaliação específica.
+     */
+    public function buscarFotosAvaliacao($id_avaliacao)
+    {
+        $sql = "SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id ORDER BY id_foto ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    /**
      * Reativa avaliação excluída.
      */
     public function ativarAvaliacao($id_avaliacao)

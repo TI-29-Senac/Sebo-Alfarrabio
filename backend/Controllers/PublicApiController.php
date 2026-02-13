@@ -183,6 +183,9 @@ class PublicApiController
             $totalInDB = $this->avaliacao->totalDeAvaliacaoAtivos();
 
             $avaliacoes_formatadas = array_map(function ($av) {
+                // Busca fotos da avaliação na tabela tbl_avaliacao_fotos
+                $fotos = $this->avaliacao->buscarFotosAvaliacao($av['id_avaliacao']);
+
                 return [
                     'id' => (int) $av['id_avaliacao'],
                     'nota' => (int) $av['nota_avaliacao'],
@@ -209,6 +212,9 @@ class PublicApiController
                         'genero' => $av['nome_genero'] ?? null,
                         'autor' => $av['nome_autor'] ?? null
                     ],
+
+                    // Fotos da avaliação (da tabela tbl_avaliacao_fotos)
+                    'fotos' => $fotos,
 
                     'tempo_decorrido' => calcularTempoDecorrido($av['criado_em'])
                 ];
