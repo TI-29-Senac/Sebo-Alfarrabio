@@ -4,6 +4,7 @@ namespace Sebo\Alfarrabio\Controllers;
 use Sebo\Alfarrabio\Models\Avaliacao;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Core\Session;
+use Sebo\Alfarrabio\Core\FileManager;
 
 /**
  * Controller para gerenciar avaliações do cliente via AJAX
@@ -13,12 +14,15 @@ class AvaliacaoClienteController
     private $db;
     private $avaliacaoModel;
     private $session;
+    private $fileManager;
 
     public function __construct()
     {
         $this->db = Database::getInstance();
         $this->avaliacaoModel = new Avaliacao($this->db);
         $this->session = new Session();
+        // Base path: backend/uploads
+        $this->fileManager = new FileManager(__DIR__ . '/../uploads');
     }
 
     /**
@@ -82,12 +86,57 @@ class AvaliacaoClienteController
                 return;
             }
 
+            // Verifica se o usuário possui reserva com status 'Reservado' para este item
+            if (!$this->avaliacaoModel->verificarReservaConfirmada($usuarioId, $idItem)) {
+                http_response_code(403); // Forbidden
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Você só pode avaliar itens com reservas no status 'reservado'."
+                ]);
+                return;
+            }
+
+            // Processa Upload de Imagem
+            // Processa Upload de Imagens (Múltiplo)
+            $caminhosFotos = [];
+            
+            // Check if files exist and structure is array
+            if (isset($_FILES['fotos_avaliacao'])) {
+                $files = $_FILES['fotos_avaliacao'];
+                $count = is_array($files['name']) ? count($files['name']) : 0;
+                
+                if ($count > 0) {
+                    // Reorganize $_FILES array for cleaner iteration
+                    for ($i = 0; $i < $count; $i++) {
+                        if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                            $fileItem = [
+                                'name' => $files['name'][$i],
+                                'type' => $files['type'][$i],
+                                'tmp_name' => $files['tmp_name'][$i],
+                                'error' => $files['error'][$i],
+                                'size' => $files['size'][$i]
+                            ];
+                            
+                            try {
+                                $nomeArquivo = $this->fileManager->salvarArquivo($fileItem, 'avaliacoes');
+                                $caminhosFotos[] = '/backend/uploads/' . $nomeArquivo; 
+                            } catch (\Exception $e) {
+                                error_log("Erro no upload múltiplo ($i): " . $e->getMessage());
+                            }
+                        }
+                    }
+                }
+            }
+
             // Insere avaliação
             $resultado = $this->avaliacaoModel->inserirAvaliacao(
                 $idItem,
                 $usuarioId,
                 $nota,
-                $comentario ?: null
+                $comentario ?: null,
+                null, // data default
+                'inativo',
+                $caminhosFotos // Pass array of paths
             );
 
             if ($resultado) {
@@ -156,12 +205,41 @@ class AvaliacaoClienteController
                 return;
             }
 
+            // Processa Upload de Imagem (se houver nova)
+            // Processa Upload de Imagens (Múltiplo)
+            $caminhosFotos = [];
+            
+            if (isset($_FILES['fotos_avaliacao'])) {
+                $files = $_FILES['fotos_avaliacao'];
+                $count = is_array($files['name']) ? count($files['name']) : 0;
+                
+                for ($i = 0; $i < $count; $i++) {
+                    if ($files['error'][$i] === UPLOAD_ERR_OK) {
+                        $fileItem = [
+                            'name' => $files['name'][$i],
+                            'type' => $files['type'][$i],
+                            'tmp_name' => $files['tmp_name'][$i],
+                            'error' => $files['error'][$i],
+                            'size' => $files['size'][$i]
+                        ];
+                        
+                        try {
+                            $nomeArquivo = $this->fileManager->salvarArquivo($fileItem, 'avaliacoes');
+                            $caminhosFotos[] = '/backend/uploads/' . $nomeArquivo; 
+                        } catch (\Exception $e) {
+                            error_log("Erro no upload update ($i): " . $e->getMessage());
+                        }
+                    }
+                }
+            }
+
             $resultado = $this->avaliacaoModel->atualizarAvaliacao(
                 $id,
                 $nota,
                 $comentario ?: null,
                 $av['data_avaliacao'],
-                $av['status_avaliacao']
+                $av['status_avaliacao'],
+                $caminhosFotos
             );
 
             if ($resultado) {

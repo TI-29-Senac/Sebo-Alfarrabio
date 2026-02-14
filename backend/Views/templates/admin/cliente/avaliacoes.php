@@ -552,6 +552,29 @@
                             </div>
                         <?php endif; ?>
 
+                        <!-- Fotos da Avaliação -->
+                        <?php 
+                        $fotos = [];
+                        if (!empty($avaliacao['fotos_urls'])) {
+                            $fotos = explode(',', $avaliacao['fotos_urls']);
+                        } elseif (!empty($avaliacao['foto_principal'])) {
+                            $fotos[] = $avaliacao['foto_principal'];
+                        }
+                        ?>
+                        
+                        <?php if (!empty($fotos)): ?>
+                            <div class="avaliacao-photos" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                <?php foreach ($fotos as $foto): ?>
+                                    <div class="avaliacao-user-photo">
+                                        <img src="<?= htmlspecialchars($foto) ?>" 
+                                             alt="Foto da avaliação" 
+                                             style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; cursor: pointer;"
+                                             onclick="window.open(this.src, '_blank')">
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <!-- Botões de Ação -->
                         <div class="avaliacao-actions">
                             <button class="btn-acao-avaliacao btn-acao-editar" 
@@ -607,6 +630,14 @@
         <textarea class="modal-textarea" id="comentarioEdicao" maxlength="500"></textarea>
         <div class="char-counter"><span id="charCountEdicao">0</span>/500</div>
         
+        <div class="rating-label" style="margin-top: 15px;">Adicionar novas fotos (opcional) - Máx 5</div>
+        <div class="file-upload-container">
+            <input type="file" id="fotoEdicao" accept="image/*" multiple onchange="handleFileSelectEdicao(this)">
+            <div id="previewContainerEdicao" style="margin-top: 10px; display: none; gap: 10px; flex-wrap: wrap;">
+                <!-- Thumbnails -->
+            </div>
+        </div>
+        
         <div class="modal-buttons">
             <button class="btn-modal secondary" onclick="fecharModalEdicao()">Cancelar</button>
             <button class="btn-modal primary" id="btnSalvarEdicao" onclick="salvarEdicao()">Salvar Alterações</button>
@@ -648,6 +679,62 @@ const ratingTexts = {
     5: 'Excelente!'
 };
 
+let selectedFilesEdicao = [];
+
+function handleFileSelectEdicao(input) {
+    const files = Array.from(input.files);
+    
+    if (selectedFilesEdicao.length + files.length > 5) {
+        alert("Você pode selecionar no máximo 5 imagens.");
+        return;
+    }
+
+    files.forEach(file => {
+        if (file.type.match('image.*')) {
+            selectedFilesEdicao.push(file);
+        }
+    });
+
+    renderPreviewEdicao();
+    input.value = ''; 
+}
+
+function renderPreviewEdicao() {
+    const container = document.getElementById('previewContainerEdicao');
+    container.innerHTML = ''; 
+    
+    if (selectedFilesEdicao.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'flex'; 
+    
+    selectedFilesEdicao.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.style.position = 'relative';
+            div.style.width = '100px';
+            div.style.height = '100px';
+            
+            div.innerHTML = `
+                <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
+                <button onclick="removerImagemEdicao(${index})" style="position: absolute; top: -5px; right: -5px; background: white; border-radius: 50%; border: 1px solid red; color: red; cursor: pointer; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+                    <i class="fa fa-times"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+    });
+}
+
+function removerImagemEdicao(index) {
+    selectedFilesEdicao.splice(index, 1);
+    renderPreviewEdicao();
+}
+
 // =======================
 // LÓGICA DE EDIÇÃO
 // =======================
@@ -660,6 +747,11 @@ function abrirModalEdicao(id, nota, comentario, tituloItem) {
     document.getElementById('comentarioEdicao').value = comentario;
     document.getElementById('charCountEdicao').textContent = comentario.length;
     
+    // Reset inputs de nova foto
+    selectedFilesEdicao = [];
+    document.getElementById('fotoEdicao').value = '';
+    renderPreviewEdicao();
+
     updateStars(nota);
     document.getElementById('modalEdicao').classList.add('active');
 }
@@ -715,6 +807,10 @@ async function salvarEdicao() {
         formData.append('id_avaliacao', currentEdicaoId);
         formData.append('nota', currentEdicaoRating);
         formData.append('comentario', comentario);
+
+        selectedFilesEdicao.forEach((file, index) => {
+            formData.append('fotos_avaliacao[]', file);
+        });
         
         console.log('[Editar] Enviando:', {id: currentEdicaoId, nota: currentEdicaoRating, comentario});
         

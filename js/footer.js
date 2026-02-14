@@ -34,6 +34,7 @@
         console.log('🚀 DOM carregado, iniciando busca de avaliações...');
         carregarAvaliacoes();
         configurarNavegacao();
+        injetarEstilosModal(); // Injeta CSS do modal de avaliação
     });
 
     /**
@@ -253,7 +254,306 @@
             ` : ''}
         `;
 
+        // Evento de clique para abrir modal com detalhes completos
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function (e) {
+            e.stopPropagation();
+            abrirModalAvaliacao(avaliacao);
+        });
+
         return card;
+    }
+
+    /**
+     * Abre o modal com os detalhes completos de uma avaliação
+     */
+    function abrirModalAvaliacao(avaliacao) {
+        // Para o autoplay enquanto o modal estiver aberto
+        pararAutoplay();
+
+        // Remove modal anterior se existir
+        const modalExistente = document.getElementById('modalDepoimento');
+        if (modalExistente) modalExistente.remove();
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Foto do usuário
+        const fotoUsuario = avaliacao.usuario.foto && avaliacao.usuario.foto !== '' && !avaliacao.usuario.foto.includes('default')
+            ? `<img src="${avaliacao.usuario.foto}" alt="${escapeHtml(avaliacao.usuario.nome)}" class="modal-dep-foto" onerror="this.onerror=null;this.src='/backend/uploads/perfis/default.png';">`
+            : `<div class="modal-dep-foto-placeholder">${avaliacao.usuario.iniciais || 'U'}</div>`;
+
+        // Estrelas
+        const estrelas = gerarEstrelas(avaliacao.nota);
+
+        // Fotos da avaliação (se houver)
+        let fotosHtml = '';
+        if (avaliacao.fotos && avaliacao.fotos.length > 0) {
+            fotosHtml = `
+                <div class="modal-dep-fotos">
+                    ${avaliacao.fotos.map(f => `<img src="${f}" alt="Foto da avaliação" class="modal-dep-foto-av">`).join('')}
+                </div>
+            `;
+        }
+
+        // Cria o modal
+        const modal = document.createElement('div');
+        modal.id = 'modalDepoimento';
+        modal.className = 'modal-dep-overlay';
+        modal.innerHTML = `
+            <div class="modal-dep-content">
+                <button class="modal-dep-close" aria-label="Fechar">&times;</button>
+
+                <div class="modal-dep-header">
+                    ${fotoUsuario}
+                    <div class="modal-dep-info">
+                        <h3 class="modal-dep-nome">${escapeHtml(avaliacao.usuario.nome)}</h3>
+                        <div class="modal-dep-estrelas">${estrelas}</div>
+                        <span class="modal-dep-data">
+                            <i class="far fa-clock"></i> ${avaliacao.tempo_decorrido || avaliacao.data}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal-dep-body">
+                    <i class="fas fa-quote-left modal-dep-quote"></i>
+                    <p class="modal-dep-comentario">${escapeHtml(avaliacao.comentario)}</p>
+                    <i class="fas fa-quote-right modal-dep-quote right"></i>
+                </div>
+
+                ${fotosHtml}
+
+                ${avaliacao.item ? `
+                <div class="modal-dep-produto">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <strong>${escapeHtml(avaliacao.item.titulo)}</strong>
+                        ${avaliacao.item.autor ? `<span>${escapeHtml(avaliacao.item.autor)}</span>` : ''}
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Animação de entrada
+        requestAnimationFrame(() => modal.classList.add('active'));
+
+        // Fechar ao clicar no X
+        modal.querySelector('.modal-dep-close').addEventListener('click', () => fecharModalDepoimento());
+
+        // Fechar ao clicar fora
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) fecharModalDepoimento();
+        });
+
+        // Fechar com Esc
+        document.addEventListener('keydown', fecharComEsc);
+    }
+
+    /**
+     * Fecha o modal de depoimento
+     */
+    function fecharModalDepoimento() {
+        const modal = document.getElementById('modalDepoimento');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
+        document.removeEventListener('keydown', fecharComEsc);
+        iniciarAutoplay();
+    }
+
+    /**
+     * Handler para fechar modal com tecla Esc
+     */
+    function fecharComEsc(e) {
+        if (e.key === 'Escape') fecharModalDepoimento();
+    }
+
+    /**
+     * Injeta os estilos CSS do modal de avaliação
+     */
+    function injetarEstilosModal() {
+        if (document.getElementById('estilos-modal-depoimento')) return;
+
+        const style = document.createElement('style');
+        style.id = 'estilos-modal-depoimento';
+        style.textContent = `
+            /* ========== MODAL DE DEPOIMENTO ========== */
+            .modal-dep-overlay {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 20px;
+            }
+            .modal-dep-overlay.active {
+                opacity: 1;
+            }
+            .modal-dep-content {
+                background: #FFFDF9;
+                border-radius: 20px;
+                max-width: 520px;
+                width: 100%;
+                padding: 35px;
+                position: relative;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+                transform: translateY(20px) scale(0.95);
+                transition: transform 0.3s ease;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-dep-overlay.active .modal-dep-content {
+                transform: translateY(0) scale(1);
+            }
+            .modal-dep-close {
+                position: absolute;
+                top: 15px; right: 20px;
+                background: none;
+                border: none;
+                font-size: 28px;
+                color: #999;
+                cursor: pointer;
+                line-height: 1;
+                transition: color 0.2s;
+            }
+            .modal-dep-close:hover {
+                color: #333;
+            }
+            .modal-dep-header {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+            .modal-dep-foto {
+                width: 65px; height: 65px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid #8B7355;
+            }
+            .modal-dep-foto-placeholder {
+                width: 65px; height: 65px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #8B7355, #A08060);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .modal-dep-info {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .modal-dep-nome {
+                font-size: 18px;
+                font-weight: 700;
+                color: #3D3D3D;
+                margin: 0;
+            }
+            .modal-dep-estrelas {
+                color: #F5A623;
+                font-size: 16px;
+            }
+            .modal-dep-data {
+                font-size: 13px;
+                color: #999;
+            }
+            .modal-dep-body {
+                position: relative;
+                padding: 20px 10px;
+            }
+            .modal-dep-quote {
+                color: #8B7355;
+                opacity: 0.2;
+                font-size: 24px;
+            }
+            .modal-dep-quote.right {
+                float: right;
+            }
+            .modal-dep-comentario {
+                font-size: 16px;
+                line-height: 1.8;
+                color: #444;
+                margin: 10px 0;
+                font-style: italic;
+            }
+            .modal-dep-fotos {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #EEE;
+            }
+            .modal-dep-foto-av {
+                width: 100px; height: 100px;
+                object-fit: cover;
+                border-radius: 10px;
+                border: 1px solid #DDD;
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+            .modal-dep-foto-av:hover {
+                transform: scale(1.05);
+            }
+            .modal-dep-produto {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: #F5F0EA;
+                padding: 15px 18px;
+                border-radius: 12px;
+                margin-top: 20px;
+            }
+            .modal-dep-produto i {
+                color: #8B7355;
+                font-size: 20px;
+            }
+            .modal-dep-produto strong {
+                display: block;
+                font-size: 14px;
+                color: #3D3D3D;
+            }
+            .modal-dep-produto span {
+                font-size: 12px;
+                color: #888;
+            }
+            @media (max-width: 600px) {
+                .modal-dep-content {
+                    padding: 25px 20px;
+                    border-radius: 15px;
+                }
+                .modal-dep-foto, .modal-dep-foto-placeholder {
+                    width: 50px; height: 50px;
+                    font-size: 18px;
+                }
+                .modal-dep-comentario {
+                    font-size: 14px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     /**
