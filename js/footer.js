@@ -16,7 +16,7 @@
 
     // Configuração da API
     const API_CONFIG = {
-        url: '/backend/index.php/vitrine/avaliacoes', // Endpoint correto via Controller
+        url: '/backend/vitrine/avaliacoes', // Endpoint correto via Controller
         limite: 10,
         cache: true,
         cacheTempo: 300000 // 5 minutos

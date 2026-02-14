@@ -118,7 +118,7 @@ function setupGuestUser() {
     // Ao clicar em Entrar, vai pro login direto (sem dropdown) ou abre dropdown simplificado
     // Solução: Botão leva direto pro login
     profileBtn.onclick = function () {
-        window.location.href = '/backend/index.php/login';
+        window.location.href = '/backend/login';
     };
 
     // Remove dropdown antigo para evitar confusão
