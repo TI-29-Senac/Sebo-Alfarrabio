@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/hero-animation.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/avaliacoes-footer.css">
+  <link rel="stylesheet" href="css/responsivo.css">
 </head>
 
 <body>
@@ -67,6 +68,30 @@
       <span class="cart-count" id="cart-count">0</span>
     </button>
   </header>
+
+  <!-- SIDEBAR MOBILE -->
+  <div class="mobile-sidebar">
+    <div class="sidebar-header">
+      <img src="img/logo2.png" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <h3 class="sidebar-title">O Alfarrábio</h3>
+      <button class="close-sidebar" aria-label="Fechar menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html"><span class="emoji-icon">🏠</span> Home</a></li>
+        <li><a href="produtos.html"><span class="emoji-icon">📚</span> Produtos</a></li>
+        <li><a href="sobre.html"><span class="emoji-icon">ℹ️</span> Sobre</a></li>
+        <li><a href="contato.html"><span class="emoji-icon">✉️</span> Contato</a></li>
+        <li><a href="/backend/favoritos"><span class="emoji-icon">❤️</span> Favoritos</a></li>
+        <li><a href="/backend/admin/cliente/reservas"><span class="emoji-icon">🎫</span> Minhas Reservas</a></li>
+        <li><a href="/backend/configuracoes"><span class="emoji-icon">⚙️</span> Configurações</a></li>
+        <li><a href="/backend/login"><span class="emoji-icon">📊</span> Meu Painel</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="sidebar-overlay"></div>
 
   <!-- ========================================== -->
   <!-- NOVA HERO SECTION - ANIMAÇÃO BURACO NEGRO -->
@@ -329,6 +354,9 @@
       });
     });
   </script>
+
+  <!-- Script do menu mobile -->
+  <script src="js/mobile-menu.js"></script>
 
 </body>
 

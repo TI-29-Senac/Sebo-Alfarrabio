@@ -10,12 +10,19 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsivo.css">
 </head>
 
 <body>
   <header>
-    <img src="img/logo2.png" alt="Logo" class="logo">
-    <h3 class="alfa">O Alfarrábio</h3>
+    <div class="logo-container">
+      <img src="img/logo2.png" alt="Logo" class="logo">
+      <h3 class="alfa">O Alfarrábio</h3>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <i class="fas fa-bars"></i>
+    </button>
 
     <nav>
       <ul>
@@ -26,7 +33,7 @@
       </ul>
     </nav>
 
-    <!-- Ícone de Perfil do Usuário -->
+    <!-- ÍCONE DE PERFIL NO CANTO SUPERIOR DIREITO -->
     <div class="user-profile-header">
       <button class="profile-btn-header" aria-label="Perfil do usuário">
         <i class="fas fa-user-circle"></i>
@@ -51,6 +58,30 @@
       <span class="cart-count" id="cart-count">0</span>
     </button>
   </header>
+
+  <!-- SIDEBAR MOBILE -->
+  <div class="mobile-sidebar">
+    <div class="sidebar-header">
+      <img src="img/logo2.png" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <h3 class="sidebar-title">O Alfarrábio</h3>
+      <button class="close-sidebar" aria-label="Fechar menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html"><span class="emoji-icon">🏠</span> Home</a></li>
+        <li><a href="produtos.html"><span class="emoji-icon">📚</span> Produtos</a></li>
+        <li><a href="sobre.html"><span class="emoji-icon">ℹ️</span> Sobre</a></li>
+        <li><a href="contato.html"><span class="emoji-icon">✉️</span> Contato</a></li>
+        <li><a href="/backend/favoritos"><span class="emoji-icon">❤️</span> Favoritos</a></li>
+        <li><a href="/backend/admin/cliente/reservas"><span class="emoji-icon">🎫</span> Minhas Reservas</a></li>
+        <li><a href="/backend/configuracoes"><span class="emoji-icon">⚙️</span> Configurações</a></li>
+        <li><a href="/backend/login"><span class="emoji-icon">📊</span> Meu Painel</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="sidebar-overlay"></div>
 
   <main>
     <h3 class="contato-titulo">Nossos Contatos</h3>
@@ -91,21 +122,22 @@
       <div class="lojas-container">
         <h3>Plataformas</h3>
         <p>Você pode encontrar nossos produtos em diversas plataformas online. Confira abaixo:</p>
-        <ul>
+        <div class="plataformas-grid">
           <a href="https://shopee.com.br/oalfarrabio?uls_trackid=522d55rr00fk&utm_content=3fpZmtzMDWmXYVydYY6GXsErsC9d"
-            target="_blank">
+            target="_blank" class="plataforma-link">
             <img src="img/shopee.svg" alt="Shopee">
           </a>
 
-          <a href="https://www.amazon.com.br/s?me=A1G19KDMZCMN45&marketplaceID=A2Q3Y263D00KWC" target="_blank">
+          <a href="https://www.amazon.com.br/s?me=A1G19KDMZCMN45&marketplaceID=A2Q3Y263D00KWC" target="_blank"
+            class="plataforma-link">
             <img src="img/amazon-color-svgrepo-com.svg" alt="Amazon">
           </a>
 
-          <a href="https://www.estantevirtual.com.br/sebos-e-livreiros/o-alfarrabio" target="_blank">
+          <a href="https://www.estantevirtual.com.br/sebos-e-livreiros/o-alfarrabio" target="_blank"
+            class="plataforma-link">
             <img src="img/estante.webp" alt="Estante Virtual" class="estante">
           </a>
-
-        </ul>
+        </div>
     </section>
 
   </main>
@@ -153,6 +185,7 @@
   </footer>
 
   <script src="js/auth-header.js"></script>
+  <script src="js/mobile-menu.js"></script>
 </body>
 
 </html>

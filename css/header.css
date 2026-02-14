@@ -22,7 +22,6 @@ header {
   width: 100%;
   z-index: 1000;
   border-bottom: 1px solid rgba(189, 144, 86, 0.15);
-  position: relative;
 }
 
 /* ========================================
@@ -178,7 +177,7 @@ nav ul li a.active {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-name-header {

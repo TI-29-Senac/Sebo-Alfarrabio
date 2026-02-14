@@ -71,7 +71,7 @@
     font-family: 'Merriweather', serif;
     color: #a87e4b;
     text-align: center;
-    margin: 60px 0 30px;
+    margin: 130px 0 30px;
     position: relative;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -312,6 +312,7 @@
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -369,6 +370,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

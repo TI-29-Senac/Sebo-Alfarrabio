@@ -528,17 +528,9 @@ function criarCard(item, index) {
 function mostrarLoading() {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
-                <div style="
-                    width: 60px;
-                    height: 60px;
-                    border: 5px solid #e8dcc4;
-                    border-top: 5px solid #c8b896;
-                    border-radius: 50%;
-                    animation: spin 1s linear infinite;
-                    margin: 0 auto 20px;
-                "></div>
-                <p style="color: #8b7355; font-size: 16px;">Carregando produtos...</p>
+            <div class="status-container">
+                <div class="loading-spinner"></div>
+                <p class="status-message">Buscando as melhores obras para você...</p>
             </div>
         `;
     }
@@ -547,19 +539,11 @@ function mostrarLoading() {
 function mostrarErro(mensagem) {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
-                <div style="font-size: 48px; margin-bottom: 20px;">❌</div>
-                <h3 style="color: #e63946; margin-bottom: 10px;">Erro ao carregar produtos</h3>
-                <p style="color: #666; margin-bottom: 20px;">${mensagem}</p>
-                <button onclick="carregarProdutos()" style="
-                    padding: 12px 24px;
-                    background: linear-gradient(135deg, #d4a574, #c89968);
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-weight: bold;
-                ">Tentar Novamente</button>
+            <div class="status-container error-state">
+                <div class="error-icon">✕</div>
+                <h3 class="status-title">Ops! Algo deu errado</h3>
+                <p class="status-message">${mensagem}</p>
+                <button onclick="carregarProdutos()" class="status-btn">Tentar Novamente</button>
             </div>
         `;
     }
@@ -568,19 +552,11 @@ function mostrarErro(mensagem) {
 function mostrarMensagemVazia() {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px;">
-                <div style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;">📚</div>
-                <h3 style="color: #8b7355; margin-bottom: 10px;">Nenhum produto encontrado</h3>
-                <p style="color: #999; margin-bottom: 25px;">Tente ajustar os filtros ou fazer uma nova busca</p>
-                <button onclick="limparFiltros()" style="
-                    padding: 12px 24px;
-                    background: white;
-                    color: #8b6f47;
-                    border: 2px solid #c8b896;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-weight: bold;
-                ">Limpar Filtros</button>
+            <div class="status-container empty-state">
+                <div class="status-icon">📚</div>
+                <h3 class="status-title">Nenhum livro encontrado</h3>
+                <p class="status-message">Não encontramos resultados para sua busca. Tente ajustar os filtros!</p>
+                <button onclick="limparFiltros()" class="status-btn status-btn-outline">Limpar Filtros</button>
             </div>
         `;
     }

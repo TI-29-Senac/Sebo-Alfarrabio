@@ -31,10 +31,26 @@ async function carregarProdutos() {
       const itensLimitados = json.data.slice(0, 10);
       renderizarCarrosselContinuo(itensLimitados);
     } else {
-      document.getElementById('carouselTrack').innerHTML = '<div class="empty-message"><h3>Nenhum livro disponível</h3></div>';
+      document.getElementById('carouselTrack').innerHTML = `
+        <div class="status-container empty-state" style="padding: 40px;">
+          <div class="status-icon" style="font-size: 48px;">📚</div>
+          <h3 class="status-title" style="font-size: 20px;">Estante sob manutenção</h3>
+          <p class="status-message" style="font-size: 14px;">Estamos reorganizando nossas prateleiras. Volte em breve!</p>
+        </div>
+      `;
     }
   } catch (error) {
     console.error('❌ Erro ao carregar produtos:', error);
+    const track = document.getElementById('carouselTrack');
+    if (track) {
+      track.innerHTML = `
+        <div class="status-container error-state" style="padding: 40px;">
+          <div class="error-icon" style="width: 50px; height: 50px; font-size: 24px;">✕</div>
+          <h3 class="status-title" style="font-size: 20px;">Não foi possível carregar os livros</h3>
+          <button onclick="location.reload()" class="status-btn" style="padding: 10px 20px; font-size: 13px;">Tentar Novamente</button>
+        </div>
+      `;
+    }
   }
 }
 

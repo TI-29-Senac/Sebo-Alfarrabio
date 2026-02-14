@@ -1,603 +1,1267 @@
 /* ========================================
-   ESTILOS RESPONSIVOS GERAIS
-   Autor: O Alfarrábio
-   Descrição: Ajustes globais para Tablets e Celulares
+   CSS RESPONSIVO - SEBO O ALFARRÁBIO
+   Design mobile-first com breakpoints estratégicos
    ======================================== */
 
-/* --- RESET GLOBAL PARA RESPONSIVIDADE --- */
-html,
-body {
-    overflow-x: hidden;
-    width: 100%;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-img,
-video,
-iframe,
-svg {
-    max-width: 100%;
-    height: auto;
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
-/* Esconde menu hamburguer no desktop */
 .menu-toggle {
     display: none;
+    background: linear-gradient(135deg, rgb(189, 144, 86), rgb(169, 124, 66));
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 0;
+    box-shadow: 0 3px 10px rgba(189, 144, 86, 0.25);
+    position: relative;
+    z-index: 1001;
+}
+
+.menu-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(189, 144, 86, 0.4);
+    background: linear-gradient(135deg, rgb(169, 124, 66), rgb(149, 104, 46));
+}
+
+.menu-toggle:active {
+    transform: scale(0.95);
 }
 
 /* ========================================
-   TABLETS (Até 1024px)
+   SIDEBAR MOBILE
    ======================================== */
-@media screen and (max-width: 1024px) {
 
-    /* --- LAYOUT GERAL --- */
-    .container,
-    .main-layout {
-        width: 100%;
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(180deg, #3a2a1f 0%, #2d1f15 100%);
+    z-index: 2000;
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+.mobile-sidebar.active {
+    transform: translateX(0);
+}
+
+/* Header da Sidebar */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: rgba(189, 144, 86, 0.1);
+    border-bottom: 2px solid rgba(189, 144, 86, 0.3);
+    gap: 10px;
+}
+
+.sidebar-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    color: #f5f1e8;
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 1;
+    text-align: left;
+}
+
+.close-sidebar {
+    background: rgba(189, 144, 86, 0.2);
+    border: none;
+    color: #f5f1e8;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.close-sidebar:hover {
+    background: rgba(189, 144, 86, 0.4);
+    transform: rotate(90deg);
+}
+
+/* Navegação da Sidebar */
+.sidebar-nav {
+    padding: 10px 0;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sidebar-nav ul li {
+    margin: 0;
+    width: 100%;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    color: #f5f1e8;
+    text-decoration: none;
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    position: relative;
+    gap: 12px;
+}
+
+.sidebar-nav ul li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: rgba(189, 144, 86, 0.15);
+    transition: width 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover::before {
+    width: 100%;
+}
+
+.sidebar-nav ul li a:hover {
+    color: rgb(189, 144, 86);
+    padding-left: 28px;
+    border-left-color: rgb(189, 144, 86);
+    background: rgba(189, 144, 86, 0.05);
+}
+
+/* Emojis coloridos em vez de ícones Font Awesome */
+.emoji-icon {
+    font-size: 1.3rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover .emoji-icon {
+    transform: scale(1.15);
+}
+
+/* ========================================
+   OVERLAY DA SIDEBAR
+   ======================================== */
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================
+   CARDS DE LIVROS - MOBILE FIRST
+   ======================================== */
+
+/* Seção de livros mobile */
+@media (max-width: 768px) {
+    .books-section {
+        padding: 50px 0;
+        min-height: auto;
+    }
+
+    .books-container {
         padding: 0 20px;
-        box-sizing: border-box;
     }
 
-    /* --- MENU SECUNDÁRIO --- */
-    .menu-secundario ul {
-        gap: 15px;
-        left: 0;
+    .books-header h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
     }
 
-    .menu-secundario ul li a {
-        font-size: 15px;
+    .books-header p {
+        font-size: 16px;
     }
 
-    /* --- PRODUTOS (Grid de 3 Colunas) --- */
-    .container-p {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 20px;
+    .books-header .divider {
+        width: 80px;
+        height: 2px;
+        margin: 15px auto;
     }
 
-    /* --- HEADER --- */
+    /* Carrossel mobile - scroll horizontal */
+    .books-section .carousel-modern {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .books-section .carousel-modern::-webkit-scrollbar {
+        display: none;
+    }
+
+    .books-section .carousel-track {
+        display: flex;
+        gap: 12px !important;
+        padding: 20px 0 30px !important;
+        animation: none !important;
+        width: auto !important;
+        /* Height fixo removido aqui */
+    }
+
+    .books-section .carousel-track:hover {
+        animation-play-state: running;
+    }
+
+    /* Cards de livros mobile - 160px */
+    .book-card-modern {
+        flex: 0 0 160px !important;
+        max-width: 160px !important;
+        height: auto !important;
+        min-height: 280px;
+        scroll-snap-align: start;
+        padding: 0 !important;
+    }
+
+    .book-image-wrapper {
+        height: 180px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .book-image-wrapper img {
+        width: 80px !important;
+        height: auto !important;
+    }
+
+    .book-info {
+        padding: 12px !important;
+    }
+
+    .book-title {
+        font-size: 14px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 6px !important;
+        max-height: 36px !important;
+        overflow: hidden !important;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .book-author {
+        font-size: 12px !important;
+        margin-bottom: 8px !important;
+        color: #4a90e2 !important;
+    }
+
+    .book-price {
+        font-size: 16px !important;
+        color: #d4a574 !important;
+        font-weight: 700 !important;
+    }
+
+    .book-footer {
+        padding: 8px 12px !important;
+        gap: 6px !important;
+    }
+
+    .book-btn {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
+
+    .book-btn i {
+        font-size: 14px !important;
+    }
+}
+
+/* ========================================
+   MEDIA QUERY: TABLET (≤1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+
+    /* Header ajustes */
     header {
-        padding: 10px 20px;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .logo-container {
+        margin-left: 0;
+        gap: 0.6rem;
+    }
+
+    .logo {
+        height: 65px;
     }
 
     .alfa {
-        font-size: 1.4rem;
-        margin: 0 15px;
+        font-size: 1.2em;
     }
 
-    /* --- CARROSSEL LIVROS --- */
+    nav ul {
+        gap: 1rem;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    /* Seção de livros */
+    .book-card-modern {
+        flex: 0 0 250px;
+        height: 520px;
+    }
+
+    .book-image-wrapper {
+        height: 360px;
+    }
+
+    /* Categorias */
+    .categorias {
+        height: auto;
+        padding: 15px;
+    }
+
+    .svg img {
+        width: 110px;
+        height: 70px;
+    }
+
+    /* Hero section */
     .books-header h2 {
-        font-size: 2rem;
+        font-size: 40px;
     }
 
-    .carousel-modern {
-        margin: 0 40px;
-    }
-
-    /* --- DEPOIMENTOS --- */
-    .depoimento-slider {
-        padding: 0 50px;
+    .books-header p {
+        font-size: 18px;
     }
 }
 
 /* ========================================
-   CELULARES (Até 768px)
+   MEDIA QUERY: MOBILE LARGE (≤768px)
    ======================================== */
-@media screen and (max-width: 768px) {
 
-    /* --- TIPOGRAFIA --- */
-    body {
-        font-size: 14px;
-    }
+@media (max-width: 768px) {
 
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    /* ========================================
-       HEADER MOBILE - DESIGN MODERNO LIMPO
-       ======================================== */
-
+    /* ===== HEADER MOBILE ===== */
+    /* ===== HEADER MOBILE ===== */
     header {
+        padding: 0.5rem 1rem;
+        height: 70px;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        height: auto;
-        padding: 12px 16px;
         justify-content: space-between;
-        background: linear-gradient(180deg, #fcf6e9 0%, #faf4e6 100%);
-        border-radius: 0;
-        box-shadow: 0 2px 10px rgba(139, 115, 85, 0.1);
-        margin-bottom: 0;
-        gap: 0;
-    }
-
-    /* Container da Logo - Simples e limpo */
-    .logo-container {
-        display: flex;
         align-items: center;
         gap: 10px;
+    }
+
+    .logo-container {
+        margin-left: 0;
+        gap: 0.5rem;
         order: 1;
-        margin: 0;
-        padding: 0;
-        background: transparent;
-        border-radius: 0;
-        box-shadow: none;
-        flex: 1;
+        /* Primeiro elemento */
+        margin-right: auto;
+        /* Empurra o resto para a direita */
     }
 
-    .logo-container:active {
-        transform: none;
-        box-shadow: none;
-    }
-
-    /* Logo circular */
     .logo {
-        position: static;
-        margin: 0;
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        border: none;
-        box-shadow: 0 2px 6px rgba(139, 115, 85, 0.15);
-        transition: all 0.2s ease;
+        height: 65px;
+        /* Removido position relative/right que estava incorreto */
     }
 
-    .logo:hover {
-        transform: none;
-    }
-
-    /* Título compacto */
     .alfa {
-        position: static;
-        margin: 0;
-        text-align: left;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: rgb(139, 94, 60);
-    }
-
-    /* ========================================
-       AÇÕES DO HEADER - Lado direito
-       ======================================== */
-
-    /* Container para agrupar ações à direita */
-    .header-right-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    /* Esconde o perfil no mobile - fica no menu */
-    .user-profile-header {
         display: none;
-        order: 5;
+    }
+
+    /* Botão Menu Hambúrguer - Agora é o último (order 4) */
+    .menu-toggle {
+        display: flex;
+        order: 4;
+        background-color: #a18167;
+        /* Marrom médio */
+        color: white;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header nav {
+        display: none;
+    }
+
+    /* Container do Perfil - Ordem 3 */
+    .user-profile-header {
+        margin-left: 0;
+        order: 3;
     }
 
     .profile-btn-header {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        font-size: 1.1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        color: #5d4037;
         background: transparent;
-        color: rgb(139, 94, 60);
-        border: 2px solid rgba(189, 144, 86, 0.3);
-        box-shadow: none;
+        border: 2px solid #5d4037;
+        /* Borda marrom */
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
     }
 
-    .profile-btn-header:active {
-        transform: scale(0.95);
-        background: rgba(189, 144, 86, 0.1);
-    }
-
-    /* Dropdown do perfil - Slide de baixo */
-    .profile-dropdown-header {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        min-width: 100%;
-        border-radius: 20px 20px 0 0;
-        transform: translateY(100%);
-        max-height: 60vh;
-        overflow-y: auto;
-        box-shadow: 0 -4px 20px rgba(101, 67, 33, 0.2);
-        transition: transform 0.3s ease;
-    }
-
-    .profile-dropdown-header::before {
-        display: none;
-    }
-
-    .user-profile-header:hover .profile-dropdown-header,
-    .profile-dropdown-header.active {
-        transform: translateY(0);
-    }
-
-    .profile-dropdown-header a {
-        padding: 16px 20px;
-        font-size: 1rem;
-        border-bottom: 1px solid rgba(189, 144, 86, 0.1);
-    }
-
-    .profile-dropdown-header a i {
-        width: 22px;
-        font-size: 1.1rem;
-        margin-right: 14px;
-    }
-
-    /* Carrinho - Compacto */
+    /* Botão Carrinho - Ordem 2 */
     .btn-carrinho {
-        order: 3;
-        margin: 0 0 0 auto;
-        padding: 8px 12px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
-        box-shadow: 0 2px 8px rgba(189, 144, 86, 0.25);
+        margin-left: 0;
+        order: 2;
+        background-color: #d7ccc8;
+        /* Bege/Cinza claro */
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        /* Quadrado arredondado */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
         border: none;
+        position: relative;
+        /* Importante para o contador absoluto */
     }
 
     .btn-carrinho svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .btn-carrinho:active {
-        transform: scale(0.95);
+        stroke: white;
+        /* Ícone branco */
+        width: 24px;
+        height: 24px;
     }
 
     .cart-count {
-        position: absolute;
         top: -5px;
         right: -5px;
         width: 18px;
         height: 18px;
-        font-size: 9px;
-        border: 2px solid #fcf6e9;
-        animation: none;
-    }
-
-    /* ========================================
-       MENU HAMBURGUER
-       ======================================== */
-
-    .menu-toggle {
-        order: 3;
+        font-size: 10px;
+        background-color: #ef5350;
+        /* Vermelho para notificação */
+        color: white;
+        border-radius: 50%;
         display: flex;
-        align-items: center;
         justify-content: center;
-        width: 42px;
-        height: 42px;
-        background: rgba(255, 255, 255, 0.8);
-        border: 2px solid rgba(189, 144, 86, 0.2);
-        border-radius: 12px;
-        font-size: 1.4rem;
-        color: rgb(139, 94, 60);
-        cursor: pointer;
-        z-index: 1100;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.1);
-    }
-
-    .menu-toggle:active {
-        transform: scale(0.92);
-        background: rgba(189, 144, 86, 0.15);
-    }
-
-    .menu-toggle.active {
-        transform: rotate(90deg);
-        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
-        color: white;
-        border-color: transparent;
-    }
-
-    /* ========================================
-       NAVEGAÇÃO MOBILE - Cards com animação
-       ======================================== */
-
-    header nav {
-        order: 5;
-        flex-basis: 100%;
-        display: none;
-        background: transparent;
-        border-top: none;
-        padding: 16px 0 8px;
-        margin-top: 12px;
-    }
-
-    header nav.active {
-        display: block;
-        animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-16px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 8px;
-        padding: 0;
-        align-items: stretch;
-    }
-
-    header nav ul li {
-        width: 100%;
-        margin: 0;
-        animation: fadeInUp 0.4s ease forwards;
-        opacity: 0;
-    }
-
-    header nav ul li:nth-child(1) {
-        animation-delay: 0.05s;
-    }
-
-    header nav ul li:nth-child(2) {
-        animation-delay: 0.1s;
-    }
-
-    header nav ul li:nth-child(3) {
-        animation-delay: 0.15s;
-    }
-
-    header nav ul li:nth-child(4) {
-        animation-delay: 0.2s;
-    }
-
-    header nav ul li:nth-child(5) {
-        animation-delay: 0.25s;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(12px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Links de navegação - Estilo card moderno */
-    header nav ul li a {
-        display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 16px 20px;
-        background: rgba(255, 255, 255, 0.9);
-        text-align: center;
-        border: none;
-        border-radius: 16px;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: rgb(139, 94, 60);
-        box-shadow: 0 2px 12px rgba(139, 115, 85, 0.08);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: absolute;
     }
 
-    header nav ul li a:hover,
-    header nav ul li a:active {
-        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
-        color: white;
-        transform: scale(0.98);
-        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.3);
-        width: 100%;
-        border-radius: 16px;
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+        min-height: 60vh;
+        padding: 40px 0;
     }
 
-    header nav ul li a.active {
-        background: linear-gradient(135deg, rgb(189, 144, 86), rgb(159, 114, 56));
-        color: white;
-        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.35);
+    .book-emoji {
+        font-size: 5rem;
     }
 
-    header nav ul li a::after {
-        display: none;
-    }
-
-    /* ========================================
-       MENU SECUNDÁRIO MOBILE - Estilo App
-       ======================================== */
-
-    .menu-secundario {
-        height: auto;
-        padding: 16px 12px;
-        background: linear-gradient(180deg, #fcf6e9 0%, #f8f1e4 100%);
-        border-radius: 0;
-        margin: 0;
-        box-shadow: 0 2px 12px rgba(139, 115, 85, 0.08);
-    }
-
-    .menu-secundario nav {
-        flex-direction: column;
-        gap: 16px;
-        align-items: center;
-    }
-
-    /* Lista de categorias no estilo de ícones */
-    .menu-secundario ul {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: 8px;
-        padding: 0 4px;
-        margin: 0;
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .menu-secundario ul::-webkit-scrollbar {
-        display: none;
-    }
-
-    .menu-secundario ul li {
-        flex: 0 0 auto;
-        min-width: 70px;
-    }
-
-    .menu-secundario ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        padding: 12px 8px;
-        background: white;
-        border-radius: 16px;
-        font-size: 0.75rem;
-        color: rgb(139, 94, 60);
-        text-decoration: none;
-        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.08);
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-    }
-
-    .menu-secundario ul li a:hover,
-    .menu-secundario ul li a:active {
-        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
-        color: white;
-        transform: scale(0.96);
-        box-shadow: 0 4px 12px rgba(189, 144, 86, 0.3);
-    }
-
-    .menu-secundario ul li a i {
-        font-size: 1.4rem;
-        padding: 10px;
-        background: rgba(189, 144, 86, 0.1);
-        border-radius: 12px;
-        transition: all 0.3s ease;
-    }
-
-    .menu-secundario ul li a:hover i,
-    .menu-secundario ul li a:active i {
-        background: rgba(255, 255, 255, 0.3);
-        color: white;
-    }
-
-    /* Botão de cadastro - Estilo Pill */
-    .btn-cadastro {
-        margin-top: 8px;
-        padding: 14px 32px;
-        border-radius: 50px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        background: linear-gradient(135deg, rgb(189, 144, 86) 0%, rgb(159, 114, 56) 100%);
-        color: white;
-        box-shadow: 0 4px 16px rgba(189, 144, 86, 0.35);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        text-decoration: none;
-        display: inline-block;
-    }
-
-    .btn-cadastro:active {
-        transform: scale(0.96);
-        box-shadow: 0 2px 8px rgba(189, 144, 86, 0.4);
-    }
-
-    /* ========================================
-       HERO SECTION MOBILE
-       ======================================== */
-
-    .banner.hero-section {
-        height: auto;
-        min-height: 380px;
-        padding: 40px 16px;
-        flex-direction: column;
-        justify-content: center;
-        border-radius: 0 0 32px 32px;
-        margin-bottom: 8px;
-    }
-
-    .hero-text {
-        font-size: 1.4rem;
-        position: static;
-        margin-bottom: 16px;
-        text-align: center;
-        line-height: 1.4;
-    }
 
     .hero-search {
+        width: 90%;
+        max-width: 400px;
+        font-size: 0.95rem;
+        padding: 12px 20px;
+    }
+
+    /* ===== MENU SECUNDÁRIO ===== */
+    .menu-secundario {
+        padding: 15px 10px;
+    }
+
+    .menu-list {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .menu-list li a {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    .btn-cadastro {
+        margin-top: 10px;
         width: 100%;
-        max-width: 100%;
-        position: static;
-        padding: 16px 20px;
-        font-size: 1rem;
-        margin: 16px auto 0;
-        border-radius: 50px;
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        border: 2px solid rgba(189, 144, 86, 0.2);
-        transition: all 0.3s ease;
+        max-width: 200px;
+        text-align: center;
     }
 
-    .hero-search:focus {
-        border-color: rgb(189, 144, 86);
-        box-shadow: 0 4px 24px rgba(189, 144, 86, 0.25);
-        outline: none;
-    }
-
-    /* ========================================
-       CATEGORIAS MOBILE - Grid de Ícones
-       ======================================== */
-
+    /* ===== CATEGORIAS ===== */
     .categorias {
-        padding: 24px 12px;
-        background: #fcf6e9;
+        flex-direction: column;
+        height: auto;
+        padding: 20px 10px;
+        gap: 15px;
     }
 
     .cat {
-        font-size: 1.1rem;
-        margin-bottom: 16px;
+        font-size: 1.3em;
         text-align: center;
-        color: rgb(139, 94, 60);
+        width: 100%;
     }
 
     .generos {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 8px;
-        padding: 0;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        width: 100%;
+        padding: 10px;
     }
 
     .svg {
+        text-align: center;
+    }
+
+    .svg img {
+        width: 100px;
+        height: 65px;
+    }
+
+    .svg h4 {
+        font-size: 0.95rem;
+    }
+
+    /* ===== SEÇÃO DE LIVROS ===== */
+    .books-section {
+        padding: 50px 0;
+    }
+
+    .books-container {
+        padding: 0 20px;
+    }
+
+    .books-header h2 {
+        font-size: 32px;
+    }
+
+    .books-header p {
+        font-size: 16px;
+    }
+
+    .books-section .carousel-track {
+        gap: 20px;
+        padding: 20px 0 40px;
+        width: 100%;
+        /* Height fixo removido aqui */
+    }
+
+    .book-card-modern {
+        flex: 0 0 220px;
+        height: 480px;
+    }
+
+    .book-image-wrapper {
+        height: 320px;
+    }
+
+    .book-info {
+        padding: 18px;
+    }
+
+    .book-title {
+        font-size: 17px;
+        min-height: 44px;
+    }
+
+    .book-author {
+        font-size: 13px;
+    }
+
+    .book-price {
+        font-size: 24px;
+    }
+
+    .book-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    /* ===== SOBRE NÓS (HOME) ===== */
+    .sobre-p {
+        padding: 40px 20px;
+    }
+
+    .titulo-sobre {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .sobre {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .img-sobre {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .texto-sobre {
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .texto-sobre p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depoimentos {
+        padding: 40px 20px;
+    }
+
+    .depoimento-titulo {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .depoimento-track {
+        gap: 15px;
+    }
+
+    .depoimento-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    /* ===== PÁGINA SOBRE (Mobile) ===== */
+
+    .sobre-pag {
+        flex-direction: column;
+        padding: 30px 20px;
+        margin: 20px auto;
+        border-radius: 16px;
+    }
+
+    .img-sobre-pag {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 30px;
+        border-radius: 16px;
+    }
+
+    .texto-sobre-pag {
+        padding: 0;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .titulo-pag {
+        font-size: 2rem;
+        margin: 40px 0 20px;
+    }
+
+    .equipe {
+        padding: 40px 15px;
+    }
+
+    .equipe-pag {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 15px;
+    }
+
+    .img-equipe-pag {
+        width: 250px;
+        height: 250px;
+    }
+
+    .texto-equipe-pag {
+        padding: 20px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .carrossel-container {
+        margin: 40px 0;
+        padding: 30px 0;
+    }
+
+    .carrossel img {
+        width: 280px;
+        height: 180px;
+    }
+
+    .texto-sobre-pag p {
+        text-indent: 0;
+    }
+
+    /* ===== PÁGINA CONTATO (Mobile) ===== */
+
+    .contatos {
+        height: auto;
+        padding: 40px 20px;
+        flex-direction: column;
+    }
+
+    .contato-titulo {
+        font-size: 1.8rem;
+        margin: 30px 0 20px;
+    }
+
+    .contatos-icons {
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .contatos-icons li {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 12px 4px;
-        background: white;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .contatos-icons img {
+        margin: 0;
+        padding: 0;
+        width: 60px;
+        height: 60px;
+    }
+
+    .contatos-icons p {
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    .localizacao {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .localizacao h3 {
+        font-size: 1.6rem;
+        margin: 0 0 30px;
+        padding: 0;
+    }
+
+    .container-mapa {
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+    }
+
+    .container-mapa iframe {
+        height: 100%;
+    }
+
+    .lojas {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .lojas-container h3 {
+        font-size: 1.6rem;
+        margin: 0 0 20px;
+    }
+
+    .lojas-container p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .lojas-container ul {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 0;
+        margin-top: 30px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .lojas-container img {
+        margin: 0;
+        padding: 0;
+        width: 100px;
+    }
+
+    .lojas-container img.estante {
+        width: 160px;
+        margin: 0;
+    }
+
+    /* ===== PÁGINA PRODUTOS (Mobile) ===== */
+
+    .main-layout {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .sidebar-filtros {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-filtros h3 {
+        font-size: 1.5rem;
+    }
+
+    .container-p {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0;
+    }
+
+    .card-livro {
+        max-width: 100%;
+    }
+
+    /* Ajuste para card de produto ficar menor e caber 2 */
+    .card-imagem {
+        aspect-ratio: 2/3;
+    }
+
+    .card-titulo {
+        font-size: 13px;
+    }
+
+    .card-preco {
+        font-size: 14px;
+    }
+
+    /* Paginação mobile */
+    .paginacao-container {
+        padding: 20px 10px;
+        margin-top: 20px;
+    }
+
+    .paginacao-btn {
+        min-width: 35px;
+        height: 35px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    /* Modais */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        max-height: 95vh;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .modal-imagem img {
+        max-height: 300px;
+    }
+
+    .modal-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-acoes {
+        flex-direction: column;
+    }
+
+    /* Modal Carrinho */
+    .modal-carrinho .modal-body {
+        padding: 20px;
+    }
+
+    .cart-items li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .cart-items li>div {
+        width: 100%;
+    }
+
+    .btn-remove-cart {
+        align-self: flex-end;
+    }
+
+    .cart-total {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+        padding: 40px 20px;
+    }
+
+    .container-footer {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-nome {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-footer {
+        width: 70px;
+        height: 70px;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        flex-shrink: 0;
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    .footer-section h4 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        font-size: 0.9rem;
+    }
+
+    .footer-redes {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .footer-redes img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .footer-bottom {
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   MEDIA QUERY: MOBILE MEDIUM (≤480px)
+   ======================================== */
+
+@media (max-width: 480px) {
+
+    /* ===== HEADER ===== */
+    header {
+        height: 65px;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .logo {
+        height: 55px;
+        position: static;
+        right: auto;
+    }
+
+    .alfa {
+        font-size: 1rem;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .profile-btn-header,
+    .btn-carrinho {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+
+    .hero-search {
+        width: 90%;
+        max-width: 340px;
+        font-size: 1rem;
+        padding: 14px 20px;
+        top: 40px !important;
+        /* Espaço após o texto */
+        margin: 0 auto;
+        display: block;
+        position: relative;
+    }
+
+    .hero-text {
+        font-size: 28px !important;
+        /* Igualado ao título 'Descubra Novos Mundos' */
+        padding: 0 15px;
+        line-height: 1.3;
+        width: 100vw;
+        max-width: 100%;
+        display: block !important;
+        text-align: center;
+        overflow-wrap: normal;
+        white-space: normal !important;
+        font-weight: 700;
+    }
+
+    .hero-text span {
+        font-size: 28px !important;
+        /* Igualado ao título 'Descubra Novos Mundos' */
+        display: block !important;
+        margin-top: 5px;
+        white-space: nowrap;
+    }
+
+    /* Garante que a frase não quebre em letras */
+
+
+    /* Garantir que as letras animadas fiquem juntas e permitam animação de onda */
+    .hero-text .hero-char {
+        display: inline-block !important;
+        /* Permite transform e animação de onda */
+        white-space: pre !important;
+    }
+
+    .book-emoji {
+        font-size: 5rem !important;
+        /* Aumentado de 2.5rem */
+        margin-bottom: 15px;
+        filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.5));
+    }
+
+    .menu-secundario {
+        background: #fdfaf5;
+        padding: 15px 0;
+        overflow: visible;
+        height: auto !important;
+        min-height: 120px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .menu-secundario nav {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 5px;
+        align-items: center;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 5px 15px 15px 15px;
+        gap: 10px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        position: static !important;
+        left: 0 !important;
+        width: 100% !important;
+        list-style: none;
+    }
+
+    .menu-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-list li {
+        flex: 0 0 85px;
+        list-style: none;
+    }
+
+    .menu-list li a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 15px 5px;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+        border: 1px solid #f0e6d2;
+    }
+
+    .menu-list li a:active {
+        transform: scale(0.95);
+        background: #fdfaf5;
+    }
+
+    /* Ícone com fundo bege suave */
+    .menu-list li a i {
+        background: #f0e6d2;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        color: #8b7355;
+        font-size: 1.2rem;
+    }
+
+    .menu-list li a span,
+    .menu-list li a {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #8b7355;
+        font-family: 'Merriweather', serif;
+        word-wrap: break-word;
+    }
+
+    /* Botão Cadastre-se em Pílula */
+    .btn-cadastro {
+        width: 80%;
+        max-width: 250px;
+        box-sizing: border-box;
+        margin: 10px auto 0;
+        background: #b18c5e !important;
+        color: #ffffff !important;
+        border-radius: 40px !important;
+        padding: 12px 20px !important;
+        font-weight: 800 !important;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        box-shadow: 0 4px 15px rgba(177, 140, 94, 0.4);
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        clear: both;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* ===== CATEGORIAS - VISUAL PREMIUM ===== */
+    .categorias {
+        padding: 30px 15px;
+        background: #ffffff;
+        position: relative;
+        z-index: 10;
+        margin-top: 0;
+    }
+
+    .cat {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: #3b2a22;
+        text-align: center;
+        width: 100%;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .generos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* CARD CATEGORIA */
+    .svg {
+        background-color: #f0e6d2;
+        /* Bege claro da referência */
+        border: 2px solid #d4c5a9;
+        /* Borda sutil */
         border-radius: 16px;
-        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.08);
-        transition: all 0.3s ease;
+        padding: 25px 15px;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
     }
 
     .svg:active {
         transform: scale(0.95);
-        box-shadow: 0 4px 12px rgba(189, 144, 86, 0.2);
     }
 
     .svg a {
@@ -605,225 +1269,662 @@ svg {
         flex-direction: column;
         align-items: center;
         text-decoration: none;
-        gap: 6px;
+        width: 100%;
     }
 
+    /* ÍCONE CIRCULAR */
     .svg img {
-        width: 36px;
-        height: 36px;
-        padding: 8px;
-        background: rgba(189, 144, 86, 0.1);
-        border-radius: 12px;
-        transition: all 0.3s ease;
-    }
-
-    .svg:active img {
-        background: rgba(189, 144, 86, 0.2);
+        width: 80px;
+        height: 80px;
+        background-color: #d4a574;
+        /* Círculo marrom/bege escuro */
+        border-radius: 50%;
+        padding: 18px;
+        /* Espaço para o ícone dentro do círculo */
+        margin-bottom: 15px;
+        object-fit: contain;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .svg h4 {
-        font-size: 0.65rem;
-        color: rgb(139, 94, 60);
-        text-align: center;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #3b2a22;
+        /* Marrom escuro */
         margin: 0;
-        line-height: 1.2;
+        text-align: center;
+        font-family: 'Merriweather', serif;
     }
 
-    /* --- PRODUTOS (Grid de 1 Coluna) --- */
-    .container-p {
-        grid-template-columns: 1fr !important;
-        padding: 0 15px;
-    }
-
-    .sidebar-filtros {
-        width: 100%;
+    /* ===== SEÇÃO DE LIVROS - VISUAL PREMIUM DARK ===== */
+    .books-section {
+        background-color: #3b2a22 !important;
+        /* Marrom escuro da referência */
+        padding: 60px 0 !important;
         position: relative;
-        top: 0;
+        overflow: hidden;
+    }
+
+    .books-header h2 {
+        font-family: 'Merriweather', serif;
+        font-size: 28px;
+        color: #d4a574;
+        /* Dourado Premium */
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    .books-header .divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4a574, transparent);
+        margin: 10px auto;
+    }
+
+    .books-header p {
+        font-size: 14px;
+        color: #d4c5a9;
+        font-style: italic;
+        opacity: 0.9;
+        text-align: center;
         margin-bottom: 30px;
     }
 
-    .main-layout {
-        flex-direction: column;
-        padding: 20px 10px;
-    }
-
-    /* Card de Produto Mobile */
-    .card-imagem {
-        height: 350px;
-        /* Imagem maior no mobile */
-    }
-
-    /* --- ESPAÇO (Galeria) --- */
-    .espaco {
-        flex-direction: column;
-        padding: 20px;
-        height: auto;
-    }
-
-    .img-esquerda-1,
-    .img-esquerda-2,
-    .img-direita-1,
-    .img-direita-2,
-    .img-central {
-        width: 100%;
-        max-width: 300px;
-        height: 300px;
-        margin-bottom: 15px;
-        border-radius: 12px;
-    }
-
-    /* --- SEÇÃO LIVROS (Carrossel) --- */
-    .books-section {
-        padding: 40px 10px;
-    }
-
-    .carousel-modern {
-        margin: 0;
-        padding: 0 10px;
-    }
-
-    .card-modern {
-        min-width: 100%;
-        /* 1 livro por vez */
-        margin-right: 0;
-    }
-
-    /* --- SOBRE NÓS --- */
-    .sobre,
-    .sobre-pag,
-    .equipe-pag {
-        flex-direction: column;
-        padding: 30px 20px;
-        text-align: center;
-    }
-
-    .img-sobre,
-    .img-sobre-pag {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 0 30px 0;
-    }
-
-    .texto-sobre,
-    .texto-sobre-pag {
+    .books-container {
         padding: 0;
-        text-align: justify;
     }
 
-    /* --- CONTATO --- */
-    .contatos {
-        height: auto;
-        padding: 40px 0;
-        flex-direction: column;
-    }
-
-    .contatos-icons {
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .contatos-icons img {
-        margin: 0 auto 15px;
-        display: block;
-    }
-
-    .localizacao {
-        height: auto;
-        padding-bottom: 40px;
-    }
-
-    .container-mapa {
-        height: 300px;
-        width: 95%;
-    }
-
-    .lojas-container img {
-        margin: 20px 10px;
-        width: 60px;
-    }
-
-    /* --- FOOTER --- */
-    .container-footer {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-        padding: 30px 20px;
-    }
-
-    .footer-section {
+    /* Transformar Carrossel em Scroll Livre manual */
+    .books-section .carousel-track {
+        animation: none;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 10px 20px 40px 20px;
+        width: 100%;
         margin: 0;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        height: auto !important;
     }
 
-    .footer-redes {
+    /* CARD ESTILO DUOTONE PREMIUM DARK */
+    .book-card-modern {
+        flex: 0 0 160px;
+        height: 300px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        overflow: visible;
+        border: none;
+    }
+
+    /* Parte Superior (Imagem) - Bege mais Profundo */
+    .book-image-wrapper {
+        height: 170px;
+        background-color: #e6dac3;
+        /* Bege um pouco mais escuro para destaque no dark */
+        border-radius: 20px 20px 0 0;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .book-image-wrapper::after {
+        display: none;
+        /* Remove overlay original */
+    }
+
+    /* Capa do Livro "Flutuante" */
+    .book-image-wrapper img {
+        width: auto;
+        height: 120px;
+        /* Altura fixa da capa */
+        object-fit: contain;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        /* Sombra de profundidade */
+        border-radius: 4px;
+        transform: translateY(5px);
+        transition: transform 0.3s;
+    }
+
+    /* Parte Inferior (Info) - Branca */
+    .book-info {
+        background: #ffffff;
+        border-radius: 0 0 16px 16px;
+        padding: 12px 10px;
+        text-align: center;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
     }
 
-    /* --- MODAIS --- */
-    .modal-content {
-        width: 95%;
-        margin: 10px;
-        max-height: 90vh;
+    .book-title {
+        font-family: 'Merriweather', serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: #3b2a22;
+        /* Marrom escuro */
+        margin-bottom: 5px;
+        line-height: 1.3;
+        min-height: 32px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
+    .book-author {
+        font-size: 10px;
+        color: #8b7355;
+        margin-bottom: 5px;
         display: block;
-        /* Garante empilhamento */
     }
 
-    .modal-imagem img {
-        max-height: 250px;
-        margin: 0 auto 20px;
-        display: block;
+    .book-price-wrapper {
+        border-top: none;
+        padding-top: 0;
+        justify-content: center;
     }
 
-    .modal-acoes {
-        flex-direction: column;
-        gap: 10px;
+    .book-price {
+        font-size: 15px;
+        color: #c77919;
+        /* Laranja/Dourado */
+        font-weight: 800;
     }
 
-    /* Carrinho Modal */
-    .cart-items li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+    /* Esconder botão no mobile */
+    .book-btn {
+        display: none;
     }
 
-    .btn-remove-cart {
-        align-self: flex-end;
+    .book-badge {
+        font-size: 9px;
+        padding: 4px 8px;
+        top: 10px;
+        right: 10px;
+    }
+
+
+    /* Indicadores (Dots) Visuais */
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: -10px;
+        padding-bottom: 20px;
+    }
+
+    .carousel-indicators::before,
+    .carousel-indicators::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background-color: #d4c5a9;
+        border-radius: 50%;
+        opacity: 0.5;
+    }
+
+    /* Dot central "ativo" fake */
+    .carousel-indicators {
+        background-image: radial-gradient(circle, #8b7355 4px, transparent 5px);
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
         width: 100%;
+        height: 20px;
+    }
+
+    /* Cards de Loading para evitar quebras visuais */
+    .loading-card {
+        flex: 0 0 160px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(212, 165, 116, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .loading-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.1), transparent);
+        animation: loading-sweep 1.5s infinite;
+    }
+
+    @keyframes loading-sweep {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    main {
+        margin-top: 140px !important;
+        /* Aumentado para dar mais respiro abaixo do header fixo */
+    }
+
+    /* ===== SOBRE NÓS ===== */
+    .sobre,
+    .sobre-pag,
+    .equipe-pag {
+        flex-direction: column !important;
+        padding: 30px 15px !important;
+        text-align: center !important;
+        gap: 20px !important;
+    }
+
+    .img-sobre,
+    .img-sobre-pag,
+    .img-equipe-pag {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        height: auto !important;
+        border-radius: 12px !important;
+    }
+
+    .texto-sobre,
+    .texto-sobre-pag,
+    .texto-equipe-pag {
+        padding: 0 !important;
+        text-align: center !important;
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        text-align: justify !important;
+        /* Mantém legibilidade mas em bloco mobile */
+    }
+
+    .titulo-sobre,
+    .titulo-pag {
+        font-size: 1.8rem !important;
+        margin: 30px 0 20px !important;
+    }
+
+    .carrossel img {
+        width: 300px !important;
+        height: 200px !important;
+    }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depoimento-titulo {
+        font-size: 1.3em;
+    }
+
+    .depoimento-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    /* ===== CONTATO ===== */
+    .contatos {
+        height: auto !important;
+        padding: 20px 0 !important;
+    }
+
+    .contatos-icons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px 20px !important;
+        padding: 0 10px !important;
+    }
+
+    .contatos-icons li {
+        width: 100% !important;
+    }
+
+    .contatos-icons img {
+        margin: 0 0 12px 0 !important;
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .contatos-icons p {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .localizacao {
+        height: auto !important;
+        padding-bottom: 40px !important;
+    }
+
+    .container-mapa iframe {
+        height: 300px !important;
+    }
+
+    .lojas {
+        padding: 40px 15px !important;
+    }
+
+    .lojas-container h3 {
+        font-size: 1.8rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .lojas-container p {
+        font-size: 1rem !important;
+        margin-bottom: 30px !important;
+    }
+
+    .plataformas-grid {
+        gap: 15px !important;
+        /* Reduzido para caberem 3 logos na mesma linha */
+        flex-wrap: nowrap !important;
+        /* Força alinhamento horizontal */
+    }
+
+    .plataforma-link {
+        width: 80px !important;
+        height: 50px !important;
+    }
+
+    .plataforma-link img {
+        max-height: 100% !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
+
+    .plataforma-link img.estante {
+        width: 75px !important;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+        padding: 40px 20px !important;
+    }
+
+    .container-footer {
+        gap: 30px !important;
+    }
+
+    .footer-section h4,
+    .links h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .footer-section p,
+    .footer-section a,
+    .links a {
+        font-size: 0.9rem !important;
+    }
+
+    .footer-redes img {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem !important;
     }
 }
 
 /* ========================================
-   PEQUENOS CELULARES (Até 480px)
+   MEDIA QUERY: MOBILE SMALL (≤360px)
    ======================================== */
-@media screen and (max-width: 480px) {
-    .generos {
-        grid-template-columns: 1fr;
-        /* Lista vertical */
+
+@media (max-width: 360px) {
+
+    /* ===== HEADER ===== */
+    header {
+        height: 60px;
+        padding: 0.4rem 0.6rem;
     }
 
-    .hero-text {
-        font-size: 1.4rem;
+    .logo {
+        height: 50px;
+        position: static;
+        right: auto;
     }
 
-    .hero-search {
+    .alfa {
         font-size: 0.9rem;
     }
 
-    .btn,
-    .btn-primary,
-    .btn-comprar,
-    .btn-cadastro {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
+    .menu-toggle,
+    .profile-btn-header,
+    .btn-carrinho {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
 
-    .card-imagem {
-        height: 300px;
+    /* ===== HERO SECTION ===== */
+    .book-emoji {
+        font-size: 3.5rem;
+    }
+
+
+
+    .hero-search {
+        font-size: 0.85rem;
+        padding: 9px 12px;
+    }
+
+    /* ===== CATEGORIAS ===== */
+    .cat {
+        font-size: 1.1em;
+    }
+
+    .svg img {
+        width: 80px;
+        height: 55px;
+    }
+
+    .svg h4 {
+        font-size: 0.85rem;
+    }
+
+    /* ===== SEÇÃO DE LIVROS ===== */
+    .books-header h2 {
+        font-size: 24px;
+    }
+
+    .books-header p {
+        font-size: 13px;
+    }
+
+    .book-card-modern {
+        flex: 0 0 170px;
+        height: 410px;
+    }
+
+    .book-image-wrapper {
+        height: 260px;
+    }
+
+    .book-info {
+        padding: 12px;
+    }
+
+    .book-title {
+        font-size: 14px;
+        min-height: 38px;
+    }
+
+    .book-author {
+        font-size: 11px;
+    }
+
+    .book-price {
+        font-size: 20px;
+    }
+
+    .book-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .mobile-sidebar {
+        width: 260px;
+    }
+
+    .sidebar-nav ul li a {
+        font-size: 0.95rem;
+        padding: 14px 20px;
+    }
+
+    /* ===== PÁGINA DE PRODUTOS ===== */
+    .main-layout {
+        flex-direction: column !important;
+        padding: 5px 15px !important;
+        /* Reduzi padding lateral/top para usar margem */
+        margin-top: 130px !important;
+        /* Espaço base para o header */
+        gap: 20px !important;
+        min-height: auto !important;
+    }
+
+    .sidebar-filtros {
+        width: 100% !important;
+        position: static !important;
+        padding: 40px 20px 30px !important;
+        /* Aumentei padding TOP para descolar título FILTROS */
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        margin-top: 0 !important;
+    }
+
+    .sidebar-filtros h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .container-p {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        padding: 0 !important;
+    }
+
+    /* Garantir visibilidade dos cards em produtos.html caso classes divirjam */
+    .card-livro {
+        width: 100% !important;
+    }
+
+    .paginacao-container {
+        padding: 20px 10px !important;
+        margin-top: 20px !important;
+    }
+
+    .paginacao-btn {
+        min-width: 40px !important;
+        height: 40px !important;
+        padding: 0 10px !important;
+        font-size: 13px !important;
+    }
+
+    /* ===== OUTROS ELEMENTOS ===== */
+    .titulo-sobre,
+    .depoimento-titulo,
+    .contato-titulo {
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        margin-top: 100px !important;
+    }
+}
+
+/* ========================================
+   MELHORIAS DE UX MOBILE
+   ======================================== */
+
+/* Touch-friendly scroll horizontal estilizado */
+.menu-list,
+.books-section .carousel-track {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 12px !important;
+    /* Espaço para a barra de rolagem */
+}
+
+/* Custom Scrollbar styled for Premium look */
+.menu-list::-webkit-scrollbar,
+.books-section .carousel-track::-webkit-scrollbar {
+    height: 6px;
+    display: block !important;
+}
+
+.menu-list::-webkit-scrollbar-track,
+.books-section .carousel-track::-webkit-scrollbar-track {
+    background: rgba(189, 144, 86, 0.1);
+    border-radius: 10px;
+}
+
+.menu-list::-webkit-scrollbar-thumb,
+.books-section .carousel-track::-webkit-scrollbar-thumb {
+    background: #8b7355;
+    border-radius: 10px;
+}
+
+.menu-list::-webkit-scrollbar-thumb:hover,
+.books-section .carousel-track::-webkit-scrollbar-thumb:hover {
+    background: #b18c5e;
+}
+
+/* Evitar zoom no iOS em inputs */
+@media (max-width: 768px) {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* Animações otimizadas para mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: rgba(189, 144, 86, 0.2);
+    }
+
+    a,
+    button {
+        -webkit-tap-highlight-color: rgba(189, 144, 86, 0.3);
+    }
+}
+
+/* Scroll suave em toda a página */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Otimização de performance para animações */
+.mobile-sidebar,
+.sidebar-overlay,
+.menu-toggle,
+.book-card-modern {
+    will-change: transform;
+}
+
+/* ========================================
+   AJUSTES FINAIS HERO SECTION (≤768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+    .book-center {
+        width: 50px;
+        height: 50px;
+    }
+
+    .hero-content {
+        gap: 15px;
+        padding-top: 20px;
     }
 }

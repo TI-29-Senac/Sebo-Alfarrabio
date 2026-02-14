@@ -1,23 +1,4 @@
-/* ========================================
-   PI-GirlPower Dashboard Styles
-   ======================================== */
 
-   :root {
-    --primary: #FF69B4;
-    --primary-dark: #FF1493;
-    --secondary: #9370DB;
-    --accent: #4A90E2;
-    --success: #32CD32;
-    --warning: #FFA500;
-    --danger: #DC3545;
-    --dark: #2C3E50;
-    --light: #F8F9FA;
-    --gray: #6C757D;
-    --border: #E0E0E0;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --sidebar-width: 260px;
-    --topbar-height: 70px;
-}
 
 * {
     margin: 0;
