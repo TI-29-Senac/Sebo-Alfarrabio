@@ -604,6 +604,17 @@ function abrirModalProduto(produto) {
         });
     }
 
+    // Configurar links de plataformas externas
+    const btnShopee = document.getElementById('btn-shopee');
+    const btnEstante = document.getElementById('btn-estante');
+    const btnAmazon = document.getElementById('btn-amazon');
+
+    const termoBusca = encodeURIComponent(produto.titulo);
+
+    if (btnShopee) btnShopee.href = `https://shopee.com.br/shop/566365776/search?keyword=${termoBusca}`;
+    if (btnEstante) btnEstante.href = `https://www.estantevirtual.com.br/sebos-e-livreiros/o-alfarrabio?q=${termoBusca}`;
+    if (btnAmazon) btnAmazon.href = `https://www.amazon.com.br/s?me=A1G19KDMZCMN45&marketplaceID=A2Q3Y263D00KWC&k=${termoBusca}`;
+
     modalProduto.classList.add('show');
     document.body.style.overflow = 'hidden';
 }

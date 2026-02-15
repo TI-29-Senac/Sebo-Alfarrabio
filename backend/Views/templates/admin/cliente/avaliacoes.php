@@ -337,8 +337,15 @@
     }
 
     @keyframes modalSlideIn {
-        from { opacity: 0; transform: translateY(-30px) scale(0.95); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
+        from {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     }
 
     .modal-close {
@@ -352,7 +359,9 @@
         cursor: pointer;
     }
 
-    .modal-close:hover { color: #333; }
+    .modal-close:hover {
+        color: #333;
+    }
 
     /* Estrelas no Modal */
     .star-rating {
@@ -373,7 +382,7 @@
         color: #F5A623;
         transform: scale(1.1);
     }
-    
+
     .star-rating .star.hover {
         color: #F5A623;
     }
@@ -437,23 +446,29 @@
         background: var(--color-vintage-brown);
         color: white;
     }
-    
-    .btn-modal.primary:hover { background: #6B5235; }
-    
+
+    .btn-modal.primary:hover {
+        background: #6B5235;
+    }
+
     .btn-modal.danger {
         background: #D32F2F;
         color: white;
     }
-    
-    .btn-modal.danger:hover { background: #B71C1C; }
+
+    .btn-modal.danger:hover {
+        background: #B71C1C;
+    }
 
     .btn-modal.secondary {
         background: white;
         color: var(--color-text-primary);
         border: 1px solid #E0E0E0;
     }
-    
-    .btn-modal.secondary:hover { background: #F5F5F5; }
+
+    .btn-modal.secondary:hover {
+        background: #F5F5F5;
+    }
 
     @media (max-width: 768px) {
         .avaliacao-card {
@@ -503,7 +518,7 @@
             <?php foreach ($avaliacoes as $avaliacao): ?>
                 <div class="avaliacao-card" id="card-avaliacao-<?= $avaliacao['id_avaliacao'] ?>">
                     <!-- Imagem do Item -->
-                    <?php 
+                    <?php
                     $fotoItem = $avaliacao['foto_item'];
                     // Ajuste de caminho para imagens se necessário (servidor embutido)
                     if (!empty($fotoItem) && strpos($fotoItem, '/uploads') === 0 && strpos($fotoItem, '/backend') === false) {
@@ -511,9 +526,8 @@
                     }
                     ?>
                     <?php if (!empty($fotoItem)): ?>
-                        <img src="<?= htmlspecialchars($fotoItem) ?>" 
-                             alt="<?= htmlspecialchars($avaliacao['titulo_item'] ?? 'Item') ?>" 
-                             class="avaliacao-item-image">
+                        <img src="<?= htmlspecialchars($fotoItem) ?>"
+                            alt="<?= htmlspecialchars($avaliacao['titulo_item'] ?? 'Item') ?>" class="avaliacao-item-image">
                     <?php else: ?>
                         <div class="avaliacao-item-placeholder">
                             <i class="fa fa-book"></i>
@@ -553,7 +567,7 @@
                         <?php endif; ?>
 
                         <!-- Fotos da Avaliação -->
-                        <?php 
+                        <?php
                         $fotos = [];
                         if (!empty($avaliacao['fotos_urls'])) {
                             $fotos = explode(',', $avaliacao['fotos_urls']);
@@ -561,15 +575,14 @@
                             $fotos[] = $avaliacao['foto_principal'];
                         }
                         ?>
-                        
+
                         <?php if (!empty($fotos)): ?>
                             <div class="avaliacao-photos" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <?php foreach ($fotos as $foto): ?>
                                     <div class="avaliacao-user-photo">
-                                        <img src="<?= htmlspecialchars($foto) ?>" 
-                                             alt="Foto da avaliação" 
-                                             style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; cursor: pointer;"
-                                             onclick="window.open(this.src, '_blank')">
+                                        <img src="<?= htmlspecialchars($foto) ?>" alt="Foto da avaliação"
+                                            style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; cursor: pointer;"
+                                            onclick="window.open(this.src, '_blank')">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -577,8 +590,7 @@
 
                         <!-- Botões de Ação -->
                         <div class="avaliacao-actions">
-                            <button class="btn-acao-avaliacao btn-acao-editar" 
-                                    onclick="abrirModalEdicao(
+                            <button class="btn-acao-avaliacao btn-acao-editar" onclick="abrirModalEdicao(
                                         <?= $avaliacao['id_avaliacao'] ?>, 
                                         <?= $avaliacao['nota_avaliacao'] ?>, 
                                         '<?= addslashes($avaliacao['comentario_avaliacao'] ?? '') ?>',
@@ -586,8 +598,8 @@
                                     )">
                                 <i class="fa fa-edit"></i> Editar Avaliação
                             </button>
-                            <button class="btn-acao-avaliacao btn-acao-excluir" 
-                                    onclick="abrirModalExclusao(<?= $avaliacao['id_avaliacao'] ?>)">
+                            <button class="btn-acao-avaliacao btn-acao-excluir"
+                                onclick="abrirModalExclusao(<?= $avaliacao['id_avaliacao'] ?>)">
                                 <i class="fa fa-trash"></i> Excluir Avaliação
                             </button>
                         </div>
@@ -612,10 +624,10 @@
 <div class="modal-overlay" id="modalEdicao">
     <div class="modal-content">
         <button class="modal-close" onclick="fecharModalEdicao()">&times;</button>
-        
+
         <h3 style="margin-top:0; font-size:20px; font-weight:700;">Editar Avaliação</h3>
         <p style="color:#888; font-size:14px; margin-bottom:20px;" id="modalEdicaoTituloItem">Item</p>
-        
+
         <div class="rating-label">Sua nota</div>
         <div class="star-rating" id="starRatingEdicao">
             <i class="fa fa-star star" data-rating="1"></i>
@@ -625,11 +637,11 @@
             <i class="fa fa-star star" data-rating="5"></i>
         </div>
         <div class="rating-text" id="ratingTextEdicao"></div>
-        
+
         <div class="rating-label" style="margin-top:15px;">Seu comentário</div>
         <textarea class="modal-textarea" id="comentarioEdicao" maxlength="500"></textarea>
         <div class="char-counter"><span id="charCountEdicao">0</span>/500</div>
-        
+
         <div class="rating-label" style="margin-top: 15px;">Adicionar novas fotos (opcional) - Máx 5</div>
         <div class="file-upload-container">
             <input type="file" id="fotoEdicao" accept="image/*" multiple onchange="handleFileSelectEdicao(this)">
@@ -637,7 +649,7 @@
                 <!-- Thumbnails -->
             </div>
         </div>
-        
+
         <div class="modal-buttons">
             <button class="btn-modal secondary" onclick="fecharModalEdicao()">Cancelar</button>
             <button class="btn-modal primary" id="btnSalvarEdicao" onclick="salvarEdicao()">Salvar Alterações</button>
@@ -649,301 +661,317 @@
 <div class="modal-overlay" id="modalExclusao">
     <div class="modal-content">
         <button class="modal-close" onclick="fecharModalExclusao()">&times;</button>
-        
+
         <div style="text-align:center;">
             <i class="fa fa-exclamation-circle" style="font-size:40px; color:#D32F2F; margin-bottom:15px;"></i>
             <h3 style="margin:0 0 10px; font-size:20px;">Excluir Avaliação?</h3>
             <p style="color:#666; font-size:14px; margin-bottom:25px;">
                 Tem certeza que deseja excluir esta avaliação? Essa ação não pode ser desfeita.
             </p>
-            
+
             <div class="modal-buttons" style="justify-content:center;">
                 <button class="btn-modal secondary" onclick="fecharModalExclusao()">Cancelar</button>
-                <button class="btn-modal danger" id="btnConfirmarExclusao" onclick="confirmarExclusao()">Sim, Excluir</button>
+                <button class="btn-modal danger" id="btnConfirmarExclusao" onclick="confirmarExclusao()">Sim,
+                    Excluir</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// Estado Global
-let currentEdicaoId = null;
-let currentEdicaoRating = 0;
-let currentExclusaoId = null;
+    // Estado Global
+    let currentEdicaoId = null;
+    let currentEdicaoRating = 0;
+    let currentExclusaoId = null;
 
-const ratingTexts = {
-    1: 'Péssimo',
-    2: 'Ruim',
-    3: 'Regular',
-    4: 'Bom',
-    5: 'Excelente!'
-};
+    const ratingTexts = {
+        1: 'Péssimo',
+        2: 'Ruim',
+        3: 'Regular',
+        4: 'Bom',
+        5: 'Excelente!'
+    };
 
-let selectedFilesEdicao = [];
+    let selectedFilesEdicao = [];
 
-function handleFileSelectEdicao(input) {
-    const files = Array.from(input.files);
-    
-    if (selectedFilesEdicao.length + files.length > 5) {
-        alert("Você pode selecionar no máximo 5 imagens.");
-        return;
-    }
 
-    files.forEach(file => {
-        if (file.type.match('image.*')) {
-            selectedFilesEdicao.push(file);
+    function handleFileSelectEdicao(input) {
+        const files = Array.from(input.files);
+        const MAX_SIZE_MB = 5; // 5MB por imagem
+        const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+        if (selectedFilesEdicao.length + files.length > 5) {
+            alert("Você pode selecionar no máximo 5 imagens.");
+            return;
         }
-    });
 
-    renderPreviewEdicao();
-    input.value = ''; 
-}
+        // Valida cada arquivo
+        for (let file of files) {
+            // Verifica tamanho
+            if (file.size > MAX_SIZE_BYTES) {
+                const tamanhoMB = (file.size / 1024 / 1024).toFixed(1);
+                alert(`A imagem "${file.name}" tem ${tamanhoMB}MB e excede o limite de ${MAX_SIZE_MB}MB. Por favor, envie uma imagem menor.`);
+                return;
+            }
 
-function renderPreviewEdicao() {
-    const container = document.getElementById('previewContainerEdicao');
-    container.innerHTML = ''; 
-    
-    if (selectedFilesEdicao.length === 0) {
-        container.style.display = 'none';
-        return;
+            // Verifica tipo
+            if (file.type.match('image.*')) {
+                selectedFilesEdicao.push(file);
+            } else {
+                alert(`O arquivo "${file.name}" não é uma imagem válida.`);
+                return;
+            }
+        }
+
+        renderPreviewEdicao();
+        input.value = '';
     }
-    
-    container.style.display = 'flex'; 
-    
-    selectedFilesEdicao.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const div = document.createElement('div');
-            div.style.position = 'relative';
-            div.style.width = '100px';
-            div.style.height = '100px';
-            
-            div.innerHTML = `
+
+    function renderPreviewEdicao() {
+        const container = document.getElementById('previewContainerEdicao');
+        container.innerHTML = '';
+
+        if (selectedFilesEdicao.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        container.style.display = 'flex';
+
+        selectedFilesEdicao.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.width = '100px';
+                div.style.height = '100px';
+
+                div.innerHTML = `
                 <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
                 <button onclick="removerImagemEdicao(${index})" style="position: absolute; top: -5px; right: -5px; background: white; border-radius: 50%; border: 1px solid red; color: red; cursor: pointer; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
                     <i class="fa fa-times"></i>
                 </button>
             `;
-            container.appendChild(div);
-        }
-        reader.readAsDataURL(file);
-    });
-}
+                container.appendChild(div);
+            }
+            reader.readAsDataURL(file);
+        });
+    }
 
-function removerImagemEdicao(index) {
-    selectedFilesEdicao.splice(index, 1);
-    renderPreviewEdicao();
-}
+    function removerImagemEdicao(index) {
+        selectedFilesEdicao.splice(index, 1);
+        renderPreviewEdicao();
+    }
 
-// =======================
-// LÓGICA DE EDIÇÃO
-// =======================
+    // =======================
+    // LÓGICA DE EDIÇÃO
+    // =======================
 
-function abrirModalEdicao(id, nota, comentario, tituloItem) {
-    currentEdicaoId = id;
-    currentEdicaoRating = nota;
-    
-    document.getElementById('modalEdicaoTituloItem').textContent = tituloItem;
-    document.getElementById('comentarioEdicao').value = comentario;
-    document.getElementById('charCountEdicao').textContent = comentario.length;
-    
-    // Reset inputs de nova foto
-    selectedFilesEdicao = [];
-    document.getElementById('fotoEdicao').value = '';
-    renderPreviewEdicao();
+    function abrirModalEdicao(id, nota, comentario, tituloItem) {
+        currentEdicaoId = id;
+        currentEdicaoRating = nota;
 
-    updateStars(nota);
-    document.getElementById('modalEdicao').classList.add('active');
-}
+        document.getElementById('modalEdicaoTituloItem').textContent = tituloItem;
+        document.getElementById('comentarioEdicao').value = comentario;
+        document.getElementById('charCountEdicao').textContent = comentario.length;
 
-function fecharModalEdicao() {
-    document.getElementById('modalEdicao').classList.remove('active');
-    currentEdicaoId = null;
-}
+        // Reset inputs de nova foto
+        selectedFilesEdicao = [];
+        document.getElementById('fotoEdicao').value = '';
+        renderPreviewEdicao();
 
-function updateStars(rating) {
-    currentEdicaoRating = rating;
-    const stars = document.querySelectorAll('#starRatingEdicao .star');
-    stars.forEach((s, i) => {
-        s.classList.toggle('active', i < rating);
-    });
-    document.getElementById('ratingTextEdicao').textContent = ratingTexts[rating] || '';
-}
+        updateStars(nota);
+        document.getElementById('modalEdicao').classList.add('active');
+    }
 
-// Event Listeners para Estrelas
-document.querySelectorAll('#starRatingEdicao .star').forEach(star => {
-    star.addEventListener('click', function() {
-        updateStars(parseInt(this.dataset.rating));
-    });
-    
-    star.addEventListener('mouseenter', function() {
-        const rating = parseInt(this.dataset.rating);
-        document.querySelectorAll('#starRatingEdicao .star').forEach((s, i) => {
-            s.classList.toggle('hover', i < rating);
+    function fecharModalEdicao() {
+        document.getElementById('modalEdicao').classList.remove('active');
+        currentEdicaoId = null;
+    }
+
+    function updateStars(rating) {
+        currentEdicaoRating = rating;
+        const stars = document.querySelectorAll('#starRatingEdicao .star');
+        stars.forEach((s, i) => {
+            s.classList.toggle('active', i < rating);
+        });
+        document.getElementById('ratingTextEdicao').textContent = ratingTexts[rating] || '';
+    }
+
+    // Event Listeners para Estrelas
+    document.querySelectorAll('#starRatingEdicao .star').forEach(star => {
+        star.addEventListener('click', function () {
+            updateStars(parseInt(this.dataset.rating));
+        });
+
+        star.addEventListener('mouseenter', function () {
+            const rating = parseInt(this.dataset.rating);
+            document.querySelectorAll('#starRatingEdicao .star').forEach((s, i) => {
+                s.classList.toggle('hover', i < rating);
+            });
+        });
+
+        star.addEventListener('mouseleave', function () {
+            document.querySelectorAll('#starRatingEdicao .star').forEach(s => s.classList.remove('hover'));
         });
     });
-    
-    star.addEventListener('mouseleave', function() {
-        document.querySelectorAll('#starRatingEdicao .star').forEach(s => s.classList.remove('hover'));
+
+    // Contador Caracteres
+    document.getElementById('comentarioEdicao').addEventListener('input', function () {
+        document.getElementById('charCountEdicao').textContent = this.value.length;
     });
-});
 
-// Contador Caracteres
-document.getElementById('comentarioEdicao').addEventListener('input', function() {
-    document.getElementById('charCountEdicao').textContent = this.value.length;
-});
+    async function salvarEdicao() {
+        if (!currentEdicaoId || currentEdicaoRating < 1) return;
 
-async function salvarEdicao() {
-    if(!currentEdicaoId || currentEdicaoRating < 1) return;
-    
-    const btn = document.getElementById('btnSalvarEdicao');
-    const comentario = document.getElementById('comentarioEdicao').value;
-    
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Salvando...';
-    
-    try {
-        const formData = new FormData();
-        formData.append('id_avaliacao', currentEdicaoId);
-        formData.append('nota', currentEdicaoRating);
-        formData.append('comentario', comentario);
+        const btn = document.getElementById('btnSalvarEdicao');
+        const comentario = document.getElementById('comentarioEdicao').value;
 
-        selectedFilesEdicao.forEach((file, index) => {
-            formData.append('fotos_avaliacao[]', file);
-        });
-        
-        console.log('[Editar] Enviando:', {id: currentEdicaoId, nota: currentEdicaoRating, comentario});
-        
-        const resp = await fetch('/backend/api/cliente/avaliacao/atualizar', {
-            method: 'POST',
-            body: formData,
-            credentials: 'same-origin'
-        });
-        
-        console.log('[Editar] Status HTTP:', resp.status);
-        const data = await resp.json();
-        console.log('[Editar] Resposta:', data);
-        
-        if(data.success) {
-            // Atualiza o card no DOM em tempo real
-            const card = document.getElementById('card-avaliacao-' + currentEdicaoId);
-            if(card) {
-                // Atualiza estrelas
-                const stars = card.querySelectorAll('.avaliacao-stars i.fa-star');
-                stars.forEach((s, i) => {
-                    s.classList.toggle('filled', i < currentEdicaoRating);
-                });
-                // Atualiza texto da nota
-                const notaText = card.querySelector('.avaliacao-nota-text');
-                if(notaText) notaText.textContent = currentEdicaoRating + '/5';
-                // Atualiza comentário
-                const comentarioDiv = card.querySelector('.avaliacao-comentario');
-                if(comentarioDiv) {
-                    if(comentario && comentario.trim()) {
-                        comentarioDiv.className = 'avaliacao-comentario';
-                        comentarioDiv.innerHTML = comentario.replace(/\n/g, '<br>');
-                    } else {
-                        comentarioDiv.className = 'avaliacao-comentario empty';
-                        comentarioDiv.innerHTML = '<i class="fa fa-quote-left"></i> Nenhum comentário adicionado';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Salvando...';
+
+        try {
+            const formData = new FormData();
+            formData.append('id_avaliacao', currentEdicaoId);
+            formData.append('nota', currentEdicaoRating);
+            formData.append('comentario', comentario);
+
+            selectedFilesEdicao.forEach((file, index) => {
+                formData.append('fotos_avaliacao[]', file);
+            });
+
+            console.log('[Editar] Enviando:', { id: currentEdicaoId, nota: currentEdicaoRating, comentario });
+
+            const resp = await fetch('/backend/api/cliente/avaliacao/atualizar', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            });
+
+            console.log('[Editar] Status HTTP:', resp.status);
+            const data = await resp.json();
+            console.log('[Editar] Resposta:', data);
+
+            if (data.success) {
+                // Atualiza o card no DOM em tempo real
+                const card = document.getElementById('card-avaliacao-' + currentEdicaoId);
+                if (card) {
+                    // Atualiza estrelas
+                    const stars = card.querySelectorAll('.avaliacao-stars i.fa-star');
+                    stars.forEach((s, i) => {
+                        s.classList.toggle('filled', i < currentEdicaoRating);
+                    });
+                    // Atualiza texto da nota
+                    const notaText = card.querySelector('.avaliacao-nota-text');
+                    if (notaText) notaText.textContent = currentEdicaoRating + '/5';
+                    // Atualiza comentário
+                    const comentarioDiv = card.querySelector('.avaliacao-comentario');
+                    if (comentarioDiv) {
+                        if (comentario && comentario.trim()) {
+                            comentarioDiv.className = 'avaliacao-comentario';
+                            comentarioDiv.innerHTML = comentario.replace(/\n/g, '<br>');
+                        } else {
+                            comentarioDiv.className = 'avaliacao-comentario empty';
+                            comentarioDiv.innerHTML = '<i class="fa fa-quote-left"></i> Nenhum comentário adicionado';
+                        }
                     }
                 }
+                fecharModalEdicao();
+                alert('Avaliação atualizada com sucesso!');
+            } else {
+                alert(data.message || 'Erro ao atualizar.');
+                console.error('[Editar] Falha:', data.message);
             }
-            fecharModalEdicao();
-            alert('Avaliação atualizada com sucesso!');
-        } else {
-            alert(data.message || 'Erro ao atualizar.');
-            console.error('[Editar] Falha:', data.message);
+        } catch (e) {
+            console.error('[Editar] Erro de conexão:', e);
+            alert('Erro de conexão. Verifique se o servidor está rodando.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Salvar Alterações';
         }
-    } catch(e) {
-        console.error('[Editar] Erro de conexão:', e);
-        alert('Erro de conexão. Verifique se o servidor está rodando.');
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = 'Salvar Alterações';
     }
-}
 
-// =======================
-// LÓGICA DE EXCLUSÃO
-// =======================
+    // =======================
+    // LÓGICA DE EXCLUSÃO
+    // =======================
 
-function abrirModalExclusao(id) {
-    currentExclusaoId = id;
-    document.getElementById('modalExclusao').classList.add('active');
-}
+    function abrirModalExclusao(id) {
+        currentExclusaoId = id;
+        document.getElementById('modalExclusao').classList.add('active');
+    }
 
-function fecharModalExclusao() {
-    document.getElementById('modalExclusao').classList.remove('active');
-    currentExclusaoId = null;
-}
+    function fecharModalExclusao() {
+        document.getElementById('modalExclusao').classList.remove('active');
+        currentExclusaoId = null;
+    }
 
-async function confirmarExclusao() {
-    if(!currentExclusaoId) return;
-    
-    const btn = document.getElementById('btnConfirmarExclusao');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
-    
-    try {
-        const formData = new FormData();
-        formData.append('id_avaliacao', currentExclusaoId);
-        
-        console.log('[Excluir] Enviando id:', currentExclusaoId);
-        
-        const resp = await fetch('/backend/api/cliente/avaliacao/deletar', {
-            method: 'POST',
-            body: formData,
-            credentials: 'same-origin'
+    async function confirmarExclusao() {
+        if (!currentExclusaoId) return;
+
+        const btn = document.getElementById('btnConfirmarExclusao');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
+
+        try {
+            const formData = new FormData();
+            formData.append('id_avaliacao', currentExclusaoId);
+
+            console.log('[Excluir] Enviando id:', currentExclusaoId);
+
+            const resp = await fetch('/backend/api/cliente/avaliacao/deletar', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            });
+
+            console.log('[Excluir] Status HTTP:', resp.status);
+            const data = await resp.json();
+            console.log('[Excluir] Resposta:', data);
+
+            if (data.success) {
+                // Remove o card da UI sem recarregar
+                const card = document.getElementById('card-avaliacao-' + currentExclusaoId);
+                if (card) {
+                    card.style.transition = 'opacity 0.3s, transform 0.3s';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(20px)';
+                    setTimeout(() => card.remove(), 300);
+                }
+
+                fecharModalExclusao();
+
+                // Atualiza o contador de avaliações
+                const countEl = document.querySelector('.avaliacoes-count');
+                if (countEl) {
+                    const remaining = document.querySelectorAll('.avaliacao-card').length - 1;
+                    countEl.innerHTML = '<i class="fa fa-comment"></i> ' + remaining + ' avaliação(ões) realizada(s)';
+                }
+
+                // Se não houver mais cards, recarrega para mostrar estado vazio
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('.avaliacao-card');
+                    if (cards.length === 0) location.reload();
+                }, 400);
+
+            } else {
+                alert(data.message || 'Erro ao excluir.');
+                console.error('[Excluir] Falha:', data.message);
+            }
+        } catch (e) {
+            console.error('[Excluir] Erro de conexão:', e);
+            alert('Erro de conexão. Verifique se o servidor está rodando.');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Sim, Excluir';
+        }
+    }
+
+    // Fechar modais ao clicar fora
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
         });
-        
-        console.log('[Excluir] Status HTTP:', resp.status);
-        const data = await resp.json();
-        console.log('[Excluir] Resposta:', data);
-        
-        if(data.success) {
-            // Remove o card da UI sem recarregar
-            const card = document.getElementById('card-avaliacao-' + currentExclusaoId);
-            if(card) {
-                card.style.transition = 'opacity 0.3s, transform 0.3s';
-                card.style.opacity = '0';
-                card.style.transform = 'translateX(20px)';
-                setTimeout(() => card.remove(), 300);
-            }
-            
-            fecharModalExclusao();
-            
-            // Atualiza o contador de avaliações
-            const countEl = document.querySelector('.avaliacoes-count');
-            if(countEl) {
-                const remaining = document.querySelectorAll('.avaliacao-card').length - 1;
-                countEl.innerHTML = '<i class="fa fa-comment"></i> ' + remaining + ' avaliação(ões) realizada(s)';
-            }
-            
-            // Se não houver mais cards, recarrega para mostrar estado vazio
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.avaliacao-card');
-                if(cards.length === 0) location.reload();
-            }, 400);
-            
-        } else {
-            alert(data.message || 'Erro ao excluir.');
-            console.error('[Excluir] Falha:', data.message);
-        }
-    } catch(e) {
-        console.error('[Excluir] Erro de conexão:', e);
-        alert('Erro de conexão. Verifique se o servidor está rodando.');
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = 'Sim, Excluir';
-    }
-}
-
-// Fechar modais ao clicar fora
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-        if(e.target === this) {
-            this.classList.remove('active');
-        }
     });
-});
 </script>

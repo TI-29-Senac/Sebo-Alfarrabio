@@ -223,7 +223,10 @@ class Avaliacao
                 // Update foto_avaliacao (single column) to be the first available photo if it was empty, or just keep it synced with latest? 
                 // For simplicity, let's leave foto_avaliacao as is, or update it if it was null.
                 // A better approach for the legacy column: set it to the first photo from `tbl_avaliacao_fotos` to ensure consistency.
-                $this->db->exec("UPDATE tbl_avaliacao SET foto_avaliacao = (SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = $id_avaliacao LIMIT 1) WHERE id_avaliacao = $id_avaliacao");
+                $sqlUpdateFoto = "UPDATE tbl_avaliacao SET foto_avaliacao = (SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id LIMIT 1) WHERE id_avaliacao = :id";
+                $stmtUpdateFoto = $this->db->prepare($sqlUpdateFoto);
+                $stmtUpdateFoto->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+                $stmtUpdateFoto->execute();
             }
 
             $this->db->commit();

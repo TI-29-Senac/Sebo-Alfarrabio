@@ -204,42 +204,128 @@
   margin-top: 30px;
 }
 
-.btn-primary,
-.btn-comprar {
+.btn-reserva-outline,
+.btn-reserva-filled {
   flex: 1;
-  padding: 16px 28px;
-  border: none;
+  padding: 16px 10px;
   border-radius: 8px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s;
   text-transform: uppercase;
   letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-reserva-outline {
+  border: 2px solid #d4c5a9;
+  background: white;
+  color: #c8b896;
+}
+
+.btn-reserva-outline:hover {
+  background: #fdfaf5;
+  border-color: #bfa97a;
+  color: #bfa97a;
+}
+
+.btn-reserva-filled {
+  background: #c8b896;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(200, 184, 150, 0.4);
+}
+
+.btn-reserva-filled:hover {
+  background: #bfa97a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(191, 169, 122, 0.5);
+}
+
+/* ========================================
+   SEÇÃO DE PLATAFORMAS EXTERNAS
+   ======================================== */
+
+.modal-plataformas {
+  margin-top: 30px;
+  text-align: center;
+  border-top: 1px solid #e8dcc4;
+  padding-top: 20px;
+}
+
+.plataformas-titulo {
+  font-size: 14px;
+  color: #6b7c93;
+  /* Azul acinzentado suave */
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.plataformas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.btn-plataforma {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  background: white;
+}
+
+.btn-plataforma i {
+  font-size: 16px;
+}
+
+.btn-plataforma:hover {
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #ff8a8a 0%, #f47b7b 100%);
+/* Shopee */
+.btn-shopee {
+  border-color: #ee4d2d;
+  color: #ee4d2d;
+}
+
+.btn-shopee:hover {
+  background: #ee4d2d;
   color: white;
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg, #f47b7b 0%, #e66a6a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 123, 123, 0.3);
+/* Estante Virtual */
+.btn-estante {
+  border-color: #00bfa5;
+  color: #00bfa5;
 }
 
-.btn-comprar {
-  background: linear-gradient(135deg, #d4c5a9 0%, #bfa97a 100%);
-  color: #6b5638;
-}
-
-.btn-comprar:hover {
-  background: linear-gradient(135deg, #bfa97a 0%, #a89968 100%);
+.btn-estante:hover {
+  background: #00bfa5;
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(191, 169, 122, 0.3);
+}
+
+/* Amazon */
+.btn-amazon {
+  border-color: #ff9900;
+  color: #ff9900;
+}
+
+.btn-amazon:hover {
+  background: #ff9900;
+  color: white;
 }
 
 /* ========================================

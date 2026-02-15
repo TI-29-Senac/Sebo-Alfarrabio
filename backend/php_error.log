@@ -2505,3 +2505,8 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 18:29:20 UTC] Login bem-sucedido: bvalquiria988@gmail.com
+[15-Feb-2026 18:29:33 UTC] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[15-Feb-2026 18:29:33 UTC] ❌ ERRO PDO UPDATE: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'foto_avaliacao' at row 2
+[15-Feb-2026 19:25:58 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
+[15-Feb-2026 19:26:24 UTC] Login bem-sucedido: bvalquiria988@gmail.com

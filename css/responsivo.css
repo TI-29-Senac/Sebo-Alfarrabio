@@ -519,60 +519,87 @@ body {
 
     /* ===== MENU SECUNDÁRIO ===== */
     .menu-secundario {
-        padding: 15px 10px;
+        padding: 10px 8px;
+        min-height: auto;
+    }
+
+    .menu-secundario nav {
+        flex-direction: column;
+        gap: 12px;
     }
 
     .menu-list {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
         justify-content: center;
     }
 
     .menu-list li a {
-        font-size: 0.9rem;
-        padding: 8px 15px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        gap: 4px;
+    }
+
+    .menu-list li a i {
+        font-size: 0.75rem;
     }
 
     .btn-cadastro {
-        margin-top: 10px;
-        width: 100%;
-        max-width: 200px;
-        text-align: center;
+        margin-top: 0;
+        padding: 7px 18px;
+        font-size: 0.85rem;
+        width: auto;
+        max-width: 180px;
     }
 
     /* ===== CATEGORIAS ===== */
     .categorias {
         flex-direction: column;
         height: auto;
-        padding: 20px 10px;
-        gap: 15px;
+        padding: 18px 12px;
+        gap: 12px;
     }
 
     .cat {
-        font-size: 1.3em;
+        font-size: 1.15em;
         text-align: center;
         width: 100%;
+        margin-bottom: 5px;
     }
 
     .generos {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
         width: 100%;
-        padding: 10px;
+        padding: 5px;
+        max-width: 100%;
     }
 
     .svg {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .svg a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
     }
 
     .svg img {
-        width: 100px;
-        height: 65px;
+        width: 70px;
+        height: 55px;
+        object-fit: contain;
     }
 
     .svg h4 {
-        font-size: 0.95rem;
+        font-size: 0.75rem;
+        margin: 0;
     }
 
     /* ===== SEÇÃO DE LIVROS ===== */

@@ -38,6 +38,8 @@ header {
   gap: 0.8rem;
   margin-right: 2rem;
   margin-left: -5rem;
+   position: relative;
+  right: 50px;
   /* Ajustado de -10rem para -5rem para mover para a direita */
 }
 
@@ -52,6 +54,7 @@ header {
   transition: transform 0.3s ease;
   box-shadow: 0 3px 8px rgba(139, 115, 85, 0.15);
   flex-shrink: 0;
+ 
 }
 
 .logo:hover {
@@ -159,6 +162,8 @@ nav ul li a.active {
   border-radius: 50%;
   padding: 0;
   box-shadow: 0 3px 10px rgba(189, 144, 86, 0.25);
+  position: relative;
+  left: 50px;
 }
 
 .profile-btn-header:hover {
@@ -307,6 +312,8 @@ nav ul li a.active {
   font-weight: 600;
   margin-left: 1rem;
   box-shadow: 0 3px 10px rgba(189, 144, 86, 0.25);
+  position: relative;
+  left: 50px;
 }
 
 .btn-carrinho:hover {
