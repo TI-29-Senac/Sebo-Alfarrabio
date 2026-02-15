@@ -2470,3 +2470,18 @@ Stack trace:
 [13-Feb-2026 15:36:31 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [13-Feb-2026 15:36:52 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
 [13-Feb-2026 16:00:46 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[15-Feb-2026 15:11:39 UTC] PHP Warning:  require_once(C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 15:11:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='.;C:\php\pear') in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 15:11:39 UTC] PHP Warning:  require_once(C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 15:11:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='.;C:\php\pear') in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 15:11:39 UTC] PHP Warning:  require_once(C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[15-Feb-2026 15:11:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\AMD\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='.;C:\php\pear') in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\AMD\Videos\Sebo-Alfarrabio\backend\index.php on line 24
