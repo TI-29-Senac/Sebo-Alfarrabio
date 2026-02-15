@@ -16,6 +16,18 @@ body {
     position: relative;
 }
 
+/* Hide mobile-only elements on desktop */
+.menu-toggle {
+    display: none;
+}
+
+.mobile-sidebar {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
 
 /* ========================================
    CARDS DE LIVROS - MOBILE FIRST
