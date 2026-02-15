@@ -10,8 +10,6 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsivo.css">
-
 </head>
 
 <body>
@@ -87,36 +85,38 @@
   <div class="sidebar-overlay"></div>
 
   <!-- Conteúdo Principal -->
-  <div class="main-layout">
-    <!-- Sidebar de Filtros -->
-    <aside class="sidebar-filtros">
-      <h3> Filtros</h3>
+  <main>
+    <div class="main-layout">
+      <!-- Sidebar de Filtros -->
+      <aside class="sidebar-filtros">
+        <h3> Filtros</h3>
 
-      <label for="search-input"> Buscar Produto</label>
-      <input type="text" id="search-input" placeholder="Título ou autor..." />
+        <label for="search-input"> Buscar Produto</label>
+        <input type="text" id="search-input" placeholder="Título ou autor..." />
 
-      <label for="genero-select"> Gênero</label>
-      <select id="genero-select">
-        <option value="">Todos os Gêneros</option>
-      </select>
+        <label for="genero-select"> Gênero</label>
+        <select id="genero-select">
+          <option value="">Todos os Gêneros</option>
+        </select>
 
-      <label for="categoria-select"> Categoria</label>
-      <select id="categoria-select">
-        <option value="">Todas as Categorias</option>
-      </select>
+        <label for="categoria-select"> Categoria</label>
+        <select id="categoria-select">
+          <option value="">Todas as Categorias</option>
+        </select>
 
-      <button type="button" id="btn-aplicar-filtros">✓ Aplicar Filtros</button>
-      <button type="button" id="btn-limpar-filtros" class="btn-secundario">✕ Limpar Filtros</button>
+        <button type="button" id="btn-aplicar-filtros">✓ Aplicar Filtros</button>
+        <button type="button" id="btn-limpar-filtros" class="btn-secundario">✕ Limpar Filtros</button>
 
-      <div class="contador" id="total-produtos">
-        <i class="fas fa-box-open"></i> 0 produtos encontrados
-      </div>
-    </aside>
+        <div class="contador" id="total-produtos">
+          <i class="fas fa-box-open"></i> 0 produtos encontrados
+        </div>
+      </aside>
 
-    <!-- Grid de Produtos -->
-    <section class="container-p" id="produtos-grid">
-      <!-- Produtos renderizados via JS -->
-    </section>
+      <!-- Grid de Produtos -->
+      <section class="container-p" id="produtos-grid">
+        <!-- Produtos renderizados via JS -->
+      </section>
+  </main>
   </div>
 
   <!-- MODAL DE DETALHES DO PRODUTO -->
