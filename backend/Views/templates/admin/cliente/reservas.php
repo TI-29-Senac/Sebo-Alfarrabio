@@ -534,7 +534,7 @@
                     const formData = new FormData();
                     formData.append('id_pedido', id);
 
-                    fetch('/backend/api/cancelar-reserva.php', {
+                    fetch('/backend/admin/cliente/cancelar-reserva', {
                         method: 'POST',
                         body: formData
                     })

@@ -39,14 +39,6 @@ if ($basePath === '/' || $basePath === '.') {
     $basePath = '';
 }
 
-// Força o basePath a ser /backend se estivermos rodando via router.php ou se a pasta for backend
-// Isso permite que as URLs sejam /backend/api/...
-if (strpos($basePath, '/backend') === false && basename(getcwd()) !== 'backend') {
-    // Caso especial se estiver rodando da raiz mas o script estiver em backend/
-    if (file_exists(__DIR__ . '/index.php')) {
-        $basePath = '/backend';
-    }
-}
 
 $router->setBasePath($basePath);
 
