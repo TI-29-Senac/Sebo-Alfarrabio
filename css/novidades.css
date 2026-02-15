@@ -1,0 +1,168 @@
+/* ========================================
+   ESTILOS DA SEÇÃO NOVIDADES
+   ======================================== */
+.container {
+  padding: 3px 5px 75px 0px;
+}
+
+.cards-novidades {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: 'Merriweather', serif;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  height: auto;
+
+}
+
+
+.novidade {
+  color: #a87e4b;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  text-decoration: none;
+  padding: 5px;
+  margin-top: 50px;
+}
+
+.novidades h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.card-livros {
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.8rem;
+
+}
+
+.card-livro figure {
+  position: relative;
+  /* Necessário para posicionar o figcaption */
+}
+
+.card-livro {
+  display: flex;
+  position: relative;
+  height: 300px;
+  width: 200px;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px #3a1f019f;
+  text-align: center;
+  flex-direction: row;
+
+
+}
+
+.card-livro img {
+  display: flex;
+  position: relative;
+  height: 300px;
+  width: 200px;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
+}
+
+
+.card-livro:hover {
+  background-color: #694100;
+
+}
+
+.name {
+  padding: 8px;
+  gap: 0.5rem;
+  color: #694100;
+  font-family: 'Merriweather', serif;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+}
+
+small {
+  color: #a87e4b;
+  text-decoration: none;
+  list-style: none;
+  font-size: 0.9rem;
+  margin: 0.1rem 0;
+  font-family: 'Merriweather', serif;
+  text-align: center;
+}
+
+.figcaption-livros {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #000000cc, transparent);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  padding: 10px;
+  text-align: center;
+  transform: translateY(115%);
+  transition: transform 0.4s ease-in-out;
+  backdrop-filter: blur(5px);
+}
+
+.card-livro:hover .figcaption-livro {
+  transform: translateY(1%);
+}
+
+.saiba-mais {
+  position: absolute;
+  top: 50%;
+  left: 19%;
+  color: white;
+  background-color: #0000006b;
+  /* width: 100%; */
+  padding: 20px;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.card-livro .saiba-mais:hover {
+  position: absolute;
+  top: 50%;
+  left: 19%;
+  color: rgb(255, 255, 255);
+  background-color: #0000006b;
+  /* width: 100%; */
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  opacity: 1;
+}

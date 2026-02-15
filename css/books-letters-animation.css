@@ -1,0 +1,159 @@
+/* ========================================
+   ANIMAÇÃO DE LETRAS - SEÇÃO DE LIVROS
+   ======================================== */
+
+/* Ajustes na seção de livros para suportar a animação */
+.books-section {
+    position: relative;
+    background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%);
+    padding: 4rem 2rem;
+    overflow: hidden;
+}
+
+/* Canvas de fundo para as letras */
+.books-letters-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+/* Logo como marca d'água no fundo */
+.books-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-image: url('../img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.08;
+    z-index: 0;
+    animation: logoBreath 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Animação sutil de respiração para a logo */
+@keyframes logoBreath {
+
+    0%,
+    100% {
+        opacity: 0.08;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.12;
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+/* Container precisa estar acima do canvas e da logo */
+.books-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Atualizar cores do cabeçalho para contrastar com o fundo escuro */
+.books-section .books-header h2 {
+    color: #f4e4c1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.books-section .books-header .divider {
+    background: linear-gradient(90deg, transparent, #d4b896, transparent);
+}
+
+.books-section .books-header p {
+    color: #d4b896;
+}
+
+/* Atualizar cores dos botões de navegação */
+.books-section .nav-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #d4b896;
+    color: #3d2817;
+}
+
+.books-section .nav-btn:hover {
+    background: linear-gradient(135deg, #d4b896, #b89968);
+    color: white;
+}
+
+/* Indicadores */
+.books-section .carousel-indicators .indicator {
+    background: #d4b896;
+}
+
+.books-section .carousel-indicators .indicator.active {
+    background: #f4e4c1;
+}
+
+/* ========================================
+   ANIMAÇÃO DE ONDA PARA TÍTULO DA SEÇÃO
+   ======================================== */
+
+/* Preparar caracteres individuais para animação */
+.books-header h2 .book-char {
+    display: inline-block;
+    opacity: 0;
+    animation: formBookLetter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    white-space: pre;
+    /* Preserve spaces */
+}
+
+@keyframes formBookLetter {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(1.5) rotate(-10deg);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+        filter: blur(0);
+    }
+}
+
+/* Animação de onda contínua */
+.books-header h2.wave-active .book-char {
+    animation: waveBookLetter 3s ease-in-out infinite;
+    animation-delay: calc(var(--char-index) * 0.1s);
+    opacity: 1;
+    /* Garante que fique visível */
+    transform: translateY(0);
+    /* Reseta transformações anteriores */
+}
+
+@keyframes waveBookLetter {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        color: #d4a574;
+    }
+
+    25% {
+        transform: translateY(-8px);
+        color: #e7ba77;
+        /* Brilho */
+        text-shadow: 0 0 15px rgba(235, 154, 5, 0.8);
+    }
+
+    50% {
+        transform: translateY(0);
+        color: #d4a574;
+    }
+}
+
+

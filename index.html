@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sebo & Livraria O Alfarrábio</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS na ordem correta -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER COM ÍCONE DE PERFIL -->
+  <header>
+    <div class="logo-container">
+      <img src="img/logo2.png" alt="Logo" class="logo">
+      <h3 class="alfa">O Alfarrábio</h3>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+
+    <!-- ÍCONE DE PERFIL NO CANTO SUPERIOR DIREITO -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
+
+    <!-- Botão do Carrinho -->
+    <button class="btn-carrinho" id="btn-ver-carrinho" aria-label="Ver carrinho">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </header>
+
+  <!-- SIDEBAR MOBILE -->
+  <div class="mobile-sidebar">
+    <div class="sidebar-header">
+      <img src="img/logo2.png" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <h3 class="sidebar-title">O Alfarrábio</h3>
+      <button class="close-sidebar" aria-label="Fechar menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html"><span class="emoji-icon">🏠</span> Home</a></li>
+        <li><a href="produtos.html"><span class="emoji-icon">📚</span> Produtos</a></li>
+        <li><a href="sobre.html"><span class="emoji-icon">ℹ️</span> Sobre</a></li>
+        <li><a href="contato.html"><span class="emoji-icon">✉️</span> Contato</a></li>
+        <li><a href="/backend/favoritos"><span class="emoji-icon">❤️</span> Favoritos</a></li>
+        <li><a href="/backend/admin/cliente/reservas"><span class="emoji-icon">🎫</span> Minhas Reservas</a></li>
+        <li><a href="/backend/configuracoes"><span class="emoji-icon">⚙️</span> Configurações</a></li>
+        <li><a href="/backend/login"><span class="emoji-icon">📊</span> Meu Painel</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="sidebar-overlay"></div>
+  <main>
+
+    <!-- ========================================== -->
+    <!-- NOVA HERO SECTION - ANIMAÇÃO BURACO NEGRO -->
+    <!-- ========================================== -->
+    <section class="banner hero-section">
+      <div class="hero-container">
+        <!-- Container de animação de letras -->
+        <div class="letters-animation" id="lettersAnimation"></div>
+
+        <!-- Emoji de livro aberto (centro/buraco negro) -->
+        <div class="book-center">
+          <span class="book-emoji">📖</span>
+        </div>
+
+        <!-- Texto e input de pesquisa flutuante -->
+        <div class="hero-content">
+          <h2 class="hero-text">Onde cada livro tem uma nova <span>chance de ser descoberto.</span></h2>
+          <input class="hero-search" type="text" placeholder="🔍 Buscar livros..."
+            aria-label="Campo de busca de livros">
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU SECUNDÁRIO -->
+    <div class="menu-secundario">
+      <nav>
+        <ul class="menu-list">
+          <li><a href="#"><i class="fas fa-book"></i> Livros</a></li>
+          <li><a href="#"><i class="fas fa-compact-disc"></i> DVDs</a></li>
+          <li><a href="#"><i class="fas fa-music"></i> CDs</a></li>
+          <li><a href="#"><i class="fas fa-record-vinyl"></i> Discos</a></li>
+          <li><a href="#"><i class="fas fa-newspaper"></i> Revistas</a></li>
+        </ul>
+        <a href="/backend/login" class="btn-cadastro">Cadastre-se</a>
+      </nav>
+    </div>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias">
+      <h3 class="cat">CATEGORIAS</h3>
+      <div class="generos">
+        <div class="svg">
+          <a href="produtos.html?genero=Romance" class="filtro-genero" data-genero="Romance">
+            <img src="img/romance.svg" alt="Romance">
+            <h4>Romance</h4>
+          </a>
+        </div>
+        <div class="svg">
+          <a href="produtos.html?genero=Auto-ajuda" class="filtro-genero" data-genero="Auto-ajuda">
+            <img src="img/auto-ajuda.svg" alt="Auto-ajuda">
+            <h4>Auto-ajuda</h4>
+          </a>
+        </div>
+        <div class="svg">
+          <a href="produtos.html?genero=Ficção científica" class="filtro-genero" data-genero="Ficção científica">
+            <img src="img/ficcao.svg" alt="Ficção científica">
+            <h4>Ficção científica</h4>
+          </a>
+        </div>
+        <div class="svg">
+          <a href="produtos.html?genero=Fantasia" class="filtro-genero" data-genero="Fantasia">
+            <img src="img/fantasia.svg" alt="Fantasia">
+            <h4>Fantasia</h4>
+          </a>
+        </div>
+        <div class="svg">
+          <a href="produtos.html?genero=Terror" class="filtro-genero" data-genero="Terror">
+            <img src="img/terror.svg" alt="Terror">
+            <h4>Terror</h4>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO LIVROS COM ANIMAÇÃO -->
+    <section class="books-section">
+      <!-- Canvas para animação de letras -->
+      <canvas id="books-letters-canvas" class="books-letters-canvas"></canvas>
+
+      <div class="books-container">
+
+        <!-- Cabeçalho -->
+        <div class="books-header">
+          <h2>Descubra Novos Mundos</h2>
+          <div class="divider"></div>
+          <p>Nossa seleção especial para você</p>
+        </div>
+
+        <!-- Carrossel -->
+        <div class="carousel-modern">
+          <button class="nav-btn prev" aria-label="Anterior">‹</button>
+
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Loading inicial -->
+            <div class="loading-card"></div>
+            <div class="loading-card"></div>
+            <div class="loading-card"></div>
+            <div class="loading-card"></div>
+          </div>
+
+          <button class="nav-btn next" aria-label="Próximo">›</button>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="carousel-indicators" id="indicators"></div>
+
+      </div>
+    </section>
+
+    <!-- Script da animação de letras -->
+    <script src="js/books-letters-animation.js"></script>
+
+    <!-- Script do carrossel -->
+
+    <!-- SOBRE NÓS -->
+    <section class="sobre-p">
+      <h3 class="titulo-sobre">SOBRE NÓS</h3>
+      <div class="sobre">
+        <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre">
+        <div class="texto-sobre">
+          <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados.
+            Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo
+            diversificado e atendimento personalizado.</p>
+          <p>Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou
+            simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras
+            e
+            clássicos da literatura!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SEÇÃO DE AVALIAÇÕES / DEPOIMENTOS (NOVA!) -->
+    <!-- ========================================== -->
+    <section class="depoimentos">
+      <h3 class="depoimento-titulo">
+        <i class="fas fa-star" style="color: #d4a574; margin-right: 15px;"></i>
+        O Que Nossos Clientes Dizem
+        <i class="fas fa-star" style="color: #d4a574; margin-left: 15px;"></i>
+      </h3>
+
+      <!-- Container do slider com navegação -->
+      <div class="depoimento-slider">
+
+        <!-- Botões de navegação -->
+        <button class="depoimento-nav depoimento-nav-prev" aria-label="Ver avaliações anteriores" title="Anterior">
+          ‹
+        </button>
+        <button class="depoimento-nav depoimento-nav-next" aria-label="Ver próximas avaliações" title="Próximo">
+          ›
+        </button>
+
+        <!-- Track que será preenchido dinamicamente via JavaScript -->
+        <div class="depoimento-track" id="depoimentoTrack">
+          <!-- Loading inicial - será substituído por avaliações reais do banco -->
+          <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
+          <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
+          <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
+        </div>
+      </div>
+
+      <!-- Indicadores de posição (opcional - será preenchido via JS se necessário) -->
+      <div class="depoimento-indicadores" id="depoimentoIndicadores" role="tablist"
+        aria-label="Navegação de avaliações">
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container-footer">
+      <div class="footer-nome">
+        <img src="img/logo2.png" alt="Logo O Alfarrábio" class="logo-footer">
+        <h3>O Alfarrábio</h3>
+      </div>
+
+      <div>
+        <div class="links">
+          <h4>Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-section">
+          <h4>Entre em contato</h4>
+          <p><i class="fas fa-envelope"></i> contato@Oalfarrábio.com.br</p>
+          <p><i class="fas fa-map-marker-alt"></i> São Miguel Paulista, São Paulo - SP</p>
+          <p><i class="fas fa-phone"></i> +55 (11) 93277-2737</p>
+          <p><i class="fas fa-phone"></i> +55 (11) 97317-8024</p>
+        </div>
+      </div>
+
+      <div class="footer-section footer-redes">
+        <h4 class="h4">Redes Sociais</h4>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="img/instagram-with-circle-svgrepo-com.svg" alt="Instagram">
+        </a>
+        <a href="https://amazon.com.br" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
+          <img src="img/amazon-svgrepo-com.svg" alt="Amazon">
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- SCRIPTS -->
+  <!-- ========================================== -->
+
+  <!-- Script da animação do hero (NOVO!) -->
+  <script src="js/hero-animation.js"></script>
+
+  <!-- Script de Autenticação Global (Header) -->
+  <script src="js/auth-header.js"></script>
+
+  <!-- Scripts principais do site -->
+  <script src="js/novidades.js"></script>
+  <script src="js/sec-livros.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Script das avaliações dinâmicas -->
+  <script src="js/footer.js"></script>
+
+  <!-- Script dos filtros de gênero -->
+  <script>
+    /**
+     * Melhoria de UX para filtros de gênero
+     * Se já estiver na página de produtos, aplica filtro sem reload
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+      const linksFiltro = document.querySelectorAll('.filtro-genero');
+
+      linksFiltro.forEach(link => {
+        link.addEventListener('click', function (e) {
+          // Se já estiver na página de produtos, previne o reload e filtra
+          if (window.location.pathname.includes('produtos.html')) {
+            e.preventDefault();
+            const genero = this.getAttribute('data-genero');
+
+            // Seleciona o gênero no select e aplica o filtro
+            const generoSelect = document.getElementById('genero-select');
+            if (generoSelect && typeof aplicarFiltros === 'function') {
+              generoSelect.value = genero;
+              aplicarFiltros();
+
+              // Scroll suave até os produtos
+              const produtosSection = document.getElementById('produtos-grid');
+              if (produtosSection) {
+                produtosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          }
+          // Se não estiver na página de produtos, deixa o link redirecionar normalmente
+        });
+      });
+    });
+  </script>
+
+  <!-- Script do menu mobile -->
+  <script src="js/mobile-menu.js"></script>
+
+</body>
+
+</html>

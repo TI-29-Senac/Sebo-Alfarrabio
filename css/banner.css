@@ -1,0 +1,86 @@
+/* ========================================
+   ESTILOS DO BANNER
+   ======================================== */
+.banner-img {
+  height: 80vh;
+  width: 600px;
+  display: flex;
+  text-align: center;
+  color: white;
+  font-family: 'Merriweather', serif;
+  right: -1305px;
+  position: relative;
+}
+
+
+.pesquisa {
+  background-color: #aa6d0b63;
+  display: flex;
+  position: relative;
+  bottom: 150px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 300px;
+  color: rgb(100, 40, 0);
+  border-radius: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  height: 50px;
+  width: 40%;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 1px solid rgba(95, 31, 2, 0.288);
+
+  font-family: 'Merriweather', serif;
+
+}
+
+.text {
+  top: 150px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 2.8rem;
+  color: rgb(189, 144, 86);
+  font-family: 'Merriweather', serif;
+  padding: 0;
+  position: absolute;
+  align-items: center;
+  left: 0;
+  right: 0;
+  text-shadow: -6px 0px 5px #69410063;
+  margin: auto;
+}
+
+.container {
+  position: relative;
+  flex-wrap: wrap;
+  box-shadow: #6941004f 10px 4px 10px 4px;
+}
+
+/*.menu-secundario {
+  margin-top: 0;
+  padding-top: 0;
+}
+*/
+
+
+nav {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+hr {
+  display: none !important;
+}
+
+.fig {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: 0;
+}

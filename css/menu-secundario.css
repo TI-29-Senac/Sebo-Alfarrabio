@@ -1,0 +1,73 @@
+/* ========================================
+   ESTILOS DO MENU SECUNDÁRIO
+   ======================================== */
+.menu-secundario {
+  background-color: #fcf6e9;
+  /* bege do menu principal */
+  padding: 1px 0;
+  height: 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(80, 28, 7, 0.863);
+  justify-content: center;
+  display: flex;
+}
+
+.menu-secundario nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.menu-secundario ul {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 30px;
+  right: 0%;
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-secundario ul li a {
+  font-family: "Georgia", serif;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #8a6447;
+  transition: .2s ease;
+}
+
+.menu-secundario ul li a:hover {
+  color: #e99517d7;
+  text-decoration: underline;
+}
+
+/* Botão igual ao da primeira imagem */
+.btn-cadastro {
+  background: #cc8a6b;
+  padding: 9px 25px;
+  border-radius: 30px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  transition: .2s ease;
+}
+
+.btn-cadastro:hover {
+  filter: brightness(1.1);
+}
+
+.banner,
+.menu-secundario,
+header {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre - Sebo & Livraria O Alfarrábio</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="img/logo2.png" alt="Logo" class="logo">
+      <h3 class="alfa">O Alfarrábio</h3>
+    </div>
+
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+
+    <!-- ÍCONE DE PERFIL NO CANTO SUPERIOR DIREITO -->
+    <div class="user-profile-header">
+      <button class="profile-btn-header" aria-label="Perfil do usuário">
+        <i class="fas fa-user-circle"></i>
+      </button>
+      <div class="profile-dropdown-header">
+        <a href="/backend/login"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
+        <a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>
+        <a href="/backend/favoritos"><i class="fas fa-heart"></i> Favoritos</a>
+        <a href="/backend/configuracoes"><i class="fas fa-cog"></i> Configurações</a>
+        <hr>
+        <a href="/backend/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+      </div>
+    </div>
+
+    <!-- Botão do Carrinho -->
+    <button class="btn-carrinho" id="btn-ver-carrinho" aria-label="Ver carrinho">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </header>
+
+  <!-- SIDEBAR MOBILE -->
+  <div class="mobile-sidebar">
+    <div class="sidebar-header">
+      <img src="img/logo2.png" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <h3 class="sidebar-title">O Alfarrábio</h3>
+      <button class="close-sidebar" aria-label="Fechar menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="index.html"><span class="emoji-icon">🏠</span> Home</a></li>
+        <li><a href="produtos.html"><span class="emoji-icon">📚</span> Produtos</a></li>
+        <li><a href="sobre.html"><span class="emoji-icon">ℹ️</span> Sobre</a></li>
+        <li><a href="contato.html"><span class="emoji-icon">✉️</span> Contato</a></li>
+        <li><a href="/backend/favoritos"><span class="emoji-icon">❤️</span> Favoritos</a></li>
+        <li><a href="/backend/admin/cliente/reservas"><span class="emoji-icon">🎫</span> Minhas Reservas</a></li>
+        <li><a href="/backend/configuracoes"><span class="emoji-icon">⚙️</span> Configurações</a></li>
+        <li><a href="/backend/login"><span class="emoji-icon">📊</span> Meu Painel</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="sidebar-overlay"></div>
+
+  <main>
+    <h3 class="titulo-sobre">Sobre Nós</h3>
+    <section class="sobre">
+      <div class="sobre-pag">
+        <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre-pag">
+        <div class="texto-sobre-pag">
+          <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados.
+            Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo
+            diversificado e atendimento personalizado.
+            Nosso espaço é acolhedor e convidativo, ideal para quem busca um lugar tranquilo para ler, estudar ou
+            simplesmente apreciar o universo dos livros. Venha nos visitar e descubra o prazer de encontrar obras raras
+            e clássicos da literatura!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="equipe">
+      <h3 class="titulo-pag">Nossa Equipe</h3>
+      <div class="equipe-pag">
+        <img src="img/fotin.jpg" alt="Imagem sobre nós" class="img-equipe-pag">
+        <div class="texto-equipe-pag">
+          <p>Somos a equipe que transforma páginas em pontes e livros em encontros. Com a gente, cada capítulo é escrito
+            com paixão, café e boas risadas!</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="carrossel-container">
+      <h3 class="titulo-pag">Nosso Espaço</h3>
+      <div class="carrossel" id="carrossel">
+        <img src="img/espaco.png" alt="Foto do espaço">
+        <img src="img/melhorada_1.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_2.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_3.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_4.jpg" alt="Foto do espaço">
+        <!-- Repete as imagens pro efeito de looping -->
+        <img src="img/espaco.png" alt="Foto do espaço">
+        <img src="img/melhorada_1.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_2.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_3.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_4.jpg" alt="Foto do espaço">
+        <!-- Repete as imagens pro efeito de looping -->
+        <img src="img/espaco.png" alt="Foto do espaço">
+        <img src="img/melhorada_1.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_2.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_3.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_4.jpg" alt="Foto do espaço">
+        <!-- Repete as imagens pro efeito de looping -->
+        <img src="img/espaco.png" alt="Foto do espaço">
+        <img src="img/melhorada_1.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_2.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_3.jpg" alt="Foto do espaço">
+        <img src="img/melhorada_4.jpg" alt="Foto do espaço">
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container-footer">
+      <div class="footer-nome">
+        <img src="img/logo2.png" alt="Logo" class="logo-footer">
+        <h3>O Alfarrábio</h3>
+      </div>
+
+      <div>
+        <div class="links">
+          <h4>Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-section">
+          <h4>Entre em contato</h4>
+          <p>contato@Oalfarrábio.com.br</p>
+          <p>São Miguel Paulista, São Paulo - SP</p>
+          <p>+55 (11) 93277-2737</p>
+          <p>+55 (11) 97317-8024</p>
+        </div>
+
+        <div class=" footer-section footer-redes">
+          <h4 class="h4">Redes Sociais</h4>
+          <a href="https://www.instagram.com/oalfarrabio.livraria"><img src="img/instagram-with-circle-svgrepo-com.svg"
+              alt="Instagram"></a>
+          <a href="https://www.amazon.com.br/s?me=A1G19KDMZCMN45&marketplaceID=A2Q3Y263D00KWC"><img
+              src="img/amazon-svgrepo-com.svg" alt="Amazon"></a>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+        </div>
+
+      </div>
+
+  </footer>
+  <script src="js/auth-header.js"></script>
+  <script src="js/mobile-menu.js"></script>
+</body>
+
+</html>

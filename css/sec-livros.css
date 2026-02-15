@@ -1,0 +1,350 @@
+/* ========================================
+   SEÇÃO LIVROS INOVADORA
+   ======================================== */
+.books-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #996f3b 0%, #996f3b 50%, #75542b 100%);
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+/* Textura de fundo */
+.books-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(200, 184, 150, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168, 126, 78, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Container principal */
+.books-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Cabeçalho da seção */
+.books-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.books-header h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 48px;
+  color: #f5f1e8;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.books-header p {
+  font-size: 20px;
+  color: #d4c5a9;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.books-header .divider {
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #c8b896, transparent);
+  margin: 25px auto;
+}
+
+/* Carrossel moderno - apenas para sec-livros */
+.books-section .carousel-modern {
+  position: relative;
+  margin: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Track do carrossel - SOMENTE sec-livros */
+.books-section .carousel-track {
+  display: flex;
+  gap: 30px;
+  padding: 30px 0 50px;
+  animation: rolling-books 60s linear infinite;
+  width: max-content;
+  will-change: transform;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.books-section .carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.books-section .carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes rolling-books {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Card moderno */
+.book-card-modern {
+  flex: 0 0 280px;
+  background: linear-gradient(145deg, #f9f7f4, #ebe3d5);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  height: 580px;
+  /* Altura fixa para padronização */
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card-modern:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(200, 184, 150, 0.4);
+}
+
+/* Badge de destaque */
+.book-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem com overlay */
+.book-image-wrapper {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  background: #3a2a1f;
+}
+
+.book-image-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(58, 42, 31, 0.9), transparent);
+}
+
+.book-card-modern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.book-card-modern:hover img {
+  transform: scale(1.1);
+}
+
+/* Info do livro */
+.book-info {
+  padding: 25px;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-title {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #3a2a1f;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 52px;
+}
+
+.book-author {
+  font-size: 14px;
+  color: #8b7355;
+  font-style: italic;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 20px;
+  /* Garante espaço mesmo sem autor */
+}
+
+/* Preço em destaque */
+.book-price-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 2px solid rgba(200, 184, 150, 0.2);
+  margin-top: auto;
+  /* Empurra para o final do card */
+}
+
+.book-price {
+  font-family: 'Merriweather', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #c89968;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-btn {
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.book-btn:hover {
+  background: linear-gradient(135deg, #a89968, #8b7355);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(168, 153, 104, 0.4);
+}
+
+/* Botões de navegação */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #c8b896, #a89968);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover {
+  background: linear-gradient(135deg, #d4c5a9, #c8b896);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 30px rgba(200, 184, 150, 0.5);
+}
+
+.nav-btn.prev,
+.nav-btn.next {
+  display: none !important;
+  /* Removidos para o efeito de rolagem contínua */
+}
+
+/* Indicadores de página - OCULTOS */
+.carousel-indicators {
+  display: none;
+}
+
+/* Loading state */
+.loading-card {
+  flex: 0 0 280px;
+  height: 550px;
+  background: linear-gradient(90deg,
+      rgba(249, 247, 244, 0.5) 0%,
+      rgba(232, 220, 196, 0.5) 50%,
+      rgba(249, 247, 244, 0.5) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 24px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mensagem vazia */
+.empty-message {
+  text-align: center;
+  padding: 80px 20px;
+  color: #d4c5a9;
+}
+
+.empty-message-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.empty-message h3 {
+  font-size: 28px;
+  color: #f5f1e8;
+  margin-bottom: 10px;
+  font-family: 'Merriweather', serif;
+}
+

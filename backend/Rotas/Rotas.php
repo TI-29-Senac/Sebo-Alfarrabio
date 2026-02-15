@@ -1,0 +1,315 @@
+<?php
+
+namespace Sebo\Alfarrabio\Rotas;
+
+class Rotas
+{
+    public static function get()
+    {
+        return [
+            "GET" => [
+                // ========================================
+                // ROTAS PÚBLICAS
+                // ========================================
+
+                // Produtos públicos (catálogo)
+                "/produtos" => "Public\PublicItemController@viewProdutos",
+                "/produtos/{pagina}" => "Public\PublicItemController@viewProdutos",
+
+                // ========================================
+                // AUTENTICAÇÃO
+                // ========================================
+
+                '/register' => 'AuthController@register',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
+                '/api/auth/session' => 'AuthController@checkSession',
+
+
+                // ========================================
+                // CLIENTE
+                // ========================================
+                '/admin/cliente' => "DashboardControllerCliente@index",
+                '/admin/cliente/avaliacoes' => "DashboardControllerCliente@avaliacoes",
+                '/admin/cliente/reservas' => "DashboardControllerCliente@reservas",
+                '/admin/cliente/notificacoes' => "DashboardControllerCliente@notificacoes",
+                '/admin/cliente/configuracoes' => "DashboardControllerCliente@configuracoes",
+
+                // ========================================
+                // ÁREA ADMINISTRATIVA
+                // ========================================
+
+                "/admin/dashboard" => "DashboardController@index",
+
+
+                // ========================================
+                // USUÁRIOS
+                // ========================================
+
+                "/usuarios" => "UsuarioController@index",
+                "/usuario/criar" => "UsuarioController@viewCriarUsuarios",
+                "/usuario/listar" => "UsuarioController@viewListarUsuarios",
+                "/usuario/listar/{pagina}" => "UsuarioController@viewListarUsuarios",
+                "/usuario/editar/{id}" => "UsuarioController@viewEditarUsuarios",
+                "/usuario/excluir/{id}" => "UsuarioController@viewExcluirUsuarios",
+                "/api/usuarios/{pagina}" => "Api\APIUsarioController@getUsuarios",
+                "/api/usuarios" => "Api\APIUsarioController@getUsuarios",
+
+                // ========================================
+                // VENDAS
+                // ========================================
+
+                "/vendas" => "VendasController@index",
+                "/vendas/criar" => "VendasController@viewCriarVendas",
+                "/vendas/listar" => "VendasController@viewListarVendas",
+                "/vendas/listar/{pagina}" => "VendasController@viewListarVendas",
+                "/vendas/editar/{id}" => "VendasController@viewEditarVendas",
+                "/vendas/excluir/{id}" => "VendasController@viewExcluirVendas",
+                "/vendas/relatorio" => "VendasController@relatorioVendas",
+                "/vendas/relatorio/{id}/{dataInicial}/{dataFinal}" => "VendasController@relatorioVendas",
+
+                // ========================================
+                // RESERVAS
+                // ========================================
+
+                "/pedidos" => "PedidosController@index",
+                "/pedidos/criar" => "PedidosController@viewCriarPedidos",
+                "/pedidos/listar" => "PedidosController@viewListarPedidos",
+                "/pedidos/listar/{pagina}" => "PedidosController@viewListarPedidos",
+                "/pedidos/editar/{id}" => "PedidosController@viewEditarPedidos",
+                "/pedidos/excluir/{id}" => "PedidosController@viewExcluirPedidos",
+                "/pedidos/relatorio" => "PedidosController@relatorioPedidos",
+                "/pedidos/relatorio/{id}/{dataInicial}/{dataFinal}" => "PedidosController@relatorioPedidos",
+
+                // ========================================
+                // API PÚBLICA / API ITEM
+                // ========================================
+
+                "/api/item" => "PublicApiController@getItem",
+                "/api/item/imagem-base64" => "PublicApiController@getImageBase64",
+                "/api/buscaitem" => "PublicApiController@getItem",
+                "/api/categorias" => "PublicApiController@getCategorias",
+                "/api/generos" => "PublicApiController@getGeneros",
+
+                "/api/pedidos" => "Api\APIPedidosController@getPedidos",
+                "/api/buscarpedidos" => "PublicApiController@getAvaliacoes",
+
+                "/api/autores" => "PublicApiController@getAutores",
+
+                // "/api/usuarios/{pagina}" => "Api\APIUsarioController@getUsuarios",
+                // "/api/usuarios" => "Api\APIUsarioController@getUsuarios",
+
+                // ========================================
+                // PERFIL USUÁRIO
+                // ========================================
+
+                "/perfil" => "PerfilController@index",
+                "/perfil/criar" => "PerfilController@viewCriarPerfil",
+                "/perfil/listar" => "PerfilController@viewListarPerfil",
+                "/perfil/listar/{pagina}" => "PerfilController@viewListarPerfil",
+                "/perfil/editar/{id}" => "PerfilController@viewEditarPerfil",
+                "/perfil/excluir/{id}" => "PerfilController@viewExcluirPerfil",
+                "/perfil/relatorio" => "PerfilController@relatorioPerfil",
+                "/perfil/relatorio/{id}/{dataInicial}/{dataFinal}" => "PerfilController@relatorioPerfil",
+
+                // ========================================
+                // AVALIAÇÃO
+                // ========================================
+
+                "/avaliacao" => "AvaliacaoController@index",
+                "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
+                "/avaliacao/listar" => "AvaliacaoController@viewListarAvaliacao",
+                "/avaliacao/listar/{pagina}" => "AvaliacaoController@viewListarAvaliacao",
+                "/avaliacao/editar/{id}" => "AvaliacaoController@viewEditarAvaliacao",
+                "/avaliacao/deletar/{id}" => "AvaliacaoController@viewExcluirAvaliacao",
+                "/avaliacao/relatorio" => "AvaliacaoController@relatorioAvaliacao",
+                "/avaliacao/relatorio/{id}/{dataInicial}/{dataFinal}" => "AvaliacaoController@relatorioAvaliacao",
+
+                // ========================================
+                // ITENS (Livros do acervo)
+                // ========================================
+
+
+                "/item/listar" => "ItemController@viewListarItens",
+                "/item/listar/{pagina}" => "ItemController@viewListarItens",
+                "/item/criar" => "ItemController@viewCriarItem",
+                "/item/editar/{id}" => "ItemController@viewEditarItem",
+                "/item/excluir/{id}" => "ItemController@viewExcluirItem",
+
+
+                // ========================================
+                // AUTOR    
+                // ========================================
+                "/autor" => "AutorController@index",
+                "/autor/criar" => "AutorController@viewCriarAutor",
+                "/autor/listar" => "AutorController@viewListarAutor",
+                "/autor/editar/{id}" => "AutorController@viewEditarAutor",
+                "/autor/excluir/{id}" => "AutorController@viewExcluirAutor",
+                "/autor/{id}/relatorio/{dataInicial}/{dataFinal}" => "AutorController@relatorioAutor",
+
+                // ========================================
+                // CATEGORIA
+                // ========================================
+                "/" => "DashboardController@index",
+
+                "/categoria" => "CategoriaController@index",
+                "/categoria/criar" => "CategoriaController@viewCriarCategoria",
+                "/categoria/listar" => "CategoriaController@viewListarCategoria",
+                "/categoria/editar/{id}" => "CategoriaController@viewEditarCategoria",
+                "/categoria/excluir/{id}" => "CategoriaController@viewExcluirCategoria",
+                "/categoria/{id}/relatorio/{dataInicial}/{dataFinal}" => "CategoriaController@relatorioCategoria",
+
+                // ========================================
+                // GENERO
+                // ========================================
+                "/genero" => "GeneroController@index",
+                "/genero/criar" => "GeneroController@viewCriarGenero",
+                "/genero/listar/" => "GeneroController@viewListarGenero",
+                "/genero/editar/{id}" => "GeneroController@viewEditarGenero",
+                "/genero/excluir/{id}" => "GeneroController@viewExcluirGenero",
+                "/genero/{id}/relatorio/{dataInicial}/{dataFinal}" => "GeneroController@relatorioGenero",
+
+
+                // ========================================
+                // AJAX (Busca dinâmica)
+                // ========================================
+
+                "/ajax/buscar/autores" => "ItemController@ajaxBuscarAutores",
+                "/ajax/buscar/categorias" => "ItemController@ajaxBuscarCategorias",
+                "/ajax/buscar/generos" => "ItemController@ajaxBuscarGeneros",
+
+                // ========================================
+                // Carrinho de Compras
+                // ========================================
+
+                "/carrinho" => "CartController@index",
+                "/carrinho/adicionar/{id}" => "CartController@adicionar",
+                "/carrinho/remover/{id}" => "CartController@remover",
+                "/api/carrinho" => "CartController@getCartApi",
+                "/carrinho/obrigado/{id}" => "CartController@obrigado",
+
+                '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
+                '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
+            ],
+
+
+            "POST" => [
+                "/api/carrinho/adicionar" => "CartController@adicionarApi",
+                "/api/carrinho/remover" => "CartController@removerApi",
+                "/api/carrinho/finalizar" => "CartController@finalizarAjax",
+
+                "/api/pedidos" => "PedidosController@salvarPedidos", // Added to support js/pedidos.js
+
+                // ========================================
+                // AUTENTICAÇÃO (post)
+                // ========================================
+
+                "/register" => "AuthController@cadastrarUsuario",
+                "/login" => "AuthController@authenticar",
+
+                // ========================================
+                // USUÁRIOS (post)
+                // ========================================
+
+                "/usuario/salvar" => "UsuarioController@salvarUsuario",
+                "/usuario/atualizar" => "UsuarioController@atualizarUsuario",
+                "/usuario/excluir" => "UsuarioController@deletarUsuario",
+
+
+                // ========================================
+                // VENDAS (post)
+                // ========================================
+
+                "/vendas/salvar" => "VendasController@salvarVendas",
+                "/vendas/atualizar" => "VendasController@atualizarVendas",
+                "/vendas/deletar" => "VendasController@deletarVendas",
+                "/vendas/ativar" => "VendasController@ativarVenda",
+
+                // ========================================
+                // Pedidos (post)
+                // ========================================
+                "/pedidos/salvar" => "PedidosController@salvarPedidos",
+                "/pedidos/atualizar" => "PedidosController@atualizarPedidos",
+                "/pedidos/deletar" => "PedidosController@deletarPedidos",
+
+                // Opcional: se quiser ativar pedido excluído
+                "/pedidos/ativar" => "PedidosController@ativarPedidos",
+
+                // ========================================
+                // PERFIL USUÁRIO (post)
+                // ========================================
+
+                // PERFIL USUÁRIO (post)
+                // ========================================
+
+                "/admin/cliente/foto" => "DashboardControllerCliente@atualizarFotoPerfil",
+                "/admin/cliente/cancelar-reserva" => "DashboardControllerCliente@cancelarPedido",
+                "/admin/cliente/configuracoes/salvar" => "DashboardControllerCliente@atualizarConfiguracoes",
+                "/perfil/salvar" => "PerfilController@salvarPerfil",
+                "/perfil/atualizar" => "PerfilController@atualizarPerfil",
+                "/perfil/deletar" => "PerfilController@deletarPerfil",
+                "/perfil/ativar" => "PerfilController@ativarPerfil",
+
+                // ========================================
+                // AVALIAÇÃO (post)
+                // ========================================
+
+                "/avaliacao/salvar" => "AvaliacaoController@salvarAvaliacao",
+                "/avaliacao/criar" => "AvaliacaoController@viewCriarAvaliacao",
+                "/avaliacao/atualizar" => "AvaliacaoController@atualizarAvaliacao",
+                "/avaliacao/deletar" => "AvaliacaoController@deletarAvaliacao",
+                "/avaliacao/ativar" => "AvaliacaoController@ativarAvaliacao",
+
+                // API Cliente - Avaliações (AJAX)
+                "/api/cliente/avaliacao/salvar" => "AvaliacaoClienteController@salvarAvaliacao",
+                "/api/cliente/avaliacao/atualizar" => "AvaliacaoClienteController@atualizarAvaliacao",
+                "/api/cliente/avaliacao/deletar" => "AvaliacaoClienteController@deletarAvaliacao",
+
+                // ========================================
+                // ITENS (Livros do acervo)
+                // ========================================
+
+                "/item/salvar" => "ItemController@salvarItem",
+                "/item/atualizar" => "ItemController@atualizarItem",
+                "/item/deletar" => "ItemController@deletarItem",
+                "/item/ativar" => "ItemController@ativarItem",
+
+                // ========================================
+                // API PÚBLICA (post)
+                // ========================================
+
+
+
+                // ========================================
+                // AUTORES (post)
+                // ========================================
+                "/autor/salvar" => "AutorController@salvarAutor",
+                "/autor/atualizar" => "AutorController@atualizarAutor",
+                "/autor/excluir" => "AutorController@deletarAutor",
+
+                // ========================================
+                // CATEGORIA (post)
+                // ========================================
+                "/categoria/salvar" => "CategoriaController@salvarCategoria",
+                "/categoria/atualizar" => "CategoriaController@atualizarCategoria",
+                "/categoria/excluir" => "CategoriaController@deletarCategoria",
+
+                // ========================================
+                // GENERO (post)
+                // ========================================
+                "/genero/salvar" => "GeneroController@salvarGenero",
+                "/genero/atualizar" => "GeneroController@atualizarGenero",
+                "/genero/excluir" => "GeneroController@deletarGenero",
+
+
+                // ========================================
+                // Carrinho de Compras (post)
+                // ========================================
+
+                "/carrinho/atualizar" => "CartController@atualizar",
+                "/carrinho/finalizar" => "CartController@finalizar",
+
+            ]
+        ];
+    }
+}
