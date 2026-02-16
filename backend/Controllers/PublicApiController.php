@@ -108,6 +108,8 @@ class PublicApiController
                 $item['caminho_imagem'] = '/backend/uploads/' . $caminhoLimpo;
             } else {
                 $item['imagem_base64'] = null;
+                // Fallback para evitar 404 se o arquivo físico não existir
+                $item['caminho_imagem'] = '/img/sem-imagem.png';
             }
         } else {
             $item['imagem_base64'] = null;
