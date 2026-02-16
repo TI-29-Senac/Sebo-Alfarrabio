@@ -606,6 +606,8 @@
             const dot = document.createElement('button');
             dot.className = index === estadoSlider.indiceAtual ? 'depoimento-dot active' : 'depoimento-dot';
             dot.setAttribute('aria-label', `Ir para avaliação ${index + 1}`);
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-selected', index === estadoSlider.indiceAtual ? 'true' : 'false');
             dot.addEventListener('click', () => {
                 irParaAvaliacao(index);
             });
@@ -621,8 +623,10 @@
         dots.forEach((dot, index) => {
             if (index === estadoSlider.indiceAtual) {
                 dot.classList.add('active');
+                dot.setAttribute('aria-selected', 'true');
             } else {
                 dot.classList.remove('active');
+                dot.setAttribute('aria-selected', 'false');
             }
         });
     }
