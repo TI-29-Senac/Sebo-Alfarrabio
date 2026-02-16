@@ -359,6 +359,8 @@ body {
         border-left: 4px solid transparent;
         position: relative;
         gap: 12px;
+        min-height: 48px;
+        /* Accessibility: Larger touch target */
     }
 
     .sidebar-nav ul li a::before {
@@ -1396,6 +1398,8 @@ body {
         min-height: 32px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
+        /* Standard property */
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
