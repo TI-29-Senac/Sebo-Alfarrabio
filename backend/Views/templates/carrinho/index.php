@@ -35,9 +35,9 @@ include __DIR__ . '/../partials/header.php';
                             <?php $id = $item['id_item']; ?>
                             <tr>
                                 <td>
-                                    <img src="<?= $item['imagem'] ?: '/img/sem-imagem.png' ?>"
+                                    <img src="<?= $item['imagem'] ?: '/img/sem-imagem.webp' ?>"
                                         style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px;"
-                                        onerror="this.src='/img/sem-imagem.png'">
+                                        onerror="this.src='/img/sem-imagem.webp'">
                                 </td>
                                 <td>
                                     <?= htmlspecialchars($item['titulo']) ?>

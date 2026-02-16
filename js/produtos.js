@@ -410,9 +410,9 @@ function criarCard(item, index) {
 
     card.innerHTML = `
         <div class="card-imagem" style="position: relative;">
-            <img src="${item.caminho_imagem || '/img/sem-imagem.png'}" 
+            <img src="${item.caminho_imagem || '/img/sem-imagem.webp'}" 
                  alt="${item.titulo}"
-                 onerror="this.src='/img/sem-imagem.png'">
+                 onerror="this.src='/img/sem-imagem.webp'">
             
             ${!disponivel ? '<div class="badge-status">ESGOTADO</div>' : ''}
         </div>
@@ -572,7 +572,7 @@ function abrirModalProduto(produto) {
     const preco = parseFloat(produto.preco || 0);
     const precoFormatado = preco.toFixed(2).replace('.', ',');
 
-    document.getElementById('modal-capa').src = produto.caminho_imagem || '/img/sem-imagem.png';
+    document.getElementById('modal-capa').src = produto.caminho_imagem || '/img/sem-imagem.webp';
     document.getElementById('modal-titulo').textContent = produto.titulo;
     document.getElementById('modal-autor').textContent = produto.autores || 'Autor desconhecido';
     document.getElementById('modal-tipo').textContent = produto.tipo || 'Produto';

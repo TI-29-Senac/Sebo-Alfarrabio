@@ -93,9 +93,9 @@ function criarCard(produto) {
   card.innerHTML = `
     ${badge}
     <div class="book-image-wrapper">
-      <img src="${produto.caminho_imagem || '/img/sem-imagem.png'}" 
+      <img src="${produto.caminho_imagem || '/img/sem-imagem.webp'}" 
            alt="${produto.titulo}"
-           onerror="this.src='/img/sem-imagem.png'">
+           onerror="this.src='/img/sem-imagem.webp'">
     </div>
     <div class="book-info">
       <h3 class="book-title">${produto.titulo}</h3>

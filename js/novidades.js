@@ -70,14 +70,14 @@ function criarCardLivro(livro) {
         : livro.titulo_item;
 
     // Define imagem padrão se não houver
-    const imagemUrl = livro.caminho_imagem || '/img/sem-imagem.png';
+    const imagemUrl = livro.caminho_imagem || '/img/sem-imagem.webp';
 
     return `
         <div class="card-livro">
             <figure>
                 <img src="${imagemUrl}" 
                      alt="${livro.titulo_item}" 
-                     onerror="this.src='/img/sem-imagem.png'">
+                     onerror="this.src='/img/sem-imagem.webp'">
                 <figcaption class="figcaption-livro">
                     <h2 class="name">${tituloFormatado}</h2>
                     <small>${primeiroAutor}</small>

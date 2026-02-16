@@ -13,7 +13,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
 
   <!-- CSS na ordem correta -->
   <link rel="stylesheet" href="css/style.css">
@@ -29,7 +33,7 @@
   <!-- HEADER COM ÍCONE DE PERFIL -->
   <header>
     <div class="logo-container">
-      <img src="img/logo2.png" alt="Logo" class="logo" width="80" height="80">
+      <img src="img/logo2.webp" alt="Logo" class="logo" width="80" height="80">
       <h3 class="alfa">O Alfarrábio</h3>
     </div>
 
@@ -75,7 +79,7 @@
   <!-- SIDEBAR MOBILE -->
   <div class="mobile-sidebar">
     <div class="sidebar-header">
-      <img src="img/logo2.png" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <img src="img/logo2.webp" alt="Logo O Alfarrábio" class="sidebar-logo">
       <h3 class="sidebar-title">O Alfarrábio</h3>
       <button class="close-sidebar" aria-label="Fechar menu">
         <i class="fas fa-times"></i>
@@ -218,7 +222,7 @@
     <section class="sobre-p">
       <h3 class="titulo-sobre">SOBRE NÓS</h3>
       <div class="sobre">
-        <img src="img/sobre.png" alt="Imagem sobre nós" class="img-sobre">
+        <img src="img/sobre.webp" alt="Imagem sobre nós" class="img-sobre">
         <div class="texto-sobre">
           <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados.
             Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo
@@ -272,7 +276,7 @@
   <footer class="footer">
     <div class="container-footer">
       <div class="footer-nome">
-        <img src="img/logo2.png" alt="Logo O Alfarrábio" class="logo-footer" width="60" height="60">
+        <img src="img/logo2.webp" alt="Logo O Alfarrábio" class="logo-footer" width="60" height="60">
         <h3>O Alfarrábio</h3>
       </div>
 

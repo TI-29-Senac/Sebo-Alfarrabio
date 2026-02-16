@@ -109,7 +109,7 @@ class PublicApiController
             } else {
                 $item['imagem_base64'] = null;
                 // Fallback para evitar 404 se o arquivo físico não existir
-                $item['caminho_imagem'] = '/img/sem-imagem.png';
+                $item['caminho_imagem'] = '/img/sem-imagem.webp';
             }
         } else {
             $item['imagem_base64'] = null;
