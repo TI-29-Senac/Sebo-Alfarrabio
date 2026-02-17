@@ -1,7 +1,7 @@
 /**
  * FOOTER RESPONSIVO MOBILE-FIRST
  * Sebo & Livraria O Alfarrábio
- * Background: Marrom escuro #3a2a1f
+ * Background: var(--bg-footer)
  */
 
 /* ========================================== */
@@ -9,12 +9,15 @@
 /* ========================================== */
 
 .footer {
-    background: rgb(189, 144, 86) !important;
-    /* Mesma cor do menu hambúrguer */
-    color: #f5f1e8;
-    padding: 60px 20px 30px;
+    background: var(--bg-footer) !important;
+    color: var(--text-light);
+    padding: 80px 20px 40px;
     font-family: 'Merriweather', serif;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--border-accent);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+    transition: background 0.4s ease;
 }
 
 .container-footer {
@@ -44,12 +47,12 @@
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 3px solid rgba(212, 165, 116, 0.3);
+    border: 3px solid var(--border-accent);
 }
 
 .footer-nome h3 {
     font-size: 24px;
-    color: #ffffff;
+    color: var(--text-light);
     margin: 0;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -68,7 +71,7 @@
 
 .links h4 {
     font-size: 18px;
-    color: #ffffff;
+    color: var(--text-light);
     margin-bottom: 20px;
     font-weight: 700;
     text-transform: uppercase;
@@ -89,7 +92,7 @@
 }
 
 .links a {
-    color: #ffffff;
+    color: var(--text-light);
     text-decoration: none;
     font-size: 15px;
     transition: all 0.3s ease;
@@ -99,7 +102,7 @@
 }
 
 .links a:hover {
-    color: #d4a574;
+    color: var(--accent-gold);
     background: rgba(212, 165, 116, 0.1);
     transform: translateX(5px);
 }
@@ -114,7 +117,7 @@
 
 .footer-section h4 {
     font-size: 18px;
-    color: #ffffff;
+    color: var(--text-light);
     margin-bottom: 20px;
     font-weight: 700;
     text-transform: uppercase;
@@ -124,7 +127,7 @@
 .footer-section p {
     margin: 12px 0;
     font-size: 14px;
-    color: #e8e3da;
+    color: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,7 +136,7 @@
 }
 
 .footer-section p i {
-    color: #d4a574;
+    color: var(--accent-gold);
     font-size: 16px;
     width: 20px;
     flex-shrink: 0;
@@ -149,29 +152,64 @@
 }
 
 .footer-redes h4 {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.social-icons-wrapper {
+    display: block !important;
+    text-align: center !important;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .footer-redes a {
-    margin: 0 10px;
-    display: inline-block;
-    transition: transform 0.3s ease;
+    display: inline-flex !important;
+    width: 42px;
+    height: 42px;
+    margin: 0 8px !important;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-accent);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.footer-redes a img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    filter: none !important;
+}
+
+[data-theme="dark"] .footer-redes a img {
+    filter: brightness(0) invert(1) !important;
 }
 
 .footer-redes a:hover {
     transform: translateY(-5px);
-}
-
-.footer-redes img {
-    width: 40px;
-    height: 40px;
-    filter: brightness(0) invert(1);
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    box-shadow: 0 5px 15px rgba(212, 165, 116, 0.4);
 }
 
 .footer-redes a:hover img {
-    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(0) invert(1) !important;
+}
+
+.footer-redes a:hover::before {
+    transform: scale(1);
+}
+
+.footer-redes a:hover img {
+    filter: brightness(0) invert(1);
+    /* White icons on gold background */
 }
 
 /* ========================================== */
@@ -282,12 +320,12 @@
 
 /* Container principal */
 .depoimentos {
-    background-color: rgb(189, 144, 86) !important;
-    /* Mesma cor do menu hambúrguer */
-    padding: 60px 20px;
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary);
+    padding: 80px 20px 100px;
     position: relative;
     overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.4s ease;
 }
 
 .depoimentos::before {
@@ -306,8 +344,7 @@
 .depoimento-titulo {
     text-align: center;
     font-size: 28px;
-    color: #d4a574;
-    /* Dourado Premium */
+    color: var(--text-primary);
     margin-bottom: 40px;
     font-weight: 700;
     display: flex;
@@ -338,11 +375,11 @@
 
 /* Card de avaliação - MOBILE */
 .depoimento-card {
-    background: #fdfaf5;
-    /* Bege pérola claro */
+    background: var(--bg-card);
+    color: var(--text-primary);
     border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translateX(100px) scale(0.9);
@@ -350,7 +387,7 @@
     width: calc(100% - 40px);
     max-width: 600px;
     pointer-events: none;
-    border: 1px solid rgba(212, 165, 116, 0.2);
+    border: 1px solid var(--border-accent);
 }
 
 .depoimento-card.active {
@@ -385,14 +422,14 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #d4a574;
+    border: 2px solid var(--accent-gold);
 }
 
 .depoimento-foto-placeholder {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #d4a574 0%, #a67c52 100%);
+    background: linear-gradient(135deg, var(--accent-gold) 0%, #a67c52 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -408,7 +445,7 @@
 
 .depoimento-nome {
     font-size: 16px;
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 4px;
     font-weight: 600;
 }
@@ -423,7 +460,7 @@
 }
 
 .depoimento-data {
-    color: #999;
+    color: var(--text-muted);
     font-size: 12px;
     font-style: italic;
 }
@@ -436,29 +473,29 @@
 .depoimento-comentario {
     font-size: 14px;
     line-height: 1.7;
-    color: #555;
+    color: var(--text-secondary);
     font-style: italic;
     position: relative;
     padding-left: 15px;
-    border-left: 3px solid #d4a574;
+    border-left: 3px solid var(--accent-gold);
 }
 
 /* Footer do card */
 .depoimento-footer {
     padding-top: 16px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .depoimento-item-info {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #777;
+    color: var(--text-muted);
     font-size: 13px;
 }
 
 .depoimento-item-info i {
-    color: #d4a574;
+    color: var(--accent-gold);
 }
 
 /* Botões de navegação - MOBILE */
@@ -469,9 +506,9 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: white;
-    border: 2px solid #d4a574;
-    color: #8B7355;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s;
@@ -483,7 +520,7 @@
 }
 
 .depoimento-nav:hover {
-    background: #d4a574;
+    background: var(--accent-gold);
     color: white;
     transform: translateY(-50%) scale(1.1);
 }
@@ -519,7 +556,7 @@
 
 .depoimento-indicador.active,
 .depoimento-dot.active {
-    background: #d4a574;
+    background: var(--accent-gold);
     width: 25px;
     border-radius: 5px;
 }
@@ -539,7 +576,7 @@
 .depoimento-erro {
     text-align: center;
     padding: 50px 20px;
-    color: #999;
+    color: var(--text-muted);
 }
 
 .depoimento-vazio i,
@@ -547,13 +584,13 @@
     font-size: 40px;
     margin-bottom: 15px;
     display: block;
-    color: #d4a574;
+    color: var(--accent-gold);
 }
 
 .depoimento-erro .btn-retry {
     margin-top: 15px;
     padding: 10px 25px;
-    background: #d4a574;
+    background: var(--accent-gold);
     color: white;
     border: none;
     border-radius: 8px;

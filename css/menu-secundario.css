@@ -2,14 +2,15 @@
    ESTILOS DO MENU SECUNDÁRIO
    ======================================== */
 .menu-secundario {
-  background-color: #fcf6e9;
+  background-color: var(--bg-menu-sec);
   /* bege do menu principal */
   padding: 1px 0;
   height: 60px;
   text-align: center;
-  border-bottom: 1px solid rgba(80, 28, 7, 0.863);
+  border-bottom: 1px solid var(--border-color);
   justify-content: center;
   display: flex;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .menu-secundario nav {
@@ -37,18 +38,20 @@
   font-size: 17px;
   font-weight: bold;
   text-decoration: none;
-  color: #8a6447;
+  color: var(--text-primary);
+  /* #8a6447 */
   transition: .2s ease;
 }
 
 .menu-secundario ul li a:hover {
-  color: #e99517d7;
+  color: var(--accent-gold);
+  /* #e99517d7 */
   text-decoration: underline;
 }
 
 /* Botão igual ao da primeira imagem */
 .btn-cadastro {
-  background: #9e6040;
+  background: var(--accent-dark);
   padding: 9px 25px;
   border-radius: 30px;
   color: white;
@@ -60,6 +63,7 @@
 
 .btn-cadastro:hover {
   filter: brightness(1.1);
+  background: var(--accent);
 }
 
 .banner,

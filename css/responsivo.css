@@ -125,12 +125,12 @@ body {
     .book-author {
         font-size: 12px !important;
         margin-bottom: 8px !important;
-        color: #4a90e2 !important;
+        color: var(--accent) !important;
     }
 
     .book-price {
         font-size: 16px !important;
-        color: #d4a574 !important;
+        color: var(--accent-gold) !important;
         font-weight: 700 !important;
     }
 
@@ -242,7 +242,7 @@ body {
     .menu-toggle {
         display: flex;
         order: 4;
-        background-color: #a18167;
+        background-color: var(--accent);
         /* Marrom médio */
         color: white;
         border-radius: 50%;
@@ -252,7 +252,7 @@ body {
         align-items: center;
         font-size: 1.2rem;
         border: none;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px var(--shadow-light);
     }
 
     /* ========================================
@@ -265,11 +265,11 @@ body {
         left: 0;
         width: 280px;
         height: 100vh;
-        background: linear-gradient(180deg, #3a2a1f 0%, #2d1f15 100%);
+        background: var(--bg-menu-sec);
         z-index: 2000;
         transform: translateX(-100%);
         transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 2px 0 20px var(--shadow-medium);
         overflow-y: auto;
     }
 
@@ -283,8 +283,8 @@ body {
         align-items: center;
         justify-content: space-between;
         padding: 20px;
-        background: rgba(189, 144, 86, 0.1);
-        border-bottom: 2px solid rgba(189, 144, 86, 0.3);
+        background: var(--bg-header);
+        border-bottom: 2px solid var(--border-color);
         gap: 10px;
     }
 
@@ -293,12 +293,12 @@ body {
         height: 45px;
         border-radius: 50%;
         object-fit: cover;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 8px var(--shadow-light);
         flex-shrink: 0;
     }
 
     .sidebar-title {
-        color: #f5f1e8;
+        color: var(--text-primary);
         font-family: 'Merriweather', serif;
         font-size: 1.1rem;
         margin: 0;
@@ -307,9 +307,9 @@ body {
     }
 
     .close-sidebar {
-        background: rgba(189, 144, 86, 0.2);
+        background: var(--border-color);
         border: none;
-        color: #f5f1e8;
+        color: var(--text-primary);
         font-size: 1.5rem;
         cursor: pointer;
         width: 40px;
@@ -323,7 +323,8 @@ body {
     }
 
     .close-sidebar:hover {
-        background: rgba(189, 144, 86, 0.4);
+        background: var(--accent);
+        color: white;
         transform: rotate(90deg);
     }
 
@@ -350,7 +351,7 @@ body {
         display: flex;
         align-items: center;
         padding: 14px 20px;
-        color: #f5f1e8;
+        color: var(--text-primary);
         text-decoration: none;
         font-family: 'Merriweather', serif;
         font-size: 1rem;
@@ -370,7 +371,7 @@ body {
         top: 0;
         bottom: 0;
         width: 0;
-        background: rgba(189, 144, 86, 0.15);
+        background: var(--border-color);
         transition: width 0.3s ease;
     }
 
@@ -379,10 +380,10 @@ body {
     }
 
     .sidebar-nav ul li a:hover {
-        color: rgb(189, 144, 86);
+        color: var(--accent);
         padding-left: 28px;
-        border-left-color: rgb(189, 144, 86);
-        background: rgba(189, 144, 86, 0.05);
+        border-left-color: var(--accent);
+        background: var(--bg-secondary);
     }
 
     /* Emojis coloridos em vez de ícones Font Awesome */
@@ -411,7 +412,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.6);
+        background: var(--overlay-bg);
         z-index: 1500;
         opacity: 0;
         visibility: hidden;
@@ -438,9 +439,9 @@ body {
         width: 45px;
         height: 45px;
         font-size: 1.5rem;
-        color: #5d4037;
+        color: var(--text-primary);
         background: transparent;
-        border: 2px solid #5d4037;
+        border: 2px solid var(--text-primary);
         /* Borda marrom */
         border-radius: 50%;
         display: flex;
@@ -453,7 +454,7 @@ body {
     .btn-carrinho {
         margin-left: 0;
         order: 2;
-        background-color: #d7ccc8;
+        background-color: var(--border-color);
         /* Bege/Cinza claro */
         color: white;
         width: 45px;
@@ -515,7 +516,7 @@ body {
         padding: 15px 10px;
         height: auto;
         min-height: auto;
-        background-color: #fcf6e9;
+        background-color: var(--bg-menu-sec);
     }
 
     .menu-secundario nav {
@@ -545,17 +546,17 @@ body {
         font-size: 0.9rem;
         padding: 8px 14px;
         gap: 6px;
-        background-color: rgba(138, 100, 71, 0.1);
+        background-color: var(--bg-input);
         border-radius: 20px;
         display: flex;
         align-items: center;
-        color: #8a6447;
+        color: var(--text-primary);
         font-weight: 600;
         transition: all 0.2s ease;
     }
 
     .menu-list li a:active {
-        background-color: rgba(138, 100, 71, 0.2);
+        background-color: var(--border-color);
         transform: scale(0.98);
     }
 
@@ -570,7 +571,7 @@ body {
         width: 100%;
         max-width: 200px;
         text-align: center;
-        box-shadow: 0 4px 10px rgba(204, 138, 107, 0.3);
+        box-shadow: 0 4px 10px var(--shadow-light);
     }
 
     /* ===== CATEGORIAS REMOVIDAS (Gerenciado por categorias.css) ===== */
@@ -841,6 +842,7 @@ body {
     .lojas-container img.estante {
         width: 160px;
         margin: 0;
+        border-radius: 5px;
     }
 
     /* ===== PÁGINA PRODUTOS (Mobile) ===== */
@@ -1094,11 +1096,11 @@ body {
         font-size: 5rem !important;
         /* Aumentado de 2.5rem */
         margin-bottom: 15px;
-        filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.5));
+        filter: drop-shadow(0 0 20px #d4a574);
     }
 
     .menu-secundario {
-        background: #fdfaf5;
+        background: var(--bg-secondary);
         padding: 15px 0;
         overflow: visible;
         height: auto !important;
@@ -1142,23 +1144,23 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: #ffffff;
+        background: var(--bg-card);
         border-radius: 12px;
         padding: 15px 5px;
         text-decoration: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 10px var(--shadow-light);
         transition: transform 0.2s;
-        border: 1px solid #f0e6d2;
+        border: 1px solid var(--border-color);
     }
 
     .menu-list li a:active {
         transform: scale(0.95);
-        background: #fdfaf5;
+        background: var(--bg-secondary);
     }
 
     /* Ícone com fundo bege suave */
     .menu-list li a i {
-        background: #f0e6d2;
+        background: var(--cat-icon-bg);
         width: 45px;
         height: 45px;
         display: flex;
@@ -1166,7 +1168,7 @@ body {
         justify-content: center;
         border-radius: 10px;
         margin-bottom: 8px;
-        color: #8b7355;
+        color: var(--text-primary);
         font-size: 1.2rem;
     }
 
@@ -1174,7 +1176,7 @@ body {
     .menu-list li a {
         font-size: 0.85rem;
         font-weight: 700;
-        color: #8b7355;
+        color: var(--text-primary);
         font-family: 'Merriweather', serif;
         word-wrap: break-word;
     }
@@ -1185,15 +1187,15 @@ body {
         max-width: 250px;
         box-sizing: border-box;
         margin: 10px auto 0;
-        background: #b18c5e !important;
-        color: #ffffff !important;
+        background: var(--accent) !important;
+        color: white !important;
         border-radius: 40px !important;
         padding: 12px 20px !important;
         font-weight: 800 !important;
         text-align: center;
         text-decoration: none;
         display: block;
-        box-shadow: 0 4px 15px rgba(177, 140, 94, 0.4);
+        box-shadow: 0 4px 15px var(--shadow-medium);
         font-size: 0.95rem;
         letter-spacing: 0.5px;
         clear: both;
@@ -1204,7 +1206,7 @@ body {
     /* ===== CATEGORIAS - VISUAL PREMIUM ===== */
     .categorias {
         padding: 30px 15px;
-        background: #ffffff;
+        background: var(--bg-secondary);
         position: relative;
         z-index: 10;
         margin-top: 0;
@@ -1213,7 +1215,7 @@ body {
     .cat {
         font-size: 1.3rem;
         margin-bottom: 20px;
-        color: #3b2a22;
+        color: var(--text-primary);
         text-align: center;
         width: 100%;
         font-weight: 800;
@@ -1230,9 +1232,9 @@ body {
 
     /* CARD CATEGORIA */
     .svg {
-        background-color: #f0e6d2;
+        background-color: var(--bg-card-hover);
         /* Bege claro da referência */
-        border: 2px solid #d4c5a9;
+        border: 2px solid var(--border-accent);
         /* Borda sutil */
         border-radius: 16px;
         padding: 25px 15px;
@@ -1260,20 +1262,20 @@ body {
     .svg img {
         width: 80px;
         height: 80px;
-        background-color: #d4a574;
+        background-color: var(--accent);
         /* Círculo marrom/bege escuro */
         border-radius: 50%;
         padding: 18px;
         /* Espaço para o ícone dentro do círculo */
         margin-bottom: 15px;
         object-fit: contain;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px var(--shadow-medium);
     }
 
     .svg h4 {
         font-size: 1rem;
         font-weight: 700;
-        color: #3b2a22;
+        color: var(--text-primary);
         /* Marrom escuro */
         margin: 0;
         text-align: center;
@@ -1282,7 +1284,7 @@ body {
 
     /* ===== SEÇÃO DE LIVROS - VISUAL PREMIUM DARK ===== */
     .books-section {
-        background-color: #3b2a22 !important;
+        background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%) !important;
         /* Marrom escuro da referência */
         padding: 60px 0 !important;
         position: relative;
@@ -1308,7 +1310,7 @@ body {
 
     .books-header p {
         font-size: 14px;
-        color: #d4c5a9;
+        color: #d4b896;
         font-style: italic;
         opacity: 0.9;
         text-align: center;
@@ -1337,9 +1339,9 @@ body {
     .book-card-modern {
         flex: 0 0 160px;
         height: 300px;
-        background: #ffffff;
+        background: #3d2817;
         border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         overflow: visible;
         border: none;
     }
@@ -1347,7 +1349,7 @@ body {
     /* Parte Superior (Imagem) - Bege mais Profundo */
     .book-image-wrapper {
         height: 170px;
-        background-color: #e6dac3;
+        background-color: var(--bg-secondary);
         /* Bege um pouco mais escuro para destaque no dark */
         border-radius: 20px 20px 0 0;
         padding: 15px;
@@ -1368,7 +1370,7 @@ body {
         height: 120px;
         /* Altura fixa da capa */
         object-fit: contain;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 8px 15px var(--shadow-medium);
         /* Sombra de profundidade */
         border-radius: 4px;
         transform: translateY(5px);
@@ -1377,7 +1379,7 @@ body {
 
     /* Parte Inferior (Info) - Branca */
     .book-info {
-        background: #ffffff;
+        background: var(--bg-card);
         border-radius: 0 0 16px 16px;
         padding: 12px 10px;
         text-align: center;
@@ -1391,7 +1393,7 @@ body {
         font-family: 'Merriweather', serif;
         font-size: 12px;
         font-weight: 700;
-        color: #3b2a22;
+        color: var(--books-card-title);
         /* Marrom escuro */
         margin-bottom: 5px;
         line-height: 1.3;
@@ -1406,7 +1408,7 @@ body {
 
     .book-author {
         font-size: 10px;
-        color: #8b7355;
+        color: var(--text-muted);
         margin-bottom: 5px;
         display: block;
     }
@@ -1419,7 +1421,7 @@ body {
 
     .book-price {
         font-size: 15px;
-        color: #c77919;
+        color: var(--accent-gold);
         /* Laranja/Dourado */
         font-weight: 800;
     }
@@ -1451,14 +1453,14 @@ body {
         content: '';
         width: 8px;
         height: 8px;
-        background-color: #d4c5a9;
+        background-color: var(--text-muted);
         border-radius: 50%;
         opacity: 0.5;
     }
 
     /* Dot central "ativo" fake */
     .carousel-indicators {
-        background-image: radial-gradient(circle, #8b7355 4px, transparent 5px);
+        background-image: radial-gradient(circle, var(--accent) 4px, transparent 5px);
         background-size: 20px 20px;
         background-position: center;
         background-repeat: no-repeat;
@@ -1472,7 +1474,7 @@ body {
         height: 300px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: 20px;
-        border: 1px solid rgba(212, 165, 116, 0.2);
+        border: 1px solid var(--border-color);
         position: relative;
         overflow: hidden;
     }
@@ -1484,7 +1486,7 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.1), transparent);
+        background: linear-gradient(90deg, transparent, var(--border-color), transparent);
         animation: loading-sweep 1.5s infinite;
     }
 
@@ -1847,19 +1849,19 @@ body {
 
 .menu-list::-webkit-scrollbar-track,
 .books-section .carousel-track::-webkit-scrollbar-track {
-    background: rgba(189, 144, 86, 0.1);
+    background: var(--border-color);
     border-radius: 10px;
 }
 
 .menu-list::-webkit-scrollbar-thumb,
 .books-section .carousel-track::-webkit-scrollbar-thumb {
-    background: #8b7355;
+    background: var(--accent);
     border-radius: 10px;
 }
 
 .menu-list::-webkit-scrollbar-thumb:hover,
 .books-section .carousel-track::-webkit-scrollbar-thumb:hover {
-    background: #b18c5e;
+    background: var(--accent-hover);
 }
 
 /* Evitar zoom no iOS em inputs */

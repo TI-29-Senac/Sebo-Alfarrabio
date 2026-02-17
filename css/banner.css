@@ -14,14 +14,16 @@
 
 
 .pesquisa {
-  background-color: #aa6d0b63;
+  background-color: var(--dropdown-hover-bg);
+  /* #aa6d0b63 roughly */
   display: flex;
   position: relative;
   bottom: 150px;
   justify-content: center;
   align-items: center;
   padding: 20px 300px;
-  color: rgb(100, 40, 0);
+  color: var(--text-primary);
+  /* rgb(100, 40, 0) */
   border-radius: 10px;
   left: 0;
   right: 0;
@@ -32,7 +34,7 @@
   width: 40%;
   font-size: 1rem;
   text-decoration: none;
-  border: 1px solid rgba(95, 31, 2, 0.288);
+  border: 1px solid var(--border-accent);
 
   font-family: 'Merriweather', serif;
 
@@ -45,21 +47,22 @@
   flex-direction: column;
   text-align: center;
   font-size: 2.8rem;
-  color: rgb(189, 144, 86);
+  color: var(--accent);
+  /* rgb(189, 144, 86) */
   font-family: 'Merriweather', serif;
   padding: 0;
   position: absolute;
   align-items: center;
   left: 0;
   right: 0;
-  text-shadow: -6px 0px 5px #69410063;
+  text-shadow: -6px 0px 5px var(--shadow-medium);
   margin: auto;
 }
 
 .container {
   position: relative;
   flex-wrap: wrap;
-  box-shadow: #6941004f 10px 4px 10px 4px;
+  box-shadow: var(--shadow-card) 10px 4px 10px 4px;
 }
 
 /*.menu-secundario {

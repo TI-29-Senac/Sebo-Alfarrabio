@@ -11,15 +11,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: linear-gradient(135deg, #ffffff, #fdfbf7);
+    background: var(--sobre-bg);
+    /* linear-gradient(135deg, #ffffff, #fdfbf7) mapped to var */
     padding: 40px 30px;
     border-radius: 16px;
     margin: 40px auto;
     max-width: 1200px;
-    box-shadow: 0 8px 30px rgba(139, 115, 85, 0.1);
-    border: 1px solid rgba(189, 144, 86, 0.1);
+    box-shadow: 0 8px 30px var(--shadow-light);
+    border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .sobre::before {
@@ -29,7 +31,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(189, 144, 86, 0.03), transparent);
+    background: linear-gradient(135deg, var(--border-color), transparent);
     pointer-events: none;
 }
 
@@ -38,14 +40,14 @@
     height: auto;
     border-radius: 16px;
     margin-left: 30px;
-    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.2);
+    box-shadow: 0 10px 40px var(--shadow-medium);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     object-fit: cover;
 }
 
 .img-sobre:hover {
     transform: scale(1.03) rotate(1deg);
-    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.3);
+    box-shadow: 0 15px 50px var(--shadow-card);
 }
 
 .texto-sobre {
@@ -54,7 +56,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 1.8;
-    color: #4a3f35;
+    color: var(--text-secondary);
     text-align: justify;
     padding: 20px 40px;
     max-width: 700px;
@@ -69,7 +71,7 @@
     font-size: 3rem;
     font-weight: 700;
     font-family: 'Merriweather', serif;
-    color: #a87e4b;
+    color: var(--accent-warm);
     text-align: center;
     margin: 130px 0 30px;
     position: relative;
@@ -85,7 +87,7 @@
     transform: translateX(-50%);
     width: 120px;
     height: 4px;
-    background: linear-gradient(90deg, transparent, #a87e4b, transparent);
+    background: linear-gradient(90deg, transparent, var(--accent-warm), transparent);
     border-radius: 2px;
 }
 
@@ -97,15 +99,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: linear-gradient(135deg, #ffffff, #fdfbf7);
+    background: var(--bg-card);
+    /* linear-gradient mapped to bg-card */
     padding: 50px 40px;
     border-radius: 20px;
     margin: 40px auto;
     max-width: 1200px;
-    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.12);
-    border: 1px solid rgba(189, 144, 86, 0.15);
+    box-shadow: 0 10px 40px var(--shadow-medium);
+    border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+    transition: background 0.4s ease;
 }
 
 .sobre-pag::before {
@@ -115,7 +119,7 @@
     right: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(189, 144, 86, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--border-color) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -124,15 +128,15 @@
     height: auto;
     border-radius: 20px;
     margin-right: 50px;
-    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.25);
+    box-shadow: 0 15px 50px var(--shadow-medium);
     transition: all 0.4s ease;
     object-fit: cover;
-    border: 3px solid rgba(189, 144, 86, 0.1);
+    border: 3px solid var(--border-color);
 }
 
 .img-sobre-pag:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.35);
+    box-shadow: 0 20px 60px var(--shadow-card);
 }
 
 .texto-sobre-pag {
@@ -141,7 +145,7 @@
     font-weight: 400;
     font-size: 19px;
     line-height: 1.9;
-    color: #4a3f35;
+    color: var(--text-secondary);
     text-align: justify;
     padding: 20px 0;
     max-width: 650px;
@@ -156,7 +160,7 @@
     font-size: 2.5rem;
     font-weight: 700;
     font-family: 'Merriweather', serif;
-    color: #a87e4b;
+    color: var(--accent-warm);
     text-align: center;
     margin: 50px 0 30px;
     position: relative;
@@ -172,7 +176,7 @@
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #a87e4b, transparent);
+    background: linear-gradient(90deg, transparent, var(--accent-warm), transparent);
     border-radius: 2px;
 }
 
@@ -181,13 +185,15 @@
    ======================================== */
 
 .equipe {
-    background: linear-gradient(135deg, #e8d5be, #d4c5a9);
+    background: var(--bg-secondary);
+    /* linear-gradient mapped to bg-secondary */
     padding: 60px 20px;
     border-radius: 20px;
     margin: 50px auto;
-    box-shadow: 0 10px 40px rgba(139, 115, 85, 0.15);
+    box-shadow: 0 10px 40px var(--shadow-medium);
     position: relative;
     overflow: hidden;
+    transition: background 0.4s ease;
 }
 
 .equipe::before {
@@ -208,8 +214,9 @@
     border-radius: 16px;
     margin: 0 auto;
     max-width: 1000px;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 5px 20px rgba(139, 115, 85, 0.1);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    box-shadow: 0 5px 20px var(--shadow-light);
     gap: 50px;
 }
 
@@ -218,15 +225,15 @@
     height: 400px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.3);
-    border: 5px solid white;
+    box-shadow: 0 15px 50px var(--shadow-medium);
+    border: 5px solid var(--bg-card);
     transition: all 0.4s ease;
     flex-shrink: 0;
 }
 
 .img-equipe-pag:hover {
     transform: scale(1.05) rotate(2deg);
-    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.4);
+    box-shadow: 0 20px 60px var(--shadow-card);
 }
 
 .texto-equipe-pag {
@@ -235,13 +242,13 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 1.8;
-    color: #4a3f35;
+    color: var(--text-secondary);
     text-align: center;
     padding: 30px;
     max-width: 500px;
-    background: white;
+    background: var(--bg-card);
     border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(139, 115, 85, 0.1);
+    box-shadow: 0 5px 20px var(--shadow-light);
     position: relative;
 }
 
@@ -251,13 +258,13 @@
     top: -10px;
     left: 20px;
     font-size: 60px;
-    color: rgba(189, 144, 86, 0.3);
+    color: var(--border-accent);
     font-family: Georgia, serif;
 }
 
 .texto-equipe-pag p {
     font-style: italic;
-    color: #5a4a3a;
+    color: var(--text-secondary);
 }
 
 /* ========================================
@@ -269,10 +276,11 @@
     overflow: hidden;
     position: relative;
     margin: 60px 0;
-    background: linear-gradient(to bottom, #f9f7f4, #ffffff);
+    background: var(--bg-secondary);
     padding: 50px 0;
     border-radius: 20px;
-    box-shadow: inset 0 5px 20px rgba(139, 115, 85, 0.05);
+    box-shadow: inset 0 5px 20px var(--shadow-light);
+    transition: background 0.4s ease;
 }
 
 .carrossel-container .titulo-pag {
@@ -295,15 +303,15 @@
     height: 400px;
     object-fit: cover;
     border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(139, 115, 85, 0.2);
+    box-shadow: 0 8px 30px var(--shadow-medium);
     transition: all 0.3s ease;
     flex-shrink: 0;
-    border: 3px solid white;
+    border: 3px solid var(--bg-card);
 }
 
 .carrossel img:hover {
     transform: scale(1.05) translateY(-10px);
-    box-shadow: 0 15px 50px rgba(139, 115, 85, 0.35);
+    box-shadow: 0 15px 50px var(--shadow-card);
     z-index: 10;
 }
 
@@ -330,7 +338,7 @@
     right: 0;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(189, 144, 86, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--shadow-light) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -357,7 +365,7 @@
 
 /* Focus para navegação por teclado */
 .carrossel img:focus {
-    outline: 3px solid rgba(189, 144, 86, 0.5);
+    outline: 3px solid var(--accent);
     outline-offset: 5px;
 }
 
