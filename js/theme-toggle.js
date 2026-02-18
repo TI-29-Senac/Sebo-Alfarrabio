@@ -9,8 +9,29 @@
     'use strict';
 
     const STORAGE_KEY = 'sebo-alfarrabio-theme';
-    const LIGHT_LOGO = '/img/logo2.png';
-    const DARK_LOGO = '/img/logo.png';
+    const LIGHT_LOGO = 'img/logo2.webp';
+    const DARK_LOGO = 'img/logo.webp';
+
+    /**
+     * Safe localStorage access
+     */
+    const storage = {
+        get: () => {
+            try {
+                return localStorage.getItem(STORAGE_KEY);
+            } catch (e) {
+                console.warn('Storage access failed:', e);
+                return null;
+            }
+        },
+        set: (val) => {
+            try {
+                localStorage.setItem(STORAGE_KEY, val);
+            } catch (e) {
+                console.warn('Storage write failed:', e);
+            }
+        }
+    };
 
     /**
      * Detecta a preferência do sistema operacional
@@ -26,7 +47,7 @@
      * Retorna o tema salvo ou a preferência do sistema
      */
     function getSavedTheme() {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved = storage.get();
         return saved || getSystemPreference();
     }
 
@@ -34,6 +55,8 @@
      * Troca todas as logos do site
      */
     function swapLogos(theme) {
+        // Usa caminhos relativos robustos baseados na localização do script se necessário, 
+        // mas aqui mantemos relativo à raiz do site assumindo que a maioria das páginas está na raiz.
         const logoSrc = theme === 'dark' ? DARK_LOGO : LIGHT_LOGO;
         const selectors = [
             'header .logo',
@@ -45,7 +68,11 @@
             const imgs = document.querySelectorAll(selector);
             imgs.forEach(function (img) {
                 if (img && img.tagName === 'IMG') {
-                    img.src = logoSrc;
+                    // Prevenir atualização desnecessária
+                    const currentSrc = img.getAttribute('src');
+                    if (currentSrc !== logoSrc) {
+                        img.src = logoSrc;
+                    }
                 }
             });
         });
@@ -56,7 +83,12 @@
      */
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
-        swapLogos(theme);
+        // Pequeno atraso para garantir que o DOM de logos está pronto se chamado cedo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => swapLogos(theme));
+        } else {
+            swapLogos(theme);
+        }
         updateToggleButton(theme);
     }
 
@@ -84,6 +116,9 @@
      * Cria e insere o botão toggle no DOM
      */
     function createToggleButton() {
+        // Evitar duplicidade
+        if (document.getElementById('theme-toggle')) return;
+
         var btn = document.createElement('button');
         btn.className = 'theme-toggle-btn';
         btn.id = 'theme-toggle';
@@ -102,7 +137,7 @@
 
             setTimeout(function () {
                 applyTheme(newTheme);
-                localStorage.setItem(STORAGE_KEY, newTheme);
+                storage.set(newTheme);
 
                 btn.classList.remove('animating');
             }, 250);
@@ -111,7 +146,7 @@
         document.body.appendChild(btn);
 
         // Pulso de atenção na primeira visita
-        if (!localStorage.getItem(STORAGE_KEY)) {
+        if (!storage.get()) {
             btn.classList.add('pulse');
             setTimeout(function () {
                 btn.classList.remove('pulse');

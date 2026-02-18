@@ -390,7 +390,7 @@ use Sebo\Alfarrabio\Core\Session;
             <div class="user-profile">
                 <div class="w3-row">
                     <div class="w3-col s3">
-                        <img src="/img/logo2.png" class="user-avatar sidebar-logo" alt="Logo">
+                        <img src="/img/logo2.webp" class="user-avatar sidebar-logo" alt="Logo">
                     </div>
                     <div class="w3-col s9" style="padding-left: 10px;">
                         <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
