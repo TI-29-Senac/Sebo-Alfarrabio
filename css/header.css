@@ -122,22 +122,17 @@ nav ul li a::after {
   transition: width 0.3s ease;
 }
 
-nav ul li a:hover::after {
+nav ul li a:hover::after,
+nav ul li a.active::after {
   width: 80%;
 }
 
 nav ul li a:hover {
-  color: var(--text-on-accent);
-  background-color: var(--accent);
-  border-radius: 15px;
-  width: 100px;
-  transition: ease-in-out;
+  color: var(--accent);
 }
 
 nav ul li a.active {
-  color: white;
-  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-  box-shadow: 0 3px 10px var(--border-accent);
+  color: var(--accent);
 }
 
 /* ========================================
@@ -235,6 +230,33 @@ nav ul li a.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.dropdown-user-info {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--dropdown-hover-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdown-user-label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.dropdown-user-name {
+  display: block;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  word-break: break-all;
 }
 
 .profile-dropdown-header a {

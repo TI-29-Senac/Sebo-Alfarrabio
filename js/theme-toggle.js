@@ -9,8 +9,8 @@
     'use strict';
 
     const STORAGE_KEY = 'sebo-alfarrabio-theme';
-    const LIGHT_LOGO = 'img/logo2.webp';
-    const DARK_LOGO = 'img/logo.webp';
+    const LIGHT_LOGO = '/img/logo2.png';
+    const DARK_LOGO = '/img/logo.png';
 
     /**
      * Detecta a preferência do sistema operacional

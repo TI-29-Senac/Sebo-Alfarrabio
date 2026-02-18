@@ -10,7 +10,7 @@
         --color-text-secondary: #8C8C8C;
         --color-vintage-brown: #8B7355;
         --color-white: #FFFFFF;
-        --shadow-card: 0 4px 20px rgba(0,0,0,0.05);
+        --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
     body {
@@ -57,7 +57,7 @@
         box-shadow: var(--shadow-card);
         display: flex;
         margin-bottom: 50px;
-        border: 1px solid rgba(0,0,0,0.03);
+        border: 1px solid rgba(0, 0, 0, 0.03);
         transition: transform 0.2s;
     }
 
@@ -154,7 +154,7 @@
         background: white;
         padding: 20px;
         border-radius: 15px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
         display: flex;
         gap: 15px;
         align-items: center;
@@ -229,6 +229,174 @@
         color: #999;
         font-style: italic;
     }
+
+    /* ========================================
+       TEMA ESCURO — NOTIFICAÇÕES
+       ======================================== */
+    [data-theme="dark"] .main-container {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .section-header h2 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .hero-card {
+        background: #221a10;
+        border-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .hero-content {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .hero-title {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .hero-desc {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .hero-footer {
+        border-top-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .meta-block label {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .meta-block span {
+        color: #d4c5a9;
+    }
+
+    [data-theme="dark"] .book-notif-card {
+        background: #221a10;
+        border-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .book-notif-card:hover {
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .book-title {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .book-author {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .book-price {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .book-thumb {
+        background: #33261a;
+    }
+
+    [data-theme="dark"] .empty-state {
+        background: #2a1f14;
+        color: #a89880;
+    }
+
+    /* ========================================
+       RESPONSIVO
+       ======================================== */
+    @media (max-width: 768px) {
+        .main-container {
+            padding: 20px 12px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+        }
+
+        .hero-card {
+            flex-direction: column;
+        }
+
+        .hero-image-container {
+            width: 100%;
+            height: 200px;
+        }
+
+        .hero-content {
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-size: 20px;
+        }
+
+        .hero-desc {
+            font-size: 14px;
+        }
+
+        .hero-footer {
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .meta-block span {
+            font-size: 14px;
+        }
+
+        .books-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .book-notif-card {
+            padding: 15px;
+        }
+
+        .book-title {
+            font-size: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-image-container {
+            height: 160px;
+        }
+
+        .hero-content {
+            padding: 15px;
+        }
+
+        .hero-title {
+            font-size: 18px;
+        }
+
+        .hero-top {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hero-footer {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .meta-block {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .book-notif-card {
+            padding: 12px;
+        }
+
+        .book-thumb {
+            width: 50px;
+            height: 75px;
+        }
+
+        .empty-state {
+            padding: 30px 15px;
+        }
+    }
 </style>
 
 <div class="main-container">
@@ -255,9 +423,11 @@
                     <span class="order-id">Reserva #<?= $ultimaReserva['id_pedidos'] ?? $ultimaReserva['id'] ?></span>
                     <span class="order-status"><?= htmlspecialchars($ultimaReserva['status']) ?></span>
                 </div>
-                
+
                 <h3 class="hero-title"><?= htmlspecialchars($ultimaReserva['titulo_item'] ?? 'Item da Reserva') ?></h3>
-                <p class="hero-desc"><?= !empty($ultimaReserva['descricao']) ? strip_tags($ultimaReserva['descricao']) : 'Sem descrição disponível.' ?></p>
+                <p class="hero-desc">
+                    <?= !empty($ultimaReserva['descricao']) ? strip_tags($ultimaReserva['descricao']) : 'Sem descrição disponível.' ?>
+                </p>
 
                 <div class="hero-footer">
                     <div class="meta-block">
@@ -266,7 +436,8 @@
                     </div>
                     <div class="meta-block">
                         <label>TOTAL</label>
-                        <span style="color:var(--color-vintage-brown)">R$ <?= number_format($ultimaReserva['valor_total'], 2, ',', '.') ?></span>
+                        <span style="color:var(--color-vintage-brown)">R$
+                            <?= number_format($ultimaReserva['valor_total'], 2, ',', '.') ?></span>
                     </div>
                     <!-- Placeholder para Pagamento se houver no futuro -->
                     <!-- <div class="meta-block">
@@ -304,11 +475,11 @@
                             <i class="fa fa-book"></i>
                         </div>
                     <?php endif; ?>
-                    
+
                     <div class="book-info">
                         <h4 class="book-title"><?= htmlspecialchars($livro['titulo_item']) ?></h4>
                         <div class="book-author"><?= htmlspecialchars($livro['autor'] ?? 'Autor Desconhecido') ?></div>
-                        
+
                         <div style="display:flex; justify-content:space-between; align-items:flex-end">
                             <span class="book-date">Cadastrado em <?= date('d/m/Y', strtotime($livro['criado_em'])) ?></span>
                             <a href="/produtos.html?id=<?= $livro['id_item'] ?>" class="btn-small">Ver</a>

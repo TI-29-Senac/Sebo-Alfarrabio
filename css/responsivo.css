@@ -90,8 +90,7 @@ body {
     .book-card-modern {
         flex: 0 0 160px !important;
         max-width: 160px !important;
-        height: auto !important;
-        min-height: 280px;
+        height: 480px !important;
         scroll-snap-align: start;
         padding: 0 !important;
     }
@@ -108,17 +107,24 @@ body {
 
     .book-info {
         padding: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+    }
+
+    .book-price-wrapper {
+        margin-top: auto !important;
     }
 
     .book-title {
         font-size: 14px !important;
+        min-height: 40px !important;
         line-height: 1.3 !important;
         margin-bottom: 6px !important;
-        max-height: 36px !important;
         overflow: hidden !important;
         display: -webkit-box;
-        line-clamp: 2;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
     }
 
@@ -260,6 +266,7 @@ body {
        ======================================== */
 
     .mobile-sidebar {
+        display: block;
         position: fixed;
         top: 0;
         left: 0;
@@ -407,6 +414,7 @@ body {
        ======================================== */
 
     .sidebar-overlay {
+        display: block;
         position: fixed;
         top: 0;
         left: 0;
@@ -612,11 +620,20 @@ body {
 
     .book-info {
         padding: 18px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
     }
 
     .book-title {
         font-size: 17px;
         min-height: 44px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .book-author {
@@ -1386,7 +1403,11 @@ body {
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+    }
+
+    .book-price-wrapper {
+        margin-top: auto;
     }
 
     .book-title {
@@ -1737,11 +1758,20 @@ body {
 
     .book-info {
         padding: 12px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
     }
 
     .book-title {
         font-size: 14px;
         min-height: 38px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .book-author {

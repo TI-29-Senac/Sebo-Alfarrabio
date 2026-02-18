@@ -65,11 +65,11 @@ function setupAuthenticatedUser(user) {
         ? '/backend/admin/cliente'
         : '/backend/admin/dashboard';
 
-    // 3. Atualizar Dropdown com o Nome em destaque (onde ficaria o rótulo de tipo/cliente)
+    // 3. Atualizar Dropdown com o Nome/Email em destaque
     profileDropdown.innerHTML = `
-        <div style="padding: 15px 20px; border-bottom: 1px solid rgba(189, 144, 86, 0.1); background: rgba(252, 246, 233, 0.3);">
-            <span style="display:block; color:#999; font-size: 0.8rem; margin-bottom: 4px;">Logado como:</span>
-            <strong style="display:block; color:#694100; font-size: 1.1rem; font-family: 'Merriweather', serif;">${user.name}</strong>
+        <div class="dropdown-user-info">
+            <span class="dropdown-user-label">Logado como:</span>
+            <strong class="dropdown-user-name">${user.name}</strong>
         </div>
         <a href="${painelLink}"><i class="fas fa-tachometer-alt"></i> Meu Painel</a>
         ${user.role === 'Cliente' ? `<a href="/backend/admin/cliente/reservas"><i class="fas fa-shopping-bag"></i> Minhas Reservas</a>` : ''}

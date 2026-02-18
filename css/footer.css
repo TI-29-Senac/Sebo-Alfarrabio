@@ -543,22 +543,26 @@
 
 .depoimento-indicador,
 .depoimento-dot {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #ccc;
     border: none;
     cursor: pointer;
     transition: all 0.3s;
-    padding: 8px;
+    padding: 6px;
     box-sizing: content-box;
 }
 
 .depoimento-indicador.active,
 .depoimento-dot.active {
     background: var(--accent-gold);
-    width: 25px;
-    border-radius: 5px;
+    width: 8px;
+    /* Mantém redondo */
+    border-radius: 50%;
+    transform: scale(1.3);
+    /* Destaque pelo tamanho levemente maior */
+    box-shadow: 0 0 10px rgba(212, 165, 116, 0.4);
 }
 
 /* Estados especiais */

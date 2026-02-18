@@ -226,10 +226,10 @@
                     <div class="depoimento-info">
                         <h4 class="depoimento-nome">${escapeHtml(avaliacao.usuario.nome)}</h4>
                         <div class="depoimento-estrelas" title="Nota: ${avaliacao.nota}/5">${estrelas}</div>
+                        <div class="depoimento-data" title="${avaliacao.data_completa || avaliacao.data}">
+                            <i class="far fa-clock"></i> ${avaliacao.tempo_decorrido || avaliacao.data}
+                        </div>
                     </div>
-                </div>
-                <div class="depoimento-data" title="${avaliacao.data_completa || avaliacao.data}">
-                    <i class="far fa-clock"></i> ${avaliacao.tempo_decorrido || avaliacao.data}
                 </div>
             </div>
             

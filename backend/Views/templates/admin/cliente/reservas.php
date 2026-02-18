@@ -343,6 +343,186 @@
         padding: 15px;
         border-radius: 12px;
     }
+
+    /* ========================================
+       TEMA ESCURO — RESERVAS
+       ======================================== */
+    [data-theme="dark"] .main-container {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .page-header h1 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .order-card {
+        background: #2a1f14;
+        border-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .order-header {
+        background: #33261a;
+        border-bottom-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .header-cell label {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .header-cell span {
+        color: #d4c5a9;
+    }
+
+    [data-theme="dark"] .order-number-link {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .item-title {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .order-item-details p {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .order-item-placeholder {
+        background: #33261a;
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .btn-action {
+        background: #33261a;
+        color: #d4c5a9;
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .btn-action:hover {
+        background: #d4a574;
+        color: #1a1209;
+    }
+
+    [data-theme="dark"] .modal-content {
+        background: #221a10;
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .modal-info-grid {
+        background: #33261a;
+    }
+
+    [data-theme="dark"] .modal-info-grid label {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .modal-info-grid span {
+        color: #d4c5a9;
+    }
+
+    [data-theme="dark"] .empty-state {
+        background: #2a1f14;
+        color: #a89880;
+    }
+
+    /* ========================================
+       RESPONSIVO
+       ======================================== */
+    @media (max-width: 768px) {
+        .main-container {
+            padding: 20px 12px;
+        }
+
+        .page-header h1 {
+            font-size: 22px;
+        }
+
+        .order-header {
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+        }
+
+        .header-group-row {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .order-number-link {
+            text-align: left;
+        }
+
+        .order-body {
+            padding: 20px 15px;
+            flex-direction: column;
+        }
+
+        .order-item-image {
+            width: 100%;
+            height: 180px;
+        }
+
+        .order-item-placeholder {
+            width: 100%;
+            height: 180px;
+        }
+
+        .order-action-buttons {
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .modal-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .modal-content {
+            padding: 25px 20px;
+            width: 95%;
+        }
+
+        .order-card {
+            border-radius: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header h1 {
+            font-size: 20px;
+        }
+
+        .order-header {
+            padding: 12px;
+        }
+
+        .header-cell label {
+            font-size: 10px;
+        }
+
+        .header-cell span {
+            font-size: 13px;
+        }
+
+        .order-body {
+            padding: 15px 12px;
+        }
+
+        .item-title {
+            font-size: 16px;
+        }
+
+        .btn-action {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+        }
+    }
 </style>
 
 <div class="main-container">

@@ -470,10 +470,103 @@
         background: #F5F5F5;
     }
 
+    /* ========================================
+       TEMA ESCURO — AVALIAÇÕES
+       ======================================== */
+    [data-theme="dark"] .avaliacoes-main-container {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .avaliacoes-header {
+        background: #221a10;
+    }
+
+    [data-theme="dark"] .avaliacoes-header h1 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .avaliacoes-container {
+        background: #221a10;
+    }
+
+    [data-theme="dark"] .avaliacoes-container h2 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .avaliacao-card {
+        border-color: rgba(212, 165, 116, 0.1);
+        background: #2a1f14;
+    }
+
+    [data-theme="dark"] .avaliacao-card:hover {
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .avaliacao-item-title {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .avaliacao-item-placeholder {
+        background: #33261a;
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .avaliacao-comentario {
+        background: #33261a;
+        color: #d4c5a9;
+    }
+
+    [data-theme="dark"] .avaliacao-data {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .btn-acao-avaliacao {
+        background: #33261a;
+        color: #d4c5a9;
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .btn-acao-avaliacao:hover {
+        background: #d4a574;
+        color: #1a1209;
+    }
+
+    [data-theme="dark"] .btn-voltar {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .btn-voltar:hover {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .modal-content {
+        background: #221a10;
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .modal-content textarea {
+        background: #33261a;
+        color: #f5f1e8;
+        border-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .empty-state {
+        color: #a89880;
+        background: #2a1f14;
+    }
+
+    /* ========================================
+       RESPONSIVO
+       ======================================== */
     @media (max-width: 768px) {
+        .avaliacoes-main-container {
+            padding: 15px 10px 30px;
+        }
+
         .avaliacao-card {
             flex-direction: column;
             align-items: flex-start;
+            padding: 20px;
         }
 
         .avaliacao-item-image,
@@ -483,11 +576,98 @@
         }
 
         .avaliacoes-header {
-            padding: 25px;
+            padding: 25px 20px;
+            border-radius: 20px;
+        }
+
+        .avaliacoes-header h1 {
+            font-size: 22px;
         }
 
         .avaliacoes-container {
-            padding: 25px;
+            padding: 20px 15px;
+            border-radius: 20px;
+        }
+
+        .avaliacao-item-title {
+            font-size: 16px;
+        }
+
+        .avaliacao-comentario {
+            padding: 12px 15px;
+            font-size: 13px;
+        }
+
+        .avaliacao-actions {
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .btn-acao-avaliacao {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .btn-voltar {
+            font-size: 12px;
+            padding: 8px 16px;
+        }
+
+        /* Modal */
+        .modal-content {
+            padding: 25px 20px;
+            width: 95%;
+            border-radius: 16px;
+        }
+
+        .modal-buttons {
+            flex-direction: column;
+        }
+
+        .btn-modal {
+            width: 100%;
+            text-align: center;
+        }
+
+        .star-rating .star {
+            font-size: 28px;
+        }
+
+        .avaliacao-photos img {
+            width: 80px !important;
+            height: 80px !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .avaliacoes-header h1 {
+            font-size: 20px;
+            gap: 8px;
+        }
+
+        .avaliacao-card {
+            padding: 15px;
+        }
+
+        .avaliacao-item-image,
+        .avaliacao-item-placeholder {
+            width: 70px;
+            height: 95px;
+        }
+
+        .avaliacao-stars i {
+            font-size: 16px;
+        }
+
+        .btn-acao-avaliacao {
+            font-size: 11px;
+            padding: 6px 12px;
+        }
+
+        .avaliacao-photos img {
+            width: 60px !important;
+            height: 60px !important;
         }
     }
 </style>

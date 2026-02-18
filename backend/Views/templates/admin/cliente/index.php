@@ -71,8 +71,15 @@
     }
 
     @keyframes gentleFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-8px);
+        }
     }
 
     .tree-container {
@@ -98,6 +105,7 @@
             opacity: 0;
             transform: scale(0.9);
         }
+
         to {
             opacity: 0.75;
             transform: scale(1);
@@ -122,20 +130,74 @@
         animation: letterFly 8s ease-in-out infinite;
     }
 
-    .flying-letter:nth-child(1) { top: 8%; left: 5%; animation-delay: 0s; }
-    .flying-letter:nth-child(2) { top: 18%; right: 8%; animation-delay: 1s; }
-    .flying-letter:nth-child(3) { bottom: 22%; left: 12%; animation-delay: 2s; }
-    .flying-letter:nth-child(4) { bottom: 32%; right: 15%; animation-delay: 3s; }
-    .flying-letter:nth-child(5) { top: 45%; left: 2%; animation-delay: 4s; }
-    .flying-letter:nth-child(6) { top: 58%; right: 5%; animation-delay: 5s; }
-    .flying-letter:nth-child(7) { bottom: 40%; left: 10%; animation-delay: 6s; }
-    .flying-letter:nth-child(8) { top: 28%; right: 20%; animation-delay: 7s; }
+    .flying-letter:nth-child(1) {
+        top: 8%;
+        left: 5%;
+        animation-delay: 0s;
+    }
+
+    .flying-letter:nth-child(2) {
+        top: 18%;
+        right: 8%;
+        animation-delay: 1s;
+    }
+
+    .flying-letter:nth-child(3) {
+        bottom: 22%;
+        left: 12%;
+        animation-delay: 2s;
+    }
+
+    .flying-letter:nth-child(4) {
+        bottom: 32%;
+        right: 15%;
+        animation-delay: 3s;
+    }
+
+    .flying-letter:nth-child(5) {
+        top: 45%;
+        left: 2%;
+        animation-delay: 4s;
+    }
+
+    .flying-letter:nth-child(6) {
+        top: 58%;
+        right: 5%;
+        animation-delay: 5s;
+    }
+
+    .flying-letter:nth-child(7) {
+        bottom: 40%;
+        left: 10%;
+        animation-delay: 6s;
+    }
+
+    .flying-letter:nth-child(8) {
+        top: 28%;
+        right: 20%;
+        animation-delay: 7s;
+    }
 
     @keyframes letterFly {
-        0%, 100% { opacity: 0; transform: translateY(0) rotate(0deg); }
-        10% { opacity: 0.4; }
-        50% { opacity: 0.6; transform: translateY(-25px) rotate(10deg); }
-        90% { opacity: 0.4; }
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: translateY(0) rotate(0deg);
+        }
+
+        10% {
+            opacity: 0.4;
+        }
+
+        50% {
+            opacity: 0.6;
+            transform: translateY(-25px) rotate(10deg);
+        }
+
+        90% {
+            opacity: 0.4;
+        }
     }
 
     .magic-glow {
@@ -151,8 +213,17 @@
     }
 
     @keyframes pulseGlow {
-        0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(1); }
-        50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.08); }
+
+        0%,
+        100% {
+            opacity: 0.25;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: translate(-50%, -50%) scale(1.08);
+        }
     }
 
     .sparkle {
@@ -165,16 +236,54 @@
         box-shadow: 0 0 6px rgba(201, 163, 106, 0.3);
     }
 
-    .sparkle:nth-child(1) { top: 12%; left: 8%; animation-delay: 0s; }
-    .sparkle:nth-child(2) { top: 22%; right: 12%; animation-delay: 0.5s; }
-    .sparkle:nth-child(3) { bottom: 28%; left: 15%; animation-delay: 1s; }
-    .sparkle:nth-child(4) { bottom: 18%; right: 10%; animation-delay: 1.5s; }
-    .sparkle:nth-child(5) { top: 38%; left: 6%; animation-delay: 2s; }
-    .sparkle:nth-child(6) { top: 52%; right: 22%; animation-delay: 2.5s; }
+    .sparkle:nth-child(1) {
+        top: 12%;
+        left: 8%;
+        animation-delay: 0s;
+    }
+
+    .sparkle:nth-child(2) {
+        top: 22%;
+        right: 12%;
+        animation-delay: 0.5s;
+    }
+
+    .sparkle:nth-child(3) {
+        bottom: 28%;
+        left: 15%;
+        animation-delay: 1s;
+    }
+
+    .sparkle:nth-child(4) {
+        bottom: 18%;
+        right: 10%;
+        animation-delay: 1.5s;
+    }
+
+    .sparkle:nth-child(5) {
+        top: 38%;
+        left: 6%;
+        animation-delay: 2s;
+    }
+
+    .sparkle:nth-child(6) {
+        top: 52%;
+        right: 22%;
+        animation-delay: 2.5s;
+    }
 
     @keyframes sparkleFloat {
-        0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
-        50% { opacity: 1; transform: translateY(-12px) scale(1); }
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: translateY(0) scale(0);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateY(-12px) scale(1);
+        }
     }
 
     .hero-avatar-wrapper {
@@ -459,11 +568,30 @@
         margin: 0 0 12px;
     }
 
-    .status-entregue { background: #D4EDDA; color: #155724; }
-    .status-pendente { background: #FFF3CD; color: #856404; }
-    .status-cancelado { background: #F8D7DA; color: #721C24; }
-    .status-enviado { background: #CCE5FF; color: #004085; }
-    .status-preparo { background: #E2E3E5; color: #383D41; }
+    .status-entregue {
+        background: #D4EDDA;
+        color: #155724;
+    }
+
+    .status-pendente {
+        background: #FFF3CD;
+        color: #856404;
+    }
+
+    .status-cancelado {
+        background: #F8D7DA;
+        color: #721C24;
+    }
+
+    .status-enviado {
+        background: #CCE5FF;
+        color: #004085;
+    }
+
+    .status-preparo {
+        background: #E2E3E5;
+        color: #383D41;
+    }
 
     .item-title {
         font-size: 17px;
@@ -530,6 +658,179 @@
         cursor: pointer;
     }
 
+    /* ========================================
+       TEMA ESCURO — DASHBOARD INDEX
+       ======================================== */
+    [data-theme="dark"] .profile-main-container {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .profile-hero-card {
+        background: #221a10;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .hero-name {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .hero-verified-icon {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .hero-bio {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .hero-stats-card {
+        background: #33261a;
+        border-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .hero-stat-val {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .hero-stat-label {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .hero-stat-item {
+        border-right-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .orders-container {
+        background: #221a10;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .orders-title-row h2 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .orders-search-bar input {
+        background: #33261a;
+        color: #f5f1e8;
+        border-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .orders-search-bar input::placeholder {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .tabs-navigation {
+        border-bottom-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .tab-btn {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .tab-btn.active {
+        color: #d4a574;
+        border-bottom-color: #d4a574;
+    }
+
+    [data-theme="dark"] .order-card {
+        background: #2a1f14;
+        border-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .order-header {
+        background: #33261a;
+        border-bottom-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .header-cell label {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .header-cell span,
+    [data-theme="dark"] .order-number-link {
+        color: #d4c5a9;
+    }
+
+    [data-theme="dark"] .item-title {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .order-item-details p {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .order-item-placeholder {
+        background: #33261a;
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .btn-action {
+        background: #33261a;
+        color: #d4c5a9;
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .btn-action:hover {
+        background: #d4a574;
+        color: #1a1209;
+        border-color: #d4a574;
+    }
+
+    [data-theme="dark"] .order-side-actions {
+        border-left-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .btn-side {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .btn-side:hover {
+        color: #d4a574;
+        background: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .modal-content {
+        background: #221a10;
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .modal-content h3 {
+        color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .modal-content textarea,
+    [data-theme="dark"] .modal-content input {
+        background: #33261a;
+        color: #f5f1e8;
+        border-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .btn-modal {
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .empty-state {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .pagination-info {
+        color: #a89880;
+    }
+
+    [data-theme="dark"] .page-btn {
+        background: #33261a;
+        color: #d4c5a9;
+        border-color: rgba(212, 165, 116, 0.15);
+    }
+
+    [data-theme="dark"] .page-btn.active-page {
+        background: #d4a574;
+        color: #1a1209;
+    }
+
+    /* ========================================
+       RESPONSIVO
+       ======================================== */
+
     @media (max-width: 1100px) {
         .hero-stats-card {
             gap: 30px;
@@ -554,6 +855,260 @@
     @media (max-width: 768px) {
         .tree-animation-container {
             display: none;
+        }
+
+        .profile-main-container {
+            padding: 0 12px 30px;
+        }
+
+        /* Hero Card */
+        .profile-hero-card {
+            flex-wrap: wrap;
+            padding: 30px 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            gap: 20px;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+        }
+
+        .hero-edit-badge {
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+            bottom: 4px;
+            right: 4px;
+        }
+
+        .hero-info {
+            order: 3;
+            width: 100%;
+        }
+
+        .hero-name {
+            font-size: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-bio {
+            font-size: 14px;
+        }
+
+        .hero-stats-card {
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            flex: 1;
+        }
+
+        .hero-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-stat-val {
+            font-size: 20px;
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+        }
+
+        /* Orders Section */
+        .orders-container {
+            padding: 20px 15px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .orders-title-row {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .orders-title-row h2 {
+            font-size: 22px;
+        }
+
+        .orders-search-bar {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .orders-search-bar input {
+            width: 100%;
+        }
+
+        .btn-search-orders {
+            width: 100%;
+        }
+
+        /* Tabs */
+        .tabs-navigation {
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+
+        .tabs-navigation::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            white-space: nowrap;
+            font-size: 13px;
+            padding: 10px 15px;
+            flex-shrink: 0;
+        }
+
+        /* Order Header */
+        .order-header {
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+        }
+
+        .header-group-row {
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .order-number-link {
+            text-align: left;
+        }
+
+        /* Order Body */
+        .order-body {
+            padding: 15px;
+            flex-direction: column;
+        }
+
+        .order-item-image,
+        .order-item-placeholder {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+        .order-item-details {
+            width: 100%;
+        }
+
+        .order-action-buttons {
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+        }
+
+        /* Side Actions */
+        .order-side-actions {
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .btn-side {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        /* Modal */
+        .modal-content {
+            padding: 25px 20px;
+            border-radius: 16px;
+            width: 95%;
+        }
+
+        .star-rating .star {
+            font-size: 28px;
+        }
+
+        .modal-buttons {
+            flex-direction: column;
+        }
+
+        .btn-modal {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profile-hero-card {
+            padding: 25px 15px;
+        }
+
+        .hero-avatar {
+            width: 100px;
+            height: 100px;
+        }
+
+        .hero-name {
+            font-size: 20px;
+        }
+
+        .hero-stats-card {
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+        }
+
+        .hero-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .orders-title-row h2 {
+            font-size: 18px;
+        }
+
+        .tab-btn {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        .order-card {
+            border-radius: 14px;
+        }
+
+        .header-group-row {
+            gap: 15px;
+        }
+
+        .header-cell label {
+            font-size: 9px;
+        }
+
+        .header-cell span {
+            font-size: 12px;
+        }
+
+        .item-title {
+            font-size: 15px;
+        }
+
+        .btn-action {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .btn-side {
+            font-size: 12px;
+            padding: 8px;
         }
     }
 
@@ -607,6 +1162,7 @@
             opacity: 0;
             transform: translateY(-30px) scale(0.95);
         }
+
         to {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -811,7 +1367,7 @@
 
     <!-- HEADER DO PERFIL -->
     <div class="profile-hero-card">
-        
+
         <!-- Animação no canto direito -->
         <div class="tree-animation-container">
             <div class="magic-glow"></div>
@@ -858,7 +1414,7 @@
                 <?= htmlspecialchars($usuarioNome) ?>
                 <i class="fas fa-check-circle" style="color:#4CAF50; font-size:22px;"></i>
             </h1>
-            
+
 
             <div class="hero-stats-card">
                 <div class="hero-stat-item">
@@ -946,31 +1502,34 @@
                         </div>
                     </div>
                     <div class="order-body">
-                        <?php 
+                        <?php
                         // Pega o primeiro item do pedido para exibir a foto
                         $primeiroItem = !empty($pedido['itens']) ? $pedido['itens'][0] : null;
                         $fotoItem = $primeiroItem['foto_item'] ?? null;
                         $tituloItem = $primeiroItem['titulo_item'] ?? 'Item do Pedido';
                         $idItem = $primeiroItem['id_item'] ?? null;
                         $qtdItens = count($pedido['itens'] ?? []);
-                        
+
                         // Verifica se o item já foi avaliado
                         $jaAvaliado = $idItem && in_array($idItem, $itensAvaliados ?? []);
-                        
+
                         // Determina a classe de status
                         $statusRaw = strtolower($pedido['status'] ?? 'pendente');
                         $statusClass = 'status-pendente';
-                        if (strpos($statusRaw, 'entreg') !== false) $statusClass = 'status-entregue';
-                        elseif (strpos($statusRaw, 'cancel') !== false) $statusClass = 'status-cancelado';
-                        elseif (strpos($statusRaw, 'envia') !== false || strpos($statusRaw, 'transit') !== false) $statusClass = 'status-enviado';
-                        elseif (strpos($statusRaw, 'prepar') !== false || strpos($statusRaw, 'process') !== false) $statusClass = 'status-preparo';
+                        if (strpos($statusRaw, 'entreg') !== false)
+                            $statusClass = 'status-entregue';
+                        elseif (strpos($statusRaw, 'cancel') !== false)
+                            $statusClass = 'status-cancelado';
+                        elseif (strpos($statusRaw, 'envia') !== false || strpos($statusRaw, 'transit') !== false)
+                            $statusClass = 'status-enviado';
+                        elseif (strpos($statusRaw, 'prepar') !== false || strpos($statusRaw, 'process') !== false)
+                            $statusClass = 'status-preparo';
                         ?>
-                        
+
                         <?php if (!empty($fotoItem)): ?>
-                            <img src="<?= htmlspecialchars($fotoItem) ?>" 
-                                 class="order-item-image" 
-                                 alt="<?= htmlspecialchars($tituloItem) ?>"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="<?= htmlspecialchars($fotoItem) ?>" class="order-item-image"
+                                alt="<?= htmlspecialchars($tituloItem) ?>"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="order-item-placeholder" style="display:none;">
                                 <i class="fa fa-book"></i>
                             </div>
@@ -979,7 +1538,7 @@
                                 <i class="fa fa-book"></i>
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="order-item-details">
                             <span class="status-text <?= $statusClass ?>">
                                 <?= htmlspecialchars($pedido['status'] ?? 'Pendente') ?>
@@ -996,15 +1555,14 @@
                         </div>
                         <div class="order-side-actions">
                             <?php if ($idItem && !$jaAvaliado && $statusRaw === 'reservado'): ?>
-                                <button class="btn-side btn-avaliar" 
-                                        data-item-id="<?= $idItem ?>"
-                                        data-item-titulo="<?= htmlspecialchars($tituloItem) ?>"
-                                        data-item-foto="<?= htmlspecialchars($fotoItem ?? '') ?>"
-                                        onclick="abrirModalAvaliacao(this)">
+                                <button class="btn-side btn-avaliar" data-item-id="<?= $idItem ?>"
+                                    data-item-titulo="<?= htmlspecialchars($tituloItem) ?>"
+                                    data-item-foto="<?= htmlspecialchars($fotoItem ?? '') ?>" onclick="abrirModalAvaliacao(this)">
                                     <i class="fa fa-star"></i> Avaliar o produto
                                 </button>
                             <?php elseif ($idItem && !$jaAvaliado): ?>
-                                <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;" title="Você só pode avaliar itens com status 'Reservado'">
+                                <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;"
+                                    title="Você só pode avaliar itens com status 'Reservado'">
                                     <i class="fa fa-lock"></i> Aguardando reserva
                                 </button>
                             <?php elseif ($jaAvaliado): ?>
@@ -1012,20 +1570,19 @@
                                     <i class="fa fa-check"></i> Já avaliado
                                 </button>
                             <?php endif; ?>
-                            <?php 
+                            <?php
                             // Verifica se o pedido já está cancelado ou entregue
                             $podeCancelar = !(strpos($statusRaw, 'cancel') !== false || strpos($statusRaw, 'entreg') !== false);
                             $idPedido = $pedido['id_pedidos'] ?? $pedido['id'] ?? null;
                             ?>
                             <?php if ($podeCancelar && $idPedido): ?>
-                                <button class="btn-side btn-cancelar-reserva" 
-                                        data-pedido-id="<?= $idPedido ?>"
-                                        onclick="abrirModalCancelamento(<?= $idPedido ?>)">
+                                <button class="btn-side btn-cancelar-reserva" data-pedido-id="<?= $idPedido ?>"
+                                    onclick="abrirModalCancelamento(<?= $idPedido ?>)">
                                     <i class="fa fa-times-circle"></i> Cancelar Reserva
                                 </button>
                             <?php else: ?>
                                 <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;">
-                                    <i class="fa fa-ban"></i> 
+                                    <i class="fa fa-ban"></i>
                                     <?= strpos($statusRaw, 'cancel') !== false ? 'Já Cancelado' : 'Não Cancelável' ?>
                                 </button>
                             <?php endif; ?>
@@ -1036,12 +1593,17 @@
         <?php else: ?>
             <!-- Estado vazio - nenhum pedido encontrado -->
             <div style="text-align: center; padding: 60px 20px;">
-                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #F5EFE6 0%, #E8DCCF 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
-                    <i class="fa fa-shopping-bag" style="font-size: 40px; color: var(--color-vintage-brown); opacity: 0.5;"></i>
+                <div
+                    style="width: 100px; height: 100px; background: linear-gradient(135deg, #F5EFE6 0%, #E8DCCF 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
+                    <i class="fa fa-shopping-bag"
+                        style="font-size: 40px; color: var(--color-vintage-brown); opacity: 0.5;"></i>
                 </div>
-                <h3 style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin: 0 0 10px;">Você ainda não fez nenhum pedido</h3>
-                <p style="color: var(--color-text-secondary); font-size: 15px; max-width: 400px; margin: 0 auto 25px;">Explore nosso acervo e encontre livros incríveis para sua coleção.</p>
-                <a href="/produtos.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--color-vintage-brown); color: white; border: none; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">
+                <h3 style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin: 0 0 10px;">Você
+                    ainda não fez nenhum pedido</h3>
+                <p style="color: var(--color-text-secondary); font-size: 15px; max-width: 400px; margin: 0 auto 25px;">
+                    Explore nosso acervo e encontre livros incríveis para sua coleção.</p>
+                <a href="/produtos.html"
+                    style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--color-vintage-brown); color: white; border: none; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">
                     <i class="fa fa-search"></i> Explorar Acervo
                 </a>
             </div>
@@ -1055,7 +1617,7 @@
 <div class="modal-overlay" id="modalAvaliacao">
     <div class="modal-content" style="position: relative;">
         <button class="modal-close" onclick="fecharModalAvaliacao()">&times;</button>
-        
+
         <!-- Formulário de Avaliação -->
         <div id="formAvaliacao">
             <div class="modal-header">
@@ -1065,9 +1627,9 @@
                     <p>Avalie este produto</p>
                 </div>
             </div>
-            
+
             <div class="rating-label">Como você avalia este item?</div>
-            
+
             <div class="star-rating" id="starRating">
                 <i class="fa fa-star star" data-rating="1"></i>
                 <i class="fa fa-star star" data-rating="2"></i>
@@ -1076,27 +1638,24 @@
                 <i class="fa fa-star star" data-rating="5"></i>
             </div>
             <div class="rating-text" id="ratingText"></div>
-            
+
             <div class="rating-label" style="margin-top: 20px;">Fotos ou vídeos (opcional) - Máx 5</div>
             <div class="file-upload-container">
                 <label for="fotoAvaliacao" class="file-upload-label">
                     <i class="fa fa-camera"></i> Adicionar mídia
                 </label>
-                <input type="file" id="fotoAvaliacao" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(this)">
+                <input type="file" id="fotoAvaliacao" accept="image/*" multiple style="display: none;"
+                    onchange="handleFileSelect(this)">
                 <div id="previewContainer" style="margin-top: 10px; display: none; gap: 10px; flex-wrap: wrap;">
                     <!-- Thumbnails will be injected here -->
                 </div>
             </div>
 
             <div class="rating-label" style="margin-top: 20px;">Comentário (opcional)</div>
-            <textarea 
-                class="modal-textarea" 
-                id="comentarioAvaliacao" 
-                placeholder="Conte sua experiência com este produto..."
-                maxlength="500"
-            ></textarea>
+            <textarea class="modal-textarea" id="comentarioAvaliacao"
+                placeholder="Conte sua experiência com este produto..." maxlength="500"></textarea>
             <div class="char-counter"><span id="charCount">0</span>/500 caracteres</div>
-            
+
             <div class="modal-buttons">
                 <button class="btn-modal secondary" onclick="fecharModalAvaliacao()">Cancelar</button>
                 <button class="btn-modal primary" id="btnEnviarAvaliacao" onclick="enviarAvaliacao()" disabled>
@@ -1104,7 +1663,7 @@
                 </button>
             </div>
         </div>
-        
+
         <!-- Mensagem de Sucesso -->
         <div id="successMessage" class="success-message" style="display: none;">
             <i class="fa fa-check-circle"></i>
@@ -1120,32 +1679,34 @@
 <div class="modal-overlay" id="modalCancelamento">
     <div class="modal-content" style="position: relative; max-width: 480px;">
         <button class="modal-close" onclick="fecharModalCancelamento()">&times;</button>
-        
+
         <div id="formCancelamento">
             <div style="text-align: center; padding: 20px 10px;">
-                <div style="width: 80px; height: 80px; background: #FFF3CD; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <div
+                    style="width: 80px; height: 80px; background: #FFF3CD; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                     <i class="fa fa-exclamation-triangle" style="font-size: 40px; color: #856404;"></i>
                 </div>
-                
+
                 <h3 style="font-size: 22px; font-weight: 700; color: var(--color-text-primary); margin: 0 0 15px;">
                     Cancelar esta reserva?
                 </h3>
-                
+
                 <p style="font-size: 15px; color: var(--color-text-secondary); margin: 0 0 25px; line-height: 1.5;">
                     Você tem certeza de que deseja cancelar esta reserva? Esta ação não pode ser desfeita.
                 </p>
-                
+
                 <div class="modal-buttons" style="justify-content: center;">
                     <button class="btn-modal secondary" onclick="fecharModalCancelamento()">
                         Voltar
                     </button>
-                    <button class="btn-modal primary" id="btnConfirmarCancelamento" onclick="confirmarCancelamento()" style="background: #D9534F;">
+                    <button class="btn-modal primary" id="btnConfirmarCancelamento" onclick="confirmarCancelamento()"
+                        style="background: #D9534F;">
                         Sim, cancelar
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mensagem de Sucesso -->
         <div id="successCancelamento" class="success-message" style="display: none;">
             <i class="fa fa-check-circle"></i>
@@ -1156,473 +1717,473 @@
 </div>
 
 <script>
-// ========================================
-// JAVASCRIPT DO MODAL DE AVALIAÇÃO
-// ========================================
+    // ========================================
+    // JAVASCRIPT DO MODAL DE AVALIAÇÃO
+    // ========================================
 
-let currentItemId = null;
-let currentRating = 0;
-let currentBtnElement = null;
-let selectedFiles = [];
+    let currentItemId = null;
+    let currentRating = 0;
+    let currentBtnElement = null;
+    let selectedFiles = [];
 
-const ratingTexts = {
-    1: 'Péssimo',
-    2: 'Ruim',
-    3: 'Regular',
-    4: 'Bom',
-    5: 'Excelente!'
-};
+    const ratingTexts = {
+        1: 'Péssimo',
+        2: 'Ruim',
+        3: 'Regular',
+        4: 'Bom',
+        5: 'Excelente!'
+    };
 
-// Abre o modal com dados do item
-function abrirModalAvaliacao(btnElement) {
-    currentBtnElement = btnElement;
-    currentItemId = btnElement.dataset.itemId;
-    const titulo = btnElement.dataset.itemTitulo;
-    const foto = btnElement.dataset.itemFoto;
-    
-    // Preenche dados do modal
-    document.getElementById('modalItemTitulo').textContent = titulo;
-    
-    // Imagem ou placeholder
-    const imgContainer = document.getElementById('modalItemImage');
-    if (foto) {
-        imgContainer.innerHTML = `<img src="${foto}" alt="${titulo}" class="modal-item-image" onerror="this.parentElement.innerHTML='<div class=\\'modal-item-placeholder\\'><i class=\\'fa fa-book\\'></i></div>'">`;
-    } else {
-        imgContainer.innerHTML = `<div class="modal-item-placeholder"><i class="fa fa-book"></i></div>`;
-    }
-    
-    // Reset estado
-    currentRating = 0;
-    document.getElementById('comentarioAvaliacao').value = '';
-    document.getElementById('charCount').textContent = '0';
-    document.getElementById('ratingText').textContent = '';
-    
-    // Reset Imagens
-    selectedFiles = [];
-    document.getElementById('fotoAvaliacao').value = ''; 
-    renderPreview();
-    
-    document.getElementById('btnEnviarAvaliacao').disabled = true;
-    resetStars();
-    
-    // Mostra form, esconde sucesso
-    document.getElementById('formAvaliacao').style.display = 'block';
-    document.getElementById('successMessage').style.display = 'none';
-    
-    // Abre modal
-    document.getElementById('modalAvaliacao').classList.add('active');
-}
+    // Abre o modal com dados do item
+    function abrirModalAvaliacao(btnElement) {
+        currentBtnElement = btnElement;
+        currentItemId = btnElement.dataset.itemId;
+        const titulo = btnElement.dataset.itemTitulo;
+        const foto = btnElement.dataset.itemFoto;
 
-// Fecha o modal
-function fecharModalAvaliacao() {
-    document.getElementById('modalAvaliacao').classList.remove('active');
-    currentItemId = null;
-    currentRating = 0;
-}
+        // Preenche dados do modal
+        document.getElementById('modalItemTitulo').textContent = titulo;
 
-// Configura seleção de arquivos
-function handleFileSelect(input) {
-    const files = Array.from(input.files);
-    
-    if (selectedFiles.length + files.length > 5) {
-        alert("Você pode selecionar no máximo 5 imagens.");
-        return;
-    }
-
-    files.forEach(file => {
-        if (file.type.match('image.*')) {
-            selectedFiles.push(file);
+        // Imagem ou placeholder
+        const imgContainer = document.getElementById('modalItemImage');
+        if (foto) {
+            imgContainer.innerHTML = `<img src="${foto}" alt="${titulo}" class="modal-item-image" onerror="this.parentElement.innerHTML='<div class=\\'modal-item-placeholder\\'><i class=\\'fa fa-book\\'></i></div>'">`;
+        } else {
+            imgContainer.innerHTML = `<div class="modal-item-placeholder"><i class="fa fa-book"></i></div>`;
         }
-    });
 
-    renderPreview();
-    input.value = ''; 
-}
+        // Reset estado
+        currentRating = 0;
+        document.getElementById('comentarioAvaliacao').value = '';
+        document.getElementById('charCount').textContent = '0';
+        document.getElementById('ratingText').textContent = '';
 
-function renderPreview() {
-    const container = document.getElementById('previewContainer');
-    container.innerHTML = ''; 
-    
-    if (selectedFiles.length === 0) {
-        container.style.display = 'none';
-        return;
+        // Reset Imagens
+        selectedFiles = [];
+        document.getElementById('fotoAvaliacao').value = '';
+        renderPreview();
+
+        document.getElementById('btnEnviarAvaliacao').disabled = true;
+        resetStars();
+
+        // Mostra form, esconde sucesso
+        document.getElementById('formAvaliacao').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+
+        // Abre modal
+        document.getElementById('modalAvaliacao').classList.add('active');
     }
-    
-    container.style.display = 'flex'; 
-    
-    selectedFiles.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const div = document.createElement('div');
-            div.style.position = 'relative';
-            div.style.width = '100px';
-            div.style.height = '100px';
-            
-            div.innerHTML = `
+
+    // Fecha o modal
+    function fecharModalAvaliacao() {
+        document.getElementById('modalAvaliacao').classList.remove('active');
+        currentItemId = null;
+        currentRating = 0;
+    }
+
+    // Configura seleção de arquivos
+    function handleFileSelect(input) {
+        const files = Array.from(input.files);
+
+        if (selectedFiles.length + files.length > 5) {
+            alert("Você pode selecionar no máximo 5 imagens.");
+            return;
+        }
+
+        files.forEach(file => {
+            if (file.type.match('image.*')) {
+                selectedFiles.push(file);
+            }
+        });
+
+        renderPreview();
+        input.value = '';
+    }
+
+    function renderPreview() {
+        const container = document.getElementById('previewContainer');
+        container.innerHTML = '';
+
+        if (selectedFiles.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+
+        container.style.display = 'flex';
+
+        selectedFiles.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const div = document.createElement('div');
+                div.style.position = 'relative';
+                div.style.width = '100px';
+                div.style.height = '100px';
+
+                div.innerHTML = `
                 <img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
                 <button onclick="removerImagem(${index})" style="position: absolute; top: -5px; right: -5px; background: white; border-radius: 50%; border: 1px solid red; color: red; cursor: pointer; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
                     <i class="fa fa-times"></i>
                 </button>
             `;
-            container.appendChild(div);
-        }
-        reader.readAsDataURL(file);
-    });
-}
-
-function removerImagem(index) {
-    selectedFiles.splice(index, 1);
-    renderPreview();
-}
-
-// Reset estrelas
-function resetStars() {
-    document.querySelectorAll('#starRating .star').forEach(star => {
-        star.classList.remove('active', 'hover');
-    });
-}
-
-// Interação com estrelas
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('#starRating .star');
-    
-    stars.forEach(star => {
-        // Hover
-        star.addEventListener('mouseenter', function() {
-            const rating = parseInt(this.dataset.rating);
-            stars.forEach((s, i) => {
-                s.classList.toggle('hover', i < rating);
-            });
-        });
-        
-        // Mouse leave - volta ao estado selecionado
-        star.addEventListener('mouseleave', function() {
-            stars.forEach((s, i) => {
-                s.classList.remove('hover');
-            });
-        });
-        
-        // Click - seleciona rating
-        star.addEventListener('click', function() {
-            currentRating = parseInt(this.dataset.rating);
-            stars.forEach((s, i) => {
-                s.classList.toggle('active', i < currentRating);
-            });
-            document.getElementById('ratingText').textContent = ratingTexts[currentRating] || '';
-            document.getElementById('btnEnviarAvaliacao').disabled = false;
-        });
-    });
-    
-    // Contador de caracteres
-    const textarea = document.getElementById('comentarioAvaliacao');
-    if (textarea) {
-        textarea.addEventListener('input', function() {
-            document.getElementById('charCount').textContent = this.value.length;
+                container.appendChild(div);
+            }
+            reader.readAsDataURL(file);
         });
     }
-    
-    // Fechar modal clicando fora
-    document.getElementById('modalAvaliacao').addEventListener('click', function(e) {
-        if (e.target === this) {
-            fecharModalAvaliacao();
-        }
-    });
-    
-    // Fechar com ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            fecharModalAvaliacao();
-        }
-    });
-});
 
-// Envia avaliação via AJAX
-async function enviarAvaliacao() {
-    if (!currentItemId || currentRating < 1) {
-        alert('Selecione uma nota para avaliar.');
-        return;
+    function removerImagem(index) {
+        selectedFiles.splice(index, 1);
+        renderPreview();
     }
-    
-    const comentario = document.getElementById('comentarioAvaliacao').value.trim();
-    const btnEnviar = document.getElementById('btnEnviarAvaliacao');
-    
-    // Desabilita botão e mostra loading
-    btnEnviar.disabled = true;
-    btnEnviar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando...';
-    
-    try {
-        const formData = new FormData();
-        formData.append('id_item', currentItemId);
-        formData.append('nota', currentRating);
-        formData.append('comentario', comentario);
 
-        selectedFiles.forEach((file, index) => {
-            formData.append('fotos_avaliacao[]', file);
+    // Reset estrelas
+    function resetStars() {
+        document.querySelectorAll('#starRating .star').forEach(star => {
+            star.classList.remove('active', 'hover');
         });
-        
-        const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
-            method: 'POST',
-            body: formData
+    }
+
+    // Interação com estrelas
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('#starRating .star');
+
+        stars.forEach(star => {
+            // Hover
+            star.addEventListener('mouseenter', function () {
+                const rating = parseInt(this.dataset.rating);
+                stars.forEach((s, i) => {
+                    s.classList.toggle('hover', i < rating);
+                });
+            });
+
+            // Mouse leave - volta ao estado selecionado
+            star.addEventListener('mouseleave', function () {
+                stars.forEach((s, i) => {
+                    s.classList.remove('hover');
+                });
+            });
+
+            // Click - seleciona rating
+            star.addEventListener('click', function () {
+                currentRating = parseInt(this.dataset.rating);
+                stars.forEach((s, i) => {
+                    s.classList.toggle('active', i < currentRating);
+                });
+                document.getElementById('ratingText').textContent = ratingTexts[currentRating] || '';
+                document.getElementById('btnEnviarAvaliacao').disabled = false;
+            });
         });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            // Mostra mensagem de sucesso
-            document.getElementById('formAvaliacao').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Atualiza botão na listagem
-            if (currentBtnElement) {
-                currentBtnElement.outerHTML = `
+
+        // Contador de caracteres
+        const textarea = document.getElementById('comentarioAvaliacao');
+        if (textarea) {
+            textarea.addEventListener('input', function () {
+                document.getElementById('charCount').textContent = this.value.length;
+            });
+        }
+
+        // Fechar modal clicando fora
+        document.getElementById('modalAvaliacao').addEventListener('click', function (e) {
+            if (e.target === this) {
+                fecharModalAvaliacao();
+            }
+        });
+
+        // Fechar com ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                fecharModalAvaliacao();
+            }
+        });
+    });
+
+    // Envia avaliação via AJAX
+    async function enviarAvaliacao() {
+        if (!currentItemId || currentRating < 1) {
+            alert('Selecione uma nota para avaliar.');
+            return;
+        }
+
+        const comentario = document.getElementById('comentarioAvaliacao').value.trim();
+        const btnEnviar = document.getElementById('btnEnviarAvaliacao');
+
+        // Desabilita botão e mostra loading
+        btnEnviar.disabled = true;
+        btnEnviar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando...';
+
+        try {
+            const formData = new FormData();
+            formData.append('id_item', currentItemId);
+            formData.append('nota', currentRating);
+            formData.append('comentario', comentario);
+
+            selectedFiles.forEach((file, index) => {
+                formData.append('fotos_avaliacao[]', file);
+            });
+
+            const response = await fetch('/backend/api/cliente/avaliacao/salvar', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Mostra mensagem de sucesso
+                document.getElementById('formAvaliacao').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Atualiza botão na listagem
+                if (currentBtnElement) {
+                    currentBtnElement.outerHTML = `
                     <button class="btn-side btn-avaliado" disabled>
                         <i class="fa fa-check"></i> Já avaliado
                     </button>
                 `;
+                }
+
+                // Atualiza contador de avaliações no card de stats (se existir)
+                const statVal = document.querySelector('.hero-stat-item:nth-child(2) .hero-stat-val');
+                if (statVal) {
+                    statVal.textContent = parseInt(statVal.textContent) + 1;
+                }
+
+                // Fecha modal após 2 segundos
+                setTimeout(() => {
+                    fecharModalAvaliacao();
+                }, 2000);
+
+            } else {
+                alert(data.message || 'Erro ao enviar avaliação.');
+                btnEnviar.disabled = false;
+                btnEnviar.innerHTML = 'Enviar avaliação';
             }
-            
-            // Atualiza contador de avaliações no card de stats (se existir)
-            const statVal = document.querySelector('.hero-stat-item:nth-child(2) .hero-stat-val');
-            if (statVal) {
-                statVal.textContent = parseInt(statVal.textContent) + 1;
-            }
-            
-            // Fecha modal após 2 segundos
-            setTimeout(() => {
-                fecharModalAvaliacao();
-            }, 2000);
-            
-        } else {
-            alert(data.message || 'Erro ao enviar avaliação.');
+
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro de conexão. Tente novamente.');
             btnEnviar.disabled = false;
             btnEnviar.innerHTML = 'Enviar avaliação';
         }
-        
-    } catch (error) {
-        console.error('Erro:', error);
-        alert('Erro de conexão. Tente novamente.');
-        btnEnviar.disabled = false;
-        btnEnviar.innerHTML = 'Enviar avaliação';
     }
-}
 
-// ========================================
-// JAVASCRIPT DO MODAL DE CANCELAMENTO
-// ========================================
+    // ========================================
+    // JAVASCRIPT DO MODAL DE CANCELAMENTO
+    // ========================================
 
-let currentPedidoId = null;
+    let currentPedidoId = null;
 
-// Abre o modal de cancelamento
-function abrirModalCancelamento(pedidoId) {
-    currentPedidoId = pedidoId;
-    
-    // Reset estado
-    document.getElementById('formCancelamento').style.display = 'block';
-    document.getElementById('successCancelamento').style.display = 'none';
-    document.getElementById('btnConfirmarCancelamento').disabled = false;
-    
-    // Abre modal
-    document.getElementById('modalCancelamento').classList.add('active');
-}
+    // Abre o modal de cancelamento
+    function abrirModalCancelamento(pedidoId) {
+        currentPedidoId = pedidoId;
 
-// Fecha o modal de cancelamento
-function fecharModalCancelamento() {
-    document.getElementById('modalCancelamento').classList.remove('active');
-    currentPedidoId = null;
-}
+        // Reset estado
+        document.getElementById('formCancelamento').style.display = 'block';
+        document.getElementById('successCancelamento').style.display = 'none';
+        document.getElementById('btnConfirmarCancelamento').disabled = false;
 
-// Confirma o cancelamento via AJAX
-async function confirmarCancelamento() {
-    if (!currentPedidoId) {
-        alert('Erro: ID do pedido não encontrado.');
-        return;
+        // Abre modal
+        document.getElementById('modalCancelamento').classList.add('active');
     }
-    
-    const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
-    
-    // Desabilita botão e mostra loading
-    btnConfirmar.disabled = true;
-    btnConfirmar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Cancelando...';
-    
-    try {
-        const formData = new FormData();
-        formData.append('id_pedido', currentPedidoId);
-        
-        const response = await fetch('/backend/api/cancelar-reserva.php', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            // Mostra mensagem de sucesso
-            document.getElementById('formCancelamento').style.display = 'none';
-            document.getElementById('successCancelamento').style.display = 'block';
-            
-            // Atualiza a UI - encontra o card do pedido e atualiza o status
-            const btnCancelar = document.querySelector(`[data-pedido-id="${currentPedidoId}"]`);
-            if (btnCancelar) {
-                const orderCard = btnCancelar.closest('.order-card');
-                if (orderCard) {
-                    // Atualiza o badge de status
-                    const statusBadge = orderCard.querySelector('.status-text');
-                    if (statusBadge) {
-                        statusBadge.textContent = 'Cancelado';
-                        statusBadge.className = 'status-text status-cancelado';
-                    }
-                    
-                    // Substitui o botão de cancelar por um botão desabilitado
-                    btnCancelar.outerHTML = `
+
+    // Fecha o modal de cancelamento
+    function fecharModalCancelamento() {
+        document.getElementById('modalCancelamento').classList.remove('active');
+        currentPedidoId = null;
+    }
+
+    // Confirma o cancelamento via AJAX
+    async function confirmarCancelamento() {
+        if (!currentPedidoId) {
+            alert('Erro: ID do pedido não encontrado.');
+            return;
+        }
+
+        const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
+
+        // Desabilita botão e mostra loading
+        btnConfirmar.disabled = true;
+        btnConfirmar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Cancelando...';
+
+        try {
+            const formData = new FormData();
+            formData.append('id_pedido', currentPedidoId);
+
+            const response = await fetch('/backend/api/cancelar-reserva.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Mostra mensagem de sucesso
+                document.getElementById('formCancelamento').style.display = 'none';
+                document.getElementById('successCancelamento').style.display = 'block';
+
+                // Atualiza a UI - encontra o card do pedido e atualiza o status
+                const btnCancelar = document.querySelector(`[data-pedido-id="${currentPedidoId}"]`);
+                if (btnCancelar) {
+                    const orderCard = btnCancelar.closest('.order-card');
+                    if (orderCard) {
+                        // Atualiza o badge de status
+                        const statusBadge = orderCard.querySelector('.status-text');
+                        if (statusBadge) {
+                            statusBadge.textContent = 'Cancelado';
+                            statusBadge.className = 'status-text status-cancelado';
+                        }
+
+                        // Substitui o botão de cancelar por um botão desabilitado
+                        btnCancelar.outerHTML = `
                         <button class="btn-side" disabled style="opacity: 0.5; cursor: not-allowed;">
                             <i class="fa fa-ban"></i> Já Cancelado
                         </button>
                     `;
+                    }
                 }
+
+                // Fecha modal após 2 segundos
+                setTimeout(() => {
+                    fecharModalCancelamento();
+                }, 2000);
+
+            } else {
+                alert(data.message || 'Erro ao cancelar a reserva.');
+                btnConfirmar.disabled = false;
+                btnConfirmar.innerHTML = 'Sim, cancelar';
             }
-            
-            // Fecha modal após 2 segundos
-            setTimeout(() => {
-                fecharModalCancelamento();
-            }, 2000);
-            
-        } else {
-            alert(data.message || 'Erro ao cancelar a reserva.');
+
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro de conexão. Tente novamente.');
             btnConfirmar.disabled = false;
             btnConfirmar.innerHTML = 'Sim, cancelar';
         }
-        
-    } catch (error) {
-        console.error('Erro:', error);
-        alert('Erro de conexão. Tente novamente.');
-        btnConfirmar.disabled = false;
-        btnConfirmar.innerHTML = 'Sim, cancelar';
     }
-}
 
-// Fechar modal clicando fora
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('modalCancelamento')?.addEventListener('click', function(e) {
-        if (e.target === this) {
-            fecharModalCancelamento();
-        }
-    });
+    // Fechar modal clicando fora
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('modalCancelamento')?.addEventListener('click', function (e) {
+            if (e.target === this) {
+                fecharModalCancelamento();
+            }
+        });
 
-    // ========================================
-    // BUSCA DE RESERVAS
-    // ========================================
-    const searchInput = document.querySelector('.orders-search-bar input');
-    const searchButton = document.querySelector('.orders-search-bar button');
-    
-    if (searchInput && searchButton) {
-        // Função de busca
-        function buscarReservas() {
-            const termo = searchInput.value.toLowerCase().trim();
-            const orderCards = document.querySelectorAll('.order-card');
-            let encontrou = false;
-            
-            orderCards.forEach(card => {
-                // Conteúdo para buscar: ID, Título do item, Status
-                const idPedido = card.querySelector('.order-header-left span')?.textContent.toLowerCase() || '';
-                const tituloItem = card.querySelector('.item-title')?.textContent.toLowerCase() || '';
-                const status = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
-                
-                if (termo === '' || 
-                    idPedido.includes(termo) || 
-                    tituloItem.includes(termo) || 
-                    status.includes(termo)) {
-                        
-                    card.style.display = 'block';
-                    encontrou = true;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // Gerencia mensagem de "nenhum resultado"
-            let noResultsMsg = document.getElementById('no-results-message');
-            if (!noResultsMsg) {
-                noResultsMsg = document.createElement('div');
-                noResultsMsg.id = 'no-results-message';
-                noResultsMsg.className = 'avaliacoes-empty'; // Reusa estilo existente
-                noResultsMsg.style.padding = '40px';
-                noResultsMsg.innerHTML = `
+        // ========================================
+        // BUSCA DE RESERVAS
+        // ========================================
+        const searchInput = document.querySelector('.orders-search-bar input');
+        const searchButton = document.querySelector('.orders-search-bar button');
+
+        if (searchInput && searchButton) {
+            // Função de busca
+            function buscarReservas() {
+                const termo = searchInput.value.toLowerCase().trim();
+                const orderCards = document.querySelectorAll('.order-card');
+                let encontrou = false;
+
+                orderCards.forEach(card => {
+                    // Conteúdo para buscar: ID, Título do item, Status
+                    const idPedido = card.querySelector('.order-header-left span')?.textContent.toLowerCase() || '';
+                    const tituloItem = card.querySelector('.item-title')?.textContent.toLowerCase() || '';
+                    const status = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
+
+                    if (termo === '' ||
+                        idPedido.includes(termo) ||
+                        tituloItem.includes(termo) ||
+                        status.includes(termo)) {
+
+                        card.style.display = 'block';
+                        encontrou = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Gerencia mensagem de "nenhum resultado"
+                let noResultsMsg = document.getElementById('no-results-message');
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'no-results-message';
+                    noResultsMsg.className = 'avaliacoes-empty'; // Reusa estilo existente
+                    noResultsMsg.style.padding = '40px';
+                    noResultsMsg.innerHTML = `
                     <i class="fa fa-search" style="font-size: 40px; color: #E0D8CC;"></i>
                     <h3 style="margin-top: 15px;">Nenhuma reserva encontrada</h3>
                     <p>Tente buscar por outro termo.</p>
                 `;
-                const container = document.querySelector('.orders-container');
-                container.appendChild(noResultsMsg);
-            }
-            
-            noResultsMsg.style.display = encontrou ? 'none' : 'block';
-        }
+                    const container = document.querySelector('.orders-container');
+                    container.appendChild(noResultsMsg);
+                }
 
-        // Eventos
-        searchButton.addEventListener('click', buscarReservas);
-        searchInput.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') {
-                buscarReservas();
-            } else {
-                // Opcional: Busca em tempo real ao digitar
-                buscarReservas();
+                noResultsMsg.style.display = encontrou ? 'none' : 'block';
             }
-        });
-    }
 
-    // ========================================
-    // FILTRO DE ABAS (Reservas / Canceladas)
-    // ========================================
-    const tabs = document.querySelectorAll('.tab-btn');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Remove active de todas
-            tabs.forEach(t => t.classList.remove('active'));
-            // Adiciona na atual
-            this.classList.add('active');
-            
-            const tabText = this.textContent.trim();
-            const orderCards = document.querySelectorAll('.order-card');
-            let visibleCount = 0;
-            
-            orderCards.forEach(card => {
-                const statusText = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
-                
-                if (tabText === 'Reservas Canceladas') {
-                    // Mostra APENAS cancelados
-                    if (statusText.includes('cancelado')) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                } else if (tabText === 'Reservas') {
-                    // Mostra TODOS (ou filtro padrão)
-                        card.style.display = 'block';
-                        visibleCount++;
-                } else if (tabText === 'Reservas Pendentes') {
-                    // Mostra APENAS pendentes
-                    if (statusText.includes('pendente')) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
+            // Eventos
+            searchButton.addEventListener('click', buscarReservas);
+            searchInput.addEventListener('keyup', function (e) {
+                if (e.key === 'Enter') {
+                    buscarReservas();
                 } else {
-                    // Outras abas - comportamento padrão (tudo visível)
-                    card.style.display = 'block';
-                    visibleCount++;
+                    // Opcional: Busca em tempo real ao digitar
+                    buscarReservas();
                 }
             });
-            
-            // Verifica se precisa mostrar mensagem de vazio
-            let noResultsMsg = document.getElementById('no-results-message');
-            // Se já existe, ocultamos/exibimos
-            if (noResultsMsg) {
-                noResultsMsg.style.display = visibleCount > 0 ? 'none' : 'block';
-            }
+        }
+
+        // ========================================
+        // FILTRO DE ABAS (Reservas / Canceladas)
+        // ========================================
+        const tabs = document.querySelectorAll('.tab-btn');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                // Remove active de todas
+                tabs.forEach(t => t.classList.remove('active'));
+                // Adiciona na atual
+                this.classList.add('active');
+
+                const tabText = this.textContent.trim();
+                const orderCards = document.querySelectorAll('.order-card');
+                let visibleCount = 0;
+
+                orderCards.forEach(card => {
+                    const statusText = card.querySelector('.status-text')?.textContent.toLowerCase() || '';
+
+                    if (tabText === 'Reservas Canceladas') {
+                        // Mostra APENAS cancelados
+                        if (statusText.includes('cancelado')) {
+                            card.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    } else if (tabText === 'Reservas') {
+                        // Mostra TODOS (ou filtro padrão)
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else if (tabText === 'Reservas Pendentes') {
+                        // Mostra APENAS pendentes
+                        if (statusText.includes('pendente')) {
+                            card.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    } else {
+                        // Outras abas - comportamento padrão (tudo visível)
+                        card.style.display = 'block';
+                        visibleCount++;
+                    }
+                });
+
+                // Verifica se precisa mostrar mensagem de vazio
+                let noResultsMsg = document.getElementById('no-results-message');
+                // Se já existe, ocultamos/exibimos
+                if (noResultsMsg) {
+                    noResultsMsg.style.display = visibleCount > 0 ? 'none' : 'block';
+                }
+            });
         });
     });
-});
 </script>

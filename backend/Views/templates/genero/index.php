@@ -1,17 +1,98 @@
-<div class="w3-container" style="padding: 20px;">
-    <h3 style="color: #6B5235;">
-        <i class="fa fa-theater-masks"></i> Gerenciar Gêneros
+<style>
+    .genre-container {
+        padding: 20px;
+    }
+
+    .page-title {
+        color: #6B5235;
+        font-weight: 600;
+    }
+
+    .btn-add {
+        background: var(--bege-dark);
+        color: white;
+        margin: 15px 0;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .genre-table {
+        border-color: var(--bege-light);
+        border-radius: 8px;
+    }
+
+    .table-header {
+        background: var(--bege-primary);
+        color: white;
+    }
+
+    .btn-edit {
+        background: var(--bege-primary);
+        color: white;
+        border-radius: 6px;
+    }
+
+    /* Dark Theme Overrides */
+    [data-theme="dark"] .page-title {
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .btn-add {
+        background: #33261a;
+        color: #d4a574;
+        border: 1px solid #3d2e20;
+    }
+
+    [data-theme="dark"] .btn-add:hover {
+        background: #2a1f14;
+    }
+
+    [data-theme="dark"] .table-responsive {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .genre-table {
+        background-color: #221a10 !important;
+        /* Override w3-white */
+        color: #f5f1e8;
+        border-color: #3d2e20;
+    }
+
+    [data-theme="dark"] .table-header {
+        background: #2a1f14;
+        color: #d4a574;
+    }
+
+    [data-theme="dark"] .genre-table td {
+        border-color: rgba(212, 165, 116, 0.1);
+    }
+
+    [data-theme="dark"] .btn-edit {
+        background: #33261a;
+        color: #d4a574;
+        border: 1px solid #3d2e20;
+    }
+
+    [data-theme="dark"] .btn-edit:hover {
+        background: #2a1f14;
+    }
+</style>
+
+<div class="w3-container genre-container">
+    <h3 class="page-title">
+        <i class="fa fa-bookmark"></i> Gerenciar Gêneros
     </h3>
 
-    <a href="/backend/genero/criar" class="w3-button w3-round-large"
-        style="background: var(--bege-dark); color: white; margin: 15px 0;">
+    <a href="/backend/genero/criar" class="w3-button w3-round-large btn-add">
         <i class="fa fa-plus"></i> Adicionar Novo Gênero
     </a>
 
-    <div class="w3-responsive w3-card w3-round-large" style="overflow-x: auto; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-        <table class="w3-table w3-bordered w3-hoverable w3-white"
-            style="border-color: var(--bege-light); border-radius: 8px;">
-            <thead style="background: var(--bege-primary); color: white;">
+    <div class="w3-responsive w3-card w3-round-large table-responsive">
+        <table class="w3-table w3-bordered w3-hoverable w3-white genre-table">
+            <thead class="table-header">
                 <tr>
                     <th>Nome do Gênero</th>
                     <th style="width: 180px;">Ações</th>
@@ -23,8 +104,7 @@
                         <td><b><?= htmlspecialchars($cat['nome_generos']); ?></b></td>
 
                         <td>
-                            <a href="/backend/genero/editar/<?= $cat['id_generos']; ?>" class="w3-button w3-small"
-                                style="background: var(--bege-primary); color: white; border-radius: 6px;">
+                            <a href="/backend/genero/editar/<?= $cat['id_generos']; ?>" class="w3-button w3-small btn-edit">
                                 <i class="fa fa-edit"></i> Editar
                             </a>
 
