@@ -2522,3 +2522,9 @@ Stack trace:
 [18-Feb-2026 01:41:08 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
 [18-Feb-2026 03:11:26 UTC] === DESATIVANDO USUÁRIO #53 ===
 [18-Feb-2026 03:11:26 UTC] ✅ Usuário desativado. Linhas: 1
+[19-Feb-2026 13:42:53 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 13:55:13 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 14:38:57 Europe/Berlin] AVISO: Falha ao enviar email de reserva #49: syntax error, unexpected variable "$this"
+[19-Feb-2026 14:39:08 Europe/Berlin] AVISO: Falha ao enviar email de reserva #50: syntax error, unexpected variable "$this"
+[19-Feb-2026 14:45:51 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 14:51:25 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com

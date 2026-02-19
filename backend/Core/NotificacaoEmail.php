@@ -1,12 +1,12 @@
 <?php
 namespace Sebo\Alfarrabio\Core;
 use Sebo\Alfarrabio\Core\EmailService;
-
+ 
 class NotificacaoEmail
 {
     private $emailService;
     private $urlBase;
-
+ 
     public function __construct()
     {
         $this->emailService = new EmailService();
@@ -15,7 +15,7 @@ class NotificacaoEmail
         // Para produção, você pode usar:
         // $this->urlBase = "https://www.sebo-alfarrabio.com.br";
     }
-
+ 
     /**
      * Envia email de redefinição de senha.
      * @param string $email
@@ -28,19 +28,19 @@ class NotificacaoEmail
         $mensagem .= $this->urlBase . "/backend/redefinir-senha?token=" . urlencode($token);
         $this->emailService->send($email, $assunto, $mensagem);
     }
-
+ 
     /**
      * Envia email de boas-vindas.
      * @param string $email
      * @param string $nome
      */
-
-
+ 
+ 
         ///////////// EMAIL DE BOAS-VINDAS ////////////
     public function boasVindas(string $email, string $nome): void
     {
         $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
-
+ 
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -129,35 +129,35 @@ class NotificacaoEmail
             <img src="' . $this->urlBase . 'http://localhost:4000/img/logo2.png" alt="Logo Sebo-Alfarrabio" class="logo">
             <h1>Sebo-Alfarrabio</h1>
         </div>
-        
+       
         <div class="content">
             <p class="greeting">Olá, ' . htmlspecialchars($nome) . '!</p>
-            
+           
             <p class="message">
                 É com grande alegria que damos as boas-vindas a você em nossa comunidade de amantes de livros raros e histórias inesquecíveis.
             </p>
-            
+           
             <p class="message">
                 O <strong>Sebo-Alfarrabio</strong> é mais do que um simples sebo online – é um refúgio para aqueles que acreditam que cada livro guarda segredos, memórias e conhecimentos que merecem ser redescobertos.
             </p>
-            
+           
             <div class="highlight">
                 <p><strong>🔖 O que você pode fazer agora:</strong></p>
                 <p>• Explorar nosso acervo de livros únicos e raros</p>
                 <p>• Adicionar obras à sua lista de desejos</p>
                 <p>• Acompanhar novidades e lançamentos</p>
             </div>
-            
+           
             <p class="message">
                 Estamos aqui para ajudá-lo a encontrar aquele livro especial que você tanto procura, ou quem sabe apresentar uma obra que você nem sabia que precisava ler.
             </p>
-            
+           
             <p class="signature">
                 Boas leituras e ótimas descobertas!<br>
                 <strong>Equipe Sebo-Alfarrabio</strong>
             </p>
         </div>
-        
+       
         <div class="footer">
             <p>📖 <em>"Cada livro é uma viagem, cada página uma nova descoberta"</em></p>
             <p style="margin-top: 15px; font-size: 12px; color: #8b4513;">
@@ -170,15 +170,15 @@ class NotificacaoEmail
 ';
     }
     ////////////////////////////////////////////////
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ///////////////////// EMAIL DE RESERVA RECEBIDA /////////////////////
-    
+   
     /**
      * Envia email de confirmação de reserva.
      * @param array $usuario Dados do usuário (nome, email).
@@ -190,14 +190,14 @@ class NotificacaoEmail
         $email = $usuario['email_usuario'];
         $idPedido = $pedido['id'];
         $total = number_format($pedido['valor_total'], 2, ',', '.');
-        
+       
         $assunto = "Reserva #{$idPedido} Confirmada - Sebo-Alfarrabio";
-
+ 
         $itensHtml = '';
         foreach ($pedido['itens'] as $item) {
             $itensHtml .= "<li>{$item['quantidade']}x {$item['titulo']}</li>";
         }
-
+ 
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -222,7 +222,7 @@ class NotificacaoEmail
             <p>Olá, <strong>' . htmlspecialchars($nome) . '</strong>!</p>
             <p>Sua solicitação de reserva foi recebida com sucesso e está <strong>aguardando confirmação</strong> de nossa equipe.</p>
             <p>Em breve analisaremos seu pedido e você receberá uma notificação quando a reserva for confirmada.</p>
-            
+           
             <div class="pedido-info">
                 <p><strong>Número do Pedido:</strong> #' . $idPedido . '</p>
                 <p><strong>Status:</strong> <span style="color: #f57c00; font-weight: bold;">Pendente</span></p>
@@ -230,10 +230,10 @@ class NotificacaoEmail
                 <p><strong>Itens:</strong></p>
                 <ul>' . $itensHtml . '</ul>
             </div>
-            
+           
             <p><strong>Próximos passos:</strong></p>
             <p>Nossa equipe irá verificar a disponibilidade dos itens e confirmar sua reserva. Você receberá um e-mail assim que o status for atualizado.</p>
-            
+           
             <p style="margin-top: 30px;">
                 Atenciosamente,<br>
                 <strong>Equipe Sebo-Alfarrabio</strong>
@@ -249,12 +249,12 @@ class NotificacaoEmail
         $this->emailService->send($email, $assunto, $mensagem);
     }
     /////////////////////////////////////////////////////////////
-
-
-
-
-
-    
+ 
+ 
+ 
+ 
+ 
+   
     /**
      * Envia email de confirmação de reserva APROVADA pelo funcionário.
      * @param array $usuario Dados do usuário (nome, email).
@@ -266,9 +266,9 @@ class NotificacaoEmail
         $email = $usuario['email_usuario'];
         $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
         $total = number_format($pedido['valor_total'], 2, ',', '.');
-        
+       
         $assunto = "Sua Reserva #{$idPedido} foi Aprovada! - Sebo-Alfarrabio";
-
+ 
         $itensHtml = '';
         if (isset($pedido['itens']) && is_array($pedido['itens'])) {
             foreach ($pedido['itens'] as $item) {
@@ -277,7 +277,7 @@ class NotificacaoEmail
                 $itensHtml .= "<li>{$item['quantidade']}x {$titulo}</li>";
             }
         }
-
+ 
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -310,10 +310,10 @@ class NotificacaoEmail
                 <p><strong>Itens:</strong></p>
                 <ul>' . $itensHtml . '</ul>
             </div>
-            
+           
             <p><strong>Próximos passos:</strong></p>
             <p>Entre em contato conosco ou venha até a loja para finalizar a compra e retirar seus produtos.</p>
-            
+           
             <p style="margin-top: 30px;">
                 Atenciosamente,<br>
                 <strong>Equipe Sebo-Alfarrabio</strong>
@@ -329,3 +329,4 @@ class NotificacaoEmail
         $this->emailService->send($email, $assunto, $mensagem);
     }
 }
+ 
