@@ -2522,6 +2522,7 @@ Stack trace:
 [18-Feb-2026 01:41:08 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
 [18-Feb-2026 03:11:26 UTC] === DESATIVANDO USUÁRIO #53 ===
 [18-Feb-2026 03:11:26 UTC] ✅ Usuário desativado. Linhas: 1
+<<<<<<< HEAD
 [19-Feb-2026 13:11:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [19-Feb-2026 13:18:30 Europe/Berlin] === INSERINDO USUÁRIO ===
 [19-Feb-2026 13:18:30 Europe/Berlin] Nome: nathaly, Email: cristinenathaly5@gmail.com, Tipo: Cliente
@@ -2542,3 +2543,20 @@ Stack trace:
 [19-Feb-2026 14:45:25 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
 [19-Feb-2026 14:46:51 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 14:48:32 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+=======
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+>>>>>>> c0599cf87e843710c8401e0102e3a3f7e38eeb0a
