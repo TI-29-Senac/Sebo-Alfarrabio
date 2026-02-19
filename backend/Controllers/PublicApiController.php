@@ -13,7 +13,6 @@ class PublicApiController
     private $avaliacao;
     private $categoriaModel;
     private $generoModel;
-    private $autorModel;
 
     public function __construct()
     {
@@ -46,18 +45,18 @@ class PublicApiController
                     echo json_encode(['status' => 'error', 'message' => 'Item não encontrado']);
                     return;
                 }
-
+                
                 // Formata com base64
                 $item = $this->formatItemWithBase64($item);
-
+                
                 echo json_encode(['status' => 'success', 'data' => $item]);
 
             } else {
                 // Buscar todos os itens ativos
                 $itens = $this->item->buscarTodosItensCompletos();
-
+                
                 // Formata cada item com base64
-                $itensFormatados = array_map(function ($item) {
+                $itensFormatados = array_map(function($item) {
                     return $this->formatItemWithBase64($item);
                 }, $itens);
 
@@ -79,14 +78,13 @@ class PublicApiController
      */
     private function formatItemWithBase64($item)
     {
-        if (empty($item))
-            return $item;
+        if (empty($item)) return $item;
 
         // Tenta processar a imagem se existir
         if (!empty($item['foto_item'])) {
             $caminhoRelativo = $item['foto_item'];
             $baseDir = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
-
+            
             $caminhoLimpo = ltrim($caminhoRelativo, '/');
             if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
                 $caminhoLimpo = substr($caminhoLimpo, strlen('backend/uploads/'));
@@ -98,47 +96,22 @@ class PublicApiController
 
             if (file_exists($caminhoFinal)) {
                 $imageData = file_get_contents($caminhoFinal);
-                $mimeType = $this->getMimeType($caminhoFinal);
+                $mimeType = mime_content_type($caminhoFinal);
                 $base64 = base64_encode($imageData);
-
+                
                 // Adiciona a propriedade base64 (usando a mesma lógica do método standalone)
                 $item['imagem_base64'] = 'data:' . $mimeType . ';base64,' . $base64;
-
+                
                 // Se o usuário quiser substituir foto_item ou adicionar caminho_imagem específico, fazemos aqui
                 $item['caminho_imagem'] = '/backend/uploads/' . $caminhoLimpo;
             } else {
                 $item['imagem_base64'] = null;
-                // Fallback para evitar 404 se o arquivo físico não existir
-                $item['caminho_imagem'] = '/img/sem-imagem.webp';
             }
         } else {
             $item['imagem_base64'] = null;
         }
 
         return $item;
-    }
-
-    /**
-     * Helper para obter mime-type com fallback se a extensão fileinfo estiver desativada
-     */
-    private function getMimeType($file)
-    {
-        if (function_exists('mime_content_type')) {
-            return mime_content_type($file);
-        }
-
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        $mimes = [
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-            'webp' => 'image/webp',
-            'bmp' => 'image/bmp',
-            'svg' => 'image/svg+xml',
-        ];
-
-        return $mimes[$extension] ?? 'application/octet-stream';
     }
 
     /**
@@ -205,7 +178,7 @@ class PublicApiController
             $nota_minima = isset($_GET['nota_minima']) ? (int) $_GET['nota_minima'] : null;
 
             $dadosCompletos = $this->avaliacao->getAvaliacoesCompletas($limite, $nota_minima);
-
+            
             $avaliacoes = $dadosCompletos['avaliacoes'];
             $totalInDB = $this->avaliacao->totalDeAvaliacaoAtivos();
 
@@ -355,7 +328,7 @@ class PublicApiController
 
             $caminhoRelativo = $item['foto_item'];
             $baseDir = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
-
+            
             $caminhoLimpo = ltrim($caminhoRelativo, '/');
             if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
                 $caminhoLimpo = substr($caminhoLimpo, strlen('backend/uploads/'));
@@ -368,7 +341,7 @@ class PublicApiController
             if (!file_exists($caminhoFinal)) {
                 http_response_code(404);
                 echo json_encode([
-                    'status' => 'error',
+                    'status' => 'error', 
                     'message' => 'Arquivo de imagem não encontrado no servidor',
                     'debug_path' => $caminhoFinal
                 ]);
@@ -377,11 +350,11 @@ class PublicApiController
 
             $imageData = file_get_contents($caminhoFinal);
             $base64 = base64_encode($imageData);
-            $mimeType = $this->getMimeType($caminhoFinal);
+            $mimeType = mime_content_type($caminhoFinal);
 
             echo json_encode([
                 'status' => 'success',
-                'id' => (int) $id,
+                'id' => (int)$id,
                 'mime_type' => $mimeType,
                 'filename' => basename($caminhoFinal),
                 'base64' => 'data:' . $mimeType . ';base64,' . $base64

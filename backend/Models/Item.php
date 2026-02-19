@@ -349,7 +349,7 @@ class Item
     {
         // Helper para normalizar o caminho da imagem para exibição
         if (empty($foto_item))
-            return '/img/sem-imagem.webp';
+            return '/img/sem-imagem.png';
 
         // Verifica se é URL completa
         if (filter_var($foto_item, FILTER_VALIDATE_URL)) {

@@ -24,7 +24,7 @@ async function carregarNovidades() {
     `;
 
     try {
-        const response = await fetch('/backend/api/item');
+        const response = await fetch('/backend/index.php/api/item');
         const data = await response.json();
 
         if (data.status === 'success' && data.data) {
@@ -70,14 +70,14 @@ function criarCardLivro(livro) {
         : livro.titulo_item;
 
     // Define imagem padrão se não houver
-    const imagemUrl = livro.caminho_imagem || '/img/sem-imagem.webp';
+    const imagemUrl = livro.caminho_imagem || '/img/sem-imagem.png';
 
     return `
         <div class="card-livro">
             <figure>
                 <img src="${imagemUrl}" 
                      alt="${livro.titulo_item}" 
-                     onerror="this.src='/img/sem-imagem.webp'">
+                     onerror="this.src='/img/sem-imagem.png'">
                 <figcaption class="figcaption-livro">
                     <h2 class="name">${tituloFormatado}</h2>
                     <small>${primeiroAutor}</small>

@@ -5,11 +5,22 @@
 
 /* Seção principal de depoimentos */
 .depoimentos {
-    background: var(--bg-primary);
+    background: linear-gradient(135deg, #f8f1e7 0%, #f5e6d3 50%, #f0dcc6 100%);
     padding: 60px 20px;
     min-height: 500px;
     position: relative;
     overflow: hidden;
+}
+
+.depoimentos::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23d4a574" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
 }
 
 /* Título da seção */
@@ -17,17 +28,17 @@
     font-family: 'Merriweather', Georgia, serif;
     font-size: clamp(1.5rem, 4vw, 2.2rem);
     font-weight: 700;
-    color: var(--text-primary);
+    color: #8b5a2b;
     text-align: center;
     margin-bottom: 40px;
     padding: 0 20px;
     position: relative;
     z-index: 1;
-    text-shadow: 1px 1px 2px var(--shadow-light);
+    text-shadow: 1px 1px 2px rgba(139, 90, 43, 0.1);
 }
 
 .depoimento-titulo .fa-star {
-    color: var(--accent-gold);
+    color: #d4a574;
     animation: pulseEstrela 2s ease-in-out infinite;
 }
 
@@ -56,9 +67,12 @@
     min-height: 350px !important;
 }
 
+/* ... botões ... */
+
 /* Track do slider */
 .depoimento-track {
     display: block;
+    /* Mudado de flex para block, pois os filhos são absolute */
     width: 100% !important;
     min-height: 350px !important;
     position: relative;
@@ -73,11 +87,12 @@
     position: absolute;
     width: 90%;
     max-width: 500px;
-    background: var(--bg-card);
+    background: linear-gradient(145deg, #ffffff, #faf7f2);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 10px 40px var(--shadow-card);
-    border: 1px solid var(--border-color);
+    box-shadow:
+        0 10px 40px rgba(139, 90, 43, 0.15),
+        0 0 0 1px rgba(212, 165, 116, 0.2);
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
@@ -111,8 +126,8 @@
 /* Header do card */
 .depoimento-header {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 20px;
     gap: 15px;
 }
@@ -128,15 +143,15 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--accent-gold);
-    box-shadow: 0 4px 10px var(--shadow-light);
+    border: 3px solid #d4a574;
+    box-shadow: 0 4px 10px rgba(212, 165, 116, 0.3);
 }
 
 .depoimento-foto-placeholder {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-warm) 100%);
+    background: linear-gradient(135deg, #d4a574 0%, #c9956a 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -144,8 +159,8 @@
     font-size: 1.3rem;
     font-weight: 700;
     font-family: 'Merriweather', serif;
-    border: 3px solid var(--accent-dark);
-    box-shadow: 0 4px 10px var(--shadow-light);
+    border: 3px solid #8b5a2b;
+    box-shadow: 0 4px 10px rgba(212, 165, 116, 0.3);
 }
 
 .depoimento-info {
@@ -158,30 +173,36 @@
     font-family: 'Merriweather', Georgia, serif;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #5c3d2e;
     margin: 0;
 }
 
 .depoimento-estrelas {
-    display: flex;
     color: #f5a623;
     font-size: 0.95rem;
     letter-spacing: 2px;
 }
 
+.depoimento-estrelas .fa-star,
+.depoimento-estrelas .fa-star-half-alt {
+    color: #f5a623;
+}
+
+.depoimento-estrelas .far.fa-star {
+    color: #ddd;
+}
+
 .depoimento-data {
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    font-size: 0.85rem;
+    color: #8b7355;
     display: flex;
     align-items: center;
     gap: 5px;
-    white-space: normal;
-    font-style: italic;
-    margin-top: 2px;
+    white-space: nowrap;
 }
 
 .depoimento-data i {
-    color: var(--accent-gold);
+    color: #d4a574;
 }
 
 /* Corpo do card */
@@ -193,7 +214,7 @@
     font-family: 'Merriweather', Georgia, serif;
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: #5c3d2e;
     font-style: italic;
     text-align: center;
     margin: 0;
@@ -206,7 +227,7 @@
     flex-direction: column;
     gap: 8px;
     padding-top: 15px;
-    border-top: 1px dashed var(--accent-gold);
+    border-top: 1px dashed #d4a574;
 }
 
 .depoimento-item-info,
@@ -215,19 +236,19 @@
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #8b7355;
 }
 
 .depoimento-item-info i,
 .depoimento-item-meta i {
-    color: var(--accent-gold);
+    color: #d4a574;
     font-size: 0.85rem;
     min-width: 16px;
 }
 
 .item-titulo {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #5c3d2e;
 }
 
 /* Indicadores */
@@ -241,21 +262,25 @@
 }
 
 .depoimento-indicador {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background-color: var(--border-color);
-    border: 2px solid var(--accent-gold);
+    background-color: rgba(212, 165, 116, 0.3);
+    border: 2px solid #d4a574;
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0;
 }
 
+.depoimento-indicador:hover {
+    background-color: rgba(212, 165, 116, 0.5);
+    transform: scale(1.2);
+}
+
 .depoimento-indicador.active {
-    background-color: var(--accent-gold);
-    transform: scale(1.3);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--shadow-light);
+    background-color: #d4a574;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
 }
 
 /* Loading */
@@ -264,9 +289,9 @@
     max-width: 500px;
     height: 280px;
     background: linear-gradient(90deg,
-            var(--border-color) 25%,
-            var(--border-accent) 50%,
-            var(--border-color) 75%);
+            rgba(212, 165, 116, 0.1) 25%,
+            rgba(212, 165, 116, 0.2) 50%,
+            rgba(212, 165, 116, 0.1) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: 20px;
@@ -287,15 +312,73 @@
 .depoimento-vazio {
     text-align: center;
     padding: 60px 20px;
-    color: var(--text-muted);
+    color: #8b7355;
 }
 
 .depoimento-vazio i {
     font-size: 4rem;
-    color: var(--accent-gold);
+    color: #d4a574;
     opacity: 0.5;
     margin-bottom: 20px;
     display: block;
+}
+
+.depoimento-vazio p {
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.depoimento-vazio small {
+    color: #a08570;
+    font-size: 0.95rem;
+}
+
+/* Estado de erro */
+.depoimento-erro {
+    text-align: center;
+    padding: 40px 20px;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.1);
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.depoimento-erro i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.depoimento-erro p {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.depoimento-erro small {
+    display: block;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.btn-retry {
+    background: linear-gradient(135deg, #d4a574 0%, #c9956a 100%);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-retry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 165, 116, 0.4);
 }
 
 /* ========================================
@@ -307,8 +390,74 @@
         min-height: 450px;
     }
 
+    .depoimento-slider {
+        padding: 0 50px;
+    }
+
+    .depoimento-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+    }
+
+    .depoimento-nav-prev {
+        left: 5px;
+    }
+
+    .depoimento-nav-next {
+        right: 5px;
+    }
+
     .depoimento-card {
         padding: 20px;
         max-width: 350px;
+    }
+
+    .depoimento-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .depoimento-usuario {
+        flex-direction: column;
+    }
+
+    .depoimento-foto,
+    .depoimento-foto-placeholder {
+        width: 50px;
+        height: 50px;
+    }
+
+    .depoimento-comentario {
+        font-size: 0.95rem;
+    }
+
+    .depoimento-track {
+        min-height: 350px;
+    }
+
+    .depoimento-titulo {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .depoimento-slider {
+        padding: 0 40px;
+    }
+
+    .depoimento-card {
+        max-width: 280px;
+        padding: 15px;
+    }
+
+    .depoimento-card.prev,
+    .depoimento-card.next {
+        opacity: 0;
+    }
+
+    .depoimento-titulo .fa-star {
+        display: none;
     }
 }

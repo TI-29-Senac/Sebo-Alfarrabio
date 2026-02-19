@@ -183,31 +183,9 @@ class Avaliacao
 
         try {
             $result = $stmt->execute();
-<<<<<<< HEAD
             if ($result) {
                 error_log("✅ Avaliação #{$id_avaliacao} atualizada (rows: " . $stmt->rowCount() . ")");
                 return true;
-=======
-
-            // Insert new photos if any
-            if (!empty($novas_fotos)) {
-                $sqlFoto = "INSERT INTO tbl_avaliacao_fotos (id_avaliacao, caminho_foto) VALUES (:id_av, :caminho)";
-                $stmtFoto = $this->db->prepare($sqlFoto);
-                
-                foreach ($novas_fotos as $caminho) {
-                    $stmtFoto->bindParam(':id_av', $id_avaliacao, PDO::PARAM_INT);
-                    $stmtFoto->bindParam(':caminho', $caminho);
-                    $stmtFoto->execute();
-                }
-
-                // Update foto_avaliacao (single column) to be the first available photo if it was empty, or just keep it synced with latest? 
-                // For simplicity, let's leave foto_avaliacao as is, or update it if it was null.
-                // A better approach for the legacy column: set it to the first photo from `tbl_avaliacao_fotos` to ensure consistency.
-                $sqlUpdateFoto = "UPDATE tbl_avaliacao SET foto_avaliacao = (SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id LIMIT 1) WHERE id_avaliacao = :id";
-                $stmtUpdateFoto = $this->db->prepare($sqlUpdateFoto);
-                $stmtUpdateFoto->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-                $stmtUpdateFoto->execute();
->>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
             }
             error_log("⚠️ Execute retornou false na update");
             return false;
@@ -231,18 +209,6 @@ class Avaliacao
             error_log("ERRO DELETE: " . $e->getMessage());
             return false;
         }
-    }
-
-    /**
-     * Busca fotos de uma avaliação específica.
-     */
-    public function buscarFotosAvaliacao($id_avaliacao)
-    {
-        $sql = "SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id ORDER BY id_foto ASC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     /**

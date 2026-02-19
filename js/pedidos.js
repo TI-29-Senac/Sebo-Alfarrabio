@@ -9,7 +9,7 @@ function finalizarPedido() {
     }
     pedidoStatusEl.textContent = 'Enviando pedido...';
 
-    fetch('/backend/api/pedidos', {
+    fetch('/backend/index.php/api/pedidos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(carrinho)

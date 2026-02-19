@@ -2,8 +2,9 @@
    ESTILOS DA SEÇÃO O ESPAÇO
    ======================================== */
 .espaco {
+
     padding: 50px 20px;
-    background-color: var(--bg-primary);
+    background-color: #fdf6ec;
     font-family: 'Merriweather', serif;
     position: relative;
     background-image: url('../img/logo2.png');
@@ -16,7 +17,7 @@
 .titulo-interno {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--accent-warm);
+    color: #a87e4b;
     text-align: center;
     margin-bottom: 20px;
     font-family: 'Merriweather', serif;
@@ -24,15 +25,16 @@
 
 .titulo {
     font-size: 2.2rem;
-    color: var(--accent-warm);
+    color: #a87e4b;
     text-align: center;
     font-family: 'Merriweather', serif;
     margin-bottom: 20px;
     font-weight: 700;
-    text-shadow: 2px 2px 4px var(--shadow-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
     padding-bottom: 10px;
+
 }
 
 .container-espaco {
@@ -54,6 +56,8 @@
 
 .img-esquerda {
     width: 15rem;
+
+
 }
 
 .coluna-central {
@@ -68,6 +72,7 @@
 
 .img-central {
     width: 47rem;
+
 }
 
 .culuna-direita {
@@ -86,7 +91,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: var(--text-light);
+    color: #fdf6ec;
 }
 
 .img-direita-1 {
@@ -119,7 +124,7 @@
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    background-color: var(--bg-card);
+    background-color: #fdf6ec;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -132,8 +137,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
+    background: linear-gradient(to top, #521f02cc, transparent);
+    color: #fdf6ec;
     display: flex;
     flex-direction: column;
     align-items: center;

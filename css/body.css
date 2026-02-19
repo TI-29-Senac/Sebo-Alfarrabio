@@ -1,8 +1,13 @@
 /* ========================================
    RESET GLOBAL E ESTILOS DO BODY
    ======================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-   background-color: var(--bg-primary) !important;
-   color: var(--text-primary) !important;
-   transition: background-color 0.4s ease, color 0.4s ease;
+    padding-top: 100px;
+    /* Espaço para o header fixo */
 }

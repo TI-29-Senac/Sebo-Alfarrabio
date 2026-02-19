@@ -13,11 +13,17 @@
   align-items: center;
   padding: 2rem;
   font-family: 'Merriweather', serif;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   text-align: center;
+  height: auto;
+
 }
 
+
 .novidade {
-  color: var(--accent-warm);
+  color: #a87e4b;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -34,7 +40,6 @@
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: var(--text-primary);
 }
 
 .card-livros {
@@ -44,10 +49,12 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2.8rem;
+
 }
 
 .card-livro figure {
   position: relative;
+  /* Necessário para posicionar o figcaption */
 }
 
 .card-livro {
@@ -62,10 +69,11 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px var(--shadow-medium);
+  box-shadow: 0 4px 8px #3a1f019f;
   text-align: center;
   flex-direction: row;
-  transition: background-color 0.3s ease;
+
+
 }
 
 .card-livro img {
@@ -80,17 +88,19 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px var(--shadow-medium);
+  box-shadow: 0 4px 8px rgba(58, 31, 1, 0.623);
 }
 
+
 .card-livro:hover {
-  background-color: var(--bg-card-hover);
+  background-color: #694100;
+
 }
 
 .name {
   padding: 8px;
   gap: 0.5rem;
-  color: var(--text-primary);
+  color: #694100;
   font-family: 'Merriweather', serif;
   font-size: 1.2rem;
   text-decoration: none;
@@ -99,7 +109,7 @@
 }
 
 small {
-  color: var(--text-muted);
+  color: #a87e4b;
   text-decoration: none;
   list-style: none;
   font-size: 0.9rem;
@@ -114,8 +124,8 @@ small {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+  background: linear-gradient(to top, #000000cc, transparent);
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,7 +147,8 @@ small {
   top: 50%;
   left: 19%;
   color: white;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #0000006b;
+  /* width: 100%; */
   padding: 20px;
   border-radius: 10px;
   opacity: 0;
@@ -148,7 +159,8 @@ small {
   top: 50%;
   left: 19%;
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #0000006b;
+  /* width: 100%; */
   padding: 20px;
   border-radius: 10px;
   transition: background-color 0.3s ease;

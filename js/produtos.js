@@ -45,7 +45,7 @@ async function carregarProdutos() {
     mostrarLoading();
 
     try {
-        const response = await fetch('/backend/api/item');
+        const response = await fetch('/backend/index.php/api/item');
         console.log('Status:', response.status);
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -87,14 +87,14 @@ async function carregarFiltrosDoBanco() {
     console.log('📂 Buscando categorias e gêneros do banco...');
     try {
         // Buscar Categorias
-        const respCat = await fetch('/backend/api/categorias');
+        const respCat = await fetch('/backend/index.php/api/categorias');
         const jsonCat = await respCat.json();
         if (jsonCat.status === 'success') {
             categoriasDisponiveis = jsonCat.data.map(c => c.nome_categoria);
         }
 
         // Buscar Gêneros
-        const respGen = await fetch('/backend/api/generos');
+        const respGen = await fetch('/backend/index.php/api/generos');
         const jsonGen = await respGen.json();
         if (jsonGen.status === 'success') {
             generosDisponiveis = jsonGen.data.map(g => g.nome_generos);
@@ -410,9 +410,9 @@ function criarCard(item, index) {
 
     card.innerHTML = `
         <div class="card-imagem" style="position: relative;">
-            <img src="${item.caminho_imagem || '/img/sem-imagem.webp'}" 
+            <img src="${item.caminho_imagem || '/img/sem-imagem.png'}" 
                  alt="${item.titulo}"
-                 onerror="this.src='/img/sem-imagem.webp'">
+                 onerror="this.src='/img/sem-imagem.png'">
             
             ${!disponivel ? '<div class="badge-status">ESGOTADO</div>' : ''}
         </div>
@@ -528,9 +528,17 @@ function criarCard(item, index) {
 function mostrarLoading() {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div class="status-container">
-                <div class="loading-spinner"></div>
-                <p class="status-message">Buscando as melhores obras para você...</p>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                <div style="
+                    width: 60px;
+                    height: 60px;
+                    border: 5px solid #e8dcc4;
+                    border-top: 5px solid #c8b896;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin: 0 auto 20px;
+                "></div>
+                <p style="color: #8b7355; font-size: 16px;">Carregando produtos...</p>
             </div>
         `;
     }
@@ -539,11 +547,19 @@ function mostrarLoading() {
 function mostrarErro(mensagem) {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div class="status-container error-state">
-                <div class="error-icon">✕</div>
-                <h3 class="status-title">Ops! Algo deu errado</h3>
-                <p class="status-message">${mensagem}</p>
-                <button onclick="carregarProdutos()" class="status-btn">Tentar Novamente</button>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                <div style="font-size: 48px; margin-bottom: 20px;">❌</div>
+                <h3 style="color: #e63946; margin-bottom: 10px;">Erro ao carregar produtos</h3>
+                <p style="color: #666; margin-bottom: 20px;">${mensagem}</p>
+                <button onclick="carregarProdutos()" style="
+                    padding: 12px 24px;
+                    background: linear-gradient(135deg, #d4a574, #c89968);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Tentar Novamente</button>
             </div>
         `;
     }
@@ -552,11 +568,19 @@ function mostrarErro(mensagem) {
 function mostrarMensagemVazia() {
     if (produtosContainer) {
         produtosContainer.innerHTML = `
-            <div class="status-container empty-state">
-                <div class="status-icon">📚</div>
-                <h3 class="status-title">Nenhum livro encontrado</h3>
-                <p class="status-message">Não encontramos resultados para sua busca. Tente ajustar os filtros!</p>
-                <button onclick="limparFiltros()" class="status-btn status-btn-outline">Limpar Filtros</button>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px;">
+                <div style="font-size: 64px; margin-bottom: 20px; opacity: 0.3;">📚</div>
+                <h3 style="color: #8b7355; margin-bottom: 10px;">Nenhum produto encontrado</h3>
+                <p style="color: #999; margin-bottom: 25px;">Tente ajustar os filtros ou fazer uma nova busca</p>
+                <button onclick="limparFiltros()" style="
+                    padding: 12px 24px;
+                    background: white;
+                    color: #8b6f47;
+                    border: 2px solid #c8b896;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Limpar Filtros</button>
             </div>
         `;
     }
@@ -572,7 +596,7 @@ function abrirModalProduto(produto) {
     const preco = parseFloat(produto.preco || 0);
     const precoFormatado = preco.toFixed(2).replace('.', ',');
 
-    document.getElementById('modal-capa').src = produto.caminho_imagem || '/img/sem-imagem.webp';
+    document.getElementById('modal-capa').src = produto.caminho_imagem || '/img/sem-imagem.png';
     document.getElementById('modal-titulo').textContent = produto.titulo;
     document.getElementById('modal-autor').textContent = produto.autores || 'Autor desconhecido';
     document.getElementById('modal-tipo').textContent = produto.tipo || 'Produto';
@@ -604,17 +628,6 @@ function abrirModalProduto(produto) {
         });
     }
 
-    // Configurar links de plataformas externas
-    const btnShopee = document.getElementById('btn-shopee');
-    const btnEstante = document.getElementById('btn-estante');
-    const btnAmazon = document.getElementById('btn-amazon');
-
-    const termoBusca = encodeURIComponent(produto.titulo);
-
-    if (btnShopee) btnShopee.href = `https://shopee.com.br/shop/566365776/search?keyword=${termoBusca}`;
-    if (btnEstante) btnEstante.href = `https://www.estantevirtual.com.br/sebos-e-livreiros/o-alfarrabio?q=${termoBusca}`;
-    if (btnAmazon) btnAmazon.href = `https://www.amazon.com.br/s?me=A1G19KDMZCMN45&marketplaceID=A2Q3Y263D00KWC&k=${termoBusca}`;
-
     modalProduto.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
@@ -638,13 +651,13 @@ async function adicionarAoCarrinho(produto) {
 
         setTimeout(() => {
             const currentPath = window.location.pathname + window.location.search;
-            window.location.href = `/backend/login?redirect=${encodeURIComponent(currentPath)}`;
+            window.location.href = `/backend/index.php/login?redirect=${encodeURIComponent(currentPath)}`;
         }, 1500);
         return;
     }
 
     try {
-        const response = await fetch('/backend/api/carrinho/adicionar', {
+        const response = await fetch('/backend/index.php/api/carrinho/adicionar', {
             method: 'POST',
             body: JSON.stringify({ id_item: produto.id_item, quantidade: 1 }),
             headers: { 'Content-Type': 'application/json' }
@@ -665,7 +678,7 @@ async function adicionarAoCarrinho(produto) {
 async function sincronizarCarrinhoComServidor() {
     if (!window.isAuthenticated) return;
     try {
-        const response = await fetch('/backend/api/carrinho');
+        const response = await fetch('/backend/index.php/api/carrinho');
         const data = await response.json();
         if (data.success) {
             // No banco os campos podem ser um pouco diferentes, mapeamos para compatibilidade
@@ -714,7 +727,7 @@ function atualizarContadorCarrinho() {
 async function removerDoCarrinho(id_item) {
     if (window.isAuthenticated) {
         try {
-            const response = await fetch('/backend/api/carrinho/remover', {
+            const response = await fetch('/backend/index.php/api/carrinho/remover', {
                 method: 'POST',
                 body: JSON.stringify({ id_item }),
                 headers: { 'Content-Type': 'application/json' }

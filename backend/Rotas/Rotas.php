@@ -90,14 +90,11 @@ class Rotas
                 "/api/buscaitem" => "PublicApiController@getItem",
                 "/api/categorias" => "PublicApiController@getCategorias",
                 "/api/generos" => "PublicApiController@getGeneros",
+                "/api/autores" => "PublicApiController@getAutores",
 
                 "/api/pedidos" => "Api\APIPedidosController@getPedidos",
                 "/api/buscarpedidos" => "PublicApiController@getAvaliacoes",
 
-                "/api/autores" => "PublicApiController@getAutores",
-
-                // "/api/usuarios/{pagina}" => "Api\APIUsarioController@getUsuarios",
-                // "/api/usuarios" => "Api\APIUsarioController@getUsuarios",
 
                 // ========================================
                 // PERFIL USUÁRIO
@@ -135,6 +132,7 @@ class Rotas
                 "/item/criar" => "ItemController@viewCriarItem",
                 "/item/editar/{id}" => "ItemController@viewEditarItem",
                 "/item/excluir/{id}" => "ItemController@viewExcluirItem",
+
 
 
                 // ========================================
@@ -197,9 +195,6 @@ class Rotas
                 "/api/carrinho/adicionar" => "CartController@adicionarApi",
                 "/api/carrinho/remover" => "CartController@removerApi",
                 "/api/carrinho/finalizar" => "CartController@finalizarAjax",
-
-                "/api/pedidos" => "PedidosController@salvarPedidos", // Added to support js/pedidos.js
-
                 // ========================================
                 // AUTENTICAÇÃO (post)
                 // ========================================

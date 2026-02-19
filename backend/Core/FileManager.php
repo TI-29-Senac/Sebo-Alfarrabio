@@ -44,22 +44,14 @@ class FileManager
             throw new \Exception("Erro no upload do arquivo. Código: " . $file['error']);
         }
         if ($file['size'] > $tamanhoMaximo) {
-            $tamanhoMB = round($tamanhoMaximo / 1024 / 1024, 1);
-            throw new \Exception("O arquivo excede o tamanho máximo de {$tamanhoMB}MB.");
+            throw new \Exception("O arquivo excede o tamanho máximo de " . ($tamanhoMaximo / 1024 / 1024) . "MB.");
         }
-
-        // Validação de tipo MIME usando finfo (mais confiável)
-        if (function_exists('finfo_open')) {
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $tipoArquivo = finfo_file($finfo, $file['tmp_name']);
-            finfo_close($finfo);
-        } elseif (function_exists('mime_content_type')) {
+        if (function_exists('mime_content_type')) {
             $tipoArquivo = mime_content_type($file['tmp_name']);
         } else {
             // Fallback para ambientes sem extensão fileinfo habilitada
             $tipoArquivo = $file['type'];
         }
-
         if (!in_array($tipoArquivo, $tiposPermitidos)) {
             throw new \Exception("Tipo de arquivo inválido. Permitidos: " . implode(', ', $tiposPermitidos));
         }

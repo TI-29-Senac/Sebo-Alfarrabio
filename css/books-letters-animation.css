@@ -30,7 +30,7 @@
     transform: translate(-50%, -50%);
     width: 400px;
     height: 400px;
-    background-image: url('../img/logo.webp');
+    background-image: url('../img/logo.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -155,3 +155,5 @@
         color: #d4a574;
     }
 }
+
+

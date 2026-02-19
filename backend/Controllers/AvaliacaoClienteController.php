@@ -82,71 +82,6 @@ class AvaliacaoClienteController
                 return;
             }
 
-<<<<<<< HEAD
-=======
-            // Verifica se o usuário possui reserva com status 'Reservado' para este item
-            if (!$this->avaliacaoModel->verificarReservaConfirmada($usuarioId, $idItem)) {
-                http_response_code(403); // Forbidden
-                echo json_encode([
-                    'success' => false,
-                    'message' => "Você só pode avaliar itens com reservas no status 'reservado'."
-                ]);
-                return;
-            }
-
-            // Processa Upload de Imagem
-            // Processa Upload de Imagens (Múltiplo)
-            $caminhosFotos = [];
-
-            // Check if files exist and structure is array
-            if (isset($_FILES['fotos_avaliacao'])) {
-                $files = $_FILES['fotos_avaliacao'];
-                $count = is_array($files['name']) ? count($files['name']) : 0;
-
-                // Validação: máximo 5 fotos por avaliação
-                if ($count > 5) {
-                    http_response_code(400);
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Você pode enviar no máximo 5 imagens por avaliação.'
-                    ]);
-                    return;
-                }
-
-                if ($count > 0) {
-                    // Tipos de imagem permitidos e tamanho máximo (5MB)
-                    $tiposImagem = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-                    $tamanhoMax = 5 * 1024 * 1024; // 5MB
-
-                    // Reorganize $_FILES array for cleaner iteration
-                    for ($i = 0; $i < $count; $i++) {
-                        if ($files['error'][$i] === UPLOAD_ERR_OK) {
-                            $fileItem = [
-                                'name' => $files['name'][$i],
-                                'type' => $files['type'][$i],
-                                'tmp_name' => $files['tmp_name'][$i],
-                                'error' => $files['error'][$i],
-                                'size' => $files['size'][$i]
-                            ];
-
-                            try {
-                                $nomeArquivo = $this->fileManager->salvarArquivo($fileItem, 'avaliacoes', $tiposImagem, $tamanhoMax);
-                                $caminhosFotos[] = '/backend/uploads/' . $nomeArquivo;
-                            } catch (\Exception $e) {
-                                error_log("Erro no upload múltiplo ($i): " . $e->getMessage());
-                                http_response_code(400);
-                                echo json_encode([
-                                    'success' => false,
-                                    'message' => 'Erro no upload da imagem: ' . $e->getMessage()
-                                ]);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-
->>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
             // Insere avaliação
             $resultado = $this->avaliacaoModel->inserirAvaliacao(
                 $idItem,
@@ -221,62 +156,6 @@ class AvaliacaoClienteController
                 return;
             }
 
-<<<<<<< HEAD
-=======
-            // Processa Upload de Imagem (se houver nova)
-            // Processa Upload de Imagens (Múltiplo)
-            $caminhosFotos = [];
-
-            if (isset($_FILES['fotos_avaliacao'])) {
-                $files = $_FILES['fotos_avaliacao'];
-                $count = is_array($files['name']) ? count($files['name']) : 0;
-
-                // Verifica quantidade total de fotos (existentes + novas)
-                $fotosExistentes = $this->avaliacaoModel->buscarFotosAvaliacao($id);
-                $totalFotos = count($fotosExistentes) + $count;
-
-                if ($totalFotos > 5) {
-                    http_response_code(400);
-                    echo json_encode([
-                        'success' => false,
-                        'message' => "Limite de 5 fotos atingido. Você já tem " . count($fotosExistentes) . " foto(s)."
-                    ]);
-                    return;
-                }
-
-                if ($count > 0) {
-                    // Tipos de imagem permitidos e tamanho máximo (5MB)
-                    $tiposImagem = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-                    $tamanhoMax = 5 * 1024 * 1024; // 5MB
-
-                    for ($i = 0; $i < $count; $i++) {
-                        if ($files['error'][$i] === UPLOAD_ERR_OK) {
-                            $fileItem = [
-                                'name' => $files['name'][$i],
-                                'type' => $files['type'][$i],
-                                'tmp_name' => $files['tmp_name'][$i],
-                                'error' => $files['error'][$i],
-                                'size' => $files['size'][$i]
-                            ];
-
-                            try {
-                                $nomeArquivo = $this->fileManager->salvarArquivo($fileItem, 'avaliacoes', $tiposImagem, $tamanhoMax);
-                                $caminhosFotos[] = '/backend/uploads/' . $nomeArquivo;
-                            } catch (\Exception $e) {
-                                error_log("Erro no upload update ($i): " . $e->getMessage());
-                                http_response_code(400);
-                                echo json_encode([
-                                    'success' => false,
-                                    'message' => 'Erro no upload da imagem: ' . $e->getMessage()
-                                ]);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-
->>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
             $resultado = $this->avaliacaoModel->atualizarAvaliacao(
                 $id,
                 $nota,

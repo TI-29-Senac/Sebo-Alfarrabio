@@ -12,8 +12,6 @@ use Sebo\Alfarrabio\Core\Session;
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/theme.css">
-    <script src="/js/theme-toggle.js"></script>
     <style>
         html,
         body,
@@ -201,162 +199,6 @@ use Sebo\Alfarrabio\Core\Session;
             background: #c82333 !important;
             transform: translateX(5px);
         }
-
-        /* ========================================
-           TEMA ESCURO — SIDEBAR / HEADER (ADMIN)
-           ======================================== */
-        [data-theme="dark"] body,
-        [data-theme="dark"].w3-light-grey {
-            background-color: #1a1209 !important;
-            color: #f5f1e8;
-        }
-
-        [data-theme="dark"] .top-bar-sebo {
-            background: linear-gradient(135deg, #2a1f14 0%, #1a1209 100%) !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="dark"] .sidebar-sebo {
-            background: linear-gradient(180deg, #221a10 0%, #1a1209 100%) !important;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="dark"] .sidebar-sebo .user-profile {
-            background: linear-gradient(135deg, #33261a, #2a1f14);
-        }
-
-        [data-theme="dark"] .sidebar-sebo .user-name {
-            color: #f5f1e8;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .user-role {
-            color: #d4c5a9;
-        }
-
-        [data-theme="dark"] .menu-section-title {
-            color: #d4a574;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .menu-item {
-            color: #d4c5a9 !important;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .menu-item:hover {
-            background: #33261a !important;
-            border-left-color: #d4a574;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .menu-item.active {
-            background: #3d2e20 !important;
-            border-left-color: #d4a574;
-            color: #f5f1e8 !important;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .menu-item i {
-            color: #d4a574;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .menu-item.active i {
-            color: #f5f1e8;
-        }
-
-        [data-theme="dark"] .user-action-btn {
-            background: #33261a;
-            color: #d4c5a9 !important;
-        }
-
-        [data-theme="dark"] .user-action-btn:hover {
-            background: #d4a574 !important;
-            color: #1a1209 !important;
-        }
-
-        [data-theme="dark"] .sidebar-sebo .user-avatar {
-            border-color: #d4a574;
-        }
-
-        [data-theme="dark"] .alert-success {
-            background: #1a3324;
-            border-left-color: #28a745;
-            color: #a3d9b1;
-        }
-
-        [data-theme="dark"] .alert-danger {
-            background: #3d1a1a;
-            border-left-color: #dc3545;
-            color: #e8a3a3;
-        }
-
-        /* Generic W3.CSS Overrides (Login/Register) */
-        [data-theme="dark"] .w3-card-4,
-        [data-theme="dark"] .w3-card {
-            background-color: #221a10 !important;
-            color: #f5f1e8 !important;
-        }
-
-        [data-theme="dark"] .w3-input {
-            background-color: #33261a !important;
-            color: #f5f1e8 !important;
-            border-bottom-color: rgba(212, 165, 116, 0.2) !important;
-        }
-
-        [data-theme="dark"] .w3-text-blue {
-            color: #d4a574 !important;
-        }
-
-        [data-theme="dark"] .w3-blue,
-        [data-theme="dark"] .w3-btn.w3-blue,
-        [data-theme="dark"] .w3-button.w3-blue {
-            background-color: #d4a574 !important;
-            color: #1a1209 !important;
-        }
-
-        [data-theme="dark"] .w3-button.w3-blue:hover {
-            background-color: #c89968 !important;
-        }
-
-        /* Generic W3.CSS Tables & Lists */
-        [data-theme="dark"] .w3-table,
-        [data-theme="dark"] .w3-table-all {
-            color: #d4c5a9 !important;
-        }
-
-        [data-theme="dark"] .w3-bordered tr,
-        [data-theme="dark"] .w3-table-all tr {
-            border-bottom: 1px solid rgba(212, 165, 116, 0.1) !important;
-        }
-
-        [data-theme="dark"] .w3-hoverable tbody tr:hover,
-        [data-theme="dark"] .w3-ul li:hover {
-            background-color: #33261a !important;
-            color: #f5f1e8 !important;
-        }
-
-        [data-theme="dark"] .w3-white,
-        [data-theme="dark"] .w3-hover-white:hover {
-            background-color: #2a1f14 !important;
-            color: #f5f1e8 !important;
-        }
-
-        [data-theme="dark"] .w3-light-grey,
-        [data-theme="dark"] .w3-hover-light-grey:hover,
-        [data-theme="dark"] .w3-light-gray,
-        [data-theme="dark"] .w3-hover-light-gray:hover {
-            background-color: #221a10 !important;
-            color: #d4c5a9 !important;
-        }
-
-        /* Modals */
-        [data-theme="dark"] .w3-modal-content {
-            background-color: #221a10 !important;
-            color: #f5f1e8 !important;
-        }
-
-        /* Form Elements */
-        [data-theme="dark"] .w3-select {
-            background-color: #33261a !important;
-            color: #f5f1e8 !important;
-            border-bottom-color: rgba(212, 165, 116, 0.2) !important;
-        }
     </style>
 </head>
 
@@ -390,7 +232,7 @@ use Sebo\Alfarrabio\Core\Session;
             <div class="user-profile">
                 <div class="w3-row">
                     <div class="w3-col s3">
-                        <img src="/img/logo2.webp" class="user-avatar sidebar-logo" alt="Logo">
+                        <img src="/img/logo2.png" class="user-avatar" alt="Logo">
                     </div>
                     <div class="w3-col s9" style="padding-left: 10px;">
                         <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
