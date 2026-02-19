@@ -1,7 +1,3 @@
-/* ========================================
-   ESTILO PRINCIPAL - IMPORTAÇÕES
-   Centraliza todos os arquivos CSS do projeto.
-   ======================================== */
 @import url("header.css");
 @import url("banner.css");
 @import url("menu-secundario.css");
@@ -15,5 +11,7 @@
 @import url("contato.css");
 @import url("produtos.css");
 @import url("sec-livros.css");
+@import url("hero-animation.css");
+@import url("books-letters-animation.css");
 @import url("deshboard.css");
 @import url("responsivo.css");

@@ -59,6 +59,33 @@ class Usuario
     }
 
     /**
+     * Total de usuários cadastrados no mês atual.
+     */
+    function totalDeNovosUsuariosMes()
+    {
+        $sql = "SELECT COUNT(*) FROM tbl_usuario 
+                WHERE MONTH(criado_em) = MONTH(CURRENT_DATE()) 
+                AND YEAR(criado_em) = YEAR(CURRENT_DATE())";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    /**
+     * Total de usuários pendentes de ativação (exemplo: inativos que podem ser ativados).
+     * Por enquanto, usaremos o critério de usuários inativos (excluidos).
+     */
+    function totalDeUsuariosPendentes()
+    {
+        // Se houver uma coluna 'status' no futuro, mudar aqui.
+        // Atualmente usamos excluido_em para identificar inativos.
+        $sql = "SELECT COUNT(*) FROM tbl_usuario WHERE excluido_em IS NOT NULL";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    /**
      * Busca usuários por email.
      * @param string $email
      */
@@ -98,9 +125,11 @@ class Usuario
 
         $offset = ($pagina - 1) * $por_pagina;
 
-        $dataQuery = "SELECT * FROM tbl_usuario 
-                      WHERE excluido_em IS NULL 
-                      ORDER BY id_usuario DESC 
+        $dataQuery = "SELECT u.*, p.foto_perfil_usuario 
+                      FROM tbl_usuario u
+                      LEFT JOIN tbl_perfil_usuario p ON u.id_usuario = p.usuario_id
+                      WHERE u.excluido_em IS NULL 
+                      ORDER BY u.id_usuario DESC 
                       LIMIT :limit OFFSET :offset";
 
         $dataStmt = $this->db->prepare($dataQuery);

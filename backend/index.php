@@ -1,6 +1,9 @@
 <?php
 namespace Sebo\Alfarrabio;
-ini_set('display_errors', 0);
+
+ini_set('display_errors', 1);
+ini_set('error_log', __DIR__ . '/php_error.log');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
 // Configuração de Sessão Persistente (1 dia)
 $lifetime = 86400; // 24 horas
@@ -8,8 +11,8 @@ ini_set('session.gc_maxlifetime', $lifetime);
 session_set_cookie_params([
     'lifetime' => $lifetime,
     'path' => '/',
-    'domain' => '', 
-    'secure' => false, 
+    'domain' => '',
+    'secure' => false,
     'httponly' => true,
     'samesite' => 'Lax'
 ]);
@@ -17,8 +20,6 @@ session_set_cookie_params([
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-ini_set('error_log', __DIR__ . '/php_error.log');
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/Core/helpers.php';
@@ -32,18 +33,20 @@ use Bramus\Router\Router;
 $router = new Router();
 
 // Define o base path dinamicamente
-$basePath = dirname($_SERVER['SCRIPT_NAME']);
-// Ajuste para quando acessamos via index.php explicitamente
-if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], $basePath . '/index.php') === 0) {
-    $basePath .= '/index.php';
+$scriptName = $_SERVER['SCRIPT_NAME']; // ex: /backend/index.php ou /backend/router.php
+$basePath = str_replace('\\', '/', dirname($scriptName));
+if ($basePath === '/' || $basePath === '.') {
+    $basePath = '';
 }
+
+
 $router->setBasePath($basePath);
 
 $rotas = Rotas::get();
 $router->setNamespace('Sebo\Alfarrabio\Controllers');
 
 foreach ($rotas as $metodoHttp => $rota) {
-    foreach ($rota as $uri => $acao){
+    foreach ($rota as $uri => $acao) {
         $metodoBramus = strtolower($metodoHttp);
         $router->{$metodoBramus}($uri, $acao);
     }
@@ -58,7 +61,7 @@ try {
     $router->run();
 } catch (\Throwable $e) {
     http_response_code(500);
-    
+
     // Verifica se é uma requisição API ou espera JSON
     $isApi = (strpos($_SERVER['REQUEST_URI'] ?? '', '/api/') !== false);
     $acceptsJson = (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false);

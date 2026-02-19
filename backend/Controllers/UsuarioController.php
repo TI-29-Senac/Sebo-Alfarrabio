@@ -69,15 +69,19 @@ class UsuarioController extends AdminController
         if (empty($pagina) || $pagina <= 0)
             $pagina = 1;
         $dados = $this->usuario->paginacao($pagina);
-        $total = $this->usuario->totalDeUsuarios();  // Scalar
+        $total = $this->usuario->totalDeUsuarios();
         $totalInativos = $this->usuario->totalDeUsuariosInativos();
         $totalAtivos = $this->usuario->totalDeUsuariosAtivos();
+        $totalMes = $this->usuario->totalDeNovosUsuariosMes();
+        $totalPendentes = $this->usuario->totalDeUsuariosPendentes();
 
         View::render("usuario/index", [
             "usuarios" => $dados['data'],
             "total_usuarios" => $total,
             "total_inativos" => $totalInativos,
             "total_ativos" => $totalAtivos,
+            "novos_este_mes" => $totalMes,
+            "pendentes_ativacao" => $totalPendentes,
             'paginacao' => $dados
         ]);
     }
@@ -100,7 +104,16 @@ class UsuarioController extends AdminController
         if (!$dados) {
             Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
         }
-        View::render("usuario/edit", ["usuario" => $dados]);
+
+        // Fetch profile data to get the photo
+        $perfilModel = new \Sebo\Alfarrabio\Models\Perfil($this->db);
+        $perfilData = $perfilModel->buscarPerfilPorIDUsuario($id);
+        $perfil = $perfilData ? $perfilData[0] : [];
+
+        // Merge user and profile data
+        $dadosCompletos = array_merge($dados, $perfil);
+
+        View::render("usuario/edit", ["usuario" => $dadosCompletos]);
     }
 
     /**
@@ -112,7 +125,16 @@ class UsuarioController extends AdminController
         if (!$dados) {
             Redirect::redirecionarComMensagem("/backend/usuario/listar", "error", "Usuário não encontrado.");
         }
-        View::render("usuario/delete", ["usuario" => $dados]);  // Dados full
+
+        // Fetch profile data to get the photo
+        $perfilModel = new \Sebo\Alfarrabio\Models\Perfil($this->db);
+        $perfilData = $perfilModel->buscarPerfilPorIDUsuario($id);
+        $perfil = $perfilData ? $perfilData[0] : [];
+
+        // Merge user and profile data
+        $dadosCompletos = array_merge($dados, $perfil);
+
+        View::render("usuario/delete", ["usuario" => $dadosCompletos]);
     }
 
     /**

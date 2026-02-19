@@ -1,112 +1,169 @@
 /* ========================================
-   ESTILOS RESPONSIVOS GERAIS
-   Autor: O Alfarrábio
-   Descrição: Ajustes globais para Tablets e Celulares
+   CSS RESPONSIVO - SEBO O ALFARRÁBIO
+   Design mobile-first com breakpoints estratégicos
    ======================================== */
 
-/* --- RESET GLOBAL PARA RESPONSIVIDADE --- */
-html,
-body {
-    overflow-x: hidden;
-    width: 100%;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-img,
-video,
-iframe,
-svg {
-    max-width: 100%;
-    height: auto;
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
-/* Esconde menu hamburguer no desktop */
+/* Hide mobile-only elements on desktop */
 .menu-toggle {
     display: none;
 }
 
+.mobile-sidebar {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
 /* ========================================
-   TABLETS (Até 1024px)
+   CARDS DE LIVROS - MOBILE FIRST
    ======================================== */
-@media screen and (max-width: 1024px) {
 
-    /* --- LAYOUT GERAL --- */
-    .container,
-    .main-layout {
-        width: 100%;
+/* Seção de livros mobile */
+@media (max-width: 768px) {
+    .books-section {
+        padding: 50px 0;
+        min-height: auto;
+    }
+
+    .books-container {
         padding: 0 20px;
-        box-sizing: border-box;
     }
 
-    /* --- MENU SECUNDÁRIO --- */
-    .menu-secundario ul {
-        gap: 15px;
-        left: 0;
-    }
-
-    .menu-secundario ul li a {
-        font-size: 15px;
-    }
-
-    /* --- PRODUTOS (Grid de 3 Colunas) --- */
-    .container-p {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 20px;
-    }
-
-    /* --- HEADER --- */
-    header {
-        padding: 10px 20px;
-    }
-
-    .alfa {
-        font-size: 1.4rem;
-        margin: 0 15px;
-    }
-
-    /* --- CARROSSEL LIVROS --- */
     .books-header h2 {
-        font-size: 2rem;
+        font-size: 28px;
+        margin-bottom: 10px;
     }
 
-    .carousel-modern {
-        margin: 0 40px;
+    .books-header p {
+        font-size: 16px;
     }
 
-    /* --- DEPOIMENTOS --- */
-    .depoimento-slider {
-        padding: 0 50px;
+    .books-header .divider {
+        width: 80px;
+        height: 2px;
+        margin: 15px auto;
+    }
+
+    /* Carrossel mobile - scroll horizontal */
+    .books-section .carousel-modern {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .books-section .carousel-modern::-webkit-scrollbar {
+        display: none;
+    }
+
+    .books-section .carousel-track {
+        display: flex;
+        gap: 12px !important;
+        padding: 20px 0 30px !important;
+        animation: none !important;
+        width: auto !important;
+        /* Height fixo removido aqui */
+    }
+
+    .books-section .carousel-track:hover {
+        animation-play-state: running;
+    }
+
+    /* Cards de livros mobile - 160px */
+    .book-card-modern {
+        flex: 0 0 160px !important;
+        max-width: 160px !important;
+        height: 480px !important;
+        scroll-snap-align: start;
+        padding: 0 !important;
+    }
+
+    .book-image-wrapper {
+        height: 180px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .book-image-wrapper img {
+        width: 80px !important;
+        height: auto !important;
+    }
+
+    .book-info {
+        padding: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+    }
+
+    .book-price-wrapper {
+        margin-top: auto !important;
+    }
+
+    .book-title {
+        font-size: 14px !important;
+        min-height: 40px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 6px !important;
+        overflow: hidden !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .book-author {
+        font-size: 12px !important;
+        margin-bottom: 8px !important;
+        color: var(--accent) !important;
+    }
+
+    .book-price {
+        font-size: 16px !important;
+        color: var(--accent-gold) !important;
+        font-weight: 700 !important;
+    }
+
+    .book-footer {
+        padding: 8px 12px !important;
+        gap: 6px !important;
+    }
+
+    .book-btn {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
+
+    .book-btn i {
+        font-size: 14px !important;
     }
 }
 
 /* ========================================
-   CELULARES (Até 768px)
+   MEDIA QUERY: TABLET (≤1024px)
    ======================================== */
-@media screen and (max-width: 768px) {
 
-    /* --- TIPOGRAFIA --- */
-    body {
-        font-size: 14px;
-    }
+@media (max-width: 1024px) {
 
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    /* ========================================
-       HEADER MOBILE - DESIGN MODERNO LIMPO
-       ======================================== */
-
+    /* Header ajustes */
     header {
+<<<<<<< HEAD
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -120,11 +177,77 @@ svg {
     }
 
     /* Container da Logo */
+=======
+        padding: 0.5rem 1.5rem;
+    }
+
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
     .logo-container {
+        margin-left: 0;
+        gap: 0.6rem;
+    }
+
+    .logo {
+        height: 65px;
+    }
+
+    .alfa {
+        font-size: 1.2em;
+    }
+
+    nav ul {
+        gap: 1rem;
+    }
+
+    nav ul li a {
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    /* Seção de livros */
+    .book-card-modern {
+        flex: 0 0 250px;
+        height: 520px;
+    }
+
+    .book-image-wrapper {
+        height: 360px;
+    }
+
+    /* Categorias gerenciadas por categorias.css */
+
+    /* Hero section */
+    .books-header h2 {
+        font-size: 40px;
+    }
+
+    .books-header p {
+        font-size: 18px;
+    }
+}
+
+/* ========================================
+   MEDIA QUERY: MOBILE LARGE (≤768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* ===== HEADER MOBILE ===== */
+    /* ===== HEADER MOBILE ===== */
+    header {
+        padding: 0.5rem 1rem;
+        height: 70px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         gap: 10px;
+    }
+
+    .logo-container {
+        margin-left: 0;
+        gap: 0.5rem;
         order: 1;
+<<<<<<< HEAD
         flex: 1;
     }
 
@@ -211,9 +334,275 @@ svg {
         background: rgba(255, 255, 255, 0.1);
         border: none;
         color: #fcf6e9;
+=======
+        /* Primeiro elemento */
+        margin-right: auto;
+        /* Empurra o resto para a direita */
+    }
+
+    .logo {
+        height: 65px;
+        /* Removido position relative/right que estava incorreto */
+    }
+
+    .alfa {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        order: 4;
+        background-color: var(--accent);
+        /* Marrom médio */
+        color: white;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        border: none;
+        box-shadow: 0 2px 5px var(--shadow-light);
+    }
+
+    /* ========================================
+       SIDEBAR MOBILE
+       ======================================== */
+
+    .mobile-sidebar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        background: var(--bg-menu-sec);
+        z-index: 2000;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 2px 0 20px var(--shadow-medium);
+        overflow-y: auto;
+    }
+
+    .mobile-sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Header da Sidebar */
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background: var(--bg-header);
+        border-bottom: 2px solid var(--border-color);
+        gap: 10px;
+    }
+
+    .sidebar-logo {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 8px var(--shadow-light);
+        flex-shrink: 0;
+    }
+
+    .sidebar-title {
+        color: var(--text-primary);
+        font-family: 'Merriweather', serif;
+        font-size: 1.1rem;
+        margin: 0;
+        flex: 1;
+        text-align: left;
+    }
+
+    .close-sidebar {
+        background: var(--border-color);
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .close-sidebar:hover {
+        background: var(--accent);
+        color: white;
+        transform: rotate(90deg);
+    }
+
+    /* Navegação da Sidebar */
+    .sidebar-nav {
+        padding: 10px 0;
+    }
+
+    .sidebar-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sidebar-nav ul li {
+        margin: 0;
+        width: 100%;
+    }
+
+    .sidebar-nav ul li a {
+        display: flex;
+        align-items: center;
+        padding: 14px 20px;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-family: 'Merriweather', serif;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+        position: relative;
+        gap: 12px;
+        min-height: 48px;
+        /* Accessibility: Larger touch target */
+    }
+
+    .sidebar-nav ul li a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0;
+        background: var(--border-color);
+        transition: width 0.3s ease;
+    }
+
+    .sidebar-nav ul li a:hover::before {
+        width: 100%;
+    }
+
+    .sidebar-nav ul li a:hover {
+        color: var(--accent);
+        padding-left: 28px;
+        border-left-color: var(--accent);
+        background: var(--bg-secondary);
+    }
+
+    /* Emojis coloridos em vez de ícones Font Awesome */
+    .emoji-icon {
+        font-size: 1.3rem;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar-nav ul li a:hover .emoji-icon {
+        transform: scale(1.15);
+    }
+
+    /* ========================================
+       OVERLAY DA SIDEBAR
+       ======================================== */
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--overlay-bg);
+        z-index: 1500;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+    }
+
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    header nav {
+        display: none;
+    }
+
+    /* Container do Perfil - Ordem 3 */
+    .user-profile-header {
+        margin-left: 0;
+        order: 3;
+    }
+
+    .profile-btn-header {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        background: transparent;
+        border: 2px solid var(--text-primary);
+        /* Borda marrom */
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    /* Botão Carrinho - Ordem 2 */
+    .btn-carrinho {
+        margin-left: 0;
+        order: 2;
+        background-color: var(--border-color);
+        /* Bege/Cinza claro */
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        /* Quadrado arredondado */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border: none;
+        position: relative;
+        /* Importante para o contador absoluto */
+    }
+
+    .btn-carrinho svg {
+        stroke: white;
+        /* Ícone branco */
+        width: 24px;
+        height: 24px;
+    }
+
+    .cart-count {
+        top: -5px;
+        right: -5px;
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        background-color: #ef5350;
+        /* Vermelho para notificação */
+        color: white;
+        border-radius: 50%;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
+        display: flex;
+        justify-content: center;
+<<<<<<< HEAD
         box-shadow: none;
     }
 
@@ -358,8 +747,734 @@ svg {
     /* ========================================
        CATEGORIAS MOBILE - Beautiful Cards
        ======================================== */
+=======
+        align-items: center;
+        position: absolute;
+    }
 
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+        min-height: 60vh;
+        padding: 40px 0;
+    }
+
+    .book-emoji {
+        font-size: 5rem;
+    }
+
+
+    .hero-search {
+        width: 90%;
+        max-width: 400px;
+        font-size: 0.95rem;
+        padding: 12px 20px;
+    }
+
+    /* ===== MENU SECUNDÁRIO ===== */
+    .menu-secundario {
+        padding: 15px 10px;
+        height: auto;
+        min-height: auto;
+        background-color: var(--bg-menu-sec);
+    }
+
+    .menu-secundario nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-list li {
+        list-style: none;
+    }
+
+    .menu-list li a {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+        gap: 6px;
+        background-color: var(--bg-input);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        color: var(--text-primary);
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .menu-list li a:active {
+        background-color: var(--border-color);
+        transform: scale(0.98);
+    }
+
+    .menu-list li a i {
+        font-size: 0.85rem;
+    }
+
+    .btn-cadastro {
+        margin-top: 5px;
+        padding: 10px 24px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 200px;
+        text-align: center;
+        box-shadow: 0 4px 10px var(--shadow-light);
+    }
+
+    /* ===== CATEGORIAS REMOVIDAS (Gerenciado por categorias.css) ===== */
+    /* Estilos movidos para css/categorias.css para evitar conflitos */
+
+    /* ===== SEÇÃO DE LIVROS ===== */
+    .books-section {
+        padding: 50px 0;
+    }
+
+    .books-container {
+        padding: 0 20px;
+    }
+
+    .books-header h2 {
+        font-size: 32px;
+    }
+
+    .books-header p {
+        font-size: 16px;
+    }
+
+    .books-section .carousel-track {
+        gap: 20px;
+        padding: 20px 0 40px;
+        width: 100%;
+        /* Height fixo removido aqui */
+    }
+
+    .book-card-modern {
+        flex: 0 0 220px;
+        height: 480px;
+    }
+
+    .book-image-wrapper {
+        height: 320px;
+    }
+
+    .book-info {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .book-title {
+        font-size: 17px;
+        min-height: 44px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .book-author {
+        font-size: 13px;
+    }
+
+    .book-price {
+        font-size: 24px;
+    }
+
+    .book-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    /* ===== SOBRE NÓS (HOME) ===== */
+    .sobre-p {
+        padding: 40px 20px;
+    }
+
+    .titulo-sobre {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .sobre {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .img-sobre {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .texto-sobre {
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .texto-sobre p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depoimentos {
+        padding: 40px 20px;
+    }
+
+    .depoimento-titulo {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .depoimento-track {
+        gap: 15px;
+    }
+
+    .depoimento-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    /* ===== PÁGINA SOBRE (Mobile) ===== */
+
+    .sobre-pag {
+        flex-direction: column;
+        padding: 30px 20px;
+        margin: 20px auto;
+        border-radius: 16px;
+    }
+
+    .img-sobre-pag {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 30px;
+        border-radius: 16px;
+    }
+
+    .texto-sobre-pag {
+        padding: 0;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .titulo-pag {
+        font-size: 2rem;
+        margin: 40px 0 20px;
+    }
+
+    .equipe {
+        padding: 40px 15px;
+    }
+
+    .equipe-pag {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 15px;
+    }
+
+    .img-equipe-pag {
+        width: 250px;
+        height: 250px;
+    }
+
+    .texto-equipe-pag {
+        padding: 20px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .carrossel-container {
+        margin: 40px 0;
+        padding: 30px 0;
+    }
+
+    .carrossel img {
+        width: 280px;
+        height: 180px;
+    }
+
+    .texto-sobre-pag p {
+        text-indent: 0;
+    }
+
+    /* ===== PÁGINA CONTATO (Mobile) ===== */
+
+    .contatos {
+        height: auto;
+        padding: 40px 20px;
+        flex-direction: column;
+    }
+
+    .contato-titulo {
+        font-size: 1.8rem;
+        margin: 30px 0 20px;
+    }
+
+    .contatos-icons {
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .contatos-icons li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .contatos-icons img {
+        margin: 0;
+        padding: 0;
+        width: 60px;
+        height: 60px;
+    }
+
+    .contatos-icons p {
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    .localizacao {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .localizacao h3 {
+        font-size: 1.6rem;
+        margin: 0 0 30px;
+        padding: 0;
+    }
+
+    .container-mapa {
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+    }
+
+    .container-mapa iframe {
+        height: 100%;
+    }
+
+    .lojas {
+        height: auto;
+        padding: 40px 20px;
+    }
+
+    .lojas-container h3 {
+        font-size: 1.6rem;
+        margin: 0 0 20px;
+    }
+
+    .lojas-container p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .lojas-container ul {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 0;
+        margin-top: 30px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .lojas-container img {
+        margin: 0;
+        padding: 0;
+        width: 100px;
+    }
+
+    .lojas-container img.estante {
+        width: 160px;
+        margin: 0;
+        border-radius: 5px;
+    }
+
+    /* ===== PÁGINA PRODUTOS (Mobile) ===== */
+
+    .main-layout {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .sidebar-filtros {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .sidebar-filtros h3 {
+        font-size: 1.5rem;
+    }
+
+    .container-p {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0;
+    }
+
+    .card-livro {
+        max-width: 100%;
+    }
+
+    /* Ajuste para card de produto ficar menor e caber 2 */
+    .card-imagem {
+        aspect-ratio: 2/3;
+    }
+
+    .card-titulo {
+        font-size: 13px;
+    }
+
+    .card-preco {
+        font-size: 14px;
+    }
+
+    /* Paginação mobile */
+    .paginacao-container {
+        padding: 20px 10px;
+        margin-top: 20px;
+    }
+
+    .paginacao-btn {
+        min-width: 35px;
+        height: 35px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    /* Modais */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        max-height: 95vh;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .modal-imagem img {
+        max-height: 300px;
+    }
+
+    .modal-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-acoes {
+        flex-direction: column;
+    }
+
+    /* Modal Carrinho */
+    .modal-carrinho .modal-body {
+        padding: 20px;
+    }
+
+    .cart-items li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .cart-items li>div {
+        width: 100%;
+    }
+
+    .btn-remove-cart {
+        align-self: flex-end;
+    }
+
+    .cart-total {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+        padding: 40px 20px;
+    }
+
+    .container-footer {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-nome {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-footer {
+        width: 70px;
+        height: 70px;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        flex-shrink: 0;
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    .footer-section h4 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+        font-size: 0.9rem;
+    }
+
+    .footer-redes {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .footer-redes img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .footer-bottom {
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem;
+    }
+}
+
+/* ========================================
+   MEDIA QUERY: MOBILE MEDIUM (≤480px)
+   ======================================== */
+
+@media (max-width: 480px) {
+
+    /* ===== HEADER ===== */
+    header {
+        height: 65px;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .logo {
+        height: 55px;
+        position: static;
+        right: auto;
+    }
+
+    .alfa {
+        font-size: 1rem;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    .profile-btn-header,
+    .btn-carrinho {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+
+    .hero-search {
+        width: 90%;
+        max-width: 340px;
+        font-size: 1rem;
+        padding: 14px 20px;
+        top: 40px !important;
+        /* Espaço após o texto */
+        margin: 0 auto;
+        display: block;
+        position: relative;
+    }
+
+    .hero-text {
+        font-size: 28px !important;
+        /* Igualado ao título 'Descubra Novos Mundos' */
+        padding: 0 15px;
+        line-height: 1.3;
+        width: 100vw;
+        max-width: 100%;
+        display: block !important;
+        text-align: center;
+        overflow-wrap: normal;
+        white-space: normal !important;
+        font-weight: 700;
+    }
+
+    .hero-text span {
+        font-size: 28px !important;
+        /* Igualado ao título 'Descubra Novos Mundos' */
+        display: block !important;
+        margin-top: 5px;
+        white-space: nowrap;
+    }
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
+
+    /* Garante que a frase não quebre em letras */
+
+
+    /* Garantir que as letras animadas fiquem juntas e permitam animação de onda */
+    .hero-text .hero-char {
+        display: inline-block !important;
+        /* Permite transform e animação de onda */
+        white-space: pre !important;
+    }
+
+    .book-emoji {
+        font-size: 5rem !important;
+        /* Aumentado de 2.5rem */
+        margin-bottom: 15px;
+        filter: drop-shadow(0 0 20px #d4a574);
+    }
+
+    .menu-secundario {
+        background: var(--bg-secondary);
+        padding: 15px 0;
+        overflow: visible;
+        height: auto !important;
+        min-height: 120px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .menu-secundario nav {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 5px;
+        align-items: center;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 5px 15px 15px 15px;
+        gap: 10px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        position: static !important;
+        left: 0 !important;
+        width: 100% !important;
+        list-style: none;
+    }
+
+    .menu-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-list li {
+        flex: 0 0 85px;
+        list-style: none;
+    }
+
+    .menu-list li a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 15px 5px;
+        text-decoration: none;
+        box-shadow: 0 4px 10px var(--shadow-light);
+        transition: transform 0.2s;
+        border: 1px solid var(--border-color);
+    }
+
+    .menu-list li a:active {
+        transform: scale(0.95);
+        background: var(--bg-secondary);
+    }
+
+    /* Ícone com fundo bege suave */
+    .menu-list li a i {
+        background: var(--cat-icon-bg);
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+        font-size: 1.2rem;
+    }
+
+    .menu-list li a span,
+    .menu-list li a {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        font-family: 'Merriweather', serif;
+        word-wrap: break-word;
+    }
+
+    /* Botão Cadastre-se em Pílula */
+    .btn-cadastro {
+        width: 80%;
+        max-width: 250px;
+        box-sizing: border-box;
+        margin: 10px auto 0;
+        background: var(--accent) !important;
+        color: white !important;
+        border-radius: 40px !important;
+        padding: 12px 20px !important;
+        font-weight: 800 !important;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        box-shadow: 0 4px 15px var(--shadow-medium);
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        clear: both;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* ===== CATEGORIAS - VISUAL PREMIUM ===== */
     .categorias {
+<<<<<<< HEAD
         padding: 30px 20px;
         background: #ffffff;
     }
@@ -369,15 +1484,39 @@ svg {
         color: #3c2a21;
         font-family: 'Merriweather', serif;
         margin-bottom: 25px;
+=======
+        padding: 30px 15px;
+        background: var(--bg-secondary);
+        position: relative;
+        z-index: 10;
+        margin-top: 0;
+    }
+
+    .cat {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+        text-align: center;
+        width: 100%;
+        font-weight: 800;
+        letter-spacing: 1px;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
     }
 
     .generos {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+<<<<<<< HEAD
+=======
+        padding: 0;
+        width: 100%;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
     }
 
+    /* CARD CATEGORIA */
     .svg {
+<<<<<<< HEAD
         background: #f1ede4;
         border-radius: 20px;
         padding: 20px 10px;
@@ -387,9 +1526,37 @@ svg {
         gap: 15px;
         box-shadow: none;
         border: 1px solid rgba(0, 0, 0, 0.02);
+=======
+        background-color: var(--bg-card-hover);
+        /* Bege claro da referência */
+        border: 2px solid var(--border-accent);
+        /* Borda sutil */
+        border-radius: 16px;
+        padding: 25px 15px;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
     }
 
+    .svg:active {
+        transform: scale(0.95);
+    }
+
+    .svg a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        width: 100%;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
+    }
+
+    /* ÍCONE CIRCULAR */
     .svg img {
+<<<<<<< HEAD
         width: 50px;
         height: 50px;
         background: #e1d3bc;
@@ -402,106 +1569,166 @@ svg {
         font-size: 0.9rem;
         color: #3c2a21;
         font-weight: 700;
-    }
-
-    /* --- PRODUTOS (Grid de 1 Coluna) --- */
-    .container-p {
-        grid-template-columns: 1fr !important;
-        padding: 0 15px;
-    }
-
-    .sidebar-filtros {
-        width: 100%;
-        position: relative;
-        top: 0;
-        margin-bottom: 30px;
-    }
-
-    .main-layout {
-        flex-direction: column;
-        padding: 20px 10px;
-    }
-
-    /* Card de Produto Mobile */
-    .card-imagem {
-        height: 350px;
-        /* Imagem maior no mobile */
-    }
-
-    /* --- ESPAÇO (Galeria) --- */
-    .espaco {
-        flex-direction: column;
-        padding: 20px;
-        height: auto;
-    }
-
-    .img-esquerda-1,
-    .img-esquerda-2,
-    .img-direita-1,
-    .img-direita-2,
-    .img-central {
-        width: 100%;
-        max-width: 300px;
-        height: 300px;
+=======
+        width: 80px;
+        height: 80px;
+        background-color: var(--accent);
+        /* Círculo marrom/bege escuro */
+        border-radius: 50%;
+        padding: 18px;
+        /* Espaço para o ícone dentro do círculo */
         margin-bottom: 15px;
-        border-radius: 12px;
+        object-fit: contain;
+        box-shadow: 0 4px 8px var(--shadow-medium);
     }
 
-    /* --- SEÇÃO LIVROS (Carrossel) --- */
-    .books-section {
-        padding: 40px 10px;
-    }
-
-    .carousel-modern {
+    .svg h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        /* Marrom escuro */
         margin: 0;
-        padding: 0 10px;
+        text-align: center;
+        font-family: 'Merriweather', serif;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
     }
 
-    .card-modern {
-        min-width: 100%;
-        /* 1 livro por vez */
-        margin-right: 0;
+    /* ===== SEÇÃO DE LIVROS - VISUAL PREMIUM DARK ===== */
+    .books-section {
+        background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 50%, #2c1810 100%) !important;
+        /* Marrom escuro da referência */
+        padding: 60px 0 !important;
+        position: relative;
+        overflow: hidden;
     }
 
-    /* --- SOBRE NÓS --- */
-    .sobre,
-    .sobre-pag,
-    .equipe-pag {
-        flex-direction: column;
-        padding: 30px 20px;
+    .books-header h2 {
+        font-family: 'Merriweather', serif;
+        font-size: 28px;
+        color: #d4a574;
+        /* Dourado Premium */
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        margin-bottom: 5px;
         text-align: center;
     }
 
-    .img-sobre,
-    .img-sobre-pag {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 0 30px 0;
+    .books-header .divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4a574, transparent);
+        margin: 10px auto;
     }
 
-    .texto-sobre,
-    .texto-sobre-pag {
+    .books-header p {
+        font-size: 14px;
+        color: #d4b896;
+        font-style: italic;
+        opacity: 0.9;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .books-container {
         padding: 0;
-        text-align: justify;
     }
 
-    /* --- CONTATO --- */
-    .contatos {
-        height: auto;
-        padding: 40px 0;
+    /* Transformar Carrossel em Scroll Livre manual */
+    .books-section .carousel-track {
+        animation: none;
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 10px 20px 40px 20px;
+        width: 100%;
+        margin: 0;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        height: auto !important;
+    }
+
+    /* CARD ESTILO DUOTONE PREMIUM DARK */
+    .book-card-modern {
+        flex: 0 0 160px;
+        height: 300px;
+        background: #3d2817;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        overflow: visible;
+        border: none;
+    }
+
+    /* Parte Superior (Imagem) - Bege mais Profundo */
+    .book-image-wrapper {
+        height: 170px;
+        background-color: var(--bg-secondary);
+        /* Bege um pouco mais escuro para destaque no dark */
+        border-radius: 20px 20px 0 0;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .book-image-wrapper::after {
+        display: none;
+        /* Remove overlay original */
+    }
+
+    /* Capa do Livro "Flutuante" */
+    .book-image-wrapper img {
+        width: auto;
+        height: 120px;
+        /* Altura fixa da capa */
+        object-fit: contain;
+        box-shadow: 0 8px 15px var(--shadow-medium);
+        /* Sombra de profundidade */
+        border-radius: 4px;
+        transform: translateY(5px);
+        transition: transform 0.3s;
+    }
+
+    /* Parte Inferior (Info) - Branca */
+    .book-info {
+        background: var(--bg-card);
+        border-radius: 0 0 16px 16px;
+        padding: 12px 10px;
+        text-align: center;
+        flex: 1;
+        display: flex;
         flex-direction: column;
+        justify-content: flex-start;
     }
 
-    .contatos-icons {
-        flex-direction: column;
-        gap: 40px;
+    .book-price-wrapper {
+        margin-top: auto;
     }
 
-    .contatos-icons img {
-        margin: 0 auto 15px;
+    .book-title {
+        font-family: 'Merriweather', serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--books-card-title);
+        /* Marrom escuro */
+        margin-bottom: 5px;
+        line-height: 1.3;
+        min-height: 32px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        /* Standard property */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .book-author {
+        font-size: 10px;
+        color: var(--text-muted);
+        margin-bottom: 5px;
         display: block;
     }
 
+<<<<<<< HEAD
     .localizacao {
         height: auto;
         padding-bottom: 40px;
@@ -530,75 +1757,517 @@ svg {
     }
 
     .footer-redes {
+=======
+    .book-price-wrapper {
+        border-top: none;
+        padding-top: 0;
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c
         justify-content: center;
     }
 
-    /* --- MODAIS --- */
-    .modal-content {
-        width: 95%;
-        margin: 10px;
-        max-height: 90vh;
+    .book-price {
+        font-size: 15px;
+        color: var(--accent-gold);
+        /* Laranja/Dourado */
+        font-weight: 800;
     }
 
-    .modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
-        display: block;
-        /* Garante empilhamento */
+    /* Esconder botão no mobile */
+    .book-btn {
+        display: none;
     }
 
-    .modal-imagem img {
-        max-height: 250px;
-        margin: 0 auto 20px;
-        display: block;
+    .book-badge {
+        font-size: 9px;
+        padding: 4px 8px;
+        top: 10px;
+        right: 10px;
     }
 
-    .modal-acoes {
-        flex-direction: column;
-        gap: 10px;
+
+    /* Indicadores (Dots) Visuais */
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: -10px;
+        padding-bottom: 20px;
     }
 
-    /* Carrinho Modal */
-    .cart-items li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+    .carousel-indicators::before,
+    .carousel-indicators::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background-color: var(--text-muted);
+        border-radius: 50%;
+        opacity: 0.5;
     }
 
-    .btn-remove-cart {
-        align-self: flex-end;
+    /* Dot central "ativo" fake */
+    .carousel-indicators {
+        background-image: radial-gradient(circle, var(--accent) 4px, transparent 5px);
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
         width: 100%;
+        height: 20px;
+    }
+
+    /* Cards de Loading para evitar quebras visuais */
+    .loading-card {
+        flex: 0 0 160px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .loading-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        animation: loading-sweep 1.5s infinite;
+    }
+
+    @keyframes loading-sweep {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    main {
+        margin-top: 140px !important;
+        /* Aumentado para dar mais respiro abaixo do header fixo */
+    }
+
+    /* ===== SOBRE NÓS ===== */
+    .sobre,
+    .sobre-pag,
+    .equipe-pag {
+        flex-direction: column !important;
+        padding: 30px 15px !important;
+        text-align: center !important;
+        gap: 20px !important;
+    }
+
+    .img-sobre,
+    .img-sobre-pag,
+    .img-equipe-pag {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        height: auto !important;
+        border-radius: 12px !important;
+    }
+
+    .texto-sobre,
+    .texto-sobre-pag,
+    .texto-equipe-pag {
+        padding: 0 !important;
+        text-align: center !important;
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        text-align: justify !important;
+        /* Mantém legibilidade mas em bloco mobile */
+    }
+
+    .titulo-sobre,
+    .titulo-pag {
+        font-size: 1.8rem !important;
+        margin: 30px 0 20px !important;
+    }
+
+    .carrossel img {
+        width: 300px !important;
+        height: 200px !important;
+    }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depoimento-titulo {
+        font-size: 1.3em;
+    }
+
+    .depoimento-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+
+    /* ===== CONTATO ===== */
+    .contatos {
+        height: auto !important;
+        padding: 20px 0 !important;
+    }
+
+    .contatos-icons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px 20px !important;
+        padding: 0 10px !important;
+    }
+
+    .contatos-icons li {
+        width: 100% !important;
+    }
+
+    .contatos-icons img {
+        margin: 0 0 12px 0 !important;
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .contatos-icons p {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .localizacao {
+        height: auto !important;
+        padding-bottom: 40px !important;
+    }
+
+    .container-mapa iframe {
+        height: 300px !important;
+    }
+
+    .lojas {
+        padding: 40px 15px !important;
+    }
+
+    .lojas-container h3 {
+        font-size: 1.8rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .lojas-container p {
+        font-size: 1rem !important;
+        margin-bottom: 30px !important;
+    }
+
+    .plataformas-grid {
+        gap: 15px !important;
+        /* Reduzido para caberem 3 logos na mesma linha */
+        flex-wrap: nowrap !important;
+        /* Força alinhamento horizontal */
+    }
+
+    .plataforma-link {
+        width: 80px !important;
+        height: 50px !important;
+    }
+
+    .plataforma-link img {
+        max-height: 100% !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
+
+    .plataforma-link img.estante {
+        width: 75px !important;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+        padding: 40px 20px !important;
+    }
+
+    .container-footer {
+        gap: 30px !important;
+    }
+
+    .footer-section h4,
+    .links h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .footer-section p,
+    .footer-section a,
+    .links a {
+        font-size: 0.9rem !important;
+    }
+
+    .footer-redes img {
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    .footer-bottom p {
+        font-size: 0.85rem !important;
     }
 }
 
 /* ========================================
-   PEQUENOS CELULARES (Até 480px)
+   MEDIA QUERY: MOBILE SMALL (≤360px)
    ======================================== */
-@media screen and (max-width: 480px) {
-    .generos {
-        grid-template-columns: 1fr;
-        /* Lista vertical */
+
+@media (max-width: 360px) {
+
+    /* ===== HEADER ===== */
+    header {
+        height: 60px;
+        padding: 0.4rem 0.6rem;
     }
 
-    .hero-text {
-        font-size: 1.4rem;
+    .logo {
+        height: 50px;
+        position: static;
+        right: auto;
     }
 
-    .hero-search {
+    .alfa {
         font-size: 0.9rem;
     }
 
-    .btn,
-    .btn-primary,
-    .btn-comprar,
-    .btn-cadastro {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
+    .menu-toggle,
+    .profile-btn-header,
+    .btn-carrinho {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
 
-    .card-imagem {
-        height: 300px;
+    /* ===== HERO SECTION ===== */
+    .book-emoji {
+        font-size: 3.5rem;
+    }
+
+
+
+    .hero-search {
+        font-size: 0.85rem;
+        padding: 9px 12px;
+    }
+
+    /* ===== CATEGORIAS ===== */
+    .cat {
+        font-size: 1.1em;
+    }
+
+    .svg img {
+        width: 80px;
+        height: 55px;
+    }
+
+    .svg h4 {
+        font-size: 0.85rem;
+    }
+
+    /* ===== SEÇÃO DE LIVROS ===== */
+    .books-header h2 {
+        font-size: 24px;
+    }
+
+    .books-header p {
+        font-size: 13px;
+    }
+
+    .book-card-modern {
+        flex: 0 0 170px;
+        height: 410px;
+    }
+
+    .book-image-wrapper {
+        height: 260px;
+    }
+
+    .book-info {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .book-title {
+        font-size: 14px;
+        min-height: 38px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .book-author {
+        font-size: 11px;
+    }
+
+    .book-price {
+        font-size: 20px;
+    }
+
+    .book-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .mobile-sidebar {
+        width: 260px;
+    }
+
+    .sidebar-nav ul li a {
+        font-size: 0.95rem;
+        padding: 14px 20px;
+    }
+
+    /* ===== PÁGINA DE PRODUTOS ===== */
+    .main-layout {
+        flex-direction: column !important;
+        padding: 5px 15px !important;
+        /* Reduzi padding lateral/top para usar margem */
+        margin-top: 130px !important;
+        /* Espaço base para o header */
+        gap: 20px !important;
+        min-height: auto !important;
+    }
+
+    .sidebar-filtros {
+        width: 100% !important;
+        position: static !important;
+        padding: 40px 20px 30px !important;
+        /* Aumentei padding TOP para descolar título FILTROS */
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        margin-top: 0 !important;
+    }
+
+    .sidebar-filtros h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .container-p {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        padding: 0 !important;
+    }
+
+    /* Garantir visibilidade dos cards em produtos.html caso classes divirjam */
+    .card-livro {
+        width: 100% !important;
+    }
+
+    .paginacao-container {
+        padding: 20px 10px !important;
+        margin-top: 20px !important;
+    }
+
+    .paginacao-btn {
+        min-width: 40px !important;
+        height: 40px !important;
+        padding: 0 10px !important;
+        font-size: 13px !important;
+    }
+
+    /* ===== OUTROS ELEMENTOS ===== */
+    .titulo-sobre,
+    .depoimento-titulo,
+    .contato-titulo {
+        font-size: 1.5rem !important;
+        text-align: center !important;
+        margin-top: 100px !important;
+    }
+}
+
+/* ========================================
+   MELHORIAS DE UX MOBILE
+   ======================================== */
+
+/* Touch-friendly scroll horizontal estilizado */
+.menu-list,
+.books-section .carousel-track {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 12px !important;
+    /* Espaço para a barra de rolagem */
+}
+
+/* Custom Scrollbar styled for Premium look */
+.menu-list::-webkit-scrollbar,
+.books-section .carousel-track::-webkit-scrollbar {
+    height: 6px;
+    display: block !important;
+}
+
+.menu-list::-webkit-scrollbar-track,
+.books-section .carousel-track::-webkit-scrollbar-track {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.menu-list::-webkit-scrollbar-thumb,
+.books-section .carousel-track::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+.menu-list::-webkit-scrollbar-thumb:hover,
+.books-section .carousel-track::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+}
+
+/* Evitar zoom no iOS em inputs */
+@media (max-width: 768px) {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* Animações otimizadas para mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: rgba(189, 144, 86, 0.2);
+    }
+
+    a,
+    button {
+        -webkit-tap-highlight-color: rgba(189, 144, 86, 0.3);
+    }
+}
+
+/* Scroll suave em toda a página */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Otimização de performance para animações */
+.mobile-sidebar,
+.sidebar-overlay,
+.menu-toggle,
+.book-card-modern {
+    will-change: transform;
+}
+
+/* ========================================
+   AJUSTES FINAIS HERO SECTION (≤768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+    .book-center {
+        width: 50px;
+        height: 50px;
+    }
+
+    .hero-content {
+        gap: 15px;
+        padding-top: 20px;
     }
 }

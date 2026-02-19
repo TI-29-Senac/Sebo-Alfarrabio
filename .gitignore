@@ -1,3 +1,11 @@
+/node_modules/
 /vendor/
 .env
+<<<<<<< HEAD
 backend/php_error.log
+=======
+*.zip
+*.log
+.DS_Store
+Thumbs.db
+>>>>>>> 88f33ccca9a60de74d6c207e9a47fee21676363c

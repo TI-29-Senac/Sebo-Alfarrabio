@@ -1,72 +1,154 @@
 /* ========================================
-   ESTILOS DA SEÇÃO DE CATEGORIAS
+   ESTILOS DA SEÇÃO DE CATEGORIAS (REDESIGN)
    ======================================== */
+
 .categorias {
+    width: 100%;
+    padding: 60px 20px;
+    background-color: var(--bg-secondary);
+    /* Fundo creme/off-white */
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    background-color: #fdfdfd;
-    font-family: 'Merriweather', serif;
-    padding: 20px;
-    box-shadow: #a86b094f 10px 0px 40px 0px inset;
-    height: 190px;
-    justify-content: center;
+    position: relative;
+    transition: background-color 0.4s ease;
 }
 
+/* Título */
+.cat {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+    color: var(--accent-warm);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Grid de Cards */
 .generos {
     display: flex;
-    align-items: center;
-    flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 20px;
-    gap: 5px;
-    background-color: transparent;
-
-
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
 }
 
-.cat {
-    font-size: 1.5em;
-    font-weight: bold;
-    font-family: 'Merriweather', serif;
-    text-decoration: none;
-    color: #a87e4b;
-    position: relative;
-    margin-bottom: 10px;
-}
-
-h4 {
-    color: #996f3b;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    text-decoration: none;
-    justify-content: center;
-    text-decoration-line: none;
-
-}
-
-.svg img {
-    width: 130px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
+/* Card Individual */
+.categoria-card {
+    background-color: var(--bg-card);
+    border-radius: 20px;
+    width: 180px;
+    height: 220px;
     display: flex;
-
-}
-
-.svg:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-    color: #db8802;
-}
-
-.svg {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
+    box-shadow: 0 10px 30px var(--shadow-card);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+/* Efeito de Hover no Card */
+.categoria-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px var(--shadow-medium);
+    background-color: var(--bg-card-hover);
+}
+
+/* Container do Ícone (Círculo) */
+.icon-box {
+    width: 90px;
+    height: 90px;
+    background-color: var(--cat-icon-bg);
+    /* Tom levemente mais escuro que o fundo da seção */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.4s ease, background-color 0.3s ease;
+}
+
+.categoria-card:hover .icon-box {
+    transform: scale(1.1);
+    background-color: var(--cat-icon-hover);
+}
+
+/* Emoji Ícone */
+.emoji-cat {
+    font-size: 40px;
+    line-height: 1;
+    display: block;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.categoria-card:hover .emoji-cat {
+    transform: rotate(10deg) scale(1.2);
+}
+
+/* Título da Categoria */
+.categoria-card h4 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    /* Marrom escuro */
+    margin: 0;
     text-align: center;
-    text-decoration-line: none;
+    transition: color 0.3s ease;
+}
+
+.categoria-card:hover h4 {
+    color: var(--accent);
+    /* Cor de destaque ao passar o mouse */
+}
+
+/* Ajustes para Responsividade */
+@media (max-width: 768px) {
+    .generos {
+        gap: 20px;
+    }
+
+    .categoria-card {
+        width: 150px;
+        height: 190px;
+    }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+    }
+
+    .icon-box img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .categoria-card h4 {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .generos {
+        gap: 15px;
+    }
+
+    .categoria-card {
+        width: 140px;
+        height: 170px;
+        /* Um pouco mais compacto */
+    }
+
+    .cat {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
 }
