@@ -18,7 +18,16 @@ class Avaliacao
      */
     function buscarAvaliacao()
     {
-        $sql = "SELECT * FROM tbl_avaliacao WHERE excluido_em IS NULL ORDER BY id_avaliacao DESC";
+        $sql = "SELECT 
+                    a.*, 
+                    a.foto_avaliacao AS foto_principal,
+                    GROUP_CONCAT(af.caminho_foto SEPARATOR ',') as fotos_urls
+                FROM tbl_avaliacao a
+                LEFT JOIN tbl_avaliacao_fotos af ON a.id_avaliacao = af.id_avaliacao
+                WHERE a.excluido_em IS NULL
+                GROUP BY a.id_avaliacao
+                ORDER BY a.id_avaliacao DESC";
+                
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -116,39 +125,54 @@ class Avaliacao
     /**
      * Insere nova avaliação.
      */
-    function inserirAvaliacao($id_item, $id_usuario, $nota_avaliacao, $comentario_avaliacao = null, $data_avaliacao = null, $status_avaliacao = 'ativo')
+    function inserirAvaliacao($id_item, $id_usuario, $nota_avaliacao, $comentario_avaliacao = null, $data_avaliacao = null, $status_avaliacao = 'inativo', $fotos_avaliacao = [])
     {
-        // Validação básica (alinhada com DB: nota 1-5, FKs required)
+        // Validação básica
         if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
-            error_log("ERRO: Nota inválida: {$nota_avaliacao} (deve ser 1-5)");
             return false;
         }
-        if (empty($id_item) || !is_numeric($id_item) || empty($id_usuario) || !is_numeric($id_usuario)) {
-            error_log("ERRO: ID item/usuario obrigatório e numérico");
-            return false;
-        }
-        $data_avaliacao = $data_avaliacao ?: date('Y-m-d');  // Default hoje
+        $data_avaliacao = $data_avaliacao ?: date('Y-m-d');
+        
+        // Define main photo (first one) for backward compatibility
+        $foto_principal = !empty($fotos_avaliacao[0]) ? $fotos_avaliacao[0] : null;
 
         $sql = "INSERT INTO tbl_avaliacao (id_item, id_usuario, nota_avaliacao, comentario_avaliacao, data_avaliacao, status_avaliacao, criado_em) 
                 VALUES (:id_item, :id_usuario, :nota, :comentario, :data, :status, NOW())";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
-        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);  // Assuma INT no DB
-        $stmt->bindParam(':comentario', $comentario_avaliacao);
-        $stmt->bindParam(':data', $data_avaliacao);
-        $stmt->bindParam(':status', $status_avaliacao);
-
+        
         try {
+            $this->db->beginTransaction();
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);
+            $stmt->bindParam(':comentario', $comentario_avaliacao);
+            $stmt->bindParam(':data', $data_avaliacao);
+            $stmt->bindParam(':status', $status_avaliacao);
+
             if ($stmt->execute()) {
-                $id = $this->db->lastInsertId();
-                error_log("✅ Avaliação #{$id} inserida (item #{$id_item}, user #{$id_usuario})");
-                return $id;  // Novo ID
+                $id_avaliacao = $this->db->lastInsertId();
+                
+                // Insert multiple photos
+                if (!empty($fotos_avaliacao)) {
+                    $sqlFoto = "INSERT INTO tbl_avaliacao_fotos (id_avaliacao, caminho_foto) VALUES (:id_av, :caminho)";
+                    $stmtFoto = $this->db->prepare($sqlFoto);
+                    
+                    foreach ($fotos_avaliacao as $caminho) {
+                        $stmtFoto->bindParam(':id_av', $id_avaliacao, PDO::PARAM_INT);
+                        $stmtFoto->bindParam(':caminho', $caminho);
+                        $stmtFoto->execute();
+                    }
+                }
+                
+                $this->db->commit();
+                return $id_avaliacao;
             }
-            error_log("❌ INSERT falhou (rowCount=0)");
+            $this->db->rollBack();
             return false;
         } catch (PDOException $e) {
-            error_log("❌ ERRO PDO INSERT: " . $e->getMessage() . " (Code: " . $e->getCode() . ")");
+            $this->db->rollBack();
+            error_log("ERRO PDO INSERT: " . $e->getMessage());
             return false;
         }
     }
@@ -158,11 +182,10 @@ class Avaliacao
     /**
      * Atualiza avaliação existente.
      */
-    public function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao)
+    public function atualizarAvaliacao($id_avaliacao, $nota_avaliacao, $comentario_avaliacao, $data_avaliacao, $status_avaliacao, $novas_fotos = [])
     {
         // Validação nota
         if (!is_numeric($nota_avaliacao) || $nota_avaliacao < 1 || $nota_avaliacao > 5) {
-            error_log("ERRO: Nota inválida na update: {$nota_avaliacao}");
             return false;
         }
 
@@ -170,26 +193,47 @@ class Avaliacao
                 nota_avaliacao = :nota, 
                 comentario_avaliacao = :comentario,
                 data_avaliacao = :data,
-                status_avaliacao = :status, 
+                status_avaliacao = :status,
                 atualizado_em = NOW()
-                WHERE id_avaliacao = :id AND excluido_em IS NULL";  // Safe: só ativos
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
-        $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);
-        $stmt->bindParam(':comentario', $comentario_avaliacao);
-        $stmt->bindParam(':data', $data_avaliacao);
-        $stmt->bindParam(':status', $status_avaliacao);
+                WHERE id_avaliacao = :id AND excluido_em IS NULL";
 
         try {
+            $this->db->beginTransaction();
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+            $stmt->bindParam(':nota', $nota_avaliacao, PDO::PARAM_INT);
+            $stmt->bindParam(':comentario', $comentario_avaliacao);
+            $stmt->bindParam(':data', $data_avaliacao);
+            $stmt->bindParam(':status', $status_avaliacao);
+            
             $result = $stmt->execute();
-            if ($result) {
-                error_log("✅ Avaliação #{$id_avaliacao} atualizada (rows: " . $stmt->rowCount() . ")");
-                return true;
+
+            // Insert new photos if any
+            if (!empty($novas_fotos)) {
+                $sqlFoto = "INSERT INTO tbl_avaliacao_fotos (id_avaliacao, caminho_foto) VALUES (:id_av, :caminho)";
+                $stmtFoto = $this->db->prepare($sqlFoto);
+                
+                foreach ($novas_fotos as $caminho) {
+                    $stmtFoto->bindParam(':id_av', $id_avaliacao, PDO::PARAM_INT);
+                    $stmtFoto->bindParam(':caminho', $caminho);
+                    $stmtFoto->execute();
+                }
+
+                // Update foto_avaliacao (single column) to be the first available photo if it was empty, or just keep it synced with latest? 
+                // For simplicity, let's leave foto_avaliacao as is, or update it if it was null.
+                // A better approach for the legacy column: set it to the first photo from `tbl_avaliacao_fotos` to ensure consistency.
+                $sqlUpdateFoto = "UPDATE tbl_avaliacao SET foto_avaliacao = (SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id LIMIT 1) WHERE id_avaliacao = :id";
+                $stmtUpdateFoto = $this->db->prepare($sqlUpdateFoto);
+                $stmtUpdateFoto->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+                $stmtUpdateFoto->execute();
             }
-            error_log("⚠️ Execute retornou false na update");
-            return false;
+
+            $this->db->commit();
+            return true;
+
         } catch (PDOException $e) {
+            $this->db->rollBack();
             error_log("❌ ERRO PDO UPDATE: " . $e->getMessage());
             return false;
         }
@@ -198,17 +242,32 @@ class Avaliacao
     /**
      * Realiza soft delete da avaliação.
      */
+    /**
+     * Inativa a avaliação.
+     */
     public function deletarAvaliacao($id_avaliacao)
     {
-        $sql = "UPDATE tbl_avaliacao SET excluido_em = NOW(), status_avaliacao = 'inativo' WHERE id_avaliacao = :id";
+        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = 'inativo', atualizado_em = NOW() WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         try {
             return $stmt->execute() && $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            error_log("ERRO DELETE: " . $e->getMessage());
+            error_log("ERRO INATIVAR: " . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * Busca fotos de uma avaliação específica.
+     */
+    public function buscarFotosAvaliacao($id_avaliacao)
+    {
+        $sql = "SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id ORDER BY id_foto ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     /**
@@ -239,6 +298,8 @@ class Avaliacao
                     a.id_usuario,
                     a.nota_avaliacao,
                     a.comentario_avaliacao,
+                    a.foto_avaliacao AS foto_principal,
+                    GROUP_CONCAT(af.caminho_foto SEPARATOR ',') as fotos_urls,
                     a.data_avaliacao,
                     a.status_avaliacao,
                     i.titulo_item,
@@ -246,7 +307,9 @@ class Avaliacao
                     i.preco_item
                 FROM tbl_avaliacao a
                 LEFT JOIN tbl_itens i ON a.id_item = i.id_item
+                LEFT JOIN tbl_avaliacao_fotos af ON a.id_avaliacao = af.id_avaliacao
                 WHERE a.id_usuario = :id_usuario AND a.excluido_em IS NULL
+                GROUP BY a.id_avaliacao
                 ORDER BY a.data_avaliacao DESC";
 
         $stmt = $this->db->prepare($sql);
@@ -297,6 +360,25 @@ class Avaliacao
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN);  // Retorna array simples [id1, id2, ...]
+    }
+
+    /**
+     * Verifica se o usuário tem uma reserva confirmada ('Reservado') para o item.
+     */
+    function verificarReservaConfirmada($id_usuario, $id_item)
+    {
+        $sql = "SELECT COUNT(*) FROM tbl_pedidos p
+                JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id
+                WHERE p.id_usuario = :id_usuario 
+                AND pi.item_id = :id_item
+                AND p.status = 'Reservado'";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchColumn() > 0;
     }
 
     /**

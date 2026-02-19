@@ -1,35 +1,17 @@
-/* ========================================
-   PI-GirlPower Dashboard Styles
-   ======================================== */
-
-   :root {
-    --primary: #FF69B4;
-    --primary-dark: #FF1493;
-    --secondary: #9370DB;
-    --accent: #4A90E2;
-    --success: #32CD32;
-    --warning: #FFA500;
-    --danger: #DC3545;
-    --dark: #2C3E50;
-    --light: #F8F9FA;
-    --gray: #6C757D;
-    --border: #E0E0E0;
-    --shadow: rgba(0, 0, 0, 0.1);
-    --sidebar-width: 260px;
-    --topbar-height: 70px;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+/* Body override removed to avoid global conflicts.
+   Dashboard-specific wrappers should handle their own backgrounds. */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--light);
-    color: var(--dark);
-    line-height: 1.6;
 }
 
 /* ========================================
@@ -223,7 +205,7 @@ body {
     display: block;
 }
 
-.sidebar.collapsed ~ .main-content {
+.sidebar.collapsed~.main-content {
     margin-left: 70px;
 }
 
@@ -232,7 +214,7 @@ body {
    ======================================== */
 
 .topbar {
-    background: white;
+    background: var(--bg-secondary);
     height: var(--topbar-height);
     padding: 0 30px;
     display: flex;
@@ -334,7 +316,7 @@ body {
     position: absolute;
     top: 55px;
     right: 0;
-    background: white;
+    background: var(--bg-card);
     border-radius: 10px;
     box-shadow: 0 5px 20px var(--shadow);
     min-width: 200px;
@@ -360,7 +342,7 @@ body {
 }
 
 .user-dropdown a:hover {
-    background: var(--light);
+    background: var(--bg-secondary);
 }
 
 .user-dropdown a i {
@@ -389,7 +371,7 @@ body {
 
 .page-header h1 {
     font-size: 2em;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 5px;
 }
 
@@ -415,7 +397,7 @@ body {
 }
 
 .stat-card {
-    background: white;
+    background: var(--bg-card);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 2px 10px var(--shadow);
@@ -462,7 +444,7 @@ body {
 
 .stat-info h3 {
     font-size: 1.8em;
-    color: var(--dark);
+    color: var(--text-primary);
     margin-bottom: 5px;
 }
 
@@ -488,7 +470,7 @@ body {
 }
 
 .chart-card {
-    background: white;
+    background: var(--bg-card);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 2px 10px var(--shadow);
@@ -524,7 +506,7 @@ body {
    ======================================== */
 
 .table-card {
-    background: white;
+    background: var(--bg-card);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 2px 10px var(--shadow);
@@ -564,7 +546,7 @@ body {
     align-items: center;
     gap: 15px;
     padding: 15px;
-    background: var(--light);
+    background: var(--bg-secondary);
     border-radius: 10px;
     transition: all 0.3s ease;
 }
@@ -731,19 +713,19 @@ body {
     .sidebar {
         transform: translateX(-100%);
     }
-    
+
     .sidebar.mobile-open {
         transform: translateX(0);
     }
-    
+
     .main-content {
         margin-left: 0;
     }
-    
+
     .mobile-toggle {
         display: block;
     }
-    
+
     .charts-grid {
         grid-template-columns: 1fr;
     }
@@ -753,15 +735,15 @@ body {
     .page-content {
         padding: 20px;
     }
-    
+
     .topbar {
         padding: 0 15px;
     }
-    
+
     .topbar-search {
         display: none;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }

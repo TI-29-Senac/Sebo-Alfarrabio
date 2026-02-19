@@ -1,0 +1,256 @@
+/* ========================================
+   SISTEMA DE TEMAS - SEBO O ALFARRÁBIO
+   Light (padrão) / Dark mode
+   ======================================== */
+
+/* ========================================
+   VARIÁVEIS DO TEMA CLARO (padrão)
+   Cores baseadas na paleta atual do site
+   ======================================== */
+:root {
+    /* Backgrounds */
+    --bg-primary: #faf4e6;
+    --bg-secondary: #FAF8F3;
+    --bg-header: linear-gradient(to bottom, #fcf6e9, #faf4e6);
+    --bg-footer: rgb(189, 144, 86);
+    --bg-card: #ffffff;
+    --bg-card-hover: #F0E6D2;
+    --bg-input: #ffffff;
+    --bg-menu-sec: #fcf6e9;
+
+    /* Texto */
+    --text-primary: #805020;
+    --text-secondary: #6D5638;
+    --text-muted: #8b7355;
+    --text-light: #f5f1e8;
+    --text-on-accent: #ffffff;
+
+    /* Acentos */
+    --accent: rgb(189, 144, 86);
+    --accent-hover: rgb(169, 124, 66);
+    --accent-dark: rgb(149, 104, 46);
+    --accent-gold: #d4a574;
+    --accent-warm: #a87e4b;
+
+    /* Bordas e sombras */
+    --border-color: rgba(189, 144, 86, 0.15);
+    --border-accent: rgba(189, 144, 86, 0.2);
+    --shadow-light: rgba(139, 115, 85, 0.08);
+    --shadow-medium: rgba(139, 115, 85, 0.15);
+    --shadow-card: rgba(168, 107, 9, 0.08);
+
+    /* Categorias */
+    --cat-bg: #FAF8F3;
+    --cat-icon-bg: #FAF5E6;
+    --cat-icon-hover: #F0E6D2;
+    --cat-card-bg: #ffffff;
+
+    /* Seção livros */
+    --books-bg: linear-gradient(135deg, #996f3b 0%, #996f3b 50%, #75542b 100%);
+    --books-card-bg: linear-gradient(145deg, #f9f7f4, #ebe3d5);
+    --books-card-title: #3a2a1f;
+
+    /* Sobre nós */
+    --sobre-bg: #faf4e6;
+    --sobre-text: #5a3e28;
+
+    /* Dropdown */
+    --dropdown-bg: #ffffff;
+    --dropdown-text: #694100;
+    --dropdown-hover-bg: rgba(252, 246, 233, 0.5);
+
+    /* Misc */
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --transition-speed: 0.4s;
+}
+
+/* ========================================
+   VARIÁVEIS DO TEMA ESCURO
+   ======================================== */
+[data-theme="dark"] {
+    /* Backgrounds */
+    --bg-primary: #1a1209;
+    --bg-secondary: #221a10;
+    --bg-header: linear-gradient(to bottom, #2a1f14, #221a10);
+    --bg-footer: #2a1f14;
+    --bg-card: #33261a;
+    --bg-card-hover: #3d2e20;
+    --bg-input: #2a1f14;
+    --bg-menu-sec: #2a1f14;
+
+    /* Texto */
+    --text-primary: #f5f1e8;
+    --text-secondary: #d4c5a9;
+    --text-muted: #a89880;
+    --text-light: #f5f1e8;
+    --text-on-accent: #ffffff;
+
+    /* Acentos */
+    --accent: #d4a574;
+    --accent-hover: #c89968;
+    --accent-dark: #b8885a;
+    --accent-gold: #e8c49a;
+    --accent-warm: #d4a574;
+
+    /* Bordas e sombras */
+    --border-color: rgba(212, 165, 116, 0.15);
+    --border-accent: rgba(212, 165, 116, 0.25);
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.3);
+    --shadow-card: rgba(0, 0, 0, 0.35);
+
+    /* Categorias */
+    --cat-bg: #221a10;
+    --cat-icon-bg: #33261a;
+    --cat-icon-hover: #3d2e20;
+    --cat-card-bg: #33261a;
+
+    /* Seção livros */
+    --books-bg: linear-gradient(135deg, #3a2a1f 0%, #2a1f14 50%, #1a1209 100%);
+    --books-card-bg: linear-gradient(145deg, #3d2e20, #33261a);
+    --books-card-title: #f5f1e8;
+
+    /* Sobre nós */
+    --sobre-bg: #221a10;
+    --sobre-text: #d4c5a9;
+
+    /* Dropdown */
+    --dropdown-bg: #33261a;
+    --dropdown-text: #d4c5a9;
+    --dropdown-hover-bg: rgba(212, 165, 116, 0.1);
+
+    /* Misc */
+    --overlay-bg: rgba(0, 0, 0, 0.7);
+}
+
+/* ========================================
+   TRANSIÇÃO GLOBAL SUAVE
+   ======================================== */
+html[data-theme],
+html:not([data-theme]) {
+    transition:
+        background-color var(--transition-speed) ease,
+        color var(--transition-speed) ease;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition:
+        background-color var(--transition-speed) ease,
+        color var(--transition-speed) ease;
+}
+
+/* ========================================
+   BOTÃO DE TOGGLE DE TEMA
+   Posição fixa, canto inferior direito
+   ======================================== */
+.theme-toggle-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: var(--text-on-accent);
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(189, 144, 86, 0.15);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(189, 144, 86, 0.25);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Ícone dentro do botão */
+.theme-toggle-btn .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    line-height: 1;
+}
+
+.theme-toggle-btn.animating .toggle-icon {
+    transform: rotate(360deg) scale(0);
+}
+
+/* Tooltip */
+.theme-toggle-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Merriweather', serif;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow-medium);
+    pointer-events: none;
+}
+
+.theme-toggle-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ========================================
+   PULSE GLOW PARA PRIMEIRA VEZ
+   ======================================== */
+@keyframes theme-pulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.2),
+            0 0 30px rgba(189, 144, 86, 0.15);
+    }
+
+    50% {
+        box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.2),
+            0 0 50px rgba(189, 144, 86, 0.4);
+    }
+}
+
+.theme-toggle-btn.pulse {
+    animation: theme-pulse 2s ease-in-out 3;
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+@media (max-width: 768px) {
+    .theme-toggle-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}

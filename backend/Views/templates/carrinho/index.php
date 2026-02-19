@@ -35,9 +35,9 @@ include __DIR__ . '/../partials/header.php';
                             <?php $id = $item['id_item']; ?>
                             <tr>
                                 <td>
-                                    <img src="<?= $item['imagem'] ?: '/img/sem-imagem.png' ?>"
+                                    <img src="<?= $item['imagem'] ?: '/img/sem-imagem.webp' ?>"
                                         style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px;"
-                                        onerror="this.src='/img/sem-imagem.png'">
+                                        onerror="this.src='/img/sem-imagem.webp'">
                                 </td>
                                 <td>
                                     <?= htmlspecialchars($item['titulo']) ?>
@@ -46,7 +46,7 @@ include __DIR__ . '/../partials/header.php';
                                     <?= number_format($item['preco'], 2, ',', '.') ?>
                                 </td>
                                 <td>
-                                    <form action="/backend/index.php/carrinho/atualizar" method="POST"
+                                    <form action="/backend/carrinho/atualizar" method="POST"
                                         style="display: flex; align-items: center; gap: 5px;">
                                         <input type="hidden" name="id_item" value="<?= $id ?>">
                                         <input type="number" name="quantidade" value="<?= $item['quantidade'] ?>" min="1"
@@ -60,8 +60,7 @@ include __DIR__ . '/../partials/header.php';
                                     <?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?>
                                 </td>
                                 <td>
-                                    <a href="/backend/index.php/carrinho/remover/<?= $id ?>"
-                                        class="w3-button w3-text-red w3-hover-none"
+                                    <a href="/backend/carrinho/remover/<?= $id ?>" class="w3-button w3-text-red w3-hover-none"
                                         onclick="return confirm('Remover este item?')">
                                         <i class="fa fa-trash"></i>
                                     </a>
@@ -87,7 +86,7 @@ include __DIR__ . '/../partials/header.php';
                     </a>
                 </div>
                 <div class="w3-half">
-                    <form action="/backend/index.php/carrinho/finalizar" method="POST">
+                    <form action="/backend/carrinho/finalizar" method="POST">
                         <button type="submit" class="w3-button w3-block w3-brown w3-round w3-large">
                             <i class="fa fa-check"></i> Finalizar Solicitação de Reserva
                         </button>

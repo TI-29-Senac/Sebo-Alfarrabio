@@ -12,28 +12,33 @@ header {
   justify-content: center;
   align-items: center;
   padding: 0.5rem 2rem;
-  background: linear-gradient(to bottom, #fcf6e9, #faf4e6);
+  background: var(--bg-header);
   height: 95px;
-  box-shadow: 0 2px 10px rgba(139, 115, 85, 0.08);
+  box-shadow: 0 2px 10px var(--shadow-light);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid rgba(189, 144, 86, 0.15);
-  
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* ========================================
+   CONTAINER LOGO + TÍTULO
+   ======================================== */
+
+/* ========================================
+   LOGO CONTAINER (logo + nome lado a lado)
+   ======================================== */
 
 .logo-container {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  position: relative;
-  right: 70px;
-
-
+  margin-right: 2rem;
+  margin-left: -5rem;
 }
 
 /* ========================================
@@ -45,8 +50,9 @@ header {
   border-radius: 50%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  box-shadow: 0 3px 8px rgba(139, 115, 85, 0.15);
+  box-shadow: 0 3px 8px var(--shadow-medium);
   flex-shrink: 0;
+
 }
 
 .logo:hover {
@@ -59,11 +65,12 @@ header {
 
 .alfa {
   font-family: 'Merriweather', serif;
-  color: rgb(189, 144, 86);
+  color: var(--text-primary);
+  /* Darker brown for better contrast */
   font-size: 1.4em;
   font-weight: 700;
   margin: 0;
-
+  white-space: nowrap;
 }
 
 /* ========================================
@@ -88,11 +95,15 @@ nav ul li a {
   text-decoration: none;
   font-weight: bold;
   font-family: 'Merriweather', serif;
-  color: rgb(189, 144, 86);
+  color: var(--text-primary);
+  /* Darker brown for contrast */
   justify-content: center;
   align-items: center;
   display: flex;
   font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  min-height: 44px;
+  /* Accessibility: Touch target */
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -106,27 +117,22 @@ nav ul li a::after {
   left: 50%;
   width: 0;
   height: 2px;
-  background: rgb(189, 144, 86);
+  background: var(--accent);
   transform: translateX(-50%);
   transition: width 0.3s ease;
 }
 
-nav ul li a:hover::after {
+nav ul li a:hover::after,
+nav ul li a.active::after {
   width: 80%;
 }
 
 nav ul li a:hover {
-  color: #ffffff;
-  background-color: rgba(189, 144, 86, 0.582);
-  border-radius: 15px;
-  width: 100px;
-  transition: ease-in-out;
+  color: var(--accent);
 }
 
 nav ul li a.active {
-  color: white;
-  background: linear-gradient(135deg, rgb(189, 144, 86), rgb(169, 124, 66));
-  box-shadow: 0 3px 10px rgba(189, 144, 86, 0.3);
+  color: var(--accent);
 }
 
 /* ========================================
@@ -140,23 +146,26 @@ nav ul li a.active {
 }
 
 .profile-btn-header {
-   
-    left: 60px;
-    font-size: 2rem;
-    position: relative;
-    transition: all 0.3s ease;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    padding: 0;
-    box-shadow: 0 3px 10px rgba(189, 144, 86, 0.25);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 0 3px 10px var(--border-accent);
 }
 
 .profile-btn-header:hover {
   transform: scale(1.1);
-  box-shadow: 0 5px 15px rgba(189, 144, 86, 0.4);
-  background: linear-gradient(135deg, rgb(169, 124, 66), rgb(149, 104, 46));
+  box-shadow: 0 5px 15px var(--shadow-medium);
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-dark));
 }
 
 .profile-btn-header:active {
@@ -169,7 +178,7 @@ nav ul li a.active {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-name-header {
@@ -189,16 +198,16 @@ nav ul li a.active {
   position: absolute;
   top: calc(100% + 15px);
   right: 0;
-  background: white;
+  background: var(--dropdown-bg);
   border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(101, 67, 33, 0.15);
+  box-shadow: 0 8px 25px var(--shadow-medium);
   min-width: 240px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-15px);
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   overflow: hidden;
-  border: 2px solid rgba(189, 144, 86, 0.2);
+  border: 2px solid var(--border-accent);
   z-index: 1000;
 }
 
@@ -210,9 +219,9 @@ nav ul li a.active {
   right: 20px;
   width: 15px;
   height: 15px;
-  background: white;
-  border-left: 2px solid rgba(189, 144, 86, 0.2);
-  border-top: 2px solid rgba(189, 144, 86, 0.2);
+  background: var(--dropdown-bg);
+  border-left: 2px solid var(--border-accent);
+  border-top: 2px solid var(--border-accent);
   transform: rotate(45deg);
 }
 
@@ -223,17 +232,44 @@ nav ul li a.active {
   transform: translateY(0);
 }
 
+.dropdown-user-info {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--dropdown-hover-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdown-user-label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.dropdown-user-name {
+  display: block;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  word-break: break-all;
+}
+
 .profile-dropdown-header a {
   display: flex;
   align-items: center;
   padding: 14px 20px;
-  color: #694100;
+  color: var(--dropdown-text);
   text-decoration: none;
   font-family: 'Merriweather', serif;
   font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(189, 144, 86, 0.1);
+  border-bottom: 1px solid var(--border-color);
   position: relative;
 }
 
@@ -248,7 +284,7 @@ nav ul li a.active {
   top: 0;
   bottom: 0;
   width: 0;
-  background: linear-gradient(90deg, rgba(189, 144, 86, 0.15), transparent);
+  background: linear-gradient(90deg, var(--border-color), transparent);
   transition: width 0.3s ease;
 }
 
@@ -257,15 +293,15 @@ nav ul li a.active {
 }
 
 .profile-dropdown-header a:hover {
-  color: rgb(189, 144, 86);
+  color: var(--accent);
   padding-left: 28px;
-  background: rgba(252, 246, 233, 0.5);
+  background: var(--dropdown-hover-bg);
 }
 
 .profile-dropdown-header a i {
   margin-right: 12px;
   width: 20px;
-  color: rgb(189, 144, 86);
+  color: var(--accent);
   font-size: 1.1rem;
   transition: transform 0.3s ease;
 }
@@ -277,7 +313,7 @@ nav ul li a.active {
 .profile-dropdown-header hr {
   margin: 8px 0;
   border: none;
-  border-top: 1px solid rgba(189, 144, 86, 0.15);
+  border-top: 1px solid var(--border-color);
 }
 
 /* ========================================
@@ -286,8 +322,7 @@ nav ul li a.active {
 
 .btn-carrinho {
   position: relative;
-  left: 60px;
-  background: linear-gradient(135deg, rgb(189, 144, 86), rgb(169, 124, 66));
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
   border: none;
   padding: 12px 18px;
   border-radius: 10px;
@@ -299,13 +334,13 @@ nav ul li a.active {
   color: white;
   font-weight: 600;
   margin-left: 1rem;
-  box-shadow: 0 3px 10px rgba(189, 144, 86, 0.25);
+  box-shadow: 0 3px 10px var(--border-accent);
 }
 
 .btn-carrinho:hover {
-  background: linear-gradient(135deg, rgb(169, 124, 66), rgb(149, 104, 46));
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-dark));
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(189, 144, 86, 0.35);
+  box-shadow: 0 5px 15px var(--shadow-medium);
 }
 
 .cart-count {
