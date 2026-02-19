@@ -278,6 +278,8 @@ class Rotas
                 // API PÚBLICA (post)
                 // ========================================
 
+                "/api/item/salvar" => "PublicApiController@postItem",
+                "/api/item/atualizar" => "PublicApiController@putItem",
 
 
                 // ========================================
