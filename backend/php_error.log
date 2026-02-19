@@ -2522,9 +2522,50 @@ Stack trace:
 [18-Feb-2026 01:41:08 UTC] Login bem-sucedido: seboAlfarrabio@gmail.com
 [18-Feb-2026 03:11:26 UTC] === DESATIVANDO USUÁRIO #53 ===
 [18-Feb-2026 03:11:26 UTC] ✅ Usuário desativado. Linhas: 1
+<<<<<<< HEAD
 [19-Feb-2026 13:42:53 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
 [19-Feb-2026 13:55:13 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 14:38:57 Europe/Berlin] AVISO: Falha ao enviar email de reserva #49: syntax error, unexpected variable "$this"
 [19-Feb-2026 14:39:08 Europe/Berlin] AVISO: Falha ao enviar email de reserva #50: syntax error, unexpected variable "$this"
 [19-Feb-2026 14:45:51 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 14:51:25 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+=======
+<<<<<<< HEAD
+[19-Feb-2026 13:11:28 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[19-Feb-2026 13:18:30 Europe/Berlin] === INSERINDO USUÁRIO ===
+[19-Feb-2026 13:18:30 Europe/Berlin] Nome: nathaly, Email: cristinenathaly5@gmail.com, Tipo: Cliente
+[19-Feb-2026 13:18:30 Europe/Berlin] ✅ Usuário criado com ID: 55
+[19-Feb-2026 13:18:45 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 13:27:28 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 13:29:00 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 13:29:06 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 13:30:56 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 13:42:50 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[19-Feb-2026 13:43:04 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+[19-Feb-2026 13:45:24 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[19-Feb-2026 13:45:24 Europe/Berlin] ❌ ERRO PDO UPDATE: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'foto_avaliacao' at row 2
+[19-Feb-2026 13:52:04 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[19-Feb-2026 13:52:04 Europe/Berlin] ❌ ERRO PDO UPDATE: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'foto_avaliacao' at row 1
+[19-Feb-2026 14:34:36 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[19-Feb-2026 14:34:36 Europe/Berlin] ❌ ERRO PDO UPDATE: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'foto_avaliacao' at row 2
+[19-Feb-2026 14:45:25 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[19-Feb-2026 14:46:51 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 14:48:32 Europe/Berlin] Login bem-sucedido: bvalquiria988@gmail.com
+=======
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Warning:  require_once(C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php): Failed to open stream: No such file or directory in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+[19-Feb-2026 14:47:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend/../vendor/autoload.php' (include_path='C:\xampp\php\PEAR') in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+>>>>>>> c0599cf87e843710c8401e0102e3a3f7e38eeb0a
+>>>>>>> 6bd192595b56a12b68d52d6e32e52448c68a90d7

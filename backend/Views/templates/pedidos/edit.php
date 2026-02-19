@@ -361,7 +361,7 @@
                         Data do Pedido <small>(Somente Leitura)</small>
                     </label>
                     <div class="input-wrapper">
-                        <input type="date" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" readonly
+                        <input type="text" name="data_pedido" value="<?= $pedidos['data_pedido'] ?>" readonly
                             style="background-color: #e9ecef; cursor: not-allowed;">
                         <i class="fa-solid fa-calendar-check input-icon"></i>
                     </div>
