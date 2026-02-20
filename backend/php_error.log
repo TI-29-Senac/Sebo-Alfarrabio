@@ -2585,3 +2585,10 @@ Stack trace:
 [19-Feb-2026 15:27:17 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 >>>>>>> f03b625cc22b6e3c3f6933c277b0cd8aee92e2ff
 >>>>>>> caa17e6023e8956be0d1cbd8d4937102206d7970
+[20-Feb-2026 12:59:40 Europe/Berlin] [EXCLUIR FOTO] id_foto=25, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:40 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699713f5a818b7.33711660.jpg
+[20-Feb-2026 12:59:43 Europe/Berlin] [EXCLUIR FOTO] id_foto=26, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:43 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716b1b74632.51918910.jpg
+[20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] id_foto=28, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716fd4e64f8.97594427.jpg
+[20-Feb-2026 12:59:58 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1

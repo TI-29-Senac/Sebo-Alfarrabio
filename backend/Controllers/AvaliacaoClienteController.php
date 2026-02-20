@@ -234,6 +234,7 @@ class AvaliacaoClienteController
                 $count = is_array($files['name']) ? count($files['name']) : 0;
 
                 // Verifica quantidade total de fotos (existentes + novas)
+                // buscarFotosAvaliacao retorna array associativo [{id_foto, caminho_foto}, ...]
                 $fotosExistentes = $this->avaliacaoModel->buscarFotosAvaliacao($id);
                 $totalFotos = count($fotosExistentes) + $count;
 
@@ -346,6 +347,80 @@ class AvaliacaoClienteController
 
         } catch (\Exception $e) {
             error_log("Erro deletarAvaliacao: " . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Erro interno do servidor.']);
+        }
+    }
+
+    /**
+     * Exclui uma foto individual de uma avaliação via AJAX.
+     * Verifica autenticação e propriedade da avaliação antes de excluir.
+     * Remove o arquivo do disco e o registro do banco de dados.
+     */
+    public function excluirFotoAvaliacao()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        try {
+            // Verifica autenticação
+            $usuarioId = $this->session->get('usuario_id');
+            if (!$usuarioId) {
+                http_response_code(401);
+                echo json_encode(['success' => false, 'message' => 'Login necessário']);
+                return;
+            }
+
+            // Obtém parâmetros
+            $idFoto = isset($_POST['id_foto']) ? intval($_POST['id_foto']) : 0;
+            $idAvaliacao = isset($_POST['id_avaliacao']) ? intval($_POST['id_avaliacao']) : 0;
+
+            error_log("[EXCLUIR FOTO] id_foto=$idFoto, id_avaliacao=$idAvaliacao, user=$usuarioId");
+
+            if (!$idFoto || !$idAvaliacao) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'message' => 'Parâmetros inválidos.']);
+                return;
+            }
+
+            // Verifica se a avaliação pertence ao usuário logado
+            $av = $this->avaliacaoModel->buscarAvaliacaoPorID($idAvaliacao);
+            if (!$av) {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Avaliação não encontrada']);
+                return;
+            }
+
+            if ($av['id_usuario'] != $usuarioId) {
+                http_response_code(403);
+                echo json_encode(['success' => false, 'message' => 'Permissão negada']);
+                return;
+            }
+
+            // Exclui a foto do banco e obtém o caminho para remoção do disco
+            $caminhoFoto = $this->avaliacaoModel->excluirFotoAvaliacao($idFoto, $idAvaliacao);
+
+            if ($caminhoFoto === false) {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Foto não encontrada ou já excluída.']);
+                return;
+            }
+
+            // Remove o arquivo do disco
+            // O caminho salvo é no formato '/backend/uploads/avaliacoes/xxx.jpg'
+            // FileManager usa base path: __DIR__ . '/../uploads'
+            // Precisamos extrair o caminho relativo ao diretório de uploads
+            $caminhoRelativo = str_replace('/backend/uploads/', '', $caminhoFoto);
+            $this->fileManager->delete($caminhoRelativo);
+
+            error_log("[EXCLUIR FOTO] Foto excluída com sucesso: $caminhoFoto");
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Foto excluída com sucesso.'
+            ]);
+
+        } catch (\Exception $e) {
+            error_log("Erro excluirFotoAvaliacao: " . $e->getMessage());
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'Erro interno do servidor.']);
         }

@@ -471,10 +471,108 @@
     }
 
     /* ========================================
+       FOTOS EXISTENTES NO MODAL DE EDIÇÃO
+       ======================================== */
+    .fotos-existentes-container {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
+
+    .foto-existente-wrapper {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        overflow: visible;
+    }
+
+    .foto-existente-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #E6E0D5;
+        transition: all 0.2s ease;
+    }
+
+    .foto-existente-wrapper:hover img {
+        border-color: var(--color-vintage-brown);
+        opacity: 0.85;
+    }
+
+    .foto-existente-actions {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 4px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .foto-existente-wrapper:hover .foto-existente-actions {
+        opacity: 1;
+    }
+
+    .btn-foto-acao {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .btn-foto-excluir {
+        background: #fff;
+        color: #D32F2F;
+    }
+
+    .btn-foto-excluir:hover {
+        background: #D32F2F;
+        color: #fff;
+        border-color: #D32F2F;
+    }
+
+    .btn-foto-substituir {
+        background: #fff;
+        color: var(--color-vintage-brown);
+    }
+
+    .btn-foto-substituir:hover {
+        background: var(--color-vintage-brown);
+        color: #fff;
+        border-color: var(--color-vintage-brown);
+    }
+
+    .fotos-existentes-vazio {
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        font-style: italic;
+    }
+
+    /* ========================================
        TEMA ESCURO — AVALIAÇÕES
        ======================================== */
     [data-theme="dark"] .avaliacoes-main-container {
         color: #f5f1e8;
+    }
+
+    [data-theme="dark"] .foto-existente-wrapper img {
+        border-color: rgba(212, 165, 116, 0.2);
+    }
+
+    [data-theme="dark"] .btn-foto-acao {
+        background: #2a1f14;
+        border-color: rgba(212, 165, 116, 0.2);
     }
 
     [data-theme="dark"] .avaliacoes-header {
@@ -672,6 +770,23 @@
     }
 </style>
 
+<?php
+// Monta mapa JSON de fotos existentes por avaliação para uso no JavaScript
+// Cada avaliação pode ter múltiplas fotos na tbl_avaliacao_fotos
+$fotosMap = [];
+if (!empty($avaliacoes)) {
+    $avaliacaoModel = new \Sebo\Alfarrabio\Models\Avaliacao(\Sebo\Alfarrabio\Database\Database::getInstance());
+    foreach ($avaliacoes as $av) {
+        $fotosMap[$av['id_avaliacao']] = $avaliacaoModel->buscarFotosAvaliacao($av['id_avaliacao']);
+    }
+}
+?>
+<script>
+    // Mapa de fotos existentes indexado por id_avaliacao
+    // Cada entrada é um array de {id_foto, caminho_foto}
+    const fotosExistentesMap = <?= json_encode($fotosMap, JSON_UNESCAPED_UNICODE) ?>;
+</script>
+
 <div class="avaliacoes-main-container">
 
     <!-- Botão Voltar -->
@@ -822,9 +937,17 @@
         <textarea class="modal-textarea" id="comentarioEdicao" maxlength="500"></textarea>
         <div class="char-counter"><span id="charCountEdicao">0</span>/500</div>
 
+        <!-- Seção de fotos existentes (populada via JS ao abrir o modal) -->
+        <div class="rating-label" style="margin-top: 15px;">Fotos atuais</div>
+        <div id="fotosExistentesContainer" class="fotos-existentes-container">
+            <!-- Thumbnails das fotos existentes com botões de excluir/substituir -->
+        </div>
+
         <div class="rating-label" style="margin-top: 15px;">Adicionar novas fotos (opcional) - Máx 5</div>
         <div class="file-upload-container">
             <input type="file" id="fotoEdicao" accept="image/*" multiple onchange="handleFileSelectEdicao(this)">
+            <!-- Input oculto para substituição individual de foto -->
+            <input type="file" id="fotoSubstituir" accept="image/*" style="display:none" onchange="handleSubstituirFoto(this)">
             <div id="previewContainerEdicao" style="margin-top: 10px; display: none; gap: 10px; flex-wrap: wrap;">
                 <!-- Thumbnails -->
             </div>
@@ -863,6 +986,8 @@
     let currentEdicaoId = null;
     let currentEdicaoRating = 0;
     let currentExclusaoId = null;
+    // ID da foto que está sendo substituída (para o fluxo de substituição)
+    let substituindoFotoId = null;
 
     const ratingTexts = {
         1: 'Péssimo',
@@ -880,8 +1005,11 @@
         const MAX_SIZE_MB = 5; // 5MB por imagem
         const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-        if (selectedFilesEdicao.length + files.length > 5) {
-            alert("Você pode selecionar no máximo 5 imagens.");
+        // Calcula total considerando fotos existentes + novas já selecionadas
+        const fotosExistentes = fotosExistentesMap[currentEdicaoId] || [];
+        const totalAtual = fotosExistentes.length + selectedFilesEdicao.length;
+        if (totalAtual + files.length > 5) {
+            alert(`Você pode ter no máximo 5 imagens. Atualmente há ${totalAtual} foto(s).`);
             return;
         }
 
@@ -944,6 +1072,214 @@
     }
 
     // =======================
+    // FOTOS EXISTENTES
+    // =======================
+
+    /**
+     * Renderiza as fotos existentes da avaliação no modal de edição.
+     * Cada foto mostra botões de "Excluir" e "Substituir" ao passar o mouse.
+     */
+    function renderFotosExistentes(idAvaliacao) {
+        const container = document.getElementById('fotosExistentesContainer');
+        const fotos = fotosExistentesMap[idAvaliacao] || [];
+
+        container.innerHTML = '';
+
+        if (fotos.length === 0) {
+            container.innerHTML = '<span class="fotos-existentes-vazio"><i class="fa fa-image"></i> Nenhuma foto anexada</span>';
+            return;
+        }
+
+        fotos.forEach(foto => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'foto-existente-wrapper';
+            wrapper.id = 'foto-wrapper-' + foto.id_foto;
+
+            wrapper.innerHTML = `
+                <img src="${foto.caminho_foto}" alt="Foto da avaliação" title="Clique para ampliar" onclick="window.open('${foto.caminho_foto}', '_blank')">
+                <div class="foto-existente-actions">
+                    <button class="btn-foto-acao btn-foto-excluir" title="Excluir foto" onclick="excluirFotoExistente(${foto.id_foto}, ${idAvaliacao})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    <button class="btn-foto-acao btn-foto-substituir" title="Substituir foto" onclick="iniciarSubstituirFoto(${foto.id_foto}, ${idAvaliacao})">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(wrapper);
+        });
+    }
+
+    /**
+     * Exclui uma foto existente da avaliação via AJAX.
+     * Pede confirmação antes de excluir.
+     */
+    async function excluirFotoExistente(idFoto, idAvaliacao) {
+        if (!confirm('Tem certeza que deseja excluir esta foto? A ação não pode ser desfeita.')) {
+            return;
+        }
+
+        const wrapper = document.getElementById('foto-wrapper-' + idFoto);
+        if (wrapper) {
+            wrapper.style.opacity = '0.5';
+            wrapper.style.pointerEvents = 'none';
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('id_foto', idFoto);
+            formData.append('id_avaliacao', idAvaliacao);
+
+            const resp = await fetch('/backend/api/cliente/avaliacao/foto/excluir', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            });
+
+            const data = await resp.json();
+
+            if (data.success) {
+                // Remove a foto do mapa local
+                if (fotosExistentesMap[idAvaliacao]) {
+                    fotosExistentesMap[idAvaliacao] = fotosExistentesMap[idAvaliacao].filter(f => f.id_foto !== idFoto);
+                }
+                // Re-renderiza as fotos existentes no modal
+                renderFotosExistentes(idAvaliacao);
+                // Atualiza fotos no card da avaliação
+                atualizarFotosCard(idAvaliacao);
+                console.log('[Excluir Foto] Sucesso:', data.message);
+            } else {
+                alert(data.message || 'Erro ao excluir foto.');
+                if (wrapper) {
+                    wrapper.style.opacity = '1';
+                    wrapper.style.pointerEvents = 'auto';
+                }
+            }
+        } catch (e) {
+            console.error('[Excluir Foto] Erro:', e);
+            alert('Erro de conexão ao excluir foto.');
+            if (wrapper) {
+                wrapper.style.opacity = '1';
+                wrapper.style.pointerEvents = 'auto';
+            }
+        }
+    }
+
+    /**
+     * Inicia o fluxo de substituição de foto:
+     * 1) Abre o seletor de arquivo
+     * 2) Ao selecionar, exclui a foto antiga via AJAX
+     * 3) A nova foto será enviada junto com salvarEdicao()
+     */
+    function iniciarSubstituirFoto(idFoto, idAvaliacao) {
+        substituindoFotoId = idFoto;
+        const fileInput = document.getElementById('fotoSubstituir');
+        fileInput.value = '';
+        fileInput.click();
+    }
+
+    /**
+     * Callback do input de substituição de foto.
+     * Exclui a foto antiga e adiciona a nova ao array de seleção.
+     */
+    async function handleSubstituirFoto(input) {
+        if (!input.files || input.files.length === 0 || !substituindoFotoId) return;
+
+        const file = input.files[0];
+        const MAX_SIZE_BYTES = 5 * 1024 * 1024;
+
+        if (file.size > MAX_SIZE_BYTES) {
+            alert(`A imagem excede o limite de 5MB.`);
+            return;
+        }
+
+        if (!file.type.match('image.*')) {
+            alert('Selecione um arquivo de imagem válido.');
+            return;
+        }
+
+        const idFoto = substituindoFotoId;
+        const idAvaliacao = currentEdicaoId;
+        substituindoFotoId = null;
+
+        // Exclui a foto antiga via AJAX
+        const wrapper = document.getElementById('foto-wrapper-' + idFoto);
+        if (wrapper) {
+            wrapper.style.opacity = '0.5';
+            wrapper.style.pointerEvents = 'none';
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('id_foto', idFoto);
+            formData.append('id_avaliacao', idAvaliacao);
+
+            const resp = await fetch('/backend/api/cliente/avaliacao/foto/excluir', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            });
+
+            const data = await resp.json();
+
+            if (data.success) {
+                // Remove do mapa local
+                if (fotosExistentesMap[idAvaliacao]) {
+                    fotosExistentesMap[idAvaliacao] = fotosExistentesMap[idAvaliacao].filter(f => f.id_foto !== idFoto);
+                }
+                renderFotosExistentes(idAvaliacao);
+
+                // Adiciona a nova foto ao array de novas fotos
+                selectedFilesEdicao.push(file);
+                renderPreviewEdicao();
+
+                console.log('[Substituir Foto] Foto antiga excluída, nova adicionada à fila de upload.');
+            } else {
+                alert(data.message || 'Erro ao substituir foto.');
+                if (wrapper) {
+                    wrapper.style.opacity = '1';
+                    wrapper.style.pointerEvents = 'auto';
+                }
+            }
+        } catch (e) {
+            console.error('[Substituir Foto] Erro:', e);
+            alert('Erro de conexão ao substituir foto.');
+            if (wrapper) {
+                wrapper.style.opacity = '1';
+                wrapper.style.pointerEvents = 'auto';
+            }
+        }
+    }
+
+    /**
+     * Atualiza a seção de fotos no card da avaliação após exclusão.
+     */
+    function atualizarFotosCard(idAvaliacao) {
+        const card = document.getElementById('card-avaliacao-' + idAvaliacao);
+        if (!card) return;
+
+        const fotosContainer = card.querySelector('.avaliacao-photos');
+        const fotos = fotosExistentesMap[idAvaliacao] || [];
+
+        if (fotos.length === 0) {
+            // Remove o container de fotos se não há mais fotos
+            if (fotosContainer) fotosContainer.remove();
+            return;
+        }
+
+        // Atualiza as fotos no card
+        if (fotosContainer) {
+            fotosContainer.innerHTML = '';
+            fotos.forEach(foto => {
+                const div = document.createElement('div');
+                div.className = 'avaliacao-user-photo';
+                div.innerHTML = `<img src="${foto.caminho_foto}" alt="Foto da avaliação" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; cursor: pointer;" onclick="window.open(this.src, '_blank')">`;
+                fotosContainer.appendChild(div);
+            });
+        }
+    }
+
+    // =======================
     // LÓGICA DE EDIÇÃO
     // =======================
 
@@ -960,6 +1296,9 @@
         document.getElementById('fotoEdicao').value = '';
         renderPreviewEdicao();
 
+        // Renderiza fotos existentes da avaliação no modal
+        renderFotosExistentes(id);
+
         updateStars(nota);
         document.getElementById('modalEdicao').classList.add('active');
     }
@@ -967,6 +1306,7 @@
     function fecharModalEdicao() {
         document.getElementById('modalEdicao').classList.remove('active');
         currentEdicaoId = null;
+        substituindoFotoId = null;
     }
 
     function updateStars(rating) {
@@ -1057,7 +1397,13 @@
                     }
                 }
                 fecharModalEdicao();
-                alert('Avaliação atualizada com sucesso!');
+                // Recarrega a página para refletir fotos novas adicionadas/removidas
+                if (selectedFilesEdicao.length > 0) {
+                    alert('Avaliação atualizada com sucesso!');
+                    location.reload();
+                } else {
+                    alert('Avaliação atualizada com sucesso!');
+                }
             } else {
                 alert(data.message || 'Erro ao atualizar.');
                 console.error('[Editar] Falha:', data.message);

@@ -264,6 +264,8 @@ class Rotas
                 "/api/cliente/avaliacao/salvar" => "AvaliacaoClienteController@salvarAvaliacao",
                 "/api/cliente/avaliacao/atualizar" => "AvaliacaoClienteController@atualizarAvaliacao",
                 "/api/cliente/avaliacao/deletar" => "AvaliacaoClienteController@deletarAvaliacao",
+                // Excluir foto individual de uma avaliação (AJAX)
+                "/api/cliente/avaliacao/foto/excluir" => "AvaliacaoClienteController@excluirFotoAvaliacao",
 
                 // ========================================
                 // ITENS (Livros do acervo)
