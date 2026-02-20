@@ -1400,7 +1400,7 @@
             <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.png' ?>"
                 class="hero-avatar" alt="Perfil">
             <div class="hero-edit-badge" onclick="document.getElementById('input-foto').click()">
-                <i class="fas fa-camera"></i>
+                <i class="fa fa-camera"></i>
             </div>
             <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data"
                 style="display:none;">
@@ -1412,7 +1412,7 @@
         <div class="hero-info">
             <h1 class="hero-name">
                 <?= htmlspecialchars($usuarioNome) ?>
-                <i class="fas fa-check-circle" style="color:#4CAF50; font-size:22px;"></i>
+                <i class="fa fa-check-circle" style="color:#4CAF50; font-size:22px;"></i>
             </h1>
 
 
@@ -1488,7 +1488,7 @@
                             <div class="header-cell">
                                 <label>ENVIAR PARA</label>
                                 <span>
-                                    <?= htmlspecialchars($usuarioNome) ?> <i class="fas fa-caret-down"></i>
+                                    <?= htmlspecialchars($usuarioNome) ?> <i class="fa fa-caret-down"></i>
                                 </span>
                             </div>
                         </div>
