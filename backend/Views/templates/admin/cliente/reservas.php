@@ -172,6 +172,10 @@
         color: #007BFF;
     }
 
+    .status-reservado {
+        color: #28A745;
+    }
+
     .item-title {
         font-size: 18px;
         font-weight: 700;
@@ -591,6 +595,8 @@
                             $statusClass = 'status-cancelado';
                         elseif (strpos($statusRaw, 'envi') !== false)
                             $statusClass = 'status-enviado';
+                        elseif (strpos($statusRaw, 'reserv') !== false)
+                            $statusClass = 'status-reservado';
                         ?>
                         <span class="status-text <?= $statusClass ?>">
                             <?= htmlspecialchars($pedido['status']) ?>
