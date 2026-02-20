@@ -188,6 +188,13 @@ class Rotas
                 "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
+
+                // ========================================
+                // SEO & SITEMAP
+                // ========================================
+                "/sitemap.xml" => "SEOController@generateSitemap",
+                "/(livro-.*)" => "SEOController@resolveSeoUrl",
+
                 '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
                 '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
             ],

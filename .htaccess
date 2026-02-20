@@ -59,3 +59,20 @@
   AddOutputFilterByType DEFLATE image/svg+xml
   AddOutputFilterByType DEFLATE font/woff2
 </IfModule>
+
+# ================================================
+# SEO & SITEMAP ROUTING
+# ================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # 1. Favicon e Sitemap dinâmicos
+    RewriteRule ^sitemap\.xml$ backend/index.php/sitemap.xml [L,QSA]
+    
+    # 2. URLs de livros SEO (/livro-teto-para-dois-barato)
+    # Se NÃO for um arquivo físico e começar com /livro-, manda pro backend
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(livro-.*)$ backend/index.php/$1 [L,QSA]
+</IfModule>

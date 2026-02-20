@@ -39,6 +39,8 @@ header {
   gap: 0.8rem;
   margin-right: 2rem;
   margin-left: -5rem;
+  position: relative;
+  right: 5rem;
 }
 
 /* ========================================
@@ -143,6 +145,7 @@ nav ul li a.active {
   position: relative;
   margin-left: 2rem;
   flex-shrink: 0;
+  left: 5rem;
 }
 
 .profile-btn-header {
@@ -335,6 +338,7 @@ nav ul li a.active {
   font-weight: 600;
   margin-left: 1rem;
   box-shadow: 0 3px 10px var(--border-accent);
+  left: 5rem;
 }
 
 .btn-carrinho:hover {

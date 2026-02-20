@@ -517,6 +517,29 @@
   box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
+.btn-primary {
+  flex: 1;
+  padding: 16px 28px;
+  background: linear-gradient(135deg, rgb(189, 144, 86), rgb(169, 124, 66)) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 4px 15px rgba(139, 115, 85, 0.35);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, rgb(169, 124, 66), rgb(149, 104, 46)) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 115, 85, 0.45);
+}
+
 /* ========================================
    BOTÃO CARRINHO NO HEADER
    ======================================== */
