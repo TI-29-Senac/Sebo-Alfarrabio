@@ -11,7 +11,7 @@ class NotificacaoEmail
     {
         $this->emailService = new EmailService();
         // Define a URL base do projeto
-        $this->urlBase = "http://localhost:4000";
+        $this->urlBase = "http://localhost:4500";
         // Para produção, você pode usar:
         // $this->urlBase = "https://www.sebo-alfarrabio.com.br";
     }
@@ -23,9 +23,157 @@ class NotificacaoEmail
      */
     public function esqueciASenha(string $email, string $token): void
     {
-        $assunto = "Redefinição de Senha";
-        $mensagem = "Clique no link para redefinir sua senha: ";
-        $mensagem .= $this->urlBase . "/backend/redefinir-senha?token=" . urlencode($token);
+        $assunto = "Redefinição de Senha - Sebo-Alfarrabio";
+        $linkReset = $this->urlBase . "/backend/redefinir-senha?token=" . urlencode($token);
+ 
+        $mensagem = '
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Georgia", "Times New Roman", serif;
+            background-color: #f5f1e8;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 2px solid #8b4513;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, #6b4423 0%, #8b4513 100%);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #d4a574;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+        .header h1 {
+            margin: 0;
+            color: #f5deb3;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content {
+            padding: 40px 30px;
+            background-color: #fefdfb;
+            color: #3e2723;
+            line-height: 1.8;
+        }
+        .greeting {
+            font-size: 22px;
+            color: #6b4423;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .btn-reset {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b4513, #6b4423);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 25px 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .aviso {
+            background-color: #fdf3e3;
+            border: 1px solid #d4a574;
+            border-left: 4px solid #8b4513;
+            border-radius: 4px;
+            padding: 18px 20px;
+            margin: 25px 0;
+            color: #5d4037;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .aviso p {
+            margin: 6px 0;
+        }
+        .aviso strong {
+            color: #6b4423;
+        }
+        .footer {
+            background-color: #f5f1e8;
+            padding: 25px;
+            text-align: center;
+            border-top: 2px solid #d4a574;
+            color: #6b4423;
+            font-size: 14px;
+        }
+        .signature {
+            font-style: italic;
+            color: #6b4423;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="' . $this->urlBase . '/img/logo2.png" alt="Logo Sebo-Alfarrabio" class="logo">
+            <h1>🔐 Redefinição de Senha</h1>
+        </div>
+       
+        <div class="content">
+            <p class="greeting">Olá!</p>
+           
+            <p class="message">
+                Recebemos uma solicitação para redefinir a senha da sua conta no <strong>Sebo-Alfarrabio</strong>.
+            </p>
+           
+            <p class="message">
+                Clique no botão abaixo para criar uma nova senha:
+            </p>
+
+            <div style="text-align: center;">
+                <a href="' . htmlspecialchars($linkReset) . '" class="btn-reset">Redefinir Minha Senha</a>
+            </div>
+
+            <div class="aviso">
+                <p>⏰ <strong>Atenção:</strong> Este link é válido por <strong>1 hora</strong>.</p>
+                <p>🔒 Se você não solicitou a redefinição de senha, ignore este e-mail. Sua conta permanece segura.</p>
+            </div>
+           
+            <p class="message" style="font-size: 13px; color: #999;">
+                Se o botão acima não funcionar, copie e cole o link abaixo no seu navegador:<br>
+                <span style="word-break: break-all; color: #8b4513;">' . htmlspecialchars($linkReset) . '</span>
+            </p>
+           
+            <p class="signature">
+                Atenciosamente,<br>
+                <strong>Equipe Sebo-Alfarrabio ❤️📖</strong>
+            </p>
+        </div>
+       
+        <div class="footer">
+            <p>📖 <em>"Cada livro é uma viagem, cada página uma nova descoberta"</em></p>
+            <p style="margin-top: 15px; font-size: 12px; color: #8b4513;">
+                Este é um e-mail automático. Por favor, não responda.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+';
         $this->emailService->send($email, $assunto, $mensagem);
     }
  

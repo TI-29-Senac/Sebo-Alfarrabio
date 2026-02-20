@@ -366,4 +366,95 @@ class Usuario
         error_log("Senha incorreta para: {$email}");
         return false;
     }
+
+    // ===== RESET DE SENHA =====
+
+    /**
+     * Salva um token de reset de senha no banco.
+     * @param string $email
+     * @param string $tokenHash Hash SHA-256 do token
+     * @param string $expiraEm Data/hora de expiração (Y-m-d H:i:s)
+     * @return bool
+     */
+    public function salvarTokenReset(string $email, string $tokenHash, string $expiraEm): bool
+    {
+        // Remove tokens anteriores do mesmo email
+        $this->deletarTokensReset($email);
+
+        $sql = "INSERT INTO tbl_password_resets (email, token_hash, expira_em) 
+                VALUES (:email, :token_hash, :expira_em)";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':token_hash', $tokenHash);
+        $stmt->bindParam(':expira_em', $expiraEm);
+
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("❌ Erro ao salvar token de reset: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Valida um token de reset de senha.
+     * @param string $tokenHash Hash SHA-256 do token
+     * @return array|false Dados do reset se válido, false caso contrário
+     */
+    public function validarTokenReset(string $tokenHash)
+    {
+        $sql = "SELECT * FROM tbl_password_resets 
+                WHERE token_hash = :token_hash 
+                AND expira_em > NOW()
+                LIMIT 1";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':token_hash', $tokenHash);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: false;
+    }
+
+    /**
+     * Atualiza a senha de um usuário por ID.
+     * @param int $id
+     * @param string $novaSenha Senha em texto puro (será hashada)
+     * @return bool
+     */
+    public function atualizarSenha(int $id, string $novaSenha): bool
+    {
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+        $sql = "UPDATE tbl_usuario SET senha_usuario = :senha WHERE id_usuario = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':senha', $senhaHash);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("❌ Erro ao atualizar senha: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Remove todos os tokens de reset de um email.
+     * @param string $email
+     * @return bool
+     */
+    public function deletarTokensReset(string $email): bool
+    {
+        $sql = "DELETE FROM tbl_password_resets WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("❌ Erro ao deletar tokens de reset: " . $e->getMessage());
+            return false;
+        }
+    }
 }

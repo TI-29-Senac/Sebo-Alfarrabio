@@ -15,5 +15,6 @@
         </div>
         <button type="submit" class="w3-button w3-blue">Entrar</button>
     </form>
-    <a href="/backend/register">Não tenho conta</a>
+    <a href="/backend/register">Não tenho conta</a><br>
+    <a href="/backend/forgot-password">Esqueci a senha</a>
 </div>

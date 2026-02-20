@@ -23,6 +23,8 @@ class Rotas
                 '/register' => 'AuthController@register',
                 '/login' => 'AuthController@login',
                 '/logout' => 'AuthController@logout',
+                '/forgot-password' => 'AuthController@forgotPassword',
+                '/redefinir-senha' => 'AuthController@resetPassword',
                 '/api/auth/session' => 'AuthController@checkSession',
 
 
@@ -206,6 +208,8 @@ class Rotas
 
                 "/register" => "AuthController@cadastrarUsuario",
                 "/login" => "AuthController@authenticar",
+                "/forgot-password" => "AuthController@enviarLinkReset",
+                "/redefinir-senha" => "AuthController@processarResetPassword",
 
                 // ========================================
                 // USUÁRIOS (post)

@@ -2576,3 +2576,25 @@ Stack trace:
 [19-Feb-2026 15:12:35 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 15:26:25 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
 [19-Feb-2026 15:27:17 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 15:49:15 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[19-Feb-2026 15:49:21 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 15:52:09 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 15:52:13 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
+[19-Feb-2026 15:52:20 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[20-Feb-2026 12:29:52 Europe/Berlin] === INSERINDO USUÁRIO ===
+[20-Feb-2026 12:29:52 Europe/Berlin] Nome: Samuca, Email: samxeay28@gmail.com, Tipo: Cliente
+[20-Feb-2026 12:29:52 Europe/Berlin] ✅ Usuário criado com ID: 56
+[20-Feb-2026 12:30:08 Europe/Berlin] Login bem-sucedido: samxeay28@gmail.com
+[20-Feb-2026 12:38:22 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+[20-Feb-2026 12:39:20 Europe/Berlin] Login bem-sucedido: samxeay28@gmail.com
+[20-Feb-2026 12:57:05 Europe/Berlin] Login bem-sucedido: samxeay28@gmail.com
+[20-Feb-2026 13:07:53 Europe/Berlin] Login bem-sucedido: samxeay28@gmail.com
+[20-Feb-2026 13:07:53 Europe/Berlin] Login bem-sucedido: samxeay28@gmail.com
+[20-Feb-2026 14:49:02 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+[20-Feb-2026 14:54:20 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+[20-Feb-2026 15:03:14 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[20-Feb-2026 15:08:34 Europe/Berlin] === ATUALIZANDO USUÁRIO #3 ===
+[20-Feb-2026 15:08:34 Europe/Berlin] Nome: Carla Menezes Silva, Email: carla.menezes@email.com, Tipo: Cliente, Senha: NÃO
+[20-Feb-2026 15:08:34 Europe/Berlin] ✅ Linhas afetadas: 0
+[20-Feb-2026 15:17:19 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
+[20-Feb-2026 15:28:29 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com

@@ -193,4 +193,149 @@ class AuthController
         // Se for um caminho relativo, assume que está dentro de backend
         return '/backend/' . $caminho;
     }
+
+    // ===== ESQUECI A SENHA =====
+
+    /**
+     * Renderiza o formulário de "Esqueci a senha".
+     */
+    public function forgotPassword(): void
+    {
+        View::render('auth/forgot_password');
+    }
+
+    /**
+     * Processa o envio do link de recuperação de senha.
+     * Gera token seguro, salva hash no banco, envia email com token raw.
+     * Usa mensagem genérica para evitar enumeração de emails.
+     */
+    public function enviarLinkReset(): void
+    {
+        $email = trim($_POST['email_usuario'] ?? '');
+
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Informe um email válido.');
+            return;
+        }
+
+        // Mensagem genérica (anti-enumeração) — sempre a mesma independente de o email existir
+        $mensagemSucesso = 'Se o email informado estiver cadastrado, você receberá um link de recuperação em breve.';
+
+        try {
+            $usuarios = $this->usuarioModel->buscarUsuariosPorEMail($email);
+
+            if (count($usuarios) === 1) {
+                // Gera token criptograficamente seguro
+                $tokenRaw = bin2hex(random_bytes(32));
+                $tokenHash = hash('sha256', $tokenRaw);
+                $expiraEm = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+                // Salva o HASH do token no banco (não o token raw)
+                $this->usuarioModel->salvarTokenReset($email, $tokenHash, $expiraEm);
+
+                // Envia o token RAW por email (o link conterá o token original)
+                try {
+                    $this->notificacaoEmail->esqueciASenha($email, $tokenRaw);
+                } catch (\Throwable $eEmail) {
+                    error_log("AVISO: Falha ao enviar email de reset para $email: " . $eEmail->getMessage());
+                }
+            }
+            // Se não encontrou o email, não faz nada mas retorna mesma mensagem
+
+        } catch (\Throwable $e) {
+            error_log("ERRO em enviarLinkReset: " . $e->getMessage());
+        }
+
+        Redirect::redirecionarComMensagem('/backend/forgot-password', 'success', $mensagemSucesso);
+    }
+
+    /**
+     * Renderiza o formulário de redefinição de senha.
+     * Valida o token antes de exibir o formulário.
+     */
+    public function resetPassword(): void
+    {
+        $token = $_GET['token'] ?? '';
+
+        if (empty($token)) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Token inválido ou ausente.');
+            return;
+        }
+
+        // Valida o hash do token no banco
+        $tokenHash = hash('sha256', $token);
+        $resetData = $this->usuarioModel->validarTokenReset($tokenHash);
+
+        if (!$resetData) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Token inválido ou expirado. Solicite um novo link.');
+            return;
+        }
+
+        View::render('auth/reset_password', ['token' => $token]);
+    }
+
+    /**
+     * Processa a redefinição de senha.
+     * Valida token, verifica senhas, atualiza no banco e invalida o token.
+     */
+    public function processarResetPassword(): void
+    {
+        $token = $_POST['token'] ?? '';
+        $senhaNova = $_POST['senha_nova'] ?? '';
+        $senhaConfirm = $_POST['senha_confirm'] ?? '';
+
+        if (empty($token)) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Token inválido.');
+            return;
+        }
+
+        // Validação de senha
+        if (empty($senhaNova) || strlen($senhaNova) < 6) {
+            Redirect::redirecionarComMensagem(
+                '/backend/redefinir-senha?token=' . urlencode($token),
+                'error',
+                'A senha deve ter pelo menos 6 caracteres.'
+            );
+            return;
+        }
+
+        if ($senhaNova !== $senhaConfirm) {
+            Redirect::redirecionarComMensagem(
+                '/backend/redefinir-senha?token=' . urlencode($token),
+                'error',
+                'As senhas não conferem.'
+            );
+            return;
+        }
+
+        // Valida o hash do token
+        $tokenHash = hash('sha256', $token);
+        $resetData = $this->usuarioModel->validarTokenReset($tokenHash);
+
+        if (!$resetData) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Token inválido ou expirado. Solicite um novo link.');
+            return;
+        }
+
+        // Busca o usuário pelo email do token
+        $usuarios = $this->usuarioModel->buscarUsuariosPorEMail($resetData['email']);
+
+        if (count($usuarios) !== 1) {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Erro ao localizar a conta.');
+            return;
+        }
+
+        $usuario = $usuarios[0];
+
+        // Atualiza a senha
+        $atualizado = $this->usuarioModel->atualizarSenha((int)$usuario['id_usuario'], $senhaNova);
+
+        if ($atualizado) {
+            // Invalida todos os tokens deste email
+            $this->usuarioModel->deletarTokensReset($resetData['email']);
+            Redirect::redirecionarComMensagem('/backend/login', 'success', 'Senha redefinida com sucesso! Faça o login com sua nova senha.');
+        } else {
+            Redirect::redirecionarComMensagem('/backend/forgot-password', 'error', 'Erro ao redefinir a senha. Tente novamente.');
+        }
+    }
 }

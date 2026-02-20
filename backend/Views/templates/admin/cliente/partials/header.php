@@ -371,7 +371,10 @@ use Sebo\Alfarrabio\Core\Session;
 
     <?php
     $currentPath = $_SERVER['REQUEST_URI'] ?? '';
-    $isLoginOrRegister = strpos($currentPath, '/login') !== false || strpos($currentPath, '/register') !== false;
+    $isLoginOrRegister = strpos($currentPath, '/login') !== false
+        || strpos($currentPath, '/register') !== false
+        || strpos($currentPath, '/forgot-password') !== false
+        || strpos($currentPath, '/redefinir-senha') !== false;
     if (!$isLoginOrRegister):
         ?>
 
