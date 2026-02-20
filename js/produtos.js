@@ -62,6 +62,7 @@ async function carregarProdutos() {
 
             // Verifica se há filtros na URL
             aplicarFiltrosUrl();
+            abrirModalViaUrl();
 
             // Se NÃO houve filtro via URL (que já chama renderizarProdutos), renderiza normalmente
             const temFiltroUrl = obterParametroUrl('genero') || obterParametroUrl('categoria') || obterParametroUrl('busca');
@@ -1049,4 +1050,34 @@ function aplicarFiltrosUrl() {
     }
 }
 // ========================================
+// INTEGRAÇÃO SEO: ABRIR MODAL VIA URL
+// ========================================
+
+/**
+ * Verifica se existe um parâmetro ?item=ID na URL.
+ * Se existir, busca o produto correspondente e abre o modal.
+ */
+function abrirModalViaUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const idItem = params.get('item');
+
+    if (idItem) {
+        console.log('🔍 SEO: Detectado ID de item na URL:', idItem);
+        // Espera os produtos carregarem (se já não carregaram)
+        const checkCarga = setInterval(() => {
+            if (todosOsProdutos.length > 0) {
+                clearInterval(checkCarga);
+                const produto = todosOsProdutos.find(p => p.id_item == idItem);
+                if (produto) {
+                    console.log('🚀 SEO: Abrindo modal para:', produto.titulo);
+                    abrirModalProduto(produto);
+                }
+            }
+        }, 300);
+
+        // Timer de segurança para não rodar infinitamente
+        setTimeout(() => clearInterval(checkCarga), 5000);
+    }
+}
+
 

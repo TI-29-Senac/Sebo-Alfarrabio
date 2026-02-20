@@ -237,7 +237,12 @@ class PublicApiController
                         'autor' => $av['nome_autor'] ?? null
                     ],
 
-                    'tempo_decorrido' => calcularTempoDecorrido($av['criado_em'])
+                    'tempo_decorrido' => calcularTempoDecorrido($av['criado_em']),
+
+                    // Fotos da avaliação (busca da tbl_avaliacao_fotos)
+                    'fotos' => array_map(function ($f) {
+                        return $f['caminho_foto'];
+                    }, $this->avaliacao->buscarFotosAvaliacao($av['id_avaliacao']))
                 ];
             }, $avaliacoes);
 
