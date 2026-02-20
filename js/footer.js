@@ -173,9 +173,6 @@
         // Inicia autoplay
         iniciarAutoplay();
 
-        // Cria indicadores
-        criarIndicadores();
-
         console.log('✅ Avaliações renderizadas com sucesso. Total:', estadoSlider.avaliacoes.length);
 
         // Log de dimensões para debug
@@ -298,7 +295,7 @@
         if (avaliacao.fotos && avaliacao.fotos.length > 0) {
             fotosHtml = `
                 <div class="modal-dep-fotos">
-                    ${avaliacao.fotos.map(f => `<img src="${f}" alt="Foto da avaliação" class="modal-dep-foto-av" onclick="window.open('${f}', '_blank')" title="Clique para ampliar" onerror="this.style.display='none'">`).join('')}
+                    ${avaliacao.fotos.map(f => `<img src="${f}" alt="Foto da avaliação" class="modal-dep-foto-av" onclick="event.stopPropagation(); abrirLightboxFoto('${f}')" title="Clique para ampliar" onerror="this.style.display='none'">`).join('')}
                 </div>
             `;
         }
@@ -376,7 +373,57 @@
      * Handler para fechar modal com tecla Esc
      */
     function fecharComEsc(e) {
-        if (e.key === 'Escape') fecharModalDepoimento();
+        if (e.key === 'Escape') {
+            // Fecha lightbox primeiro se estiver aberto, senão fecha modal de depoimento
+            const lightbox = document.getElementById('lightboxFoto');
+            if (lightbox) {
+                fecharLightboxFoto();
+            } else {
+                fecharModalDepoimento();
+            }
+        }
+    }
+
+    /**
+     * Abre um lightbox para exibir a foto da avaliação em tamanho ampliado.
+     * Substitui o comportamento anterior de redirecionar para a URL da imagem.
+     */
+    window.abrirLightboxFoto = function (urlFoto) {
+        // Remove lightbox anterior se existir
+        const existente = document.getElementById('lightboxFoto');
+        if (existente) existente.remove();
+
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightboxFoto';
+        lightbox.className = 'lightbox-foto-overlay';
+        lightbox.innerHTML = `
+            <button class="lightbox-foto-close" aria-label="Fechar">&times;</button>
+            <img src="${urlFoto}" alt="Foto da avaliação ampliada" class="lightbox-foto-img">
+        `;
+
+        document.body.appendChild(lightbox);
+
+        // Animação de entrada
+        requestAnimationFrame(() => lightbox.classList.add('active'));
+
+        // Fechar ao clicar no X
+        lightbox.querySelector('.lightbox-foto-close').addEventListener('click', fecharLightboxFoto);
+
+        // Fechar ao clicar no overlay (fora da imagem)
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) fecharLightboxFoto();
+        });
+    }
+
+    /**
+     * Fecha o lightbox de foto.
+     */
+    function fecharLightboxFoto() {
+        const lightbox = document.getElementById('lightboxFoto');
+        if (lightbox) {
+            lightbox.classList.remove('active');
+            setTimeout(() => lightbox.remove(), 300);
+        }
     }
 
     /**
@@ -517,6 +564,54 @@
             .modal-dep-foto-av:hover {
                 transform: scale(1.05);
             }
+
+            /* ========== LIGHTBOX DE FOTO DA AVALIAÇÃO ========== */
+            .lightbox-foto-overlay {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: rgba(0,0,0,0.85);
+                backdrop-filter: blur(6px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 20000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                padding: 30px;
+                cursor: pointer;
+            }
+            .lightbox-foto-overlay.active {
+                opacity: 1;
+            }
+            .lightbox-foto-close {
+                position: absolute;
+                top: 20px; right: 25px;
+                background: none;
+                border: none;
+                font-size: 36px;
+                color: #fff;
+                cursor: pointer;
+                line-height: 1;
+                transition: opacity 0.2s;
+                z-index: 20001;
+            }
+            .lightbox-foto-close:hover {
+                opacity: 0.7;
+            }
+            .lightbox-foto-img {
+                max-width: 90vw;
+                max-height: 85vh;
+                object-fit: contain;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+                cursor: default;
+                transform: scale(0.9);
+                transition: transform 0.3s ease;
+            }
+            .lightbox-foto-overlay.active .lightbox-foto-img {
+                transform: scale(1);
+            }
             .modal-dep-produto {
                 display: flex;
                 align-items: center;
@@ -590,46 +685,9 @@
             }
         });
 
-        atualizarIndicadores();
     }
 
-    /**
-     * Cria os indicadores (bolinhas)
-     */
-    function criarIndicadores() {
-        const container = document.getElementById('depoimentoIndicadores');
-        if (!container) return;
 
-        container.innerHTML = '';
-
-        estadoSlider.avaliacoes.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = index === estadoSlider.indiceAtual ? 'depoimento-dot active' : 'depoimento-dot';
-            dot.setAttribute('aria-label', `Ir para avaliação ${index + 1}`);
-            dot.setAttribute('role', 'tab');
-            dot.setAttribute('aria-selected', index === estadoSlider.indiceAtual ? 'true' : 'false');
-            dot.addEventListener('click', () => {
-                irParaAvaliacao(index);
-            });
-            container.appendChild(dot);
-        });
-    }
-
-    /**
-     * Atualiza estado visual dos indicadores
-     */
-    function atualizarIndicadores() {
-        const dots = document.querySelectorAll('.depoimento-dot');
-        dots.forEach((dot, index) => {
-            if (index === estadoSlider.indiceAtual) {
-                dot.classList.add('active');
-                dot.setAttribute('aria-selected', 'true');
-            } else {
-                dot.classList.remove('active');
-                dot.setAttribute('aria-selected', 'false');
-            }
-        });
-    }
 
     /**
      * Configura eventos de navegação
