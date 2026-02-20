@@ -230,6 +230,18 @@
     line-height: 1.6;
 }
 
+.footer-bottom a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin: 0 5px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--accent-gold);
+}
+
 /* ========================================== */
 /* TABLET - 768px+ */
 /* ========================================== */

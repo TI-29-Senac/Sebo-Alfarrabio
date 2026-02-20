@@ -7,10 +7,11 @@
   <meta name="description"
     content="Sebo e Livraria O Alfarrábio: Encontre livros novos e usados, raridades e clássicos da literatura. Compre online com segurança e entrega para todo o Brasil.">
   <title>Sebo & Livraria O Alfarrábio</title>
-  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="icon" type="image/webp" href="img/logo.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
@@ -19,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </noscript>
 
-  <!-- CSS na ordem correta -->
+  <!-- CSS com link direto para carregamento paralelo (Mais rápido que @import) -->
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/header.css">
@@ -27,6 +28,8 @@
   <link rel="stylesheet" href="css/hero-animation.css">
   <link rel="stylesheet" href="css/categorias.css">
   <link rel="stylesheet" href="css/responsivo.css">
+  <link rel="stylesheet" href="css/cookies.css">
+
 
   <!-- Script de tema (Início para evitar flash) -->
   <script src="js/theme-toggle.js"></script>
@@ -268,11 +271,6 @@
           <div class="depoimento-loading" aria-label="Carregando avaliações"></div>
         </div>
       </div>
-
-      <!-- Indicadores de posição (opcional - será preenchido via JS se necessário) -->
-      <div class="depoimento-indicadores" id="depoimentoIndicadores" role="tablist"
-        aria-label="Navegação de avaliações">
-      </div>
     </section>
   </main>
 
@@ -322,7 +320,10 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026 Sebo & Livraria O Alfarrábio | contato@Oalfarrábio.com.br</p>
+      <p>&copy; 2026 Sebo & Livraria O Alfarrábio |
+        <a href="politica-de-privacidade.html">Política de Privacidade</a> |
+        <a href="termos-de-uso.html">Termos de Uso</a>
+      </p>
     </div>
   </footer>
 
@@ -345,42 +346,13 @@
   <script src="js/footer.js" defer></script>
 
   <!-- Script dos filtros de gênero -->
-  <script>
-    /**
-     * Melhoria de UX para filtros de gênero
-     * Se já estiver na página de produtos, aplica filtro sem reload
-     */
-    document.addEventListener('DOMContentLoaded', function () {
-      const linksFiltro = document.querySelectorAll('.filtro-genero');
-
-      linksFiltro.forEach(link => {
-        link.addEventListener('click', function (e) {
-          // Se já estiver na página de produtos, previne o reload e filtra
-          if (window.location.pathname.includes('produtos.html')) {
-            e.preventDefault();
-            const genero = this.getAttribute('data-genero');
-
-            // Seleciona o gênero no select e aplica o filtro
-            const generoSelect = document.getElementById('genero-select');
-            if (generoSelect && typeof aplicarFiltros === 'function') {
-              generoSelect.value = genero;
-              aplicarFiltros();
-
-              // Scroll suave até os produtos
-              const produtosSection = document.getElementById('produtos-grid');
-              if (produtosSection) {
-                produtosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }
-          }
-          // Se não estiver na página de produtos, deixa o link redirecionar normalmente
-        });
-      });
-    });
-  </script>
+  <script src="js/index-filtros.js" defer></script>
 
   <!-- Script do menu mobile -->
   <script src="js/mobile-menu.js" defer></script>
+
+  <!-- Script de LGPD/Cookies -->
+  <script src="js/cookies.js" defer></script>
 
 </body>
 

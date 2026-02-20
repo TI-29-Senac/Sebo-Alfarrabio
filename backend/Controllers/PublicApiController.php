@@ -237,7 +237,12 @@ class PublicApiController
                         'autor' => $av['nome_autor'] ?? null
                     ],
 
-                    'tempo_decorrido' => calcularTempoDecorrido($av['criado_em'])
+                    'tempo_decorrido' => calcularTempoDecorrido($av['criado_em']),
+
+                    // Fotos da avaliação (busca da tbl_avaliacao_fotos)
+                    'fotos' => array_map(function ($f) {
+                        return $f['caminho_foto'];
+                    }, $this->avaliacao->buscarFotosAvaliacao($av['id_avaliacao']))
                 ];
             }, $avaliacoes);
 
@@ -390,6 +395,312 @@ class PublicApiController
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode(['status' => 'error', 'message' => 'Erro ao processar imagem: ' . $e->getMessage()]);
+        }
+    }
+
+    // =========================================================================
+    // BASE64 → ARQUIVO: Endpoints para cadastro/atualização via Desktop
+    // =========================================================================
+
+    /**
+     * Auxiliar para decodificar imagem base64 e salvar como arquivo
+     * Função reversa do formatItemWithBase64()
+     * 
+     * @param string $base64String String no formato "data:image/jpeg;base64,/9j/..."
+     * @return string|null Caminho relativo salvo (ex: "/uploads/itens/abc123.jpg") ou null em caso de erro
+     */
+    private function saveBase64Image(string $base64String): ?string
+    {
+        // Mapa de mime-types para extensões
+        $extensionMap = [
+            'image/jpeg' => 'jpg',
+            'image/jpg'  => 'jpg',
+            'image/png'  => 'png',
+            'image/webp' => 'webp',
+            'image/gif'  => 'gif',
+        ];
+
+        // Extrai o mime type e os dados base64
+        // Formato esperado: "data:image/jpeg;base64,/9j/4AAQ..."
+        if (preg_match('/^data:(image\/[a-zA-Z+]+);base64,(.+)$/', $base64String, $matches)) {
+            $mimeType = $matches[1];
+            $dadosBase64 = $matches[2];
+        } else {
+            // Se não tem o prefixo data:, tenta decodificar direto como base64 puro
+            $mimeType = 'image/jpeg'; // default
+            $dadosBase64 = $base64String;
+        }
+
+        // Valida o mime type
+        if (!isset($extensionMap[$mimeType])) {
+            error_log("saveBase64Image: Tipo de imagem não suportado: $mimeType");
+            return null;
+        }
+
+        // Decodifica o base64
+        $dadosBinarios = base64_decode($dadosBase64, true);
+        if ($dadosBinarios === false) {
+            error_log("saveBase64Image: Falha ao decodificar base64");
+            return null;
+        }
+
+        // Valida tamanho (max 5MB)
+        if (strlen($dadosBinarios) > 5 * 1024 * 1024) {
+            error_log("saveBase64Image: Imagem excede o tamanho máximo de 5MB");
+            return null;
+        }
+
+        // Gera nome único
+        $extensao = $extensionMap[$mimeType];
+        $nomeArquivo = 'item_' . time() . '_' . uniqid() . '.' . $extensao;
+
+        // Define o diretório de destino
+        $diretorioUpload = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'itens';
+
+        // Cria o diretório se não existir
+        if (!is_dir($diretorioUpload)) {
+            if (!mkdir($diretorioUpload, 0755, true)) {
+                error_log("saveBase64Image: Falha ao criar diretório: $diretorioUpload");
+                return null;
+            }
+        }
+
+        // Salva o arquivo
+        $caminhoCompleto = $diretorioUpload . DIRECTORY_SEPARATOR . $nomeArquivo;
+        if (file_put_contents($caminhoCompleto, $dadosBinarios) === false) {
+            error_log("saveBase64Image: Falha ao salvar arquivo: $caminhoCompleto");
+            return null;
+        }
+
+        // Retorna o caminho relativo no formato usado pelo sistema
+        return '/uploads/itens/' . $nomeArquivo;
+    }
+
+    /**
+     * Remove um arquivo de imagem pelo caminho relativo
+     */
+    private function deletarImagemAntiga(?string $caminhoRelativo): void
+    {
+        if (empty($caminhoRelativo)) return;
+
+        $caminhoLimpo = ltrim($caminhoRelativo, '/');
+        if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
+            $caminhoLimpo = substr($caminhoLimpo, strlen('backend/'));
+        }
+        if (strpos($caminhoLimpo, 'uploads/') === 0) {
+            $caminhoLimpo = substr($caminhoLimpo, strlen('uploads/'));
+        }
+
+        $caminhoCompleto = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR
+            . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $caminhoLimpo);
+
+        if (file_exists($caminhoCompleto) && is_file($caminhoCompleto)) {
+            unlink($caminhoCompleto);
+        }
+    }
+
+    /**
+     * Endpoint API para criar item com imagem em base64
+     * POST /api/item/salvar
+     * 
+     * Recebe JSON com dados do item + campo "imagem_base64"
+     * Decodifica a imagem e salva como arquivo no servidor
+     */
+    public function postItem()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        try {
+            // Lê o corpo da requisição JSON
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'JSON inválido ou corpo vazio']);
+                return;
+            }
+
+            // Valida campos obrigatórios
+            if (empty($dados['titulo_item'])) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Campo titulo_item é obrigatório']);
+                return;
+            }
+
+            // Processa imagem base64 se fornecida
+            $fotoPath = null;
+            if (!empty($dados['imagem_base64'])) {
+                $fotoPath = $this->saveBase64Image($dados['imagem_base64']);
+                if ($fotoPath === null) {
+                    http_response_code(400);
+                    echo json_encode(['status' => 'error', 'message' => 'Falha ao processar imagem base64']);
+                    return;
+                }
+            }
+
+            // Monta os dados do item para inserção
+            $dadosItem = [
+                'titulo_item'       => $dados['titulo_item'],
+                'tipo_item'         => $dados['tipo_item'] ?? 'livro',
+                'id_genero'         => (int) ($dados['id_genero'] ?? 0),
+                'id_categoria'      => (int) ($dados['id_categoria'] ?? 0),
+                'descricao'         => $dados['descricao'] ?? null,
+                'ano_publicacao'    => !empty($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : null,
+                'editora_gravadora' => $dados['editora_gravadora'] ?? null,
+                'estoque'           => (int) ($dados['estoque'] ?? 1),
+                'preco_item'        => !empty($dados['preco_item']) ? (float) $dados['preco_item'] : 0.00,
+                'isbn'              => $dados['isbn'] ?? null,
+                'duracao_minutos'   => !empty($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : null,
+                'numero_edicao'     => !empty($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : null,
+                'foto_item'         => $fotoPath,
+            ];
+
+            $autores_ids = $dados['autores_ids'] ?? [];
+            $autores_ids = array_map('intval', $autores_ids);
+
+            $resultado = $this->item->inserirItem($dadosItem, $autores_ids);
+
+            if ($resultado) {
+                echo json_encode([
+                    'status'  => 'success',
+                    'message' => 'Item cadastrado com sucesso',
+                    'id_item' => (int) $resultado,
+                    'foto_item' => $fotoPath
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                // Se falhou, remove a imagem que foi salva
+                if ($fotoPath) {
+                    $this->deletarImagemAntiga($fotoPath);
+                }
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir item no banco de dados']);
+            }
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'status'  => 'error',
+                'message' => 'Erro ao processar requisição: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * Endpoint API para atualizar item com imagem em base64
+     * POST /api/item/atualizar
+     * 
+     * Recebe JSON com id_item + dados a atualizar + campo "imagem_base64" (opcional)
+     * Se imagem_base64 vier preenchido, substitui a imagem antiga
+     */
+    public function putItem()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        try {
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'JSON inválido ou corpo vazio']);
+                return;
+            }
+
+            $id_item = (int) ($dados['id_item'] ?? 0);
+            if ($id_item <= 0) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Campo id_item é obrigatório e deve ser maior que 0']);
+                return;
+            }
+
+            // Busca o item atual para pegar o caminho da foto existente
+            $itemAtual = $this->item->buscarItemCompleto($id_item);
+            if (!$itemAtual) {
+                http_response_code(404);
+                echo json_encode(['status' => 'error', 'message' => 'Item não encontrado']);
+                return;
+            }
+
+            // Processa nova imagem base64 se fornecida
+            $fotoPath = $itemAtual['foto_item'] ?? null; // Mantém a foto atual por padrão
+            $fotoAntiga = $fotoPath;
+
+            if (!empty($dados['imagem_base64'])) {
+                $novaFoto = $this->saveBase64Image($dados['imagem_base64']);
+                if ($novaFoto === null) {
+                    http_response_code(400);
+                    echo json_encode(['status' => 'error', 'message' => 'Falha ao processar imagem base64']);
+                    return;
+                }
+                $fotoPath = $novaFoto;
+            }
+
+            // Monta os dados para atualização
+            $dadosItem = [
+                'titulo_item'       => $dados['titulo_item'] ?? $itemAtual['titulo'],
+                'tipo_item'         => $dados['tipo_item'] ?? $itemAtual['tipo'],
+                'id_genero'         => (int) ($dados['id_genero'] ?? $itemAtual['id_genero'] ?? 0),
+                'id_categoria'      => (int) ($dados['id_categoria'] ?? $itemAtual['id_categoria'] ?? 0),
+                'descricao'         => $dados['descricao'] ?? $itemAtual['descricao'] ?? null,
+                'ano_publicacao'    => isset($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : ($itemAtual['ano_publicacao'] ?? null),
+                'editora_gravadora' => $dados['editora_gravadora'] ?? $itemAtual['editora'] ?? null,
+                'estoque'           => (int) ($dados['estoque'] ?? $itemAtual['estoque'] ?? 1),
+                'preco_item'        => isset($dados['preco_item']) ? (float) $dados['preco_item'] : (float) ($itemAtual['preco'] ?? 0),
+                'isbn'              => $dados['isbn'] ?? $itemAtual['isbn'] ?? null,
+                'duracao_minutos'   => isset($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : ($itemAtual['duracao_minutos'] ?? null),
+                'numero_edicao'     => isset($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : ($itemAtual['numero_edicao'] ?? null),
+                'foto_item'         => $fotoPath,
+            ];
+
+            $autores_ids = $dados['autores_ids'] ?? [];
+            $autores_ids = array_map('intval', $autores_ids);
+
+            $resultado = $this->item->atualizarItem($id_item, $dadosItem, $autores_ids);
+
+            if ($resultado) {
+                // Se a atualização foi bem-sucedida e houve troca de imagem, remove a antiga
+                if ($fotoPath !== $fotoAntiga && !empty($fotoAntiga)) {
+                    $this->deletarImagemAntiga($fotoAntiga);
+                }
+
+                echo json_encode([
+                    'status'    => 'success',
+                    'message'   => 'Item atualizado com sucesso',
+                    'id_item'   => $id_item,
+                    'foto_item' => $fotoPath
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                // Se falhou, remove a nova imagem que foi salva
+                if ($fotoPath !== $fotoAntiga && !empty($fotoPath)) {
+                    $this->deletarImagemAntiga($fotoPath);
+                }
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao atualizar item no banco de dados']);
+            }
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'status'  => 'error',
+                'message' => 'Erro ao processar requisição: ' . $e->getMessage()
+            ]);
         }
     }
 

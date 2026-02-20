@@ -190,6 +190,13 @@ class Rotas
                 "/api/carrinho" => "CartController@getCartApi",
                 "/carrinho/obrigado/{id}" => "CartController@obrigado",
 
+
+                // ========================================
+                // SEO & SITEMAP
+                // ========================================
+                "/sitemap.xml" => "SEOController@generateSitemap",
+                "/(livro-.*)" => "SEOController@resolveSeoUrl",
+
                 '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
                 '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
             ],
@@ -268,6 +275,8 @@ class Rotas
                 "/api/cliente/avaliacao/salvar" => "AvaliacaoClienteController@salvarAvaliacao",
                 "/api/cliente/avaliacao/atualizar" => "AvaliacaoClienteController@atualizarAvaliacao",
                 "/api/cliente/avaliacao/deletar" => "AvaliacaoClienteController@deletarAvaliacao",
+                // Excluir foto individual de uma avaliação (AJAX)
+                "/api/cliente/avaliacao/foto/excluir" => "AvaliacaoClienteController@excluirFotoAvaliacao",
 
                 // ========================================
                 // ITENS (Livros do acervo)
@@ -282,6 +291,8 @@ class Rotas
                 // API PÚBLICA (post)
                 // ========================================
 
+                "/api/item/salvar" => "PublicApiController@postItem",
+                "/api/item/atualizar" => "PublicApiController@putItem",
 
 
                 // ========================================

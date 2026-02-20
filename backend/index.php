@@ -33,12 +33,19 @@ use Bramus\Router\Router;
 $router = new Router();
 
 // Define o base path dinamicamente
-$scriptName = $_SERVER['SCRIPT_NAME']; // ex: /backend/index.php ou /backend/router.php
-$basePath = str_replace('\\', '/', dirname($scriptName));
-if ($basePath === '/' || $basePath === '.') {
-    $basePath = '';
-}
+$scriptName = $_SERVER['SCRIPT_NAME'];
+$requestUri = $_SERVER['REQUEST_URI'];
 
+// Se a requisição vem da raiz (ex: /sitemap.xml ou /livro-...) 
+// e o scriptName é backend/index.php, o basePath deve ser vazio.
+if (strpos($requestUri, '/backend/') === false && (strpos($scriptName, '/backend/') !== false)) {
+    $basePath = '';
+} else {
+    $basePath = str_replace('\\', '/', dirname($scriptName));
+    if ($basePath === '/' || $basePath === '.') {
+        $basePath = '';
+    }
+}
 
 $router->setBasePath($basePath);
 

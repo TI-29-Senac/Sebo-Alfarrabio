@@ -264,11 +264,62 @@ class Avaliacao
      */
     public function buscarFotosAvaliacao($id_avaliacao)
     {
-        $sql = "SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id ORDER BY id_foto ASC";
+        $sql = "SELECT id_foto, caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id ORDER BY id_foto ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Exclui uma foto específica de uma avaliação.
+     * Retorna o caminho da foto excluída para remoção do disco.
+     * @param int $id_foto ID do registro na tbl_avaliacao_fotos
+     * @param int $id_avaliacao ID da avaliação (segurança: garante que a foto pertence à avaliação)
+     * @return string|false Caminho da foto excluída, ou false em caso de erro
+     */
+    public function excluirFotoAvaliacao($id_foto, $id_avaliacao)
+    {
+        try {
+            $this->db->beginTransaction();
+
+            // Busca o caminho antes de excluir
+            $sqlBusca = "SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_foto = :id_foto AND id_avaliacao = :id_avaliacao";
+            $stmtBusca = $this->db->prepare($sqlBusca);
+            $stmtBusca->bindParam(':id_foto', $id_foto, PDO::PARAM_INT);
+            $stmtBusca->bindParam(':id_avaliacao', $id_avaliacao, PDO::PARAM_INT);
+            $stmtBusca->execute();
+            $caminho = $stmtBusca->fetchColumn();
+
+            if (!$caminho) {
+                $this->db->rollBack();
+                return false;
+            }
+
+            // Remove o registro da foto
+            $sqlDelete = "DELETE FROM tbl_avaliacao_fotos WHERE id_foto = :id_foto AND id_avaliacao = :id_avaliacao";
+            $stmtDelete = $this->db->prepare($sqlDelete);
+            $stmtDelete->bindParam(':id_foto', $id_foto, PDO::PARAM_INT);
+            $stmtDelete->bindParam(':id_avaliacao', $id_avaliacao, PDO::PARAM_INT);
+            $stmtDelete->execute();
+
+            // Sincroniza coluna legacy foto_avaliacao com a primeira foto restante
+            $sqlSync = "UPDATE tbl_avaliacao SET foto_avaliacao = (
+                SELECT caminho_foto FROM tbl_avaliacao_fotos WHERE id_avaliacao = :id_sub ORDER BY id_foto ASC LIMIT 1
+            ) WHERE id_avaliacao = :id_where";
+            $stmtSync = $this->db->prepare($sqlSync);
+            $stmtSync->bindParam(':id_sub', $id_avaliacao, PDO::PARAM_INT);
+            $stmtSync->bindParam(':id_where', $id_avaliacao, PDO::PARAM_INT);
+            $stmtSync->execute();
+
+            $this->db->commit();
+            return $caminho;
+
+        } catch (PDOException $e) {
+            $this->db->rollBack();
+            error_log("ERRO excluirFotoAvaliacao: " . $e->getMessage());
+            return false;
+        }
     }
 
     /**

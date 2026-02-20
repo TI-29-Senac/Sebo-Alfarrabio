@@ -2567,7 +2567,14 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in C:\Users\beatriz.vsantos27\Videos\Sebo-Alfarrabio\backend\index.php on line 24
+<<<<<<< HEAD
+[19-Feb-2026 15:16:21 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+=======
 >>>>>>> c0599cf87e843710c8401e0102e3a3f7e38eeb0a
+<<<<<<< HEAD
+[19-Feb-2026 14:57:05 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[19-Feb-2026 14:58:21 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+=======
 >>>>>>> 6bd192595b56a12b68d52d6e32e52448c68a90d7
 [19-Feb-2026 15:01:59 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 15:02:54 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
@@ -2576,6 +2583,7 @@ Stack trace:
 [19-Feb-2026 15:12:35 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 15:26:25 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
 [19-Feb-2026 15:27:17 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
+<<<<<<< HEAD
 [19-Feb-2026 15:49:15 Europe/Berlin] Login bem-sucedido: seboAlfarrabio@gmail.com
 [19-Feb-2026 15:49:21 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
 [19-Feb-2026 15:52:09 Europe/Berlin] Login bem-sucedido: cristinenathaly5@gmail.com
@@ -2598,3 +2606,20 @@ Stack trace:
 [20-Feb-2026 15:08:34 Europe/Berlin] ✅ Linhas afetadas: 0
 [20-Feb-2026 15:17:19 Europe/Berlin] Login bem-sucedido: carla.menezes@email.com
 [20-Feb-2026 15:28:29 Europe/Berlin] Login bem-sucedido: keziaoficialk@gmail.com
+=======
+>>>>>>> f03b625cc22b6e3c3f6933c277b0cd8aee92e2ff
+>>>>>>> caa17e6023e8956be0d1cbd8d4937102206d7970
+[20-Feb-2026 12:59:40 Europe/Berlin] [EXCLUIR FOTO] id_foto=25, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:40 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699713f5a818b7.33711660.jpg
+[20-Feb-2026 12:59:43 Europe/Berlin] [EXCLUIR FOTO] id_foto=26, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:43 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716b1b74632.51918910.jpg
+[20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] id_foto=28, id_avaliacao=19, user=1
+[20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716fd4e64f8.97594427.jpg
+[20-Feb-2026 12:59:58 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[20-Feb-2026 13:07:46 Europe/Berlin] [EXCLUIR FOTO] id_foto=27, id_avaliacao=19, user=1
+[20-Feb-2026 13:07:46 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716fd4da4c3.46156151.jpg
+[20-Feb-2026 13:07:56 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[20-Feb-2026 13:08:13 Europe/Berlin] [EXCLUIR FOTO] id_foto=30, id_avaliacao=19, user=1
+[20-Feb-2026 13:08:13 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/69984e9cdf30d3.31412199.jpg
+[20-Feb-2026 13:08:18 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+>>>>>>> 2d8fc9a5eeaf8c00af7c84115cd8742254b15f5f
