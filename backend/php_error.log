@@ -2592,3 +2592,9 @@ Stack trace:
 [20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] id_foto=28, id_avaliacao=19, user=1
 [20-Feb-2026 12:59:45 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716fd4e64f8.97594427.jpg
 [20-Feb-2026 12:59:58 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[20-Feb-2026 13:07:46 Europe/Berlin] [EXCLUIR FOTO] id_foto=27, id_avaliacao=19, user=1
+[20-Feb-2026 13:07:46 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/699716fd4da4c3.46156151.jpg
+[20-Feb-2026 13:07:56 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1
+[20-Feb-2026 13:08:13 Europe/Berlin] [EXCLUIR FOTO] id_foto=30, id_avaliacao=19, user=1
+[20-Feb-2026 13:08:13 Europe/Berlin] [EXCLUIR FOTO] Foto excluída com sucesso: /backend/uploads/avaliacoes/69984e9cdf30d3.31412199.jpg
+[20-Feb-2026 13:08:18 Europe/Berlin] [ATUALIZAR] id=19, nota=5, comentario=Adorei o espaço do sebo muito bem organizado e um ambiente receptivo, adorei o livro historia muito boa com um cliche maravilhoso, user=1

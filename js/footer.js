@@ -298,7 +298,7 @@
         if (avaliacao.fotos && avaliacao.fotos.length > 0) {
             fotosHtml = `
                 <div class="modal-dep-fotos">
-                    ${avaliacao.fotos.map(f => `<img src="${f}" alt="Foto da avaliação" class="modal-dep-foto-av">`).join('')}
+                    ${avaliacao.fotos.map(f => `<img src="${f}" alt="Foto da avaliação" class="modal-dep-foto-av" onclick="window.open('${f}', '_blank')" title="Clique para ampliar" onerror="this.style.display='none'">`).join('')}
                 </div>
             `;
         }
