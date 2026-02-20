@@ -13,7 +13,7 @@ class SEOController
 
     public function __construct()
     {
-        $this->db = (new Database())->getConexao();
+        $this->db = Database::getInstance();
         $this->itemModel = new Item($this->db);
     }
 
