@@ -90,19 +90,20 @@ body {
     .book-card-modern {
         flex: 0 0 160px !important;
         max-width: 160px !important;
-        height: 480px !important;
+        height: 320px !important;
         scroll-snap-align: start;
         padding: 0 !important;
     }
 
     .book-image-wrapper {
-        height: 180px !important;
+        height: 160px !important;
         border-radius: 12px 12px 0 0 !important;
     }
 
     .book-image-wrapper img {
-        width: 80px !important;
-        height: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
     }
 
     .book-info {
@@ -217,28 +218,35 @@ body {
 @media (max-width: 768px) {
 
     /* ===== HEADER MOBILE ===== */
-    /* ===== HEADER MOBILE ===== */
     header {
         padding: 0.5rem 1rem;
         height: 70px;
         display: flex;
-        justify-content: space-between;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
     }
 
     .logo-container {
-        margin-left: 0;
+        margin-left: 0 !important;
+        /* Override margin-left: -5rem do header.css */
+        margin-right: auto;
         gap: 0.5rem;
         order: 1;
-        /* Primeiro elemento */
-        margin-right: auto;
-        /* Empurra o resto para a direita */
+        display: flex;
+        align-items: center;
     }
 
     .logo {
-        height: 65px;
-        /* Removido position relative/right que estava incorreto */
+        height: 55px;
+        width: 55px;
+        flex-shrink: 0;
+        object-fit: cover;
+        border-radius: 50%;
+        background-color: #faf4e6;
+        /* Fundo bege para visibilidade no dark mode */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .alfa {
@@ -248,15 +256,15 @@ body {
     .menu-toggle {
         display: flex;
         order: 4;
+        flex-shrink: 0;
         background-color: var(--accent);
-        /* Marrom médio */
         color: white;
         border-radius: 50%;
-        width: 45px;
-        height: 45px;
+        width: 42px;
+        height: 42px;
         justify-content: center;
         align-items: center;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         border: none;
         box-shadow: 0 2px 5px var(--shadow-light);
     }
@@ -413,6 +421,23 @@ body {
        OVERLAY DA SIDEBAR
        ======================================== */
 
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--overlay-bg);
+        backdrop-filter: blur(6px);
+        z-index: 10001;
+        /* Aumentado para ficar acima do header (1000) e toggle (9999) */
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        animation: fadeIn 0.3s ease;
+    }
+
     .sidebar-overlay {
         display: block;
         position: fixed;
@@ -441,16 +466,16 @@ body {
     .user-profile-header {
         margin-left: 0;
         order: 3;
+        flex-shrink: 0;
     }
 
     .profile-btn-header {
-        width: 45px;
-        height: 45px;
-        font-size: 1.5rem;
+        width: 42px;
+        height: 42px;
+        font-size: 1.3rem;
         color: var(--text-primary);
         background: transparent;
         border: 2px solid var(--text-primary);
-        /* Borda marrom */
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -462,27 +487,24 @@ body {
     .btn-carrinho {
         margin-left: 0;
         order: 2;
+        flex-shrink: 0;
         background-color: var(--border-color);
-        /* Bege/Cinza claro */
         color: white;
-        width: 45px;
-        height: 45px;
+        width: 42px;
+        height: 42px;
         border-radius: 12px;
-        /* Quadrado arredondado */
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 0;
         border: none;
         position: relative;
-        /* Importante para o contador absoluto */
     }
 
     .btn-carrinho svg {
         stroke: white;
-        /* Ícone branco */
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
 
     .cart-count {
@@ -492,7 +514,6 @@ body {
         height: 18px;
         font-size: 10px;
         background-color: #ef5350;
-        /* Vermelho para notificação */
         color: white;
         border-radius: 50%;
         display: flex;
@@ -504,19 +525,22 @@ body {
     /* ===== HERO SECTION ===== */
     .hero-section {
         min-height: 60vh;
-        padding: 40px 0;
+        padding: 70px 0 40px;
+        /* 70px compensa o header fixo */
     }
 
     .book-emoji {
         font-size: 5rem;
     }
 
-
     .hero-search {
         width: 90%;
         max-width: 400px;
         font-size: 0.95rem;
         padding: 12px 20px;
+        top: 0 !important;
+        /* Reseta o top: 100px do desktop */
+        position: relative;
     }
 
     /* ===== MENU SECUNDÁRIO ===== */
@@ -611,11 +635,11 @@ body {
 
     .book-card-modern {
         flex: 0 0 220px;
-        height: 480px;
+        height: 370px;
     }
 
     .book-image-wrapper {
-        height: 320px;
+        height: 240px;
     }
 
     .book-info {
@@ -866,41 +890,53 @@ body {
 
     .main-layout {
         flex-direction: column;
-        padding: 20px 10px;
+        padding: 80px 10px 40px !important;
+        /* Ajuste para header fixo (reduzido de 100px) */
         gap: 20px;
     }
 
     .sidebar-filtros {
         width: 100%;
         position: static;
-        margin-bottom: 20px;
-    }
-
-    .sidebar-filtros h3 {
-        font-size: 1.5rem;
+        margin-bottom: 10px;
+        padding: 15px !important;
     }
 
     .container-p {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 0;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        padding: 0 !important;
     }
 
     .card-livro {
         max-width: 100%;
+        height: auto !important;
+        background: var(--bg-card) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px var(--shadow-light) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        /* Força empilhamento vertical */
     }
 
-    /* Ajuste para card de produto ficar menor e caber 2 */
+    /* Cards agora mostram apenas a capa (regra global em produtos.css) */
     .card-imagem {
         aspect-ratio: 2/3;
+        border-radius: 12px !important;
+        margin-bottom: 4px !important;
+        color: var(--text-primary) !important;
     }
 
-    .card-titulo {
-        font-size: 13px;
+    .card-autor {
+        font-size: 11px !important;
+        margin-bottom: 6px !important;
+        color: var(--text-muted) !important;
     }
 
     .card-preco {
-        font-size: 14px;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        color: #4a7c59 !important;
     }
 
     /* Paginação mobile */
@@ -918,15 +954,19 @@ body {
 
     /* Modais */
     .modal-content {
-        width: 95%;
-        margin: 10px;
-        max-height: 95vh;
+        width: 96%;
+        /* Levemente aumentado para aproveitar tela pequena */
+        margin: 5px;
+        /* Reduzido de 10px */
+        max-height: 92vh;
     }
 
     .modal-body {
         grid-template-columns: 1fr;
-        padding: 20px;
-        gap: 20px;
+        padding: 15px;
+        /* Reduzido de 20px */
+        gap: 15px;
+        /* Reduzido de 20px */
     }
 
     .modal-imagem img {
@@ -934,7 +974,8 @@ body {
     }
 
     .modal-info h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        /* Reduzido de 1.5rem */
     }
 
     .modal-acoes {
@@ -1049,7 +1090,7 @@ body {
     }
 
     .alfa {
-        font-size: 1rem;
+        display: none;
     }
 
     .menu-toggle {
@@ -1069,9 +1110,8 @@ body {
         width: 90%;
         max-width: 340px;
         font-size: 1rem;
-        padding: 14px 20px;
-        top: 40px !important;
-        /* Espaço após o texto */
+        padding: 12px 15px;
+        top: 0 !important;
         margin: 0 auto;
         display: block;
         position: relative;
@@ -1701,7 +1741,7 @@ body {
     }
 
     .alfa {
-        font-size: 0.9rem;
+        display: none;
     }
 
     .menu-toggle,
@@ -1802,8 +1842,8 @@ body {
         flex-direction: column !important;
         padding: 5px 15px !important;
         /* Reduzi padding lateral/top para usar margem */
-        margin-top: 130px !important;
-        /* Espaço base para o header */
+        margin-top: 75px !important;
+        /* Reduzido de 130px para aproximar do header */
         gap: 20px !important;
         min-height: auto !important;
     }
@@ -1811,8 +1851,8 @@ body {
     .sidebar-filtros {
         width: 100% !important;
         position: static !important;
-        padding: 40px 20px 30px !important;
-        /* Aumentei padding TOP para descolar título FILTROS */
+        padding: 15px 20px 20px !important;
+        /* Reduzido de 40px para remover espaço vazio */
         border-radius: 12px !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
         margin-top: 0 !important;

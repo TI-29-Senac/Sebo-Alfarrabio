@@ -37,10 +37,16 @@ header {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  margin-right: 2rem;
-  margin-left: -5rem;
-  position: relative;
-  right: 5rem;
+}
+
+/* Posicionamento apenas no desktop */
+@media (min-width: 769px) {
+  .logo-container {
+    margin-right: 2rem;
+    margin-left: -5rem;
+    position: relative;
+    right: 5rem;
+  }
 }
 
 /* ========================================
@@ -143,9 +149,14 @@ nav ul li a.active {
 
 .user-profile-header {
   position: relative;
-  margin-left: 2rem;
   flex-shrink: 0;
-  left: 5rem;
+}
+
+@media (min-width: 769px) {
+  .user-profile-header {
+    margin-left: 2rem;
+    left: 5rem;
+  }
 }
 
 .profile-btn-header {
@@ -336,9 +347,14 @@ nav ul li a.active {
   gap: 8px;
   color: white;
   font-weight: 600;
-  margin-left: 1rem;
   box-shadow: 0 3px 10px var(--border-accent);
-  left: 5rem;
+}
+
+@media (min-width: 769px) {
+  .btn-carrinho {
+    margin-left: 1rem;
+    left: 5rem;
+  }
 }
 
 .btn-carrinho:hover {

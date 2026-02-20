@@ -20,12 +20,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </noscript>
   <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/sobre.css">
-  <link rel="stylesheet" href="css/espaco.css">
   <link rel="stylesheet" href="css/responsivo.css">
+
+  <!-- Body CSS inline -->
+  <style>
+    body {
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    nav {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    hr {
+      display: none !important;
+    }
+  </style>
+
+  <!-- CSS Não-Crítico (carregado async) -->
+  <link rel="preload" href="css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="css/espaco.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="css/cookies.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/espaco.css">
+    <link rel="stylesheet" href="css/cookies.css">
+  </noscript>
   <script src="js/theme-toggle.js"></script>
 </head>
 
@@ -78,7 +104,7 @@
   <!-- SIDEBAR MOBILE -->
   <div class="mobile-sidebar">
     <div class="sidebar-header">
-      <img src="img/logo2.webp" alt="Logo O Alfarrábio" class="sidebar-logo">
+      <img src="img/logo2.webp" alt="Logo O Alfarrábio" class="sidebar-logo" width="50" height="50">
       <h3 class="sidebar-title">O Alfarrábio</h3>
       <button class="close-sidebar" aria-label="Fechar menu">
         <i class="fas fa-times"></i>
@@ -103,7 +129,7 @@
     <h3 class="titulo-sobre">Sobre Nós</h3>
     <section class="sobre">
       <div class="sobre-pag">
-        <img src="img/sobre.webp" alt="Imagem sobre nós" class="img-sobre-pag">
+        <img src="img/sobre.webp" alt="Imagem sobre nós" class="img-sobre-pag" width="500" height="350">
         <div class="texto-sobre-pag">
           <p>O Alfarrábio é um sebo e livraria localizado em São Paulo, especializado na venda de livros novos e usados.
             Nossa missão é promover a leitura e oferecer uma experiência única aos nossos clientes, com um acervo
@@ -118,7 +144,7 @@
     <section class="equipe">
       <h3 class="titulo-pag">Nossa Equipe</h3>
       <div class="equipe-pag">
-        <img src="img/fotin.jpg" alt="Imagem sobre nós" class="img-equipe-pag">
+        <img src="img/fotin.jpg" alt="Imagem sobre nós" class="img-equipe-pag" width="400" height="300">
         <div class="texto-equipe-pag">
           <p>Somos a equipe que transforma páginas em pontes e livros em encontros. Com a gente, cada capítulo é escrito
             com paixão, café e boas risadas!</p>
@@ -129,29 +155,29 @@
     <div class="carrossel-container">
       <h3 class="titulo-pag">Nosso Espaço</h3>
       <div class="carrossel" id="carrossel">
-        <img src="img/espaco.png" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_1.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_2.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_3.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_4.jpg" alt="Foto do espaço" loading="lazy">
+        <img src="img/espaco.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_1.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_2.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_3.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_4.webp" alt="Foto do espaço" loading="lazy">
         <!-- Repete as imagens pro efeito de looping -->
-        <img src="img/espaco.png" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_1.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_2.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_3.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_4.jpg" alt="Foto do espaço" loading="lazy">
+        <img src="img/espaco.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_1.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_2.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_3.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_4.webp" alt="Foto do espaço" loading="lazy">
         <!-- Repete as imagens pro efeito de looping -->
-        <img src="img/espaco.png" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_1.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_2.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_3.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_4.jpg" alt="Foto do espaço" loading="lazy">
+        <img src="img/espaco.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_1.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_2.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_3.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_4.webp" alt="Foto do espaço" loading="lazy">
         <!-- Repete as imagens pro efeito de looping -->
-        <img src="img/espaco.png" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_1.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_2.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_3.jpg" alt="Foto do espaço" loading="lazy">
-        <img src="img/melhorada_4.jpg" alt="Foto do espaço" loading="lazy">
+        <img src="img/espaco.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_1.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_2.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_3.webp" alt="Foto do espaço" loading="lazy">
+        <img src="img/melhorada_4.webp" alt="Foto do espaço" loading="lazy">
       </div>
     </div>
   </main>
