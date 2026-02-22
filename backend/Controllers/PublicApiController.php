@@ -3,6 +3,7 @@ namespace Sebo\Alfarrabio\Controllers;
 
 use Sebo\Alfarrabio\Models\Item;
 use Sebo\Alfarrabio\Models\Avaliacao;
+use Sebo\Alfarrabio\Models\Vendas;
 use Sebo\Alfarrabio\Database\Database;
 
 class PublicApiController
@@ -23,6 +24,27 @@ class PublicApiController
         $this->categoriaModel = new \Sebo\Alfarrabio\Models\Categoria($this->db);
         $this->generoModel = new \Sebo\Alfarrabio\Models\Genero($this->db);
         $this->autorModel = new \Sebo\Alfarrabio\Models\Autor($this->db);
+    }
+
+    /**
+     * Valida o token Bearer enviado no header Authorization
+     */
+    private function validarAuth()
+    {
+        $token = '';
+        if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $token = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
+        } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+            $token = str_replace('Bearer ', '', $_SERVER['REDIRECT_HTTP_AUTHORIZATION']);
+        }
+
+        $expectedToken = '9D67A537A9329E0F1E9D088A1C991F1CC728EA87D3D154B409ED3320EA940303';
+
+        if ($token !== $expectedToken) {
+            http_response_code(401);
+            echo json_encode(['status' => 'error', 'message' => 'Não autorizado']);
+            exit;
+        }
     }
 
     /**
@@ -414,10 +436,10 @@ class PublicApiController
         // Mapa de mime-types para extensões
         $extensionMap = [
             'image/jpeg' => 'jpg',
-            'image/jpg'  => 'jpg',
-            'image/png'  => 'png',
+            'image/jpg' => 'jpg',
+            'image/png' => 'png',
             'image/webp' => 'webp',
-            'image/gif'  => 'gif',
+            'image/gif' => 'gif',
         ];
 
         // Extrai o mime type e os dados base64
@@ -426,7 +448,7 @@ class PublicApiController
             $mimeType = $matches[1];
             $dadosBase64 = $matches[2];
         } else {
-            // Se não tem o prefixo data:, tenta decodificar direto como base64 puro
+            error_log("saveBase64Image: Formato base64 inválido (sem prefixo data:)");
             $mimeType = 'image/jpeg'; // default
             $dadosBase64 = $base64String;
         }
@@ -481,7 +503,8 @@ class PublicApiController
      */
     private function deletarImagemAntiga(?string $caminhoRelativo): void
     {
-        if (empty($caminhoRelativo)) return;
+        if (empty($caminhoRelativo))
+            return;
 
         $caminhoLimpo = ltrim($caminhoRelativo, '/');
         if (strpos($caminhoLimpo, 'backend/uploads/') === 0) {
@@ -518,6 +541,8 @@ class PublicApiController
             exit;
         }
 
+        $this->validarAuth();
+
         try {
             // Lê o corpo da requisição JSON
             $jsonBody = file_get_contents('php://input');
@@ -541,6 +566,7 @@ class PublicApiController
             if (!empty($dados['imagem_base64'])) {
                 $fotoPath = $this->saveBase64Image($dados['imagem_base64']);
                 if ($fotoPath === null) {
+                    error_log("postItem: Falha ao processar imagem base64 para o item: " . ($dados['titulo_item'] ?? 'sem titulo'));
                     http_response_code(400);
                     echo json_encode(['status' => 'error', 'message' => 'Falha ao processar imagem base64']);
                     return;
@@ -549,19 +575,19 @@ class PublicApiController
 
             // Monta os dados do item para inserção
             $dadosItem = [
-                'titulo_item'       => $dados['titulo_item'],
-                'tipo_item'         => $dados['tipo_item'] ?? 'livro',
-                'id_genero'         => (int) ($dados['id_genero'] ?? 0),
-                'id_categoria'      => (int) ($dados['id_categoria'] ?? 0),
-                'descricao'         => $dados['descricao'] ?? null,
-                'ano_publicacao'    => !empty($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : null,
+                'titulo_item' => $dados['titulo_item'],
+                'tipo_item' => $dados['tipo_item'] ?? 'livro',
+                'id_genero' => (int) ($dados['id_genero'] ?? 0),
+                'id_categoria' => (int) ($dados['id_categoria'] ?? 0),
+                'descricao' => $dados['descricao'] ?? null,
+                'ano_publicacao' => !empty($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : null,
                 'editora_gravadora' => $dados['editora_gravadora'] ?? null,
-                'estoque'           => (int) ($dados['estoque'] ?? 1),
-                'preco_item'        => !empty($dados['preco_item']) ? (float) $dados['preco_item'] : 0.00,
-                'isbn'              => $dados['isbn'] ?? null,
-                'duracao_minutos'   => !empty($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : null,
-                'numero_edicao'     => !empty($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : null,
-                'foto_item'         => $fotoPath,
+                'estoque' => (int) ($dados['estoque'] ?? 1),
+                'preco_item' => !empty($dados['preco_item']) ? (float) $dados['preco_item'] : 0.00,
+                'isbn' => $dados['isbn'] ?? null,
+                'duracao_minutos' => !empty($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : null,
+                'numero_edicao' => !empty($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : null,
+                'foto_item' => $fotoPath,
             ];
 
             $autores_ids = $dados['autores_ids'] ?? [];
@@ -571,7 +597,7 @@ class PublicApiController
 
             if ($resultado) {
                 echo json_encode([
-                    'status'  => 'success',
+                    'status' => 'success',
                     'message' => 'Item cadastrado com sucesso',
                     'id_item' => (int) $resultado,
                     'foto_item' => $fotoPath
@@ -588,7 +614,7 @@ class PublicApiController
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Erro ao processar requisição: ' . $e->getMessage()
             ]);
         }
@@ -612,6 +638,8 @@ class PublicApiController
             http_response_code(200);
             exit;
         }
+
+        $this->validarAuth();
 
         try {
             $jsonBody = file_get_contents('php://input');
@@ -645,6 +673,7 @@ class PublicApiController
             if (!empty($dados['imagem_base64'])) {
                 $novaFoto = $this->saveBase64Image($dados['imagem_base64']);
                 if ($novaFoto === null) {
+                    error_log("putItem: Falha ao processar nova imagem base64 para o item ID: $id_item");
                     http_response_code(400);
                     echo json_encode(['status' => 'error', 'message' => 'Falha ao processar imagem base64']);
                     return;
@@ -654,19 +683,19 @@ class PublicApiController
 
             // Monta os dados para atualização
             $dadosItem = [
-                'titulo_item'       => $dados['titulo_item'] ?? $itemAtual['titulo'],
-                'tipo_item'         => $dados['tipo_item'] ?? $itemAtual['tipo'],
-                'id_genero'         => (int) ($dados['id_genero'] ?? $itemAtual['id_genero'] ?? 0),
-                'id_categoria'      => (int) ($dados['id_categoria'] ?? $itemAtual['id_categoria'] ?? 0),
-                'descricao'         => $dados['descricao'] ?? $itemAtual['descricao'] ?? null,
-                'ano_publicacao'    => isset($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : ($itemAtual['ano_publicacao'] ?? null),
+                'titulo_item' => $dados['titulo_item'] ?? $itemAtual['titulo'],
+                'tipo_item' => $dados['tipo_item'] ?? $itemAtual['tipo'],
+                'id_genero' => (int) ($dados['id_genero'] ?? $itemAtual['id_genero'] ?? 0),
+                'id_categoria' => (int) ($dados['id_categoria'] ?? $itemAtual['id_categoria'] ?? 0),
+                'descricao' => $dados['descricao'] ?? $itemAtual['descricao'] ?? null,
+                'ano_publicacao' => isset($dados['ano_publicacao']) ? (int) $dados['ano_publicacao'] : ($itemAtual['ano_publicacao'] ?? null),
                 'editora_gravadora' => $dados['editora_gravadora'] ?? $itemAtual['editora'] ?? null,
-                'estoque'           => (int) ($dados['estoque'] ?? $itemAtual['estoque'] ?? 1),
-                'preco_item'        => isset($dados['preco_item']) ? (float) $dados['preco_item'] : (float) ($itemAtual['preco'] ?? 0),
-                'isbn'              => $dados['isbn'] ?? $itemAtual['isbn'] ?? null,
-                'duracao_minutos'   => isset($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : ($itemAtual['duracao_minutos'] ?? null),
-                'numero_edicao'     => isset($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : ($itemAtual['numero_edicao'] ?? null),
-                'foto_item'         => $fotoPath,
+                'estoque' => (int) ($dados['estoque'] ?? $itemAtual['estoque'] ?? 1),
+                'preco_item' => isset($dados['preco_item']) ? (float) $dados['preco_item'] : (float) ($itemAtual['preco'] ?? 0),
+                'isbn' => $dados['isbn'] ?? $itemAtual['isbn'] ?? null,
+                'duracao_minutos' => isset($dados['duracao_minutos']) ? (int) $dados['duracao_minutos'] : ($itemAtual['duracao_minutos'] ?? null),
+                'numero_edicao' => isset($dados['numero_edicao']) ? (int) $dados['numero_edicao'] : ($itemAtual['numero_edicao'] ?? null),
+                'foto_item' => $fotoPath,
             ];
 
             $autores_ids = $dados['autores_ids'] ?? [];
@@ -681,9 +710,9 @@ class PublicApiController
                 }
 
                 echo json_encode([
-                    'status'    => 'success',
-                    'message'   => 'Item atualizado com sucesso',
-                    'id_item'   => $id_item,
+                    'status' => 'success',
+                    'message' => 'Item atualizado com sucesso',
+                    'id_item' => $id_item,
                     'foto_item' => $fotoPath
                 ], JSON_UNESCAPED_UNICODE);
             } else {
@@ -698,9 +727,390 @@ class PublicApiController
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Erro ao processar requisição: ' . $e->getMessage()
             ]);
+        }
+    }
+
+    // =========================================================================
+    // SYNC API: Endpoints para sincronização bidirecional Desktop ↔ Web
+    // =========================================================================
+
+    /**
+     * Endpoint para buscar vendas (Pull para Desktop)
+     * GET /api/vendas
+     * GET /api/vendas?desde=2024-01-01T00:00:00 (sync incremental)
+     */
+    public function getVendas()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+
+        $this->validarAuth();
+
+        try {
+            $desde = $_GET['desde'] ?? null;
+            $pagina = (int) ($_GET['pagina'] ?? 1);
+            $por_pagina = (int) ($_GET['por_pagina'] ?? 50);
+
+            $offset = ($pagina - 1) * $por_pagina;
+
+            if ($desde) {
+                $sql = "SELECT * FROM tbl_vendas 
+                        WHERE (atualizado_em >= :desde OR criado_em >= :desde2) AND excluido_em IS NULL
+                        ORDER BY criado_em ASC 
+                        LIMIT :limit OFFSET :offset";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':desde', $desde);
+                $stmt->bindParam(':desde2', $desde);
+            } else {
+                $sql = "SELECT * FROM tbl_vendas 
+                        WHERE excluido_em IS NULL
+                        ORDER BY criado_em ASC
+                        LIMIT :limit OFFSET :offset";
+                $stmt = $this->db->prepare($sql);
+            }
+
+            $stmt->bindValue(':limit', $por_pagina, \PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+            $stmt->execute();
+            $vendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            // Contar total para paginação
+            if ($desde) {
+                $countSql = "SELECT COUNT(*) FROM tbl_vendas WHERE (atualizado_em >= :desde OR criado_em >= :desde2) AND excluido_em IS NULL";
+                $countStmt = $this->db->prepare($countSql);
+                $countStmt->bindParam(':desde', $desde);
+                $countStmt->bindParam(':desde2', $desde);
+            } else {
+                $countSql = "SELECT COUNT(*) FROM tbl_vendas WHERE excluido_em IS NULL";
+                $countStmt = $this->db->prepare($countSql);
+            }
+            $countStmt->execute();
+            $total = (int) $countStmt->fetchColumn();
+
+            echo json_encode([
+                'status' => 'success',
+                'data' => $vendas,
+                'total' => $total,
+                'pagina_atual' => $pagina,
+                'ultima_pagina' => ceil($total / $por_pagina),
+                'timestamp' => date('Y-m-d H:i:s')
+            ], JSON_UNESCAPED_UNICODE);
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint para receber vendas do Desktop (Push)
+     * POST /api/vendas/sync
+     * 
+     * Recebe JSON: { venda: { uuid, data_venda, total, forma_pagamento, vendedor }, itens: [...] }
+     * Verifica UUID para evitar duplicatas
+     */
+    public function postVenda()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        $this->validarAuth();
+
+        try {
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados || !isset($dados['venda'])) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'JSON inválido ou campo venda ausente']);
+                return;
+            }
+
+            $venda = $dados['venda'];
+            $itensVenda = $dados['itens'] ?? [];
+            $uuid = $venda['uuid'] ?? null;
+
+            // Verificar duplicata por UUID
+            if ($uuid) {
+                $checkStmt = $this->db->prepare("SELECT id_vendas FROM tbl_vendas WHERE uuid_desktop = :uuid LIMIT 1");
+                $checkStmt->bindParam(':uuid', $uuid);
+                $checkStmt->execute();
+                $existing = $checkStmt->fetch(\PDO::FETCH_ASSOC);
+
+                if ($existing) {
+                    echo json_encode([
+                        'status' => 'success',
+                        'message' => 'Venda já sincronizada anteriormente',
+                        'id_venda' => (int) $existing['id_vendas'],
+                        'duplicata' => true
+                    ]);
+                    return;
+                }
+            }
+
+            $this->db->beginTransaction();
+
+            // Inserir venda
+            $sqlVenda = "INSERT INTO tbl_vendas (id_usuario, data_venda, valor_total, forma_pagamento, uuid_desktop, criado_em, atualizado_em)
+                         VALUES (:id_usuario, :data, :total, :fpagamento, :uuid, NOW(), NOW())";
+            $stmtVenda = $this->db->prepare($sqlVenda);
+            $stmtVenda->bindValue(':id_usuario', (int) ($venda['id_usuario'] ?? 1), \PDO::PARAM_INT);
+            $stmtVenda->bindParam(':data', $venda['data_venda']);
+            $stmtVenda->bindParam(':total', $venda['total']);
+            $stmtVenda->bindParam(':fpagamento', $venda['forma_pagamento']);
+            $stmtVenda->bindParam(':uuid', $uuid);
+            $stmtVenda->execute();
+
+            $idVenda = $this->db->lastInsertId();
+
+            // Inserir itens da venda
+            if (!empty($itensVenda)) {
+                $sqlItem = "INSERT INTO tbl_itens_vendas (id_venda, id_item, quantidade, preco_unitario)
+                            VALUES (:id_venda, :id_item, :qtd, :preco)";
+                $stmtItem = $this->db->prepare($sqlItem);
+
+                foreach ($itensVenda as $iv) {
+                    $stmtItem->bindValue(':id_venda', $idVenda, \PDO::PARAM_INT);
+                    $stmtItem->bindValue(':id_item', (int) ($iv['item_id'] ?? 0), \PDO::PARAM_INT);
+                    $stmtItem->bindValue(':qtd', (int) ($iv['quantidade'] ?? 1), \PDO::PARAM_INT);
+                    $stmtItem->bindValue(':preco', (float) ($iv['preco_unitario'] ?? 0));
+                    $stmtItem->execute();
+                }
+            }
+
+            $this->db->commit();
+
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Venda sincronizada com sucesso',
+                'id_venda' => (int) $idVenda
+            ], JSON_UNESCAPED_UNICODE);
+
+        } catch (\Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            http_response_code(500);
+            error_log("postVenda sync error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => 'Erro ao sincronizar venda: ' . $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint para receber categorias do Desktop (Push)
+     * POST /api/categorias/sync
+     * 
+     * Recebe JSON: { nome_categoria: "...", descricao: "..." }
+     * Verifica duplicata por nome
+     */
+    public function postCategoria()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        $this->validarAuth();
+
+        try {
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados || empty($dados['nome_categoria'])) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Campo nome_categoria é obrigatório']);
+                return;
+            }
+
+            $nome = trim($dados['nome_categoria']);
+
+            // Verificar duplicata por nome
+            $checkStmt = $this->db->prepare("SELECT id_categoria FROM tbl_categorias WHERE nome_categoria = :nome AND excluido_em IS NULL LIMIT 1");
+            $checkStmt->bindParam(':nome', $nome);
+            $checkStmt->execute();
+            $existing = $checkStmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($existing) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Categoria já existe',
+                    'id_categoria' => (int) $existing['id_categoria'],
+                    'duplicata' => true
+                ]);
+                return;
+            }
+
+            $id = $this->categoriaModel->inserirCategoria($nome);
+
+            if ($id) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Categoria criada com sucesso',
+                    'id_categoria' => (int) $id
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir categoria']);
+            }
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            error_log("postCategoria sync error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint para receber gêneros do Desktop (Push)
+     * POST /api/generos/sync
+     * 
+     * Recebe JSON: { nome_generos: "...", id_categoria: 1 }
+     * Verifica duplicata por nome
+     */
+    public function postGenero()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        $this->validarAuth();
+
+        try {
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados || empty($dados['nome_generos'])) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Campo nome_generos é obrigatório']);
+                return;
+            }
+
+            $nome = trim($dados['nome_generos']);
+
+            // Verificar duplicata por nome
+            $checkStmt = $this->db->prepare("SELECT id_generos FROM tbl_generos WHERE nome_generos = :nome AND excluido_em IS NULL LIMIT 1");
+            $checkStmt->bindParam(':nome', $nome);
+            $checkStmt->execute();
+            $existing = $checkStmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($existing) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Gênero já existe',
+                    'id_generos' => (int) $existing['id_generos'],
+                    'duplicata' => true
+                ]);
+                return;
+            }
+
+            $id = $this->generoModel->inserirGenero($nome);
+
+            if ($id) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Gênero criado com sucesso',
+                    'id_generos' => (int) $id
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir gênero']);
+            }
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            error_log("postGenero sync error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Endpoint para receber autores do Desktop (Push)
+     * POST /api/autores/sync
+     * 
+     * Recebe JSON: { nome_autor: "...", biografia: "..." }
+     * Verifica duplicata por nome
+     */
+    public function postAutor()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        $this->validarAuth();
+
+        try {
+            $jsonBody = file_get_contents('php://input');
+            $dados = json_decode($jsonBody, true);
+
+            if (!$dados || empty($dados['nome_autor'])) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Campo nome_autor é obrigatório']);
+                return;
+            }
+
+            $nome = trim($dados['nome_autor']);
+            $biografia = $dados['biografia'] ?? null;
+
+            // Verificar duplicata por nome
+            $checkStmt = $this->db->prepare("SELECT id_autor FROM tbl_autores WHERE nome_autor = :nome LIMIT 1");
+            $checkStmt->bindParam(':nome', $nome);
+            $checkStmt->execute();
+            $existing = $checkStmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($existing) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Autor já existe',
+                    'id_autor' => (int) $existing['id_autor'],
+                    'duplicata' => true
+                ]);
+                return;
+            }
+
+            $id = $this->autorModel->inserirAutor($nome, $biografia);
+
+            if ($id) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Autor criado com sucesso',
+                    'id_autor' => (int) $id
+                ], JSON_UNESCAPED_UNICODE);
+            } else {
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Erro ao inserir autor']);
+            }
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            error_log("postAutor sync error: " . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
 

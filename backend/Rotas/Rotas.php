@@ -199,6 +199,11 @@ class Rotas
 
                 '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
                 '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
+
+                // ========================================
+                // API SYNC Desktop ↔ Web (GET)
+                // ========================================
+                '/api/vendas' => 'PublicApiController@getVendas',
             ],
 
 
@@ -293,6 +298,14 @@ class Rotas
 
                 "/api/item/salvar" => "PublicApiController@postItem",
                 "/api/item/atualizar" => "PublicApiController@putItem",
+
+                // ========================================
+                // API SYNC Desktop ↔ Web (POST)
+                // ========================================
+                "/api/vendas/sync" => "PublicApiController@postVenda",
+                "/api/categorias/sync" => "PublicApiController@postCategoria",
+                "/api/generos/sync" => "PublicApiController@postGenero",
+                "/api/autores/sync" => "PublicApiController@postAutor",
 
 
                 // ========================================
