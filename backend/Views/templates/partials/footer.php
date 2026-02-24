@@ -4,7 +4,7 @@
 <!-- Footer Responsivo -->
 <style>
     .dashboard-footer-main {
-        margin-left: 300px;
+        margin-left: <?= $isLoginOrRegister ? '0' : '300px' ?>;
         background: linear-gradient(135deg, #f5f5f0 0%, #faf8f3 100%);
         border-top: 3px solid #D4B896;
         padding: 30px 20px;

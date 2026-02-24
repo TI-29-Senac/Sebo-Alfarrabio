@@ -86,28 +86,46 @@ if (!function_exists('calcularTempoDecorrido')) {
      */
     function calcularTempoDecorrido($data)
     {
-        if (!$data) return 'Data não informada';
-        
+        if (!$data)
+            return 'Data não informada';
+
         $timestamp = is_numeric($data) ? $data : strtotime($data);
-        if (!$timestamp) return $data;
+        if (!$timestamp)
+            return $data;
 
         $agora = time();
         $diferenca = $agora - $timestamp;
 
-        if ($diferenca < 60) return "agora mesmo";
-        
+        if ($diferenca < 60)
+            return "agora mesmo";
+
         $minutos = round($diferenca / 60);
-        if ($minutos < 60) return "há $minutos " . ($minutos == 1 ? "minuto" : "minutos");
-        
+        if ($minutos < 60)
+            return "há $minutos " . ($minutos == 1 ? "minuto" : "minutos");
+
         $horas = round($diferenca / 3600);
-        if ($horas < 24) return "há $horas " . ($horas == 1 ? "hora" : "horas");
-        
+        if ($horas < 24)
+            return "há $horas " . ($horas == 1 ? "hora" : "horas");
+
         $dias = round($diferenca / 86400);
-        if ($dias < 30) return "há $dias " . ($dias == 1 ? "dia" : "dias");
-        
+        if ($dias < 30)
+            return "há $dias " . ($dias == 1 ? "dia" : "dias");
+
         $meses = round($diferenca / 2592000);
-        if ($meses < 12) return "há $meses " . ($meses == 1 ? "mês" : "meses");
-        
+        if ($meses < 12)
+            return "há $meses " . ($meses == 1 ? "mês" : "meses");
+
         return date('d/m/Y', $timestamp);
+    }
+}
+
+if (!function_exists('e')) {
+    /**
+     * Escapa string para saída HTML segura (prevenção de XSS).
+     * Uso nas Views: <?= e($variavel) ?>
+     */
+    function e($value): string
+    {
+        return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
     }
 }

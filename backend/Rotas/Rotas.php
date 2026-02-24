@@ -198,7 +198,6 @@ class Rotas
                 "/(livro-.*)" => "SEOController@resolveSeoUrl",
 
                 '/vitrine/avaliacoes' => 'PublicApiController@getAvaliacoes',
-                '/vitrine/debug-avaliacoes' => 'PublicApiController@debugAvaliacoes',
 
                 // ========================================
                 // API SYNC Desktop ↔ Web (GET)

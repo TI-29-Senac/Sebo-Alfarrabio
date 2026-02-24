@@ -153,11 +153,12 @@ class Usuario
 
     public function paginacaoAPI(int $pagina = 1, int $por_pagina = 10): array
     {
-        $totalQuery = "SELECT COUNT(*) FROM `tbl_usuario`";
+        $totalQuery = "SELECT COUNT(*) FROM `tbl_usuario` WHERE excluido_em IS NULL";
         $totalStmt = $this->db->query($totalQuery);
         $total_de_registros = $totalStmt->fetchColumn();
         $offset = ($pagina - 1) * $por_pagina;
-        $dataQuery = "SELECT * FROM `tbl_usuario` LIMIT :limit OFFSET :offset";
+        $dataQuery = "SELECT id_usuario, nome_usuario, email_usuario, tipo_usuario, criado_em, atualizado_em 
+                      FROM `tbl_usuario` WHERE excluido_em IS NULL LIMIT :limit OFFSET :offset";
         $dataStmt = $this->db->prepare($dataQuery);
         $dataStmt->bindValue(':limit', $por_pagina, PDO::PARAM_INT);
         $dataStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -383,7 +384,7 @@ class Usuario
 
         $sql = "INSERT INTO tbl_password_resets (email, token_hash, expira_em) 
                 VALUES (:email, :token_hash, :expira_em)";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':token_hash', $tokenHash);
@@ -408,7 +409,7 @@ class Usuario
                 WHERE token_hash = :token_hash 
                 AND expira_em > NOW()
                 LIMIT 1";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':token_hash', $tokenHash);
         $stmt->execute();

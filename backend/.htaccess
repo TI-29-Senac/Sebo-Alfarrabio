@@ -1,5 +1,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Bloquear acesso a arquivos sensíveis
+    <FilesMatch "\.(log|env|sql|bak)$">
+        Order Allow,Deny
+        Deny from all
+    </FilesMatch>
     
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

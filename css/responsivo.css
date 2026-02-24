@@ -255,7 +255,7 @@ body {
 
     .menu-toggle {
         display: flex;
-        order: 4;
+        order: 0;
         flex-shrink: 0;
         background-color: var(--accent);
         color: white;

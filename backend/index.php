@@ -1,7 +1,8 @@
 <?php
 namespace Sebo\Alfarrabio;
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/php_error.log');
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
 
@@ -12,7 +13,7 @@ session_set_cookie_params([
     'lifetime' => $lifetime,
     'path' => '/',
     'domain' => '',
-    'secure' => false,
+    'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
     'httponly' => true,
     'samesite' => 'Lax'
 ]);
@@ -69,6 +70,10 @@ try {
 } catch (\Throwable $e) {
     http_response_code(500);
 
+    // Loga o erro completo (caminhos, stack trace) apenas no log do servidor
+    error_log("ERRO FATAL: {$e->getMessage()} em {$e->getFile()}:{$e->getLine()}");
+    error_log("Stack trace: {$e->getTraceAsString()}");
+
     // Verifica se é uma requisição API ou espera JSON
     $isApi = (strpos($_SERVER['REQUEST_URI'] ?? '', '/api/') !== false);
     $acceptsJson = (strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false);
@@ -79,18 +84,13 @@ try {
         echo json_encode([
             'success' => false,
             'status' => 'error',
-            'message' => 'Erro interno no servidor: ' . $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine()
+            'message' => 'Erro interno no servidor. Tente novamente mais tarde.'
         ]);
         exit;
     }
 
-    echo "<div style='background: #fee; border: 2px solid red; padding: 20px; font-family: monospace;'>";
-    echo "<h1>❌ Erro Fatal no Sistema</h1>";
-    echo "<p><strong>Mensagem:</strong> " . $e->getMessage() . "</p>";
-    echo "<p><strong>Arquivo:</strong> " . $e->getFile() . " (Linha " . $e->getLine() . ")</p>";
-    echo "<h3>Stack Trace:</h3>";
-    echo "<pre>" . $e->getTraceAsString() . "</pre>";
+    echo "<div style='background: #fee; border: 2px solid red; padding: 20px; font-family: sans-serif; text-align: center;'>";
+    echo "<h1>❌ Erro Interno</h1>";
+    echo "<p>Desculpe, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</p>";
     echo "</div>";
 }

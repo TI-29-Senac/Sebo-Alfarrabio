@@ -65,25 +65,26 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: var(--border-color);
+  background: #D32F2F;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
-  color: var(--text-muted);
+  color: white;
   z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close:hover {
-  background: var(--accent);
-  color: white;
+  background: #b71c1c;
   transform: rotate(90deg);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* ========================================
@@ -845,18 +846,20 @@
    ======================================== */
 
 .card-livro {
-  background: transparent;
+  background: var(--bg-card);
   border-radius: 12px;
-  overflow: visible;
-  transition: transform 0.3s ease;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
+  height: 100%;
 }
 
 .card-livro:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px var(--shadow-medium);
 }
 
 /* Imagem do livro - foco principal */
@@ -900,22 +903,83 @@
   z-index: 10;
 }
 
-/* Informações ocultas por padrão - exibidas apenas no modal */
-.card-info,
+/* Informações dos cards - Restaurando visibilidade */
+.card-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: var(--bg-card);
+}
+
 .card-titulo,
 .card-autor,
 .card-preco {
-  display: none !important;
+  display: block;
 }
 
-/* Os elementos abaixo podem ser controlados pelo responsivo.css */
 .card-tipo,
 .card-editora,
 .card-metadata,
 .card-spacer,
 .card-estoque,
 .card-btn {
-  display: none !important;
+  display: block;
+}
+
+/* Utilitários para Metadados (Movidos do JS) */
+.card-editora {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-metadata {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+
+.metadata-tag {
+  font-size: 11px;
+  color: #8b7355;
+  background: rgba(200, 184, 150, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.card-isbn {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin: 4px 0;
+  font-family: 'Courier New', Courier, monospace;
+  opacity: 0.7;
+}
+
+.card-ver-detalhes {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.card-ver-detalhes:hover {
+  background: var(--accent-hover);
+  transform: scale(1.02);
 }
 
 /* Título - limpo e legível */
@@ -1079,7 +1143,7 @@
   font-size: 14px;
   font-weight: 500;
   padding: 10px 20px;
-  background: white;
+  background: var(--bg-card);
   border-radius: 8px;
   border: 2px solid var(--border-color);
 }

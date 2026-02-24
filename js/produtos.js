@@ -410,97 +410,31 @@ function criarCard(item, index) {
     card.style.opacity = '0';
 
     card.innerHTML = `
-        <div class="card-imagem" style="position: relative;">
+        <div class="card-imagem">
             <img src="${item.caminho_imagem || '/img/sem-imagem.webp'}" 
                  alt="${item.titulo}"
+                 loading="lazy"
+                 width="300" height="450"
                  onerror="this.src='/img/sem-imagem.webp'">
             
             ${!disponivel ? '<div class="badge-status">ESGOTADO</div>' : ''}
         </div>
         
         <div class="card-info">
-            <div class="card-tipo">${item.tipo || 'PRODUTO'}</div>
-            
             <h3 class="card-titulo" title="${item.titulo}">
                 ${item.titulo}
             </h3>
             
-            ${item.autores ? `
-                <p class="card-autor" title="${item.autores}">
-                    ✒️ ${item.autores}
-                </p>
-            ` : '<p class="card-autor">Autor desconhecido</p>'}
-            
-            ${item.editora ? `
-                <p class="card-editora" style="
-                    font-size: 11px;
-                    color: #999;
-                    margin: 4px 0;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                " title="${item.editora}">
-                    📚 ${item.editora}
-                </p>
-            ` : ''}
-            
-            <div class="card-metadata" style="
-                display: flex;
-                gap: 10px;
-                justify-content: center;
-                margin: 6px 0;
-                flex-wrap: wrap;
-            ">
-                ${item.ano_publicacao ? `
-                    <span style="
-                        font-size: 11px;
-                        color: #8b7355;
-                        background: rgba(200, 184, 150, 0.15);
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-weight: 600;
-                    ">
-                        📅 ${item.ano_publicacao}
-                    </span>
-                ` : ''}
-                
-                ${item.nome_genero ? `
-                    <span style="
-                        font-size: 11px;
-                        color: #8b7355;
-                        background: rgba(200, 184, 150, 0.15);
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-weight: 600;
-                    ">
-                        🏷️ ${item.nome_genero}
-                    </span>
-                ` : ''}
-            </div>
-            
             ${item.isbn ? `
-                <p style="
-                    font-size: 9px;
-                    color: #aaa;
-                    margin: 4px 0;
-                    font-family: monospace;
-                    letter-spacing: 0.5px;
-                ">
-                    ISBN: ${item.isbn}
-                </p>
+                <p class="card-isbn">ISBN: ${item.isbn}</p>
             ` : ''}
             
             <div class="card-spacer"></div>
             
             <div class="card-preco">R$ ${precoFormatado}</div>
             
-            <div class="card-estoque ${disponivel ? 'disponivel' : 'indisponivel'}">
-                ${disponivel ? `${estoque} em estoque` : 'Indisponível'}
-            </div>
-            
-            <button class="card-btn ${disponivel ? 'disponivel' : 'indisponivel'}" 
-                    ${!disponivel ? 'disabled' : ''}>
-                ${disponivel ? '📌 Adicionar às Reservas' : 'Indisponível'}
+            <button class="card-ver-detalhes">
+                📖 Ver Detalhes
             </button>
         </div>
     `;

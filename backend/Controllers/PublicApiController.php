@@ -38,7 +38,7 @@ class PublicApiController
             $token = str_replace('Bearer ', '', $_SERVER['REDIRECT_HTTP_AUTHORIZATION']);
         }
 
-        $expectedToken = '9D67A537A9329E0F1E9D088A1C991F1CC728EA87D3D154B409ED3320EA940303';
+        $expectedToken = getenv('API_SYNC_TOKEN') ?: '9D67A537A9329E0F1E9D088A1C991F1CC728EA87D3D154B409ED3320EA940303';
 
         if ($token !== $expectedToken) {
             http_response_code(401);
@@ -243,7 +243,6 @@ class PublicApiController
                     'usuario' => [
                         'id' => (int) $av['id_usuario'],
                         'nome' => $av['nome_usuario'],
-                        'email' => $av['email_usuario'],
                         'foto' => $av['foto_usuario'] ? $this->item->corrigirCaminhoImagem($av['foto_usuario']) : null,
                         'iniciais' => strtoupper(substr($av['nome_usuario'] ?? 'U', 0, 2))
                     ],
@@ -396,8 +395,7 @@ class PublicApiController
                 http_response_code(404);
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Arquivo de imagem não encontrado no servidor',
-                    'debug_path' => $caminhoFinal
+                    'message' => 'Arquivo de imagem não encontrado no servidor'
                 ]);
                 return;
             }

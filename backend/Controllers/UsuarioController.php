@@ -55,10 +55,7 @@ class UsuarioController extends AdminController
      */
     public function index()
     {
-        $resultado = $this->usuario->buscarUsuarios();
-        echo "<pre>";
-        print_r($resultado);
-        echo "</pre>";
+        Redirect::redirecionarPara('/backend/usuario/listar');
     }
 
     /**

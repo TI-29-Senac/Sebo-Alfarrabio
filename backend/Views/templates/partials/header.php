@@ -65,24 +65,48 @@ use Sebo\Alfarrabio\Core\Session;
         .sidebar-sebo .user-avatar {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             object-fit: cover;
+            border-radius: 50%;
+            border: 2.5px solid var(--bege-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: block;
         }
 
         .sidebar-sebo .user-name {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--marrom-escuro);
-            font-size: 14px;
-            word-break: break-word;
-            line-height: 1.3;
+            font-size: 15px;
+            margin-bottom: 2px;
+            display: block;
+            max-width: 190px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .sidebar-sebo .user-role {
+            font-size: 10px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--bege-dark), var(--marrom));
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-sebo .user-email {
             font-size: 12px;
             color: var(--marrom);
-            opacity: 0.8;
+            opacity: 0.7;
+            display: block;
+            max-width: 190px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Menu Items */
@@ -126,21 +150,26 @@ use Sebo\Alfarrabio\Core\Session;
 
         /* Botões de Ação do Usuário */
         .user-action-btn {
-            background: white;
-            border-radius: 6px;
-            margin: 2px;
-            transition: all 0.3s ease;
-            width: 32px;
-            height: 32px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 8px;
+            margin-right: 6px;
+            transition: all 0.2s ease;
+            width: 36px;
+            height: 36px;
             padding: 0 !important;
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
+            border: 1px solid rgba(139, 111, 71, 0.1);
+            color: var(--marrom-escuro) !important;
         }
 
         .user-action-btn:hover {
-            background: var(--bege-dark) !important;
+            background: var(--marrom) !important;
             color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(139, 111, 71, 0.2);
         }
 
         /* Mensagens Flash */
@@ -379,7 +408,7 @@ use Sebo\Alfarrabio\Core\Session;
 
     <?php
     $currentPath = $_SERVER['REQUEST_URI'] ?? '';
-    $isLoginOrRegister = strpos($currentPath, '/login') !== false 
+    $isLoginOrRegister = strpos($currentPath, '/login') !== false
         || strpos($currentPath, '/register') !== false
         || strpos($currentPath, '/forgot-password') !== false
         || strpos($currentPath, '/redefinir-senha') !== false;
@@ -393,19 +422,20 @@ use Sebo\Alfarrabio\Core\Session;
             <div class="user-profile">
                 <div class="w3-row">
                     <div class="w3-col s3">
-                        <img src="/img/logo2.webp" class="user-avatar sidebar-logo" alt="Logo">
+                        <img src="/img/logo2.webp" class="user-avatar sidebar-logo" alt="Logo Sebo">
                     </div>
-                    <div class="w3-col s9" style="padding-left: 10px;">
+                    <div class="w3-col s9" style="padding-left: 15px;">
                         <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
                         <div class="user-role"><?= htmlspecialchars($usuarioTipo); ?></div>
-                        <div style="margin-top: 8px;">
-                            <a href="/backend/perfil" class="user-action-btn w3-button w3-small" title="Perfil">
+                        <div class="user-email"><?= $session->get('usuario_email') ?? 'admin@alfarrabio.com'; ?></div>
+                        <div style="margin-top: 12px;">
+                            <a href="/backend/perfil" class="user-action-btn w3-button" title="Meu Perfil">
                                 <i class="fa fa-user"></i>
                             </a>
-                            <a href="#" class="user-action-btn w3-button w3-small" title="Configurações">
+                            <a href="/backend/configuracoes" class="user-action-btn w3-button" title="Configurações">
                                 <i class="fa fa-cog"></i>
                             </a>
-                            <a href="#" class="user-action-btn w3-button w3-small" title="Mensagens">
+                            <a href="/backend/notificacoes" class="user-action-btn w3-button" title="Mensagens">
                                 <i class="fa fa-envelope"></i>
                             </a>
                         </div>

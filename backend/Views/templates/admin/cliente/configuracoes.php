@@ -407,7 +407,7 @@
             <div id="dados-pessoais" class="tab-content" style="display: block;">
 
                 <div class="photo-preview-container">
-                    <img src="<?= !empty($usuario['foto_perfil_usuario']) ? $usuario['foto_perfil_usuario'] : '/img/avatar_placeholder.png' ?>"
+                    <img src="<?= !empty($usuario['foto_perfil_usuario']) ? $usuario['foto_perfil_usuario'] : '/img/avatar_placeholder.svg' ?>"
                         alt="Foto de Perfil" class="photo-preview" id="preview-img">
                     <div>
                         <div class="photo-upload-btn">

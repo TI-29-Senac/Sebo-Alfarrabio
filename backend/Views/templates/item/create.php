@@ -293,7 +293,7 @@
         <!-- UPLOAD DE FOTO -->
         <div class="form-group text-center mb-4">
             <label>Foto do Item</label><br>
-            <img id="preview-foto" src="/img/no-image.png"
+            <img id="preview-foto" src="/img/sem-imagem.webp"
                 style="max-width:200px; max-height:200px; border:2px dashed #ccc; border-radius:10px; padding:5px;">
             <br><br>
             <input type="file" name="foto_item" id="foto_item" accept="image/*" style="display:none">
@@ -337,7 +337,8 @@
                 <select id="id_categoria" name="id_categoria" class="form-control" required>
                     <?php foreach ($categorias as $categoria): ?>
                         <option value="<?= $categoria['id_categoria'] ?>">
-                            <?= htmlspecialchars($categoria['nome_categoria']) ?></option>
+                            <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -436,7 +437,7 @@
 
         window.limparFoto = function () {
             document.getElementById('foto_item').value = '';
-            document.getElementById('preview-foto').src = '/img/no-image.png';
+            document.getElementById('preview-foto').src = '/img/sem-imagem.webp';
             document.getElementById('btn-limpar').style.display = 'none';
         };
 

@@ -21,7 +21,7 @@ try {
 
     if ($usuarioId) {
         $db = Database::getInstance();
-        
+
         // 1. Busca dados básicos (nome, tipo) da sessão ou banco
         $nome = $session->get('usuario_nome');
         $tipo = $session->get('usuario_tipo');
@@ -42,8 +42,8 @@ try {
         // DashboardControllerCliente usa Perfil::buscarPerfilPorIDUsuario
         $perfilModel = new Perfil($db);
         $perfilData = $perfilModel->buscarPerfilPorIDUsuario($usuarioId);
-        $foto = '/img/avatar_placeholder.png'; // Default
-        
+        $foto = '/img/avatar_placeholder.svg'; // Default
+
         if ($perfilData && !empty($perfilData[0]['foto_perfil_usuario'])) {
             $foto = $perfilData[0]['foto_perfil_usuario'];
         }

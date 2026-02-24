@@ -1380,7 +1380,7 @@
 
             <div class="reading-scene">
                 <div class="tree-container">
-                    <img src="/img/banner2.png" alt="Pessoa lendo sob a árvore" class="tree-image" />
+                    <img src="/img/banner2.webp" alt="Pessoa lendo sob a árvore" class="tree-image" />
                 </div>
             </div>
 
@@ -1397,7 +1397,7 @@
         </div>
 
         <div class="hero-avatar-wrapper">
-            <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.png' ?>"
+            <img src="<?= !empty($usuario['foto_perfil_usuario']) ? htmlspecialchars($usuario['foto_perfil_usuario']) : '/img/avatar_placeholder.svg' ?>"
                 class="hero-avatar" alt="Perfil">
             <div class="hero-edit-badge" onclick="document.getElementById('input-foto').click()">
                 <i class="fa fa-camera"></i>

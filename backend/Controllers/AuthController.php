@@ -30,7 +30,7 @@ class AuthController
      */
     public function login(): void
     {
-        View::render('auth/login');
+        View::render('auth/login', ['titulo' => 'Login']);
     }
 
     /**
@@ -38,7 +38,7 @@ class AuthController
      */
     public function register(): void
     {
-        View::render('auth/register');
+        View::render('auth/register', ['titulo' => 'Cadastro']);
     }
 
     /**
@@ -86,10 +86,11 @@ class AuthController
     public function cadastrarUsuario()
     {
         try {
-            // $erros = UsuarioValidador::ValidarEntradas($_POST);
-            // if (!empty($erros)) {
-            //     Redirect::redirecionarComMensagem('/register', 'erros', implode("<br>", $erros));
-            // }
+            $erros = UsuarioValidador::ValidarEntradas($_POST);
+            if (!empty($erros)) {
+                Redirect::redirecionarComMensagem('/backend/register', 'erros', implode("<br>", $erros));
+                return;
+            }
 
             $nome = $_POST['nome_usuario'] ?? null;
             $email = $_POST['email_usuario'] ?? null;
@@ -105,7 +106,7 @@ class AuthController
             }
 
             $novoUsuarioId = $this->usuarioModel->inseriUsuario($nome, $email, $senha, 'Cliente');
-            
+
             if ($novoUsuarioId) {
                 try {
                     $this->notificacaoEmail->boasVindas($email, $nome);
@@ -113,7 +114,7 @@ class AuthController
                     error_log("AVISO: Falha ao enviar email de boas-vindas para $email: " . $eEmail->getMessage());
                     // Não impede o cadastro, apenas loga o erro
                 }
-                
+
                 Redirect::redirecionarComMensagem('/backend/login', 'success', 'Cadastro realizado! Por favor, faça o login.');
             } else {
                 error_log("ERRO AO INSERIR USUÁRIO: inseriUsuario retornou false para $email");
@@ -146,7 +147,7 @@ class AuthController
             $db = Database::getInstance();
             $perfilModel = new \Sebo\Alfarrabio\Models\Perfil($db);
             $perfilData = $perfilModel->buscarPerfilPorIDUsuario($usuarioId);
-            $foto = '/img/avatar_placeholder.png';
+            $foto = '/img/avatar_placeholder.svg';
 
             if ($perfilData && !empty($perfilData[0]['foto_perfil_usuario'])) {
                 $foto = $this->corrigirCaminhoImagem($perfilData[0]['foto_perfil_usuario']);
@@ -175,7 +176,7 @@ class AuthController
     private function corrigirCaminhoImagem($caminho)
     {
         if (empty($caminho)) {
-            return '/img/avatar_placeholder.png';
+            return '/img/avatar_placeholder.svg';
         }
 
         if (strpos($caminho, 'http') === 0) {
@@ -201,7 +202,7 @@ class AuthController
      */
     public function forgotPassword(): void
     {
-        View::render('auth/forgot_password');
+        View::render('auth/forgot_password', ['titulo' => 'Esqueci a Senha']);
     }
 
     /**
@@ -271,7 +272,10 @@ class AuthController
             return;
         }
 
-        View::render('auth/reset_password', ['token' => $token]);
+        View::render('auth/reset_password', [
+            'token' => $token,
+            'titulo' => 'Redefinit Senha'
+        ]);
     }
 
     /**
@@ -328,7 +332,7 @@ class AuthController
         $usuario = $usuarios[0];
 
         // Atualiza a senha
-        $atualizado = $this->usuarioModel->atualizarSenha((int)$usuario['id_usuario'], $senhaNova);
+        $atualizado = $this->usuarioModel->atualizarSenha((int) $usuario['id_usuario'], $senhaNova);
 
         if ($atualizado) {
             // Invalida todos os tokens deste email
