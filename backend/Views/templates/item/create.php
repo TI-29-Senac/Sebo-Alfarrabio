@@ -370,6 +370,11 @@
                 <input type="text" class="form-control" id="editora_gravadora" name="editora_gravadora">
             </div>
             <div class="form-group col-md-4">
+                <label for="estante">Estante / Localização</label>
+                <input type="text" class="form-control" id="estante" name="estante"
+                    placeholder="Ex: A1, B3, Corredor 2...">
+            </div>
+            <div class="form-group col-md-4">
                 <label for="ano_publicacao">Ano</label>
                 <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao" min="1000"
                     max="2099">

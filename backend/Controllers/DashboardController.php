@@ -39,14 +39,14 @@ class DashboardController extends AdminController
 
 
         // Estatísticas simples
-        $totalCategorias = (int) $this->categoriaModel->totalDeCategorias();
+        $totalCategorias = (int) $this->categoriaModel->totalDeCategoriasAtivas();
         $totalCategoriasInativas = (int) $this->categoriaModel->totalDeCategoriasInativas();
-        $totalItens = (int) $this->itemModel->totalDeItens();
+        $totalItens = (int) $this->itemModel->totalDeItensAtivos();
         $totalItensInativos = (int) $this->itemModel->totalDeItensInativos();
 
         // Vendas e faturamento (se as tabelas existirem)
         try {
-            $stmtVendas = $this->db->query("SELECT COUNT(*) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");
+            $stmtVendas = $this->db->query("SELECT COUNT(*) FROM tbl_pedidos WHERE MONTH(data_pedido) = MONTH(CURRENT_DATE()) AND YEAR(data_pedido) = YEAR(CURRENT_DATE())");
             $vendasMes = (int) $stmtVendas->fetchColumn();
 
             $stmtFaturamento = $this->db->query("SELECT COALESCE(SUM(valor_total),0) FROM tbl_vendas WHERE MONTH(data_venda) = MONTH(CURRENT_DATE()) AND YEAR(data_venda) = YEAR(CURRENT_DATE())");

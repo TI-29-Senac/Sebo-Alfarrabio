@@ -24,10 +24,9 @@ class Avaliacao
                     GROUP_CONCAT(af.caminho_foto SEPARATOR ',') as fotos_urls
                 FROM tbl_avaliacao a
                 LEFT JOIN tbl_avaliacao_fotos af ON a.id_avaliacao = af.id_avaliacao
-                WHERE a.excluido_em IS NULL
                 GROUP BY a.id_avaliacao
                 ORDER BY a.id_avaliacao DESC";
-                
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,7 +47,7 @@ class Avaliacao
      */
     function totalDeAvaliacaoInativos()
     {
-        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NOT NULL";
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE status_avaliacao = 'inativo' OR excluido_em IS NOT NULL";
         $stmt = $this->db->query($sql);
         return $stmt->fetchColumn();
     }
@@ -58,7 +57,7 @@ class Avaliacao
      */
     function totalDeAvaliacaoAtivos()
     {
-        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE excluido_em IS NULL";
+        $sql = "SELECT COUNT(*) FROM tbl_avaliacao WHERE status_avaliacao = 'ativo' AND excluido_em IS NULL";
         $stmt = $this->db->query($sql);
         return $stmt->fetchColumn();
     }
@@ -132,13 +131,13 @@ class Avaliacao
             return false;
         }
         $data_avaliacao = $data_avaliacao ?: date('Y-m-d');
-        
+
         // Define main photo (first one) for backward compatibility
         $foto_principal = !empty($fotos_avaliacao[0]) ? $fotos_avaliacao[0] : null;
 
         $sql = "INSERT INTO tbl_avaliacao (id_item, id_usuario, nota_avaliacao, comentario_avaliacao, data_avaliacao, status_avaliacao, criado_em) 
                 VALUES (:id_item, :id_usuario, :nota, :comentario, :data, :status, NOW())";
-        
+
         try {
             $this->db->beginTransaction();
 
@@ -152,19 +151,19 @@ class Avaliacao
 
             if ($stmt->execute()) {
                 $id_avaliacao = $this->db->lastInsertId();
-                
+
                 // Insert multiple photos
                 if (!empty($fotos_avaliacao)) {
                     $sqlFoto = "INSERT INTO tbl_avaliacao_fotos (id_avaliacao, caminho_foto) VALUES (:id_av, :caminho)";
                     $stmtFoto = $this->db->prepare($sqlFoto);
-                    
+
                     foreach ($fotos_avaliacao as $caminho) {
                         $stmtFoto->bindParam(':id_av', $id_avaliacao, PDO::PARAM_INT);
                         $stmtFoto->bindParam(':caminho', $caminho);
                         $stmtFoto->execute();
                     }
                 }
-                
+
                 $this->db->commit();
                 return $id_avaliacao;
             }
@@ -206,14 +205,14 @@ class Avaliacao
             $stmt->bindParam(':comentario', $comentario_avaliacao);
             $stmt->bindParam(':data', $data_avaliacao);
             $stmt->bindParam(':status', $status_avaliacao);
-            
+
             $result = $stmt->execute();
 
             // Insert new photos if any
             if (!empty($novas_fotos)) {
                 $sqlFoto = "INSERT INTO tbl_avaliacao_fotos (id_avaliacao, caminho_foto) VALUES (:id_av, :caminho)";
                 $stmtFoto = $this->db->prepare($sqlFoto);
-                
+
                 foreach ($novas_fotos as $caminho) {
                     $stmtFoto->bindParam(':id_av', $id_avaliacao, PDO::PARAM_INT);
                     $stmtFoto->bindParam(':caminho', $caminho);
@@ -248,7 +247,7 @@ class Avaliacao
      */
     public function deletarAvaliacao($id_avaliacao)
     {
-        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = 'inativo', atualizado_em = NOW() WHERE id_avaliacao = :id";
+        $sql = "UPDATE tbl_avaliacao SET status_avaliacao = 'inativo', excluido_em = NOW(), atualizado_em = NOW() WHERE id_avaliacao = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id', $id_avaliacao, PDO::PARAM_INT);
         try {
@@ -391,6 +390,7 @@ class Avaliacao
         $sql = "SELECT COUNT(*) FROM tbl_avaliacao 
                 WHERE id_usuario = :id_usuario 
                 AND id_item = :id_item 
+                AND status_avaliacao = 'ativo'
                 AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
@@ -407,6 +407,7 @@ class Avaliacao
     {
         $sql = "SELECT id_item FROM tbl_avaliacao 
                 WHERE id_usuario = :id_usuario 
+                AND status_avaliacao = 'ativo'
                 AND excluido_em IS NULL";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
@@ -424,12 +425,12 @@ class Avaliacao
                 WHERE p.id_usuario = :id_usuario 
                 AND pi.item_id = :id_item
                 AND p.status = 'Reservado'";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         $stmt->bindParam(':id_item', $id_item, PDO::PARAM_INT);
         $stmt->execute();
-        
+
         return $stmt->fetchColumn() > 0;
     }
 
@@ -473,7 +474,7 @@ class Avaliacao
                 LEFT JOIN tbl_generos g ON i.id_genero = g.id_generos
                 LEFT JOIN tbl_autores aut ON aut.id_autor = (SELECT ia.autor_id FROM tbl_item_autores ia WHERE ia.item_id = i.id_item LIMIT 1) 
                 
-                WHERE a.excluido_em IS NULL";
+                WHERE a.status_avaliacao = 'ativo' AND a.excluido_em IS NULL";
 
         if ($nota_minima !== null) {
             $sql .= " AND a.nota_avaliacao >= :nota_minima";

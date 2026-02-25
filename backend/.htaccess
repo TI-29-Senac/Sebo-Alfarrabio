@@ -1,16 +1,23 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Desativar listagem de diretórios
+    Options -Indexes
+
     # Bloquear acesso a arquivos sensíveis
-    <FilesMatch "\.(log|env|sql|bak)$">
-        Order Allow,Deny
-        Deny from all
+    <FilesMatch "\.(log|env|sql|bak|htaccess|git.*)$">
+        <IfModule mod_authz_core.c>
+            Require all denied
+        </IfModule>
+        <IfModule !mod_authz_core.c>
+            Order Allow,Deny
+            Deny from all
+        </IfModule>
     </FilesMatch>
     
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     
     # 2. Redireciona TUDO para o index.php, preservando a query string original (QSA)
-    # A URL amig찼vel (ex: /menu/detalhes) se torna um par창metro do PATH_INFO
     RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>

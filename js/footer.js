@@ -18,8 +18,8 @@
     const API_CONFIG = {
         url: '/backend/vitrine/avaliacoes', // Endpoint correto via Controller
         limite: 10,
-        cache: true,
-        cacheTempo: 300000 // 5 minutos
+        cache: false, // Desativado para garantir atualizações em tempo real
+        cacheTempo: 0
     };
 
     // Estado do slider

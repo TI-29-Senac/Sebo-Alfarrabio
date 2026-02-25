@@ -905,6 +905,7 @@
                                 <th>Gênero</th>
                                 <th>Categoria</th>
                                 <th>Autores/Artistas</th>
+                                <th style="text-align: center;">Estante</th>
                                 <th style="text-align: center;">Preço</th>
                                 <th style="text-align: center;">Estoque</th>
                                 <th style="text-align: center;">Ações</th>
@@ -928,6 +929,12 @@
                                     <td><?= htmlspecialchars($item['nome_genero']) ?></td>
                                     <td><?= htmlspecialchars($item['nome_categoria']) ?></td>
                                     <td><?= htmlspecialchars($item['autores'] ?? 'N/A') ?></td>
+                                    <td style="text-align: center;">
+                                        <span class="badge"
+                                            style="background: #eee; color: #333; padding: 5px 10px; border-radius: 4px; font-weight: bold;">
+                                            <?= htmlspecialchars($item['estante'] ?? '-') ?>
+                                        </span>
+                                    </td>
                                     <td style="text-align: center;">
                                         <div class="price-display-cell">
                                             <span class="price-currency">R$</span>

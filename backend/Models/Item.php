@@ -42,6 +42,7 @@ class Item
             {$prefix}.isbn,
             {$prefix}.duracao_minutos,
             {$prefix}.numero_edicao,
+            {$prefix}.estante,
             {$prefix}.criado_em,
             {$prefix}.atualizado_em,
             {$prefix}.excluido_em
@@ -420,6 +421,7 @@ class Item
                 i.ano_publicacao,
                 i.duracao_minutos,
                 i.numero_edicao,
+                i.estante,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 GROUP_CONCAT(DISTINCT a.nome_autor ORDER BY a.nome_autor SEPARATOR ', ') AS autores,
@@ -467,6 +469,7 @@ class Item
                 i.ano_publicacao,
                 i.duracao_minutos,
                 i.numero_edicao,
+                i.estante,
                 g.nome_generos AS nome_genero,
                 c.nome_categoria,
                 GROUP_CONCAT(DISTINCT a.nome_autor ORDER BY a.nome_autor SEPARATOR ', ') AS autores,

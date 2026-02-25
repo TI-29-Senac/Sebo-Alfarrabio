@@ -1124,6 +1124,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="estante">Estante / Localização</label>
+                                <input type="text" class="form-control" id="estante" name="estante"
+                                    value="<?= htmlspecialchars($item['estante'] ?? '') ?>" placeholder="Ex: A1, B3...">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="ano_publicacao">Ano de Publicação</label>
                                 <input type="number" class="form-control" id="ano_publicacao" name="ano_publicacao"
                                     min="1000" max="2099" value="<?= (int) $item['ano_publicacao'] ?>">

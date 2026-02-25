@@ -20,10 +20,10 @@ class Config
             'database' => array(
                 'driver' => 'mysql',
                 'mysql' => array(
-                'host' => getenv('DB_HOST') ?: '69.6.213.160',
-                'db_name' => getenv('DB_NAME') ?: 'hg6c6727_time4_ti29',
-                'username' => getenv('DB_USER') ?: 'hg6c6727_time4_ti29',
-                'password' => getenv('DB_PASS') ?: 'jeB!O~=l-Zr~',
+                'host' => getenv('DB_HOST') ?: '69.6.249.58',
+                'db_name' => getenv('DB_NAME') ?: 'beatr008_seboalfarrabio2',
+                'username' => getenv('DB_USER') ?: 'beatr008_alfarrabiosebo',
+                'password' => getenv('DB_PASS') ?: 'Ee8+gKSyHNEV',
                 'charset' => 'utf8',
                 'port' => getenv('DB_PORT') ?: '3306',
                 ),
