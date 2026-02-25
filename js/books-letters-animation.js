@@ -170,27 +170,48 @@ function initBooksHeaderWave() {
     // Salvar o texto original
     const originalText = booksHeader.textContent;
 
-    // Dividir em caracteres individuais
-    const chars = originalText.split('');
+    // Dividir em palavras primeiro para evitar quebra no meio da palavra
+    const words = originalText.split(' ');
     booksHeader.innerHTML = '';
 
-    // Criar spans para cada caractere
-    chars.forEach((char, index) => {
-        const span = document.createElement('span');
-        span.className = 'book-char';
-        span.textContent = char;
-        span.style.setProperty('--char-index', index);
+    let globalCharIndex = 0;
 
-        // Delay para animação de entrada
-        span.style.animationDelay = `${index * 0.05}s`;
+    words.forEach((word, wordIndex) => {
+        // Criar um span para a palavra (container que não quebra)
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'book-word';
+        wordSpan.style.display = 'inline-block';
+        wordSpan.style.whiteSpace = 'nowrap';
 
-        booksHeader.appendChild(span);
+        const chars = word.split('');
+        chars.forEach((char) => {
+            const span = document.createElement('span');
+            span.className = 'book-char';
+            span.textContent = char;
+            span.style.setProperty('--char-index', globalCharIndex);
+            span.style.animationDelay = `${globalCharIndex * 0.05}s`;
+            wordSpan.appendChild(span);
+            globalCharIndex++;
+        });
+
+        booksHeader.appendChild(wordSpan);
+
+        // Adicionar espaço após a palavra (exceto na última)
+        if (wordIndex < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.className = 'book-char';
+            spaceSpan.textContent = ' ';
+            spaceSpan.style.setProperty('--char-index', globalCharIndex);
+            spaceSpan.style.animationDelay = `${globalCharIndex * 0.05}s`;
+            booksHeader.appendChild(spaceSpan);
+            globalCharIndex++;
+        }
     });
 
     // Após a animação de entrada, ativar a onda
     setTimeout(() => {
         booksHeader.classList.add('wave-active');
-    }, chars.length * 50 + 500); // Aguarda a entrada completar
+    }, globalCharIndex * 50 + 500); // Aguarda a entrada completar
 }
 
 // ========================================

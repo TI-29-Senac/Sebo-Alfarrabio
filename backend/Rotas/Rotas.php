@@ -203,6 +203,11 @@ class Rotas
                 // API SYNC Desktop ↔ Web (GET)
                 // ========================================
                 '/api/vendas' => 'PublicApiController@getVendas',
+
+                // ========================================
+                // NOTIFICAÇÕES (PÚBLICO)
+                // ========================================
+                '/notificacoes/cancelar' => 'PublicApiController@cancelarNotificacao',
             ],
 
 

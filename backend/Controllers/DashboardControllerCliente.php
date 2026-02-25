@@ -31,7 +31,9 @@ class DashboardControllerCliente extends AuthenticatedController
         $this->categoriaModel = new Categoria($this->db);
         $this->itemModel = new Item($this->db);
         $this->perfil = new \Sebo\Alfarrabio\Models\Perfil($this->db);
-        $this->fileManager = new \Sebo\Alfarrabio\Core\FileManager('uploads');
+        // Usar caminho absoluto para evitar confusão entre root/uploads e backend/uploads
+        $diretorioUploads = dirname(__DIR__) . '/uploads';
+        $this->fileManager = new \Sebo\Alfarrabio\Core\FileManager($diretorioUploads);
         $this->avaliacaoModel = new Avaliacao($this->db);
     }
 
@@ -62,8 +64,12 @@ class DashboardControllerCliente extends AuthenticatedController
         // Mescla dados para a view
         $dadosView = array_merge($usuario, $perfil ?? []);
 
-        // Busca pedidos do usuário (excluindo cancelados para o perfil)
-        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true);
+        // Filtro por ano
+        $anoSelecionado = $_GET['ano'] ?? date('Y');
+        $anosDisponiveis = $this->pedidosModel->buscarAnosReservasPorUsuario($usuarioId);
+
+        // Busca pedidos do usuário (excluindo cancelados para o perfil) filtrados por ano
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true, $anoSelecionado);
 
         // Verifica se pedidos tem itens (caso o model buscarPedidosPorIDUsuario não traga itens por padrão)
         foreach ($pedidos as &$pedido) {
@@ -117,7 +123,9 @@ class DashboardControllerCliente extends AuthenticatedController
             'total_pedidos' => $total_pedidos,
             'total_avaliacoes' => $total_avaliacoes,
             'total_favoritos' => $total_favoritos,
-            'itensAvaliados' => $itensAvaliados
+            'itensAvaliados' => $itensAvaliados,
+            'anoSelecionado' => $anoSelecionado,
+            'anosDisponiveis' => $anosDisponiveis
         ]);
     }
 
@@ -139,8 +147,19 @@ class DashboardControllerCliente extends AuthenticatedController
         $perfilExistente = $perfilData ? $perfilData[0] : null;
 
         try {
-            $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
-            $caminhoFoto = '/backend/uploads/' . $nomeArquivo; // Ex: /backend/uploads/perfis/nome.jpg
+            $nomeArquivo = $this->fileManager->salvarArquivo(
+                $_FILES['foto_usuario'],
+                'perfis',
+                ['image/jpeg', 'image/png', 'image/webp']
+            );
+            // Otimizar: redimensionar e converter para WebP
+            $otimizador = new \Sebo\Alfarrabio\Core\ImageOptimizer(800, 80);
+            $baseDir = dirname(__DIR__); // Pasta 'backend'
+            $caminhoAbsoluto = $baseDir . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $nomeArquivo);
+            $otimizador->otimizar($caminhoAbsoluto);
+
+            $infoArquivo = pathinfo($nomeArquivo);
+            $caminhoFoto = '/backend/uploads/' . str_replace('\\', '/', $infoArquivo['dirname']) . '/' . $infoArquivo['filename'] . '.webp';
         } catch (\Exception $e) {
             \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente", "error", "Erro ao salvar imagem: " . $e->getMessage());
             return;
@@ -284,14 +303,27 @@ class DashboardControllerCliente extends AuthenticatedController
         // Mescla dados
         $dadosView = array_merge($usuario, $perfil ?? []);
 
-        // Busca pedidos (excluindo cancelados)
-        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true);
+        // Filtro por ano
+        $anoSelecionado = $_GET['ano'] ?? date('Y');
+        $anosDisponiveis = $this->pedidosModel->buscarAnosReservasPorUsuario($usuarioId);
+
+        // Se o ano atual não está na lista mas o usuário mudou o filtro para um ano vazio, 
+        // ou se a lista estiver vazia, garantimos pelo menos o ano atual ou o último disponível.
+        if (!in_array($anoSelecionado, $anosDisponiveis) && !empty($anosDisponiveis)) {
+            // Se o usuário selecionou um ano que não tem pedidos, mantemos a seleção, 
+            // mas a lista virá vazia (comportamento correto).
+        }
+
+        // Busca pedidos (excluindo cancelados) filtrados por ano
+        $pedidos = $this->pedidosModel->buscarPedidosPorIDUsuario($usuarioId, true, $anoSelecionado);
 
         \Sebo\Alfarrabio\Core\View::render('admin/cliente/reservas', [
             'usuario' => $dadosView,
             'pedidos' => $pedidos,
             'usuarioNome' => $usuario['nome_usuario'],
-            'usuarioEmail' => $usuario['email_usuario']
+            'usuarioEmail' => $usuario['email_usuario'],
+            'anoSelecionado' => $anoSelecionado,
+            'anosDisponiveis' => $anosDisponiveis
         ]);
     }
 
@@ -442,8 +474,19 @@ class DashboardControllerCliente extends AuthenticatedController
         $caminhoFoto = $_POST['foto_atual'] ?? '';
         if (!empty($_FILES['foto_usuario']['name'])) {
             try {
-                $nomeArquivo = $this->fileManager->salvarArquivo($_FILES['foto_usuario'], 'perfis');
-                $caminhoFoto = '/backend/uploads/' . $nomeArquivo;
+                $nomeArquivo = $this->fileManager->salvarArquivo(
+                    $_FILES['foto_usuario'],
+                    'perfis',
+                    ['image/jpeg', 'image/png', 'image/webp']
+                );
+                // Otimizar: redimensionar e converter para WebP
+                $otimizador = new \Sebo\Alfarrabio\Core\ImageOptimizer(800, 80);
+                $baseDir = dirname(__DIR__); // Pasta 'backend'
+                $caminhoAbsoluto = $baseDir . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $nomeArquivo);
+                $otimizador->otimizar($caminhoAbsoluto);
+
+                $infoArquivo = pathinfo($nomeArquivo);
+                $caminhoFoto = '/backend/uploads/' . str_replace('\\', '/', $infoArquivo['dirname']) . '/' . $infoArquivo['filename'] . '.webp';
             } catch (\Exception $e) {
                 \Sebo\Alfarrabio\Core\Redirect::redirecionarComMensagem("/backend/admin/cliente/configuracoes", "error", "Erro ao salvar imagem: " . $e->getMessage());
                 return;

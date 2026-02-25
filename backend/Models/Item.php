@@ -494,6 +494,39 @@ class Item
 
         return $item;
     }
+
+    /**
+     * AJAX: Pesquisa simples de itens (apenas ID, Titulo e Preço)
+     */
+    public function pesquisarItensSimples(string $termo)
+    {
+        $termo = "%{$termo}%";
+        $sql = "SELECT id_item, titulo_item, preco_item FROM tbl_itens 
+                WHERE titulo_item LIKE :termo AND excluido_em IS NULL 
+                LIMIT 10";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':termo', $termo);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Verifica se já existe um item com o mesmo título e ISBN para evitar duplicidade.
+     */
+    public function buscarItemDuplicado(string $titulo, ?string $isbn = null)
+    {
+        $sql = "SELECT id_item FROM tbl_itens 
+                WHERE titulo_item = :titulo 
+                AND (isbn = :isbn OR (isbn IS NULL AND :isbn2 IS NULL))
+                AND excluido_em IS NULL 
+                LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':isbn', $isbn);
+        $stmt->bindParam(':isbn2', $isbn);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 

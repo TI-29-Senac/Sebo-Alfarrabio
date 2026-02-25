@@ -11,6 +11,8 @@ use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\ItemValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
+use Sebo\Alfarrabio\Core\NotificacaoEmail;
+use Sebo\Alfarrabio\Models\Usuario;
 
 class ItemController extends AdminController
 {
@@ -20,7 +22,9 @@ class ItemController extends AdminController
     public $autor;
     public $categoria;
     public $genero;
+    public $usuario;
     private $fileManager;
+    private $notificador;
 
     public function __construct()
     {
@@ -31,7 +35,9 @@ class ItemController extends AdminController
         $this->autor = new Autor($this->db);
         $this->categoria = new Categoria($this->db);
         $this->genero = new Genero($this->db);
+        $this->usuario = new Usuario($this->db);
         $this->fileManager = new FileManager('uploads');
+        $this->notificador = new NotificacaoEmail();
     }
 
     /**
@@ -173,7 +179,39 @@ class ItemController extends AdminController
         $autores_ids = $_POST['autores_ids'] ?? [];
         $autores_ids = array_map('intval', $autores_ids);
 
+        // Verificação de duplicidade antes de inserir
+        $itemDuplicado = $this->item->buscarItemDuplicado($dadosItem['titulo_item'], $dadosItem['isbn']);
+        if ($itemDuplicado) {
+            // Se já existe, apenas redireciona avisando que já está cadastrado
+            Redirect::redirecionarComMensagem("/backend/item/listar", "success", "O item '{$dadosItem['titulo_item']}' já estava cadastrado e foi mantido.");
+            return;
+        }
+
         if ($this->item->inserirItem($dadosItem, $autores_ids)) {
+            // Enviar notificação por email para os interessados
+            try {
+                $usuarios = $this->usuario->buscarUsuariosParaNotificacao();
+
+                // Prepara os dados do livro para o template de email
+                $livroParaEmail = [
+                    'titulo' => $dadosItem['titulo_item'],
+                    'preco' => $dadosItem['preco_item'],
+                    'capa' => $dadosItem['foto_item'],
+                    'slug' => $this->gerarSlug($dadosItem['titulo_item']) // Assume que existe ou gera um
+                ];
+
+                foreach ($usuarios as $u) {
+                    $this->notificador->novidadesAcervo(
+                        $u['email_usuario'],
+                        $u['nome_usuario'],
+                        [$livroParaEmail],
+                        "Acabou de chegar uma novidade que você vai adorar!"
+                    );
+                }
+            } catch (\Exception $e) {
+                error_log("Erro ao enviar notificações de novidades: " . $e->getMessage());
+            }
+
             Redirect::redirecionarComMensagem("/backend/item/listar", "success", "Item cadastrado com sucesso!");
         } else {
             if ($fotoPath) {
@@ -213,7 +251,7 @@ class ItemController extends AdminController
                     $caminhoRelativoAntigo = str_replace('/uploads/', '', $_POST['foto_item_atual']);
                     $this->fileManager->delete($caminhoRelativoAntigo);
                 }
-                
+
                 $fotoPath = $fotoNova;
             } catch (\Exception $e) {
                 error_log("Erro no upload de atualização: " . $e->getMessage());
@@ -319,5 +357,21 @@ class ItemController extends AdminController
         header('Content-Type: application/json');
         echo json_encode($resultados);
         exit;
+    }
+
+    /**
+     * Gera um slug a partir de uma string.
+     */
+    private function gerarSlug(string $texto): string
+    {
+        $texto = preg_replace('~[^\pL\d]+~u', '-', $texto);
+        $texto = iconv('utf-8', 'us-ascii//TRANSLIT', $texto);
+        $texto = preg_replace('~[^-\w]+~', '', $texto);
+        $texto = trim($texto, '-');
+        $texto = preg_replace('~-+~', '-', $texto);
+        $texto = strtolower($texto);
+        if (empty($texto))
+            return 'n-a';
+        return $texto;
     }
 }

@@ -7,6 +7,8 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\PerfilValidador;
 use Sebo\Alfarrabio\Core\FileManager;
+use Sebo\Alfarrabio\Core\ImageOptimizer;
+use Sebo\Alfarrabio\Core\Session;
 
 
 class PerfilController
@@ -14,22 +16,28 @@ class PerfilController
     public $perfil;
     public $db;
     public $gerenciarImagem;
+    public $otimizador;
+
+    private const TIPOS_IMAGEM = ['image/jpeg', 'image/png', 'image/webp'];
+
     public function __construct()
     {
         $this->db = Database::getInstance();
         $this->perfil = new Perfil($this->db);
-        $this->gerenciarImagem = new FileManager('upload');
+        // Usar caminho absoluto para evitar confusão entre root/uploads e backend/uploads
+        $diretorioUploads = dirname(__DIR__) . '/uploads';
+        $this->gerenciarImagem = new FileManager($diretorioUploads);
+        $this->otimizador = new ImageOptimizer(800, 80);
     }
 
     // index
 
     /**
-     * Debug: exibe dump de perfis.
+     * Renderiza a listagem de perfis.
      */
     public function index()
     {
-        $resultado = $this->perfil->buscarperfil();
-        var_dump($resultado);
+        $this->viewListarperfil();
     }
     /**
      * Renderiza a listagem de perfis de usuário.
@@ -93,6 +101,45 @@ class PerfilController
     }
 
 
+    /**
+     * Salva um novo perfil com upload de foto WebP.
+     */
+    public function salvarPerfil()
+    {
+        $session = new Session();
+        $usuarioId = $session->get('usuario_id');
+
+        $telefone = $_POST['telefone_usuario'] ?? '';
+        $endereco = $_POST['endereco_usuario'] ?? '';
+        $foto = '';
+
+        if (!empty($_FILES['foto_usuario']['name'])) {
+            try {
+                $caminhoRelativo = $this->gerenciarImagem->salvarArquivo(
+                    $_FILES['foto_usuario'],
+                    'perfis',
+                    self::TIPOS_IMAGEM
+                );
+                // Otimizar: redimensionar e converter para WebP
+                $baseDir = dirname(__DIR__); // Pasta 'backend'
+                $caminhoAbsoluto = $baseDir . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $caminhoRelativo);
+                $this->otimizador->otimizar($caminhoAbsoluto);
+
+                // Caminho relativo para o navegador (sempre com barras para frente)
+                $infoArquivo = pathinfo($caminhoRelativo);
+                $foto = '/backend/uploads/' . str_replace('\\', '/', $infoArquivo['dirname']) . '/' . $infoArquivo['filename'] . '.webp';
+            } catch (\Exception $e) {
+                Redirect::redirecionarComMensagem("/backend/perfil/criar", "error", "Erro no upload: " . $e->getMessage());
+                return;
+            }
+        }
+
+        if ($this->perfil->inserirPerfil($usuarioId, $telefone, $endereco, $foto)) {
+            Redirect::redirecionarComMensagem("/backend/perfil/listar", "success", "Perfil criado com sucesso!");
+        } else {
+            Redirect::redirecionarComMensagem("/backend/perfil/criar", "error", "Erro ao criar perfil.");
+        }
+    }
 
     /**
      * Atualiza os dados do perfil, incluindo upload de nova foto.
@@ -108,10 +155,21 @@ class PerfilController
         $foto = $foto_atual;
 
         if (!empty($_FILES['foto_usuario']['name'])) {
-            $foto = $this->gerenciarImagem->salvarArquivo($_FILES['foto_usuario'], 'perfis');
+            $caminhoRelativo = $this->gerenciarImagem->salvarArquivo(
+                $_FILES['foto_usuario'],
+                'perfis',
+                self::TIPOS_IMAGEM
+            );
+            // Otimizar: redimensionar e converter para WebP
+            $baseDir = dirname(__DIR__); // Pasta 'backend'
+            $caminhoAbsoluto = $baseDir . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $caminhoRelativo);
+            $this->otimizador->otimizar($caminhoAbsoluto);
+
+            $infoArquivo = pathinfo($caminhoRelativo);
+            $foto = '/backend/uploads/' . str_replace('\\', '/', $infoArquivo['dirname']) . '/' . $infoArquivo['filename'] . '.webp';
             // Deletar foto antiga se existir
             if (!empty($foto_atual)) {
-                $this->gerenciarImagem->deletarArquivo($foto_atual);
+                $this->gerenciarImagem->delete($foto_atual);
             }
         }
 

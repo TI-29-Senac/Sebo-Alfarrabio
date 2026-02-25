@@ -1,6 +1,8 @@
 <?php
 use Sebo\Alfarrabio\Core\Flash;
 use Sebo\Alfarrabio\Core\Session;
+use Sebo\Alfarrabio\Database\Database;
+use Sebo\Alfarrabio\Models\Perfil;
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,8 +13,9 @@ use Sebo\Alfarrabio\Core\Session;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/theme.css">
+    <link rel="icon" type="image/webp" href="/img/logo.webp">
     <script src="/js/theme-toggle.js"></script>
     <style>
         html,
@@ -43,6 +46,31 @@ use Sebo\Alfarrabio\Core\Session;
             font-weight: 700;
             font-size: 18px;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            color: #f5f1e8 !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-img-topbar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark Theme Header */
+        [data-theme="dark"] .top-bar-sebo {
+            background: #1a1209 !important;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        [data-theme="dark"] .logo-img-topbar {
+            border-color: rgba(212, 165, 116, 0.4);
         }
 
         /* Sidebar Personalizada */
@@ -395,6 +423,18 @@ use Sebo\Alfarrabio\Core\Session;
     $usuarioNome = $session->get('usuario_nome') ?? 'Usuário';
     $usuarioTipo = $session->get('usuario_tipo') ?? 'Admin';
     $usuarioEmail = $session->get('usuario_email') ?? 'Email';
+    $usuarioId = $session->get('usuario_id');
+
+    // Busca foto do perfil
+    $usuarioFoto = '/img/avatar_placeholder.svg';
+    if ($usuarioId) {
+        $db = Database::getInstance();
+        $perfilModel = new Perfil($db);
+        $perfilData = $perfilModel->buscarPerfilPorIDUsuario($usuarioId);
+        if ($perfilData && !empty($perfilData[0]['foto_perfil_usuario'])) {
+            $usuarioFoto = asset_path($perfilData[0]['foto_perfil_usuario']);
+        }
+    }
     ?>
 
     <!-- Top Bar -->
@@ -403,7 +443,8 @@ use Sebo\Alfarrabio\Core\Session;
             <i class="fa fa-bars"></i> Menu
         </button>
         <span class="w3-bar-item w3-right logo-text">
-            <i class="fa fa-book"></i> SEBO ALFARRÁBIO
+            <img src="/img/logo2.webp" class="logo-img-topbar" alt="Logo Sebo">
+            SEBO ALFARRÁBIO
         </span>
     </div>
 
@@ -423,14 +464,14 @@ use Sebo\Alfarrabio\Core\Session;
             <div class="user-profile">
                 <div class="w3-row">
                     <div class="w3-col s3">
-                        <img src="/img/logo2.webp" class="user-avatar sidebar-logo" alt="Logo Sebo">
+                        <img src="<?= $usuarioFoto ?>" class="user-avatar" alt="Avatar de <?= e($usuarioNome) ?>">
                     </div>
                     <div class="w3-col s9" style="padding-left: 15px;">
                         <div class="user-name"><?= htmlspecialchars($usuarioNome); ?></div>
                         <div class="user-role"><?= htmlspecialchars($usuarioTipo); ?></div>
                         <div class="user-email"><?= htmlspecialchars($usuarioEmail); ?></div>
                         <div style="margin-top: 12px;">
-                            <a href="/backend/perfil" class="user-action-btn w3-button" title="Meu Perfil">
+                            <a href="/backend/admin/cliente" class="user-action-btn w3-button" title="Meu Perfil">
                                 <i class="fa fa-user"></i>
                             </a>
                             <a href="/backend/admin/cliente/configuracoes" class="user-action-btn w3-button"

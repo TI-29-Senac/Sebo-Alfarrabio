@@ -129,3 +129,30 @@ if (!function_exists('e')) {
         return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
     }
 }
+
+if (!function_exists('asset_path')) {
+    /**
+     * Normaliza e retorna o caminho de um asset (imagem, etc).
+     */
+    function asset_path($path, $default = '/img/avatar_placeholder.svg')
+    {
+        if (empty($path)) {
+            return $default;
+        }
+
+        if (strpos($path, 'http') === 0) {
+            return $path;
+        }
+
+        // Se o caminho já for absoluto (começar com /) e não for /backend, adiciona /backend
+        if (strpos($path, '/') === 0) {
+            if (strpos($path, '/backend') === 0) {
+                return $path;
+            }
+            return '/backend' . $path;
+        }
+
+        // Se for um caminho relativo, assume que está dentro de backend
+        return '/backend/' . $path;
+    }
+}

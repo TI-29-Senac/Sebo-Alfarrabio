@@ -61,7 +61,8 @@
         const selectors = [
             'header .logo',
             '.sidebar-logo',
-            '.logo-footer'
+            '.logo-footer',
+            '.logo-img-topbar'
         ];
 
         selectors.forEach(function (selector) {

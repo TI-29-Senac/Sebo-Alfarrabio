@@ -16,11 +16,14 @@ class PedidosController
     public $pedidos;
     public $db;
     public $gerenciarImagem;
+    public $notificador;
+
     public function __construct()
     {
         $this->db = Database::getInstance();
         $this->pedidos = new Pedidos($this->db);
         $this->gerenciarImagem = new FileManager('upload');
+        $this->notificador = new NotificacaoEmail();
     }
 
     /**
@@ -49,6 +52,21 @@ class PedidosController
         );
 
         if ($sucesso) {
+            // Enviar e-mail de confirmação
+            try {
+                $idPedido = (int) $sucesso;
+                $pedidoDados = $this->pedidos->buscarPedidosPorID($idPedido);
+                if ($pedidoDados && !empty($pedidoDados['id_usuario'])) {
+                    $usuarioModel = new Usuario($this->db);
+                    $usuario = $usuarioModel->buscarUsuarioPorID($pedidoDados['id_usuario']);
+                    if ($usuario && !empty($usuario['email_usuario'])) {
+                        $this->notificador->enviarConfirmacaoPedido($usuario, $pedidoDados);
+                    }
+                }
+            } catch (\Exception $e) {
+                error_log("Erro ao enviar e-mail de confirmação de pedido: " . $e->getMessage());
+            }
+
             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Pedido cadastrado com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("/backend/pedidos/criar", "error", "Erro ao cadastrar o pedido!");
@@ -95,10 +113,10 @@ class PedidosController
     public function viewEditarPedidos($id_pedido)
     {
         $pedido = $this->pedidos->buscarPedidosPorID($id_pedido);
-        
+
         if (!$pedido) {
-             Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Pedido não encontrado.");
-             return;
+            Redirect::redirecionarComMensagem("/backend/pedidos/listar", "error", "Pedido não encontrado.");
+            return;
         }
 
         View::render("pedidos/edit", ["pedidos" => $pedido]);
@@ -135,22 +153,25 @@ class PedidosController
             return;
         }
 
-        // Se o novo status for "Reservado", envia email de notificação ao cliente
-        if (strcasecmp($novoStatus, 'Reservado') === 0) {
-            try {
-                $pedido = $this->pedidos->buscarPedidosPorID($idPedido);
-                if ($pedido && !empty($pedido['id_usuario'])) {
-                    $usuarioModel = new Usuario($this->db);
-                    $usuario = $usuarioModel->buscarUsuarioPorID($pedido['id_usuario']);
+        // Enviar email de notificação ao cliente para qualquer mudança de status
+        try {
+            $pedido = $this->pedidos->buscarPedidosPorID($idPedido);
+            if ($pedido && !empty($pedido['id_usuario'])) {
+                $usuarioModel = new Usuario($this->db);
+                $usuario = $usuarioModel->buscarUsuarioPorID($pedido['id_usuario']);
 
-                    if ($usuario && !empty($usuario['email_usuario'])) {
-                        $notificacao = new NotificacaoEmail();
-                        $notificacao->enviarReservaAprovada($usuario, $pedido);
+                if ($usuario && !empty($usuario['email_usuario'])) {
+                    // Se for Reservado, usa o template específico
+                    if (strcasecmp($novoStatus, 'Reservado') === 0) {
+                        $this->notificador->enviarReservaAprovada($usuario, $pedido);
+                    } else {
+                        // Para outros status, usa o template genérico de atualização
+                        $this->notificador->enviarAtualizacaoStatusPedido($usuario, $pedido, $novoStatus);
                     }
                 }
-            } catch (\Exception $e) {
-                error_log("Erro ao enviar email de reserva aprovada: " . $e->getMessage());
             }
+        } catch (\Exception $e) {
+            error_log("Erro ao enviar email de atualização de status: " . $e->getMessage());
         }
 
         Redirect::redirecionarComMensagem("/backend/pedidos/listar", "success", "Status do pedido atualizado com sucesso!");

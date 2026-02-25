@@ -40,4 +40,36 @@ class Env
         }
         return true;
     }
+
+    /**
+     * Obtém uma variável de ambiente.
+     * @param string $chave Chave da variável
+     * @param mixed $padrao Valor padrão caso não exista
+     * @return mixed
+     */
+    public static function get(string $chave, $padrao = null)
+    {
+        $valor = getenv($chave);
+        if ($valor === false) {
+            return $_ENV[$chave] ?? $padrao;
+        }
+
+        // Converte valores booleanos
+        switch (strtolower($valor)) {
+            case 'true':
+            case '(true)':
+                return true;
+            case 'false':
+            case '(false)':
+                return false;
+            case 'empty':
+            case '(empty)':
+                return '';
+            case 'null':
+            case '(null)':
+                return null;
+        }
+
+        return $valor;
+    }
 }

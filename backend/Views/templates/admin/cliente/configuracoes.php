@@ -412,7 +412,9 @@
                     <div>
                         <div class="photo-upload-btn">
                             <i class="fa fa-camera"></i> Alterar Foto
-                            <input type="file" name="foto_usuario" accept="image/*" onchange="previewImage(this)">
+                            <input type="file" name="foto_usuario"
+                                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                                onchange="previewImage(this)">
                         </div>
                         <input type="hidden" name="foto_atual" value="<?= $usuario['foto_perfil_usuario'] ?? '' ?>">
                         <p style="font-size: 12px; color: #888; margin-top: 8px;">Recomendado: JPG ou PNG, máx 2MB</p>

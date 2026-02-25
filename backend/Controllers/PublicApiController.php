@@ -130,7 +130,6 @@ class PublicApiController
                 $item['caminho_imagem'] = '/backend/uploads/' . $caminhoLimpo;
             } else {
                 $item['imagem_base64'] = null;
-                // Fallback para evitar 404 se o arquivo físico não existir
                 $item['caminho_imagem'] = '/img/sem-imagem.webp';
             }
         } else {
@@ -470,9 +469,9 @@ class PublicApiController
             return null;
         }
 
-        // Gera nome único
+        // Gera nome único (formato correspondente ao desejado: uniqid.ext)
         $extensao = $extensionMap[$mimeType];
-        $nomeArquivo = 'item_' . time() . '_' . uniqid() . '.' . $extensao;
+        $nomeArquivo = uniqid('', true) . '.' . $extensao;
 
         // Define o diretório de destino
         $diretorioUpload = dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'itens';
@@ -1112,4 +1111,43 @@ class PublicApiController
         }
     }
 
+    /**
+     * Endpoint público para cancelamento de inscrição em notificações.
+     * GET /notificacoes/cancelar?email=...
+     */
+    public function cancelarNotificacao()
+    {
+        $email = $_GET['email'] ?? null;
+
+        if ($email) {
+            $usuarioModel = new \Sebo\Alfarrabio\Models\Usuario($this->db);
+            $usuarioModel->setPreferenciaNotificacao($email, 0);
+        }
+
+        echo "
+        <!DOCTYPE html>
+        <html lang='pt-BR'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>Cancelamento de Inscrição - Sebo-Alfarrabio</title>
+            <style>
+                body { font-family: 'Georgia', serif; background-color: #f5f1e8; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+                .card { background: white; padding: 40px; border-radius: 8px; border: 2px solid #8b4513; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }
+                h1 { color: #8b4513; font-size: 24px; }
+                p { color: #3e2723; line-height: 1.6; }
+                .btn { display: inline-block; background: #8b4513; color: white; padding: 10px 25px; border-radius: 5px; text-decoration: none; margin-top: 20px; font-weight: bold; }
+                .email { font-weight: bold; color: #6b4423; }
+            </style>
+        </head>
+        <body>
+            <div class='card'>
+                <h1>Notificações Canceladas</h1>
+                <p>O e-mail <span class='email'>" . htmlspecialchars($email ?? 'não informado') . "</span> foi removido da nossa lista de novidades.</p>
+                <p>Você não receberá mais e-mails sobre novos itens no acervo.</p>
+                <a href='/' class='btn'>Voltar para o site</a>
+            </div>
+        </body>
+        </html>";
+    }
 }

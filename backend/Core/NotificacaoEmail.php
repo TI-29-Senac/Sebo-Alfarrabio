@@ -1,21 +1,21 @@
 <?php
 namespace Sebo\Alfarrabio\Core;
 use Sebo\Alfarrabio\Core\EmailService;
- 
+
 class NotificacaoEmail
 {
     private $emailService;
     private $urlBase;
- 
+
     public function __construct()
     {
         $this->emailService = new EmailService();
         // Define a URL base do projeto
-        $this->urlBase = "http://localhost:4500";
+        $this->urlBase = "http://localhost:2000";
         // Para produção, você pode usar:
         // $this->urlBase = "https://www.sebo-alfarrabio.com.br";
     }
- 
+
     /**
      * Envia email de redefinição de senha.
      * @param string $email
@@ -25,7 +25,7 @@ class NotificacaoEmail
     {
         $assunto = "Redefinição de Senha - Sebo-Alfarrabio";
         $linkReset = $this->urlBase . "/backend/redefinir-senha?token=" . urlencode($token);
- 
+
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -129,7 +129,7 @@ class NotificacaoEmail
 <body>
     <div class="container">
         <div class="header">
-            <img src="' . $this->urlBase . '/img/logo2.png" alt="Logo Sebo-Alfarrabio" class="logo">
+            <img src="' . $this->urlBase . '/img/logo2.webp" alt="Logo Sebo-Alfarrabio" class="logo">
             <h1>🔐 Redefinição de Senha</h1>
         </div>
        
@@ -176,7 +176,7 @@ class NotificacaoEmail
 ';
         $this->emailService->send($email, $assunto, $mensagem);
     }
- 
+
     /**
      * Envia email de boas-vindas.
      * @param string $email
@@ -184,11 +184,11 @@ class NotificacaoEmail
      */
 
 
-        ///////////// EMAIL DE BOAS-VINDAS ////////////
+    ///////////// EMAIL DE BOAS-VINDAS ////////////
     public function boasVindas(string $email, string $nome): void
     {
         $assunto = "Bem-vindo ao Sebo-Alfarrabio!";
- 
+
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -274,7 +274,7 @@ class NotificacaoEmail
 <body>
     <div class="container">
         <div class="header">
-            <img src="' . $this->urlBase . '/img/logo2.png" alt="Logo Sebo-Alfarrabio" class="logo">
+            <img src="' . $this->urlBase . '/img/logo2.webp" alt="Logo Sebo-Alfarrabio" class="logo">
             <h1>Sebo-Alfarrabio</h1>
         </div>
        
@@ -319,15 +319,15 @@ class NotificacaoEmail
         $this->emailService->send($email, $assunto, $mensagem);
     }
     ////////////////////////////////////////////////
- 
- 
- 
- 
- 
- 
- 
-///////////////////// EMAIL DE RESERVA RECEBIDA /////////////////////
-   
+
+
+
+
+
+
+
+    ///////////////////// EMAIL DE RESERVA RECEBIDA /////////////////////
+
     /**
      * Envia email de confirmação de reserva.
      * @param array $usuario Dados do usuário (nome, email).
@@ -339,14 +339,14 @@ class NotificacaoEmail
         $email = $usuario['email_usuario'];
         $idPedido = $pedido['id'];
         $total = number_format($pedido['valor_total'], 2, ',', '.');
-       
+
         $assunto = "Reserva #{$idPedido} Recebida - Sebo-Alfarrabio";
- 
+
         $itensHtml = '';
         foreach ($pedido['itens'] as $item) {
             $itensHtml .= "<li>{$item['quantidade']}x {$item['titulo']}</li>";
         }
- 
+
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -468,26 +468,21 @@ class NotificacaoEmail
         $this->emailService->send($email, $assunto, $mensagem);
     }
     /////////////////////////////////////////////////////////////
- 
- 
- 
- 
- 
-   
-    /**
-     * Envia email de confirmação de reserva APROVADA pelo funcionário.
-     * @param array $usuario Dados do usuário (nome, email).
-     * @param array $pedido Dados do pedido (id, valor_total, itens).
-     */
+
+
+
+
+
+
     public function enviarReservaAprovada(array $usuario, array $pedido): void
     {
         $nome = $usuario['nome_usuario'];
         $email = $usuario['email_usuario'];
         $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
         $total = number_format($pedido['valor_total'], 2, ',', '.');
-       
+
         $assunto = "Sua Reserva #{$idPedido} foi Aprovada! - Sebo-Alfarrabio";
- 
+
         $itensHtml = '';
         if (isset($pedido['itens']) && is_array($pedido['itens'])) {
             foreach ($pedido['itens'] as $item) {
@@ -495,7 +490,7 @@ class NotificacaoEmail
                 $itensHtml .= "<li>{$item['quantidade']}x {$titulo}</li>";
             }
         }
- 
+
         $mensagem = '
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -592,6 +587,7 @@ class NotificacaoEmail
 <body>
     <div class="container">
         <div class="header">
+            <img src="' . $this->urlBase . '/img/logo2.webp" alt="Logo Sebo-Alfarrabio" class="logo">
             <h1>✔ Reserva Aprovada!</h1>
         </div>
 
@@ -628,7 +624,7 @@ class NotificacaoEmail
         <div class="footer">
             <p>📖 <em>"Cada livro é uma viagem, cada página uma nova descoberta"</em></p>
             <p style="margin-top: 15px; font-size: 12px; color: #8b4513;">
-                Este é um e-mail automático. Por favor, não responda.
+                Este e-mail automático. Por favor, não responda.
             </p>
         </div>
     </div>
@@ -636,5 +632,195 @@ class NotificacaoEmail
 </html>
 ';
         $this->emailService->send($email, $assunto, $mensagem);
+    }
+
+    /**
+     * Envia email de novidades do acervo para um usuário.
+     */
+    public function novidadesAcervo(string $email, string $nome, array $livros, string $descricao = ''): void
+    {
+        $assunto = "📚 Novidades no Acervo - Sebo-Alfarrabio";
+
+        $livrosHtml = '';
+        foreach ($livros as $livro) {
+            $titulo = htmlspecialchars($livro['titulo'] ?? 'Sem título');
+            $autor = htmlspecialchars($livro['autor'] ?? '');
+            $preco = isset($livro['preco']) ? 'R$ ' . number_format((float) $livro['preco'], 2, ',', '.') : '';
+            $slug = $livro['slug'] ?? '';
+            $linkLivro = $this->urlBase . '/livros/' . urlencode($slug);
+            $capaUrl = $this->urlBase . \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($livro['capa'] ?? '');
+
+            $livrosHtml .= '
+            <div class="livro-card">
+                <img src="' . htmlspecialchars($capaUrl) . '" alt="Capa de ' . $titulo . '" class="livro-capa">
+                <div class="livro-info">
+                    <p class="livro-titulo">' . $titulo . '</p>
+                    ' . ($autor ? '<p class="livro-autor">' . $autor . '</p>' : '') . '
+                    ' . ($preco ? '<p class="livro-preco">' . $preco . '</p>' : '') . '
+                    <a href="' . htmlspecialchars($linkLivro) . '" class="btn-ver-detalhes">Ver Detalhes</a>
+                </div>
+            </div>';
+        }
+
+        $descricaoHtml = $descricao
+            ? '<p class="message">' . htmlspecialchars($descricao) . '</p>'
+            : '<p class="message">Separamos as últimas obras que chegaram ao nosso acervo. Confira antes que reservem!</p>';
+
+        $linkDesinscrever = $this->urlBase . '/notificacoes/cancelar?email=' . urlencode($email);
+
+        $mensagem = '
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; padding: 0; font-family: "Georgia", serif; background-color: #f5f1e8; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 2px solid #8b4513; }
+        .header { background: linear-gradient(135deg, #6b4423, #8b4513); padding: 30px; text-align: center; }
+        .logo { width: 80px; height: 80px; }
+        .header h1 { color: #f5deb3; }
+        .content { padding: 40px 30px; }
+        .livro-card { display: table; width: 100%; background-color: #fff8dc; border: 1px solid #d4a574; margin-bottom: 16px; }
+        .livro-capa { display: table-cell; width: 90px; }
+        .livro-info { display: table-cell; padding: 14px 16px; }
+        .btn-ver-detalhes { background: #8b4513; color: #fff !important; padding: 8px 20px; text-decoration: none; border-radius: 5px; }
+        .footer { background-color: #f5f1e8; padding: 25px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="' . $this->urlBase . '/img/logo2.webp" alt="Logo" class="logo">
+            <h1>📚 Novidades no Acervo</h1>
+        </div>
+        <div class="content">
+            <p>Olá, ' . htmlspecialchars($nome) . '!</p>
+            ' . $descricaoHtml . '
+            <div class="livros-grid">' . $livrosHtml . '</div>
+        </div>
+        <div class="footer">
+            <p>Equipe Sebo-Alfarrabio ❤️📖</p>
+            <a href="' . htmlspecialchars($linkDesinscrever) . '">Cancelar notificações</a>
+        </div>
+    </div>
+</body>
+</html>';
+
+        $this->emailService->send($email, $assunto, $mensagem);
+    }
+
+    /**
+     * Envia e-mail de confirmação de pedido realizado.
+     */
+    public function enviarConfirmacaoPedido(array $usuario, array $pedido): void
+    {
+        $nome = $usuario['nome_usuario'];
+        $email = $usuario['email_usuario'];
+        $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
+        $total = number_format($pedido['valor_total'], 2, ',', '.');
+        $assunto = "Pedido #{$idPedido} Recebido - Sebo-Alfarrabio";
+
+        $itensHtml = '';
+        if (isset($pedido['itens']) && is_array($pedido['itens'])) {
+            foreach ($pedido['itens'] as $item) {
+                $titulo = htmlspecialchars($item['titulo_item'] ?? 'Item');
+                $itensHtml .= "<li>{$item['quantidade']}x {$titulo}</li>";
+            }
+        }
+
+        $mensagem = '
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; font-family: "Georgia", serif; background-color: #f5f1e8; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 2px solid #8b4513; }
+        .header { background: #8b4513; padding: 20px; text-align: center; color: #f5deb3; }
+        .content { padding: 30px; line-height: 1.6; color: #3e2723; }
+        .pedido-info { background: #fff8dc; padding: 15px; border-left: 5px solid #8b4513; margin: 20px 0; }
+        .footer { background: #f5f1e8; padding: 20px; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"><h2>🛒 Pedido Recebido!</h2></div>
+        <div class="content">
+            <p>Olá, ' . htmlspecialchars($nome) . '!</p>
+            <p>Seu pedido foi recebido com sucesso. Estamos processando as informações.</p>
+            <div class="pedido-info">
+                <p><strong>Pedido:</strong> #' . $idPedido . '</p>
+                <p><strong>Total:</strong> R$ ' . $total . '</p>
+                <ul>' . $itensHtml . '</ul>
+            </div>
+            <p>Atenciosamente,<br>Equipe Sebo-Alfarrabio</p>
+        </div>
+        <div class="footer">Este é um e-mail automático.</div>
+    </div>
+</body>
+</html>';
+        $this->emailService->send($email, $assunto, $mensagem);
+    }
+
+    /**
+     * Envia e-mail de atualização de status do pedido.
+     */
+    public function enviarAtualizacaoStatusPedido(array $usuario, array $pedido, string $novoStatus): void
+    {
+        $nome = $usuario['nome_usuario'];
+        $email = $usuario['email_usuario'];
+        $idPedido = $pedido['id_pedidos'] ?? $pedido['id'];
+        $assunto = "Atualização do Pedido #{$idPedido} - Sebo-Alfarrabio";
+
+        $mensagem = '
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; padding: 0; font-family: "Georgia", serif; background-color: #f5f1e8; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 2px solid #8b4513; }
+        .header { background: #8b4513; padding: 20px; text-align: center; color: #f5deb3; }
+        .content { padding: 30px; line-height: 1.6; color: #3e2723; }
+        .status-box { background: #fff8dc; padding: 15px; border: 1px dashed #8b4513; text-align: center; font-size: 20px; font-weight: bold; margin: 20px 0; }
+        .footer { background: #f5f1e8; padding: 20px; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"><h2>📦 Atualização de Status</h2></div>
+        <div class="content">
+            <p>Olá, ' . htmlspecialchars($nome) . '!</p>
+            <p>O status do seu pedido <strong>#' . $idPedido . '</strong> foi atualizado para:</p>
+            <div class="status-box">' . htmlspecialchars($novoStatus) . '</div>
+            <p>Atenciosamente,<br>Equipe Sebo-Alfarrabio</p>
+        </div>
+        <div class="footer">Este é um e-mail automático.</div>
+    </div>
+</body>
+</html>';
+        $this->emailService->send($email, $assunto, $mensagem);
+    }
+
+    /**
+     * Notifica o administrador sobre uma nova avaliação recebida.
+     */
+    public function notificarAdminNovaAvaliacao(array $avaliacao, array $item): void
+    {
+        $emailAdmin = "seboalfarrabioteste@gmail.com";
+        $assunto = "⭐ Nova Avaliação: " . htmlspecialchars($item['titulo_item']);
+
+        $mensagem = '
+<div style="font-family: Arial, sans-serif; color: #333;">
+    <h3>Nova Avaliação Recebida!</h3>
+    <p>O item <strong>' . htmlspecialchars($item['titulo_item']) . '</strong> recebeu uma nova avaliação.</p>
+    <hr>
+    <p><strong>Nota:</strong> ' . $avaliacao['nota_avaliacao'] . ' / 5</p>
+    <p><strong>Comentário:</strong> ' . nl2br(htmlspecialchars($avaliacao['comentario_avaliacao'] ?? 'Sem comentário')) . '</p>
+    <hr>
+    <p>Acesse o painel para moderar.</p>
+</div>';
+        $this->emailService->send($emailAdmin, $assunto, $mensagem);
     }
 }

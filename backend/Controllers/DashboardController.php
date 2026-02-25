@@ -6,6 +6,8 @@ use Sebo\Alfarrabio\Core\View;
 use Sebo\Alfarrabio\Database\Database;
 use Sebo\Alfarrabio\Models\Categoria;
 use Sebo\Alfarrabio\Models\Item;
+use Sebo\Alfarrabio\Models\Vendas;
+use Sebo\Alfarrabio\Models\Avaliacao;
 use Sebo\Alfarrabio\Controllers\Admin\AdminController;
 use Sebo\Alfarrabio\Core\Session;
 
@@ -14,6 +16,8 @@ class DashboardController extends AdminController
     private $db;
     private $categoriaModel;
     private $itemModel;
+    private $vendasModel;
+    private $avaliacaoModel;
 
 
     public function __construct()
@@ -22,6 +26,8 @@ class DashboardController extends AdminController
         $this->db = Database::getInstance();
         $this->categoriaModel = new Categoria($this->db);
         $this->itemModel = new Item($this->db);
+        $this->vendasModel = new Vendas($this->db);
+        $this->avaliacaoModel = new Avaliacao($this->db);
     }
     /**
      * Exibe o painel principal do administrador.
@@ -142,7 +148,9 @@ class DashboardController extends AdminController
             'vendas_chart_data' => $vendas_chart_data,
             'pedidos_chart_labels' => $pedidos_chart_labels,
             'pedidos_chart_data' => $pedidos_chart_data,
-            'totalPendentes' => $totalPendentes
+            'totalPendentes' => $totalPendentes,
+            'avaliacoesRecentes' => $this->avaliacaoModel->getAvaliacoesCompletas(5)['avaliacoes'] ?? [],
+            'vendasRecentes' => $this->vendasModel->paginacao(1, 5)['data'] ?? []
         ]);
     }
 

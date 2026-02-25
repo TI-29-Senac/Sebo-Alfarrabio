@@ -531,9 +531,29 @@
 
 <div class="main-container">
 
-    <div class="page-header">
-        <h1>Suas Reservas</h1>
-        <p>Acompanhe seus pedidos em andamento e histórico de reservas.</p>
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px;">
+        <div>
+            <h1>Suas Reservas</h1>
+            <p>Acompanhe seus pedidos em andamento e histórico de reservas.</p>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <p style="margin:0; font-weight: 500; font-size: 15px;">
+                <strong style="color: var(--color-vintage-brown); font-size: 18px;"><?= count($pedidos) ?></strong> 
+                reservas feitas em
+            </p>
+            <select id="filtroAno" style="padding: 10px 35px 10px 15px; border-radius: 12px; border: none; background: #F0EDE8; color: #8B7355; font-weight: 700; font-size: 16px; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238B7355%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px top 50%; background-size: 12px auto; outline: none;">
+                <?php 
+                // Garante que o ano selecionado esteja nas opções mesmo que não tenha reservas (ex: ano atual novo)
+                if (!in_array($anoSelecionado, $anosDisponiveis)) {
+                    array_unshift($anosDisponiveis, $anoSelecionado);
+                }
+                foreach ($anosDisponiveis as $ano): 
+                ?>
+                    <option value="<?= $ano ?>" <?= $ano == $anoSelecionado ? 'selected' : '' ?>><?= $ano ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
     </div>
 
     <?php if (!empty($pedidos)): ?>
@@ -740,5 +760,15 @@
                 }
             });
         });
+        // Filtro de Ano
+        const filtroAno = document.getElementById('filtroAno');
+        if (filtroAno) {
+            filtroAno.addEventListener('change', function() {
+                const ano = this.value;
+                const url = new URL(window.location.href);
+                url.searchParams.set('ano', ano);
+                window.location.href = url.toString();
+            });
+        }
     });
 </script>

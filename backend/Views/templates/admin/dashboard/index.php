@@ -873,7 +873,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" style="text-align: center; color: #999; padding: 30px;">
+                        <td colspan="6" style="text-align: center; color: #999; padding: 30px;">
                             <i class="fa fa-inbox" style="font-size: 40px; margin-bottom: 10px; display: block;"></i>
                             Nenhum item cadastrado ainda
                         </td>
@@ -881,6 +881,74 @@
                 <?php endif; ?>
             </tbody>
         </table>
+    </div>
+
+    <!-- Novidade: Atividade Recente (Vendas e Avaliações) -->
+    <div class="info-panel" style="grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));">
+        <!-- Vendas Recentes -->
+        <div class="content-section" style="margin-bottom: 0;">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fa fa-shopping-bag"></i> Vendas Recentes</h3>
+                <a href="/backend/vendas/listar" style="color: var(--bege-dark); text-decoration: none; font-size: 14px;">Ver todas</a>
+            </div>
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data</th>
+                        <th>Valor</th>
+                        <th>Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($vendasRecentes)): ?>
+                        <?php foreach ($vendasRecentes as $venda): ?>
+                            <tr>
+                                <td><strong>#<?= $venda['id_venda']; ?></strong></td>
+                                <td><?= date('d/m/Y', strtotime($venda['data_venda'])); ?></td>
+                                <td>R$ <?= number_format($venda['valor_total'], 2, ',', '.'); ?></td>
+                                <td><span class="badge badge-success" style="background:#e3f2fd; color:#0d47a1;"><?= htmlspecialchars($venda['forma_pagamento']); ?></span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="4" style="text-align:center; padding:20px; color:#999;">Nenhuma venda recente.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Avaliações Recentes -->
+        <div class="content-section" style="margin-bottom: 0;">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fa fa-star"></i> Novas Avaliações</h3>
+                <a href="/backend/avaliacao/listar" style="color: var(--bege-dark); text-decoration: none; font-size: 14px;">Ver todas</a>
+            </div>
+            <div class="recent-reviews">
+                <?php if (!empty($avaliacoesRecentes)): ?>
+                    <?php foreach ($avaliacoesRecentes as $av): ?>
+                        <div style="padding: 12px; border-bottom: 1px solid #eee; display: flex; gap: 12px; align-items: flex-start;">
+                            <img src="<?= \Sebo\Alfarrabio\Models\Item::corrigirCaminhoImagem($av['imagem_item'] ?? ''); ?>" style="width: 40px; height: 55px; border-radius: 4px; object-fit: cover;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <strong style="font-size: 13px;"><?= htmlspecialchars($av['titulo_item']); ?></strong>
+                                    <div style="color: #ffc107; font-size: 12px;">
+                                        <?php for($i=1; $i<=5; $i++): ?>
+                                            <i class="fa <?= $i <= $av['nota_avaliacao'] ? 'fa-star' : 'fa-star-o'; ?>"></i>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                                <p style="margin: 0; font-size: 12px; color: #666; font-style: italic; line-height: 1.4;">
+                                    "<?= mb_strimwidth(htmlspecialchars($av['comentario_avaliacao'] ?? 'Sem comentário'), 0, 80, "..."); ?>"
+                                </p>
+                                <small style="color: #999; font-size: 10px;"><?= htmlspecialchars($av['nome_usuario']); ?> em <?= date('d/m/Y', strtotime($av['data_avaliacao'])); ?></small>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p style="text-align:center; padding:20px; color:#999;">Nenhuma avaliação recente.</p>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <!-- Seleção do Período para os Gráficos -->

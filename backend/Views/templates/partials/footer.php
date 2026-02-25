@@ -4,7 +4,9 @@
 <!-- Footer Responsivo -->
 <style>
     .dashboard-footer-main {
-        margin-left: <?= $isLoginOrRegister ? '0' : '300px' ?>;
+        margin-left:
+            <?= $isLoginOrRegister ? '0' : '300px' ?>
+        ;
         background: linear-gradient(135deg, #f5f5f0 0%, #faf8f3 100%);
         border-top: 3px solid #D4B896;
         padding: 30px 20px;
@@ -60,7 +62,7 @@
         <!-- Coluna 1 - Sobre -->
         <div class="w3-col l4 m6 s12" style="margin-bottom: 20px;">
             <h5 style="color: #8B6F47; font-weight: 700;">
-                <i class="fa fa-book"></i> Sebo Alfarrábio
+                <i class="fa-solid fa-book fa-fw"></i> Sebo Alfarrábio
             </h5>
             <p style="color: #666; font-size: 14px; line-height: 1.6;">
                 Sistema de gerenciamento para sebos e livrarias.
@@ -68,16 +70,16 @@
             </p>
             <div style="margin-top: 15px;">
                 <a href="#" class="w3-button"
-                    style="background: #D4B896; color: white; margin-right: 5px; border-radius: 50%; width: 35px; height: 35px; padding: 0;">
-                    <i class="fa fa-facebook"></i>
+                    style="background: #D4B896; color: white; margin-right: 5px; border-radius: 50%; width: 35px; height: 35px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa-brands fa-facebook-f"></i>
                 </a>
                 <a href="#" class="w3-button"
-                    style="background: #D4B896; color: white; margin-right: 5px; border-radius: 50%; width: 35px; height: 35px; padding: 0;">
-                    <i class="fa fa-instagram"></i>
+                    style="background: #D4B896; color: white; margin-right: 5px; border-radius: 50%; width: 35px; height: 35px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa-brands fa-instagram"></i>
                 </a>
                 <a href="#" class="w3-button"
-                    style="background: #D4B896; color: white; border-radius: 50%; width: 35px; height: 35px; padding: 0;">
-                    <i class="fa fa-twitter"></i>
+                    style="background: #D4B896; color: white; border-radius: 50%; width: 35px; height: 35px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
             </div>
         </div>
@@ -85,37 +87,61 @@
         <!-- Coluna 2 - Links Rápidos -->
         <div class="w3-col l4 m6 s12" style="margin-bottom: 20px;">
             <h5 style="color: #8B6F47; font-weight: 700;">
-                <i class="fa fa-link"></i> Links Rápidos
+                <i class="fa-solid fa-link fa-fw"></i> Links Rápidos
             </h5>
             <ul style="list-style: none; padding: 0; color: #666; font-size: 14px; line-height: 2;">
-                <li><a href="/" style="text-decoration: none; color: #666; transition: color 0.3s;"
-                        onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
-                        <i class="fa fa-angle-right"></i> Dashboard
-                    </a></li>
-                <li><a href="/item/listar" style="text-decoration: none; color: #666; transition: color 0.3s;"
-                        onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
-                        <i class="fa fa-angle-right"></i> Gerenciar Itens
-                    </a></li>
-                <li><a href="/reservas/listar" style="text-decoration: none; color: #666; transition: color 0.3s;"
-                        onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
-                        <i class="fa fa-angle-right"></i> Reservas
-                    </a></li>
-                <li><a href="/vendas/listar" style="text-decoration: none; color: #666; transition: color 0.3s;"
-                        onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
-                        <i class="fa fa-angle-right"></i> Vendas
-                    </a></li>
+                <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'Cliente'): ?>
+                    <li><a href="/backend/admin/cliente" style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Meu Perfil
+                        </a></li>
+                    <li><a href="/backend/admin/cliente/reservas"
+                            style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Minhas Reservas
+                        </a></li>
+                    <li><a href="/backend/admin/cliente/avaliacoes"
+                            style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Avaliações
+                        </a></li>
+                    <li><a href="/backend/admin/cliente/configuracoes"
+                            style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Configurações
+                        </a></li>
+                <?php else: ?>
+                    <li><a href="/backend/admin/dashboard"
+                            style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Dashboard
+                        </a></li>
+                    <li><a href="/backend/item/listar" style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Gerenciar Itens
+                        </a></li>
+                    <li><a href="/backend/pedidos/listar"
+                            style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Reservas (Admin)
+                        </a></li>
+                    <li><a href="/backend/vendas/listar" style="text-decoration: none; color: #666; transition: color 0.3s;"
+                            onmouseover="this.style.color='#B89968'" onmouseout="this.style.color='#666'">
+                            <i class="fa-solid fa-angle-right fa-fw"></i> Vendas
+                        </a></li>
+                <?php endif; ?>
             </ul>
         </div>
 
         <!-- Coluna 3 - Contato -->
         <div class="w3-col l4 m12 s12">
             <h5 style="color: #8B6F47; font-weight: 700;">
-                <i class="fa fa-envelope"></i> Suporte
+                <i class="fa-solid fa-envelope fa-fw"></i> Suporte
             </h5>
             <p style="color: #666; font-size: 14px; line-height: 1.8;">
-                <i class="fa fa-map-marker" style="color: #B89968; width: 20px;"></i> São Paulo, Brasil<br>
-                <i class="fa fa-phone" style="color: #B89968; width: 20px;"></i> +55 (11) 9999-9999<br>
-                <i class="fa fa-envelope" style="color: #B89968; width: 20px;"></i> contato@seboalfarrabio.com.br
+                <i class="fa-solid fa-location-dot fa-fw" style="color: #B89968;"></i> São Paulo, Brasil<br>
+                <i class="fa-solid fa-phone fa-fw" style="color: #B89968;"></i> +55 (11) 9999-9999<br>
+                <i class="fa-solid fa-envelope fa-fw" style="color: #B89968;"></i> contato@seboalfarrabio.com.br
             </p>
         </div>
     </div>
@@ -127,7 +153,7 @@
             © 2026 <strong style="color: #8B6F47;">Sebo Alfarrábio</strong> - Todos os direitos reservados
         </p>
         <p style="margin: 5px 0;">
-            Desenvolvido com <i class="fa fa-heart" style="color: #dc3545;"></i> por
+            Desenvolvido com <i class="fa-solid fa-heart" style="color: #dc3545;"></i> por
             <strong style="color: #8B6F47;">GirlPower Team</strong>
         </p>
     </div>

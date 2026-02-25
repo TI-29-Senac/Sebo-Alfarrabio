@@ -1404,7 +1404,8 @@
             </div>
             <form id="form-foto" action="/backend/admin/cliente/foto" method="POST" enctype="multipart/form-data"
                 style="display:none;">
-                <input type="file" name="foto_usuario" id="input-foto" accept="image/*"
+                <input type="file" name="foto_usuario" id="input-foto"
+                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
                     onchange="document.getElementById('form-foto').submit()">
             </form>
         </div>
@@ -1455,13 +1456,23 @@
             <div class="tab-btn">Reservas Pendentes</div>
         </div>
 
-        <div class="orders-meta-info">
-            <strong>
-                <?= count($pedidos ?? []) ?> reservas
-            </strong> feitas em
-            <select class="year-filter">
-                <option>2025</option>
-                <option>2024</option>
+        <div class="orders-meta-info"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <p style="margin:0;">
+                Você tem <strong
+                    style="color: var(--color-vintage-brown); font-size: 16px;"><?= count($pedidos) ?></strong>
+                reservas registradas em
+            </p>
+            <select id="filtroAno"
+                style="padding: 8px 30px 8px 15px; border-radius: 10px; border: none; background: #F5EFE6; color: #8B7355; font-weight: 700; font-size: 14px; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238B7355%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px top 50%; background-size: 10px auto; outline: none;">
+                <?php
+                if (!in_array($anoSelecionado, $anosDisponiveis)) {
+                    array_unshift($anosDisponiveis, $anoSelecionado);
+                }
+                foreach ($anosDisponiveis as $ano):
+                    ?>
+                    <option value="<?= $ano ?>" <?= $ano == $anoSelecionado ? 'selected' : '' ?>><?= $ano ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
@@ -2185,5 +2196,16 @@
                 }
             });
         });
+
+        // Filtro de Ano
+        const filtroAno = document.getElementById('filtroAno');
+        if (filtroAno) {
+            filtroAno.addEventListener('change', function () {
+                const ano = this.value;
+                const url = new URL(window.location.href);
+                url.searchParams.set('ano', ano);
+                window.location.href = url.toString();
+            });
+        }
     });
 </script>

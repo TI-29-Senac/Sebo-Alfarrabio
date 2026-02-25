@@ -45,9 +45,16 @@ class EmailService
             $this->mailer->Subject = $subject;
             $this->mailer->Body = $message;
             $this->mailer->AltBody = strip_tags($message);
-            return $this->mailer->send();
+            $enviado = $this->mailer->send();
 
+            // Limpa destinatários e anexos para a próxima chamada (evita acúmulo em loops)
+            $this->mailer->clearAllRecipients();
+            $this->mailer->clearAttachments();
+
+            return $enviado;
         } catch (Exception $e) {
+            // Limpa mesmo em caso de erro
+            $this->mailer->clearAllRecipients();
             return false;
         }
     }

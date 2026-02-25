@@ -8,6 +8,7 @@ use Sebo\Alfarrabio\Core\Redirect;
 use Sebo\Alfarrabio\Validadores\AvaliacaoValidador;
 use Sebo\Alfarrabio\Core\FileManager;
 use Sebo\Alfarrabio\Models\Item;
+use Sebo\Alfarrabio\Core\NotificacaoEmail;
 
 
 class AvaliacaoController
@@ -16,12 +17,15 @@ class AvaliacaoController
     public $item;
     public $db;
     public $gerenciarImagem;
+    public $notificador;
+
     public function __construct()
     {
         $this->db = Database::getInstance();
         $this->avaliacao = new Avaliacao($this->db);
         $this->item = new Item($this->db);
         $this->gerenciarImagem = new FileManager('upload');
+        $this->notificador = new NotificacaoEmail();
     }
 
 
@@ -88,6 +92,17 @@ class AvaliacaoController
         );
 
         if ($id > 0) {
+            // Notificar administrador sobre nova avaliação
+            try {
+                $avaliacaoDados = $this->avaliacao->buscarAvaliacaoPorID($id);
+                $itemDados = $this->item->buscarItemPorID($id_item);
+                if ($avaliacaoDados && $itemDados) {
+                    $this->notificador->notificarAdminNovaAvaliacao($avaliacaoDados, $itemDados);
+                }
+            } catch (\Exception $e) {
+                error_log("Erro ao notificar admin sobre avaliação: " . $e->getMessage());
+            }
+
             Redirect::redirecionarComMensagem("/avaliacao/listar", "success", "Avaliação #{$id} cadastrada com sucesso!");
         } else {
             Redirect::redirecionarComMensagem("/avaliacao/criar", "error", "Erro ao cadastrar (veja logs).");

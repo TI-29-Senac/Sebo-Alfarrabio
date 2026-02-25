@@ -173,7 +173,7 @@ class Pedidos
      * @param int $usuario_id
      * @param bool $excluirCancelados
      */
-    function buscarPedidosPorIDUsuario($usuario_id, $excluirCancelados = false)
+    function buscarPedidosPorIDUsuario($usuario_id, $excluirCancelados = false, $ano = null)
     {
         $sql = "SELECT DISTINCT p.* FROM tbl_pedidos p 
                 INNER JOIN tbl_pedido_itens pi ON p.id_pedidos = pi.pedido_id 
@@ -183,10 +183,17 @@ class Pedidos
             $sql .= " AND p.status NOT LIKE '%Cancelado%'";
         }
 
+        if ($ano) {
+            $sql .= " AND YEAR(p.data_pedido) = :ano";
+        }
+
         $sql .= " ORDER BY p.data_pedido DESC";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':usuario_id', $usuario_id);
+        if ($ano) {
+            $stmt->bindParam(':ano', $ano);
+        }
         $stmt->execute();
         $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -211,6 +218,22 @@ class Pedidos
         }
 
         return $pedidos;
+    }
+
+    /**
+     * Busca os anos únicos em que o usuário realizou reservas.
+     */
+    public function buscarAnosReservasPorUsuario($usuario_id)
+    {
+        $sql = "SELECT DISTINCT YEAR(data_pedido) as ano 
+                FROM tbl_pedidos 
+                WHERE id_usuario = :uid 
+                ORDER BY ano DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':uid', $usuario_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     /**

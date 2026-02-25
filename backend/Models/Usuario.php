@@ -171,6 +171,19 @@ class Usuario
         ];
     }
 
+    /**
+     * Busca todos os usuários ativos que devem receber notificações de novidades.
+     * Por enquanto, considera todos os 'Cliente' que não foram excluídos.
+     */
+    public function buscarUsuariosParaNotificacao()
+    {
+        $sql = "SELECT nome_usuario, email_usuario FROM tbl_usuario 
+                WHERE tipo_usuario = 'Cliente' AND excluido_em IS NULL AND notificar_novidades = 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     // ===== CRIAÇÃO (CREATE) =====
 
@@ -457,5 +470,27 @@ class Usuario
             error_log("❌ Erro ao deletar tokens de reset: " . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * Atualiza a preferência de notificação do usuário.
+     * @param string $email
+     * @param int $status 1 para sim, 0 para não
+     * @return bool
+     */
+    public function setPreferenciaNotificacao(string $email, int $status)
+    {
+        // Migração sob demanda: tenta adicionar a coluna se não existir
+        try {
+            $this->db->exec("ALTER TABLE tbl_usuario ADD COLUMN notificar_novidades INTEGER DEFAULT 1");
+        } catch (\PDOException $e) {
+            // Se der erro é porque a coluna provavelmente já existe, ignore
+        }
+
+        $sql = "UPDATE tbl_usuario SET notificar_novidades = :status WHERE email_usuario = :email";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email);
+        return $stmt->execute();
     }
 }
