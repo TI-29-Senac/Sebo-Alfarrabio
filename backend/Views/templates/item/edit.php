@@ -591,6 +591,177 @@
             display: none;
         }
 
+        /* ===== Scanner ISBN ===== */
+        .isbn-scanner-section {
+            background: linear-gradient(135deg, #f8f6f3 0%, #f3efe9 100%);
+            border: 2px solid var(--accent);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .isbn-scanner-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary), var(--accent));
+        }
+
+        .isbn-scanner-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .isbn-scanner-header .scanner-icon {
+            font-size: 28px;
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .isbn-scanner-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .isbn-scanner-header p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .isbn-input-row {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .isbn-input-row .form-control {
+            flex: 1;
+            font-size: 18px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            letter-spacing: 2px;
+            padding: 14px 18px;
+            border: 2px solid var(--accent);
+            background: white;
+        }
+
+        .isbn-input-row .form-control:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.2);
+        }
+
+        .btn-isbn-buscar {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .btn-isbn-buscar:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-isbn-buscar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .isbn-status {
+            margin-top: 14px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .isbn-status.loading {
+            display: flex;
+            background: #f3efe9;
+            color: var(--primary-dark);
+            border: 1px solid var(--accent);
+        }
+
+        .isbn-status.success {
+            display: flex;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #81c784;
+        }
+
+        .isbn-status.error {
+            display: flex;
+            background: #fce4ec;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .isbn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid var(--accent);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-control.auto-filled {
+            background: #f0f9e8 !important;
+            border-color: var(--success) !important;
+            animation: highlight-fill 0.6s ease;
+        }
+
+        @keyframes highlight-fill {
+            0% {
+                background-color: #d4edda;
+            }
+
+            100% {
+                background-color: #f0f9e8;
+            }
+        }
+
         /* Price Visualization Section */
         .price-section {
             background: linear-gradient(135deg, #f9f7f4 0%, #f3efe9 100%);
@@ -900,6 +1071,30 @@
                     <input type="hidden" name="foto_item_atual"
                         value="<?= htmlspecialchars($item['foto_item'] ?? '') ?>">
 
+                    <!-- Scanner ISBN -->
+                    <div class="isbn-scanner-section" id="isbn-scanner-section">
+                        <div class="isbn-scanner-header">
+                            <div>
+                                <span class="scanner-icon">📖</span>
+                            </div>
+                            <div>
+                                <h3>Recarregar Dados por ISBN</h3>
+                                <p>Escaneie o código de barras ou digite o ISBN para atualizar os campos automaticamente
+                                </p>
+                            </div>
+                        </div>
+                        <div class="isbn-input-row">
+                            <input type="text" class="form-control" id="isbn-scanner-input"
+                                placeholder="Ex: 9788535914849" autocomplete="off" inputmode="numeric"
+                                value="<?= htmlspecialchars($item['isbn'] ?? '') ?>">
+                            <button type="button" class="btn-isbn-buscar" id="btn-isbn-buscar"
+                                onclick="buscarPorIsbn()">
+                                🔍 Buscar
+                            </button>
+                        </div>
+                        <div class="isbn-status" id="isbn-status"></div>
+                    </div>
+
                     <!-- Image and Basic Info Section -->
                     <div class="image-section">
                         <div class="image-upload-zone">
@@ -1183,6 +1378,107 @@
     </div>
 
     <script>
+        // ===== ISBN SCANNER =====
+        (function () {
+            const isbnInput = document.getElementById('isbn-scanner-input');
+            const isbnStatus = document.getElementById('isbn-status');
+            const btnIsbnBuscar = document.getElementById('btn-isbn-buscar');
+
+            isbnInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    buscarPorIsbn();
+                }
+            });
+
+            window.buscarPorIsbn = function () {
+                const isbn = isbnInput.value.replace(/[\s-]/g, '').trim();
+
+                if (!isbn || !/^(\d{10}|\d{13})$/.test(isbn)) {
+                    showIsbnStatus('error', '⚠️ ISBN inválido. Informe um ISBN-10 (10 dígitos) ou ISBN-13 (13 dígitos).');
+                    return;
+                }
+
+                showIsbnStatus('loading', '');
+                isbnStatus.innerHTML = '<div class="isbn-spinner"></div> Buscando informações do livro...';
+                btnIsbnBuscar.disabled = true;
+
+                fetch(`/backend/ajax/buscar/isbn?isbn=${encodeURIComponent(isbn)}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        btnIsbnBuscar.disabled = false;
+
+                        if (result.success) {
+                            const data = result.data;
+
+                            if (data.titulo) setFieldValue('titulo_item', data.titulo);
+
+                            const tipoSelect = document.getElementById('tipo_item');
+                            tipoSelect.value = 'livro';
+                            tipoSelect.dispatchEvent(new Event('change'));
+
+                            setFieldValue('isbn', data.isbn);
+                            if (data.editora) setFieldValue('editora_gravadora', data.editora);
+                            if (data.ano_publicacao) setFieldValue('ano_publicacao', data.ano_publicacao);
+                            if (data.descricao) setFieldValue('descricao', data.descricao);
+
+                            if (data.capa_url) {
+                                const img = document.getElementById('preview-img');
+                                const preview = document.getElementById('image-preview');
+                                img.src = data.capa_url;
+                                preview.classList.add('has-image');
+                            }
+
+                            if (data.autores && data.autores.length > 0) {
+                                data.autores.forEach(nomeAutor => buscarEAdicionarAutor(nomeAutor));
+                            }
+
+                            const campos = [data.titulo ? 'Título' : null, data.editora ? 'Editora' : null, data.ano_publicacao ? 'Ano' : null, data.autores?.length ? 'Autores' : null, data.capa_url ? 'Capa' : null].filter(Boolean);
+                            showIsbnStatus('success', `✅ Livro encontrado! Campos atualizados: ${campos.join(', ')}`);
+                        } else {
+                            showIsbnStatus('error', `❌ ${result.message}`);
+                        }
+                    })
+                    .catch(err => {
+                        btnIsbnBuscar.disabled = false;
+                        showIsbnStatus('error', '❌ Erro ao consultar. Verifique a conexão e tente novamente.');
+                        console.error('Erro ISBN:', err);
+                    });
+            };
+
+            function setFieldValue(fieldId, value) {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = value;
+                    field.classList.add('auto-filled');
+                    setTimeout(() => field.classList.remove('auto-filled'), 3000);
+                }
+            }
+
+            function showIsbnStatus(type, message) {
+                isbnStatus.className = 'isbn-status ' + type;
+                if (message) isbnStatus.innerHTML = message;
+            }
+
+            function buscarEAdicionarAutor(nomeAutor) {
+                fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(nomeAutor)}`)
+                    .then(r => r.json())
+                    .then(autores => {
+                        if (autores.length > 0) {
+                            adicionarAutor(autores[0].id_autor, autores[0].nome_autor);
+                        } else {
+                            const searchInput = document.getElementById('autor-search-input');
+                            if (searchInput) {
+                                searchInput.value = nomeAutor;
+                                searchInput.classList.add('auto-filled');
+                                setTimeout(() => searchInput.classList.remove('auto-filled'), 3000);
+                            }
+                        }
+                    })
+                    .catch(() => { });
+            }
+        })();
+
         // Preview de Imagem
         function previewImagem(event) {
             const file = event.target.files[0];
@@ -1213,15 +1509,11 @@
             const preco = parseFloat(document.getElementById('preco_item').value) || 0;
             const estoque = parseInt(document.getElementById('estoque').value) || 0;
 
-            // Update price displays
             document.getElementById('display-preco-venda').textContent = preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('display-preco-desconto').textContent = (preco * 0.9).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('display-valor-total').textContent = (preco * estoque).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-            // Update stock stat
             document.getElementById('stat-estoque').textContent = estoque;
-
-            // Update profit calculator
             calcularLucro();
         }
 

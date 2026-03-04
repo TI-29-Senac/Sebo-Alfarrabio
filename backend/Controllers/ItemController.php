@@ -362,6 +362,127 @@ class ItemController extends AdminController
     }
 
     /**
+     * AJAX: Busca dados de um livro pelo ISBN via Open Library API.
+     */
+    public function ajaxBuscarPorIsbn()
+    {
+        header('Content-Type: application/json');
+
+        $isbn = trim($_GET['isbn'] ?? '');
+
+        // Remove hífens e espaços
+        $isbn = preg_replace('/[\s-]/', '', $isbn);
+
+        if (empty($isbn) || !preg_match('/^(\d{10}|\d{13})$/', $isbn)) {
+            echo json_encode(['success' => false, 'message' => 'ISBN inválido. Informe um ISBN-10 ou ISBN-13.']);
+            exit;
+        }
+
+        try {
+            // Busca pelo ISBN na Open Library
+            $url = "https://openlibrary.org/isbn/{$isbn}.json";
+
+            $context = stream_context_create([
+                'http' => [
+                    'timeout' => 10,
+                    'header' => "User-Agent: SeboAlfarrabio/1.0\r\n"
+                ]
+            ]);
+
+            $response = @file_get_contents($url, false, $context);
+
+            if ($response === false) {
+                echo json_encode(['success' => false, 'message' => 'Livro não encontrado para este ISBN.']);
+                exit;
+            }
+
+            $bookData = json_decode($response, true);
+
+            if (!$bookData || isset($bookData['error'])) {
+                echo json_encode(['success' => false, 'message' => 'Livro não encontrado para este ISBN.']);
+                exit;
+            }
+
+            // Extrair título
+            $titulo = $bookData['title'] ?? '';
+            if (!empty($bookData['subtitle'])) {
+                $titulo .= ' — ' . $bookData['subtitle'];
+            }
+
+            // Extrair autores (precisamos buscar cada author key)
+            $autores = [];
+            if (!empty($bookData['authors'])) {
+                foreach ($bookData['authors'] as $authorRef) {
+                    $authorKey = $authorRef['key'] ?? '';
+                    if ($authorKey) {
+                        $authorUrl = "https://openlibrary.org{$authorKey}.json";
+                        $authorResponse = @file_get_contents($authorUrl, false, $context);
+                        if ($authorResponse) {
+                            $authorData = json_decode($authorResponse, true);
+                            if (!empty($authorData['name'])) {
+                                $autores[] = $authorData['name'];
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Extrair editora
+            $editora = '';
+            if (!empty($bookData['publishers'])) {
+                $editora = $bookData['publishers'][0] ?? '';
+            }
+
+            // Extrair ano de publicação
+            $ano = null;
+            if (!empty($bookData['publish_date'])) {
+                preg_match('/\d{4}/', $bookData['publish_date'], $matches);
+                $ano = $matches[0] ?? null;
+            }
+
+            // Extrair descrição
+            $descricao = '';
+            if (!empty($bookData['description'])) {
+                $descricao = is_array($bookData['description'])
+                    ? ($bookData['description']['value'] ?? '')
+                    : $bookData['description'];
+            } elseif (!empty($bookData['subtitle'])) {
+                $descricao = $bookData['subtitle'];
+            }
+
+            // Extrair capa
+            $capaUrl = null;
+            if (!empty($bookData['covers'])) {
+                $coverId = $bookData['covers'][0];
+                $capaUrl = "https://covers.openlibrary.org/b/id/{$coverId}-L.jpg";
+            }
+
+            // Número de páginas
+            $paginas = $bookData['number_of_pages'] ?? null;
+
+            echo json_encode([
+                'success' => true,
+                'data' => [
+                    'titulo' => $titulo,
+                    'autores' => $autores,
+                    'editora' => $editora,
+                    'ano_publicacao' => $ano,
+                    'descricao' => $descricao,
+                    'capa_url' => $capaUrl,
+                    'paginas' => $paginas,
+                    'isbn' => $isbn
+                ]
+            ]);
+            exit;
+
+        } catch (\Exception $e) {
+            error_log("Erro ao buscar ISBN: " . $e->getMessage());
+            echo json_encode(['success' => false, 'message' => 'Erro interno ao buscar dados do livro.']);
+            exit;
+        }
+    }
+
+    /**
      * Gera um slug a partir de uma string.
      */
     private function gerarSlug(string $texto): string

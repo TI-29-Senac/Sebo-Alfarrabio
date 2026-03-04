@@ -179,6 +179,7 @@ class Rotas
                 "/ajax/buscar/autores" => "ItemController@ajaxBuscarAutores",
                 "/ajax/buscar/categorias" => "ItemController@ajaxBuscarCategorias",
                 "/ajax/buscar/generos" => "ItemController@ajaxBuscarGeneros",
+                "/ajax/buscar/isbn" => "ItemController@ajaxBuscarPorIsbn",
 
                 // ========================================
                 // Carrinho de Compras

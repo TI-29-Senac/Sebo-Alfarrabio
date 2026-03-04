@@ -30,24 +30,24 @@
 
 .cookie-icon {
     font-size: 40px;
-    color: var(--accent-color);
+    color: var(--accent-warm);
 }
 
 .cookie-text h3 {
     font-size: 1.1rem;
     margin-bottom: 8px;
-    color: var(--accent-color);
+    color: var(--accent-warm);
 }
 
 .cookie-text p {
     font-size: 0.9rem;
     line-height: 1.5;
-    color: var(--text-color);
+    color: var(--text-secondary);
     margin: 0;
 }
 
 .cookie-text a {
-    color: var(--accent-color);
+    color: var(--accent-warm);
     text-decoration: underline;
     font-weight: 500;
 }
@@ -68,24 +68,26 @@
 }
 
 .cookie-btn-accept {
-    background: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     color: #fff;
     border: none;
+    box-shadow: 0 4px 12px rgba(189, 144, 86, 0.35);
 }
 
 .cookie-btn-accept:hover {
-    background: #a08060;
+    background: linear-gradient(135deg, var(--accent-hover), var(--accent-dark));
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(189, 144, 86, 0.45);
 }
 
 .cookie-btn-minimal {
     background: transparent;
-    color: var(--text-color);
+    color: var(--text-secondary);
     border: 1px solid var(--border-accent);
 }
 
 .cookie-btn-minimal:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--bg-card-hover);
 }
 
 @media (max-width: 600px) {

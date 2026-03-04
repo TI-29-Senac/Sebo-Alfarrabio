@@ -147,6 +147,100 @@
       </div>
     </section>
 
+    <!-- ========================================
+         MISSÃO & VISÃO
+         ======================================== -->
+    <section class="missao-visao" id="missao-visao">
+      <div class="mv-grid">
+        <!-- Missão -->
+        <article class="mv-card mv-card--missao" id="missao">
+          <div class="mv-card__icon-wrap">
+            <i class="fas fa-compass"></i>
+          </div>
+          <h3 class="mv-card__title">Missão</h3>
+          <div class="mv-card__divider"></div>
+          <p class="mv-card__text">
+            Preservar e difundir a cultura literária, oferecendo livros usados selecionados que promovem o acesso ao
+            conhecimento, incentivam a leitura e mantêm viva a memória dos grandes autores e leitores.
+          </p>
+        </article>
+
+        <!-- Visão -->
+        <article class="mv-card mv-card--visao" id="visao">
+          <div class="mv-card__icon-wrap">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h3 class="mv-card__title">Visão</h3>
+          <div class="mv-card__divider"></div>
+          <p class="mv-card__text">
+            Ser reconhecido como referência nacional em preservação literária e experiência cultural, inspirando novas
+            gerações a redescobrirem o valor dos livros e o encanto dos sebos.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========================================
+         VALORES
+         ======================================== -->
+    <section class="valores" id="valores">
+      <h3 class="titulo-pag">Nossos Valores</h3>
+      <div class="valores-grid">
+
+        <article class="valor-card" id="valor-literatura">
+          <div class="valor-card__icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h4 class="valor-card__title">Amor pela Literatura</h4>
+          <p class="valor-card__text">
+            Acreditamos no poder transformador dos livros e na leitura como caminho de aprendizado e liberdade.
+          </p>
+        </article>
+
+        <article class="valor-card" id="valor-sustentabilidade">
+          <div class="valor-card__icon">
+            <i class="fas fa-recycle"></i>
+          </div>
+          <h4 class="valor-card__title">Sustentabilidade Cultural</h4>
+          <p class="valor-card__text">
+            Damos novo ciclo de vida aos livros, promovendo o consumo consciente e a preservação da memória.
+          </p>
+        </article>
+
+        <article class="valor-card" id="valor-acolhimento">
+          <div class="valor-card__icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h4 class="valor-card__title">Acolhimento e Pertencimento</h4>
+          <p class="valor-card__text">
+            Criamos um espaço onde leitores, colecionadores e curiosos se sentem parte de uma comunidade literária.
+          </p>
+        </article>
+
+        <article class="valor-card" id="valor-autenticidade">
+          <div class="valor-card__icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <h4 class="valor-card__title">Autenticidade</h4>
+          <p class="valor-card__text">
+            Valorizamos o encanto do tempo, das histórias e das edições raras, respeitando a trajetória de cada obra.
+          </p>
+        </article>
+
+        <article class="valor-card" id="valor-excelencia">
+          <div class="valor-card__icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h4 class="valor-card__title">Excelência e Confiança</h4>
+          <p class="valor-card__text">
+            Buscamos qualidade no acervo, na curadoria e no atendimento, para que cada leitor encontre mais do que um
+            livro — encontre uma experiência.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
     <section class="equipe">
       <h3 class="titulo-pag">Nossa Equipe</h3>
       <div class="equipe-pag">
@@ -233,6 +327,26 @@
   <script src="js/mobile-menu.js" defer></script>
   <!-- Script de LGPD/Cookies -->
   <script src="js/cookies.js" defer></script>
+
+  <!-- Scroll Reveal para Missão, Visão & Valores -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var cards = document.querySelectorAll('.mv-card, .valor-card');
+      if (!cards.length || !('IntersectionObserver' in window)) {
+        cards.forEach(function (c) { c.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      cards.forEach(function (card) { observer.observe(card); });
+    });
+  </script>
 </body>
 
 </html>

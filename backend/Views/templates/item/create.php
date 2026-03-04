@@ -268,6 +268,185 @@
         margin-left: 3px;
     }
 
+    /* ===== Scanner ISBN ===== */
+    .isbn-scanner-section {
+        background: linear-gradient(135deg, #f8f4ed 0%, #f0ebe0 100%);
+        border: 2px solid #c9a96e;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .isbn-scanner-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #c9a96e, #b8935a, #c9a96e);
+    }
+
+    .isbn-scanner-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .isbn-scanner-header .scanner-icon {
+        font-size: 28px;
+        animation: pulse-icon 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-icon {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .isbn-scanner-header h3 {
+        color: #6d5a3d;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .isbn-scanner-header p {
+        color: #8d7a5e;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .isbn-input-row {
+        display: flex;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .isbn-input-row .form-control {
+        flex: 1;
+        font-size: 18px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        letter-spacing: 2px;
+        padding: 14px 18px;
+        border: 2px solid #c9a96e;
+        background: white;
+    }
+
+    .isbn-input-row .form-control:focus {
+        border-color: #8d6e3e;
+        box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
+    }
+
+    .isbn-input-row .form-control.scanner-active {
+        border-color: #7a9b5a;
+        box-shadow: 0 0 0 4px rgba(122, 155, 90, 0.2);
+    }
+
+    .btn-isbn-buscar {
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #c9a96e 0%, #b8935a 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+    }
+
+    .btn-isbn-buscar:hover {
+        background: linear-gradient(135deg, #b8935a 0%, #a07d48 100%);
+        box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+        transform: translateY(-1px);
+    }
+
+    .btn-isbn-buscar:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .isbn-status {
+        margin-top: 12px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        display: none;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .isbn-status.loading {
+        display: flex;
+        background: #f0ebe0;
+        color: #6d5a3d;
+        border: 1px solid #c9a96e;
+    }
+
+    .isbn-status.success {
+        display: flex;
+        background: #e8f5e9;
+        color: #2e7d32;
+        border: 1px solid #81c784;
+    }
+
+    .isbn-status.error {
+        display: flex;
+        background: #fce4ec;
+        color: #c62828;
+        border: 1px solid #ef9a9a;
+    }
+
+    .isbn-spinner {
+        width: 18px;
+        height: 18px;
+        border: 3px solid #c9a96e;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Campo preenchido pelo scanner */
+    .form-control.auto-filled {
+        background: #f0f9e8 !important;
+        border-color: #7a9b5a !important;
+        transition: background 0.5s ease, border-color 0.5s ease;
+    }
+
+    @keyframes highlight-fill {
+        0% {
+            background-color: #d4edda;
+        }
+
+        100% {
+            background-color: #f0f9e8;
+        }
+    }
+
+    .form-control.auto-filled {
+        animation: highlight-fill 0.6s ease;
+    }
+
     @media (max-width: 768px) {
         .form-row {
             flex-direction: column;
@@ -282,11 +461,36 @@
         .container {
             padding: 20px;
         }
+
+        .isbn-input-row {
+            flex-direction: column;
+        }
     }
 </style>
 
 <div class="container">
     <h1>Novo Item</h1>
+
+    <!-- SCANNER ISBN -->
+    <div class="isbn-scanner-section" id="isbn-scanner-section">
+        <div class="isbn-scanner-header">
+            <div>
+                <span class="scanner-icon">📖</span>
+            </div>
+            <div>
+                <h3>Busca Rápida por ISBN</h3>
+                <p>Escaneie o código de barras ou digite o ISBN para preencher automaticamente</p>
+            </div>
+        </div>
+        <div class="isbn-input-row">
+            <input type="text" class="form-control" id="isbn-scanner-input" placeholder="Ex: 9788535914849"
+                autocomplete="off" inputmode="numeric">
+            <button type="button" class="btn-isbn-buscar" id="btn-isbn-buscar" onclick="buscarPorIsbn()">
+                🔍 Buscar
+            </button>
+        </div>
+        <div class="isbn-status" id="isbn-status"></div>
+    </div>
 
     <form action="/backend/item/salvar" method="POST" enctype="multipart/form-data">
 
@@ -407,7 +611,139 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Campos Condicionais
+        // ===== ISBN SCANNER =====
+        const isbnInput = document.getElementById('isbn-scanner-input');
+        const isbnStatus = document.getElementById('isbn-status');
+        const btnIsbnBuscar = document.getElementById('btn-isbn-buscar');
+
+        // Detectar entrada de scanner (teclas rápidas seguidas de Enter)
+        let scanBuffer = '';
+        let scanTimeout = null;
+
+        isbnInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                buscarPorIsbn();
+                return;
+            }
+        });
+
+        // Auto-focus no campo ISBN ao carregar
+        isbnInput.focus();
+
+        // Função global de busca por ISBN
+        window.buscarPorIsbn = function () {
+            const isbn = isbnInput.value.replace(/[\s-]/g, '').trim();
+
+            if (!isbn || !/^(\d{10}|\d{13})$/.test(isbn)) {
+                showIsbnStatus('error', '⚠️ ISBN inválido. Informe um ISBN-10 (10 dígitos) ou ISBN-13 (13 dígitos).');
+                return;
+            }
+
+            // Loading
+            showIsbnStatus('loading', '');
+            isbnStatus.innerHTML = '<div class="isbn-spinner"></div> Buscando informações do livro...';
+            btnIsbnBuscar.disabled = true;
+
+            fetch(`/backend/ajax/buscar/isbn?isbn=${encodeURIComponent(isbn)}`)
+                .then(response => response.json())
+                .then(result => {
+                    btnIsbnBuscar.disabled = false;
+
+                    if (result.success) {
+                        const data = result.data;
+
+                        // Preencher título
+                        if (data.titulo) {
+                            setFieldValue('titulo_item', data.titulo);
+                        }
+
+                        // Setar tipo como livro e mostrar campo ISBN
+                        const tipoSelect = document.getElementById('tipo_item');
+                        tipoSelect.value = 'livro';
+                        tipoSelect.dispatchEvent(new Event('change'));
+
+                        // Preencher ISBN
+                        setFieldValue('isbn', data.isbn);
+
+                        // Preencher editora
+                        if (data.editora) {
+                            setFieldValue('editora_gravadora', data.editora);
+                        }
+
+                        // Preencher ano
+                        if (data.ano_publicacao) {
+                            setFieldValue('ano_publicacao', data.ano_publicacao);
+                        }
+
+                        // Preencher descrição
+                        if (data.descricao) {
+                            setFieldValue('descricao', data.descricao);
+                        }
+
+                        // Preencher capa
+                        if (data.capa_url) {
+                            document.getElementById('preview-foto').src = data.capa_url;
+                        }
+
+                        // Preencher autores (adicionar como texto no campo de busca)
+                        if (data.autores && data.autores.length > 0) {
+                            // Buscar cada autor no sistema e adicionar se existir
+                            data.autores.forEach(nomeAutor => {
+                                buscarEAdicionarAutor(nomeAutor);
+                            });
+                        }
+
+                        const campos = [data.titulo ? 'Título' : null, data.editora ? 'Editora' : null, data.ano_publicacao ? 'Ano' : null, data.autores?.length ? 'Autores' : null, data.capa_url ? 'Capa' : null].filter(Boolean);
+                        showIsbnStatus('success', `✅ Livro encontrado! Campos preenchidos: ${campos.join(', ')}`);
+                    } else {
+                        showIsbnStatus('error', `❌ ${result.message}`);
+                    }
+                })
+                .catch(err => {
+                    btnIsbnBuscar.disabled = false;
+                    showIsbnStatus('error', '❌ Erro ao consultar. Verifique a conexão e tente novamente.');
+                    console.error('Erro ISBN:', err);
+                });
+        };
+
+        function setFieldValue(fieldId, value) {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.value = value;
+                field.classList.add('auto-filled');
+                // Remover destaque após 3 segundos
+                setTimeout(() => field.classList.remove('auto-filled'), 3000);
+            }
+        }
+
+        function showIsbnStatus(type, message) {
+            isbnStatus.className = 'isbn-status ' + type;
+            if (message) isbnStatus.innerHTML = message;
+        }
+
+        // Buscar autor no sistema por nome e adicioná-lo automaticamente
+        function buscarEAdicionarAutor(nomeAutor) {
+            fetch(`/backend/ajax/buscar/autores?term=${encodeURIComponent(nomeAutor)}`)
+                .then(r => r.json())
+                .then(autores => {
+                    if (autores.length > 0) {
+                        // Pegar o primeiro resultado que contém o nome
+                        adicionarAutor(autores[0].id_autor, autores[0].nome_autor);
+                    } else {
+                        // Colocar o nome do autor no campo de busca para o usuário cadastrar
+                        const searchInput = document.getElementById('autor-search-input');
+                        if (searchInput) {
+                            searchInput.value = nomeAutor;
+                            searchInput.classList.add('auto-filled');
+                            setTimeout(() => searchInput.classList.remove('auto-filled'), 3000);
+                        }
+                    }
+                })
+                .catch(() => { });
+        }
+
+        // ===== CAMPOS CONDICIONAIS =====
         const tipoSelect = document.getElementById('tipo_item');
         const campoIsbn = document.getElementById('campo-isbn');
         const campoDuracao = document.getElementById('campo-duracao');
